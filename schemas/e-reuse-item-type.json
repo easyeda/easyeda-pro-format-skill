@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "DesignRule",
+    "Board",
+    "SlotRegion",
+    "ProhibitedRegion",
+    "ConstraintRegion",
+    "Component",
+    "Track",
+    "TestPoint",
+    "Pad",
+    "Via",
+    "SutureHole",
+    "Text",
+    "ColorfulImage",
+    "Image",
+    "FPCStiffener",
+    "Dimension",
+    "CopperRegion",
+    "Fill Region",
+    "Line",
+    "Teardrop",
+    "D3Shell"
+  ],
+  "description": "模板 PCB 需要提取的数据类型"
+}

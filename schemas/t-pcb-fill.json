@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "partitionId": {
+      "description": "所属分区编号，为null表示无分区",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "groupId": {
+      "description": "分组编号, 没有则为 0 不分组，非 0 为组标志，相同组标志的为一组",
+      "type": "string"
+    },
+    "layerId": {
+      "description": "层编号",
+      "type": "number"
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    },
+    "zIndex": {
+      "description": "Z 轴高度, null 为默认",
+      "type": [
+        "number",
+        "null"
+      ],
+      "default": null
+    },
+    "netName": {
+      "description": "NET，网络名称",
+      "type": "string"
+    },
+    "width": {
+      "description": "线宽",
+      "type": "number"
+    },
+    "fillStyle": {
+      "description": "PCB 填充类型",
+      "type": "string",
+      "enum": [
+        "SOLID",
+        "GRID",
+        "PLANE"
+      ],
+      "enumDescriptions": {
+        "SOLID": "实心填充",
+        "GRID": "网格填充",
+        "PLANE": "内电层填充"
+      }
+    },
+    "path": {
+      "description": "* 对于单次画的多边形，这里只有一个单多边形\r\n* 对于组合模式画的多边形，这里才有多个单多边形",
+      "type": "array"
+    },
+    "isBridgingCopper": {
+      "description": "是否是桥接铜",
+      "type": "boolean"
+    },
+    "networkList": {
+      "description": "桥接网络",
+      "type": "array"
+    },
+    "refs": {
+      "description": "关联的图元编号",
+      "type": "array"
+    },
+    "specialColor": {
+      "description": "特殊颜色",
+      "type": "string",
+      "pattern": "^$|^#[0-9A-Fa-f]{6}$"
+    }
+  },
+  "required": [
+    "groupId",
+    "layerId",
+    "locked",
+    "zIndex",
+    "netName",
+    "width",
+    "fillStyle",
+    "path"
+  ],
+  "description": "填充"
+}

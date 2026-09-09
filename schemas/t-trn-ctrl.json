@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "transScope": {
+      "description": "透明度控制范围",
+      "type": "string",
+      "enum": [
+        "PRINT",
+        "COVER",
+        "PRINT&COVER"
+      ],
+      "enumDescriptions": {
+        "PRINT": "打印",
+        "COVER": "遮盖",
+        "PRINT&COVER": "打印 + 遮盖"
+      }
+    },
+    "transPrint": {
+      "description": "自定义打印层不透明度（可选）：被控制范围选中，默认 0.3，未选中，默认 0，范围 0~1",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "transWhite": {
+      "description": "自定义遮盖层不透明度（可选）：被控制范围选中，默认 0.3，未选中，默认 0，范围 0~1",
+      "type": [
+        "number",
+        "null"
+      ]
+    }
+  },
+  "description": "透明度控制配置"
+}

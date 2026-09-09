@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "uuid": {
+      "description": "",
+      "type": "string"
+    },
+    "parent": {
+      "description": "",
+      "type": "string"
+    },
+    "snapshot": {
+      "description": "",
+      "type": "string"
+    },
+    "key": {
+      "description": "",
+      "type": "string"
+    },
+    "iv": {
+      "description": "",
+      "type": "string"
+    },
+    "dataStrUrl": {
+      "description": "",
+      "type": "string"
+    },
+    "num": {
+      "description": "",
+      "type": "number"
+    },
+    "snapshot_num": {
+      "description": "",
+      "type": "number"
+    },
+    "snapshotUrl": {
+      "description": "",
+      "type": "string"
+    },
+    "docs": {
+      "description": "",
+      "type": "array"
+    },
+    "docIds": {
+      "description": "",
+      "type": "array"
+    },
+    "snapDocs": {
+      "description": "",
+      "type": "array"
+    },
+    "snapDocIds": {
+      "description": "",
+      "type": "array"
+    },
+    "editHead": {
+      "description": "",
+      "type": "array"
+    }
+  },
+  "required": [
+    "uuid",
+    "parent",
+    "snapshot",
+    "key",
+    "iv",
+    "dataStrUrl",
+    "num"
+  ],
+  "description": "历史版本变更记录类型"
+}

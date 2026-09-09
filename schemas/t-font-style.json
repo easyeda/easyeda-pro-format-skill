@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "color": {
+      "description": "颜色",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fillColor": {
+      "description": "背景色",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fontFamily": {
+      "description": "字体名称",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fontSize": {
+      "description": "字体大小，与坐标等单位相同",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "strikeout": {
+      "description": "是否加删除线",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "underline": {
+      "description": "是否加下划线",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "italic": {
+      "description": "是否斜体",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "fontWeight": {
+      "description": "是否加粗",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "align": {
+      "description": "对齐模式",
+      "type": "string",
+      "enum": [
+        "LEFT_BOTTOM",
+        "CENTER_BOTTOM",
+        "RIGHT_BOTTOM",
+        "LEFT_MIDDLE",
+        "CENTER_MIDDLE",
+        "RIGHT_MIDDLE",
+        "LEFT_TOP",
+        "CENTER_TOP",
+        "RIGHT_TOP"
+      ],
+      "enumDescriptions": {
+        "LEFT_BOTTOM": "左底",
+        "CENTER_BOTTOM": "中底",
+        "RIGHT_BOTTOM": "右底",
+        "LEFT_MIDDLE": "左中",
+        "CENTER_MIDDLE": "中中",
+        "RIGHT_MIDDLE": "右中",
+        "LEFT_TOP": "左顶",
+        "CENTER_TOP": "中顶",
+        "RIGHT_TOP": "右顶"
+      }
+    }
+  },
+  "required": [
+    "color",
+    "fillColor",
+    "fontFamily",
+    "fontSize",
+    "strikeout",
+    "underline",
+    "italic",
+    "fontWeight",
+    "align"
+  ],
+  "description": "字体样式"
+}

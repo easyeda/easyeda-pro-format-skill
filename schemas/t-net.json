@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "netType": {
+      "description": "网络类型：null 为无类型",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "specialColor": {
+      "description": "特殊颜色：null 为无特殊颜色",
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^$|^#[0-9A-Fa-f]{6}$"
+    },
+    "retLine": {
+      "description": "是否显示飞线",
+      "type": "boolean"
+    },
+    "differentialName": {
+      "description": "差分对名称：null 为非差分对",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "isPositiveNet": {
+      "description": "是否差分对正极",
+      "type": "boolean"
+    },
+    "equalLengthGroupName": {
+      "description": "等长组名称：null 为非等长组",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "netType",
+    "specialColor",
+    "retLine",
+    "differentialName",
+    "isPositiveNet",
+    "equalLengthGroupName"
+  ],
+  "description": "配置网络信息"
+}

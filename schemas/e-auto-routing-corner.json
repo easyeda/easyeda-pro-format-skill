@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "L45",
+    "L90",
+    "A90"
+  ],
+  "enumDescriptions": {
+    "L45": "45度",
+    "L90": "90度拐角",
+    "A90": "90度圆弧拐角"
+  },
+  "description": "自动布线 - 拐角"
+}

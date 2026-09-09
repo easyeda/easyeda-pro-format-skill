@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "Polyimide",
+    "FR4",
+    "Stainless Steel",
+    "3M Tape",
+    "EMI Shielding Film"
+  ],
+  "enumDescriptions": {
+    "Polyimide": "PI",
+    "FR4": "FR4",
+    "Stainless Steel": "钢片",
+    "3M Tape": "3M双面胶",
+    "EMI Shielding Film": "电磁屏蔽膜"
+  },
+  "description": "柔性工艺补强板材质"
+}

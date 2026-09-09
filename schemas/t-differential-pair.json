@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "名称",
+      "type": "string"
+    },
+    "negativeNet": {
+      "description": "负级网络",
+      "type": "string"
+    },
+    "positiveNet": {
+      "description": "正级网络",
+      "type": "string"
+    },
+    "parentName": {
+      "description": "父级名称",
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "negativeNet",
+    "positiveNet"
+  ],
+  "description": "差分对"
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "M2",
+    "M3",
+    "M4",
+    "M5",
+    "M6"
+  ],
+  "enumDescriptions": {
+    "M2": "M2 螺丝",
+    "M3": "M3 螺丝",
+    "M4": "M4 螺丝",
+    "M5": "M5 螺丝",
+    "M6": "M6 螺丝"
+  },
+  "description": "螺丝型号"
+}

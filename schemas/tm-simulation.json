@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "docType": {
+      "description": "文档类型",
+      "type": "number"
+    },
+    "simSchematic": {
+      "description": "所属仿真原理图",
+      "type": "string"
+    },
+    "title": {
+      "description": "文档名称",
+      "type": "string"
+    },
+    "source": {
+      "description": "来源的 uuid(工程库独有)",
+      "type": "string"
+    },
+    "zIndex": {
+      "description": "排序大小",
+      "type": "number"
+    }
+  },
+  "required": [
+    "docType",
+    "simSchematic",
+    "title",
+    "source",
+    "zIndex"
+  ],
+  "description": "仿真页 META 类型"
+}

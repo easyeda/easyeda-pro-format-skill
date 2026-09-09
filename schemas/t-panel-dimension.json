@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "dimensionType": {
+      "description": "尺寸类型：\r\nLENGTH-CONSTRAINT 长度约束,\r\nLENGTH-MEASUREMENT 长度测量,\r\nANGLE-CONSTRAINT 角度约束,\r\nANGLE-MEASUREMENT 角度测量,\r\nRADIUS-MEASUREMENT 半径测量,\r\nANGLE 游离角度,\r\nLENGTH 游离长度",
+      "type": "string"
+    },
+    "unit": {
+      "description": "单位（预留）：mm cm inch mil 或 null 为跟随画布单位",
+      "type": "string"
+    },
+    "strokeWidth": {
+      "description": "线宽（预留，与画布尺寸无关）",
+      "type": "number",
+      "minimum": 0
+    },
+    "accuracy": {
+      "description": "精度（预留）",
+      "type": "number"
+    },
+    "controlDot": {
+      "description": "控制点 X1 Y1 X2 Y2 X3 Y3 ... 不同尺寸类型对控制点有不同的定义，LENGTH-XXXX 长度工具有 4 个控制点，ANGLE-XXXX 角度工具有 3 个控制点",
+      "type": "array"
+    },
+    "relationIds": {
+      "description": "关联图元Id",
+      "type": "array"
+    },
+    "rotation": {
+      "description": "旋转角度（角度制）",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 360
+    }
+  },
+  "required": [
+    "dimensionType",
+    "unit",
+    "strokeWidth",
+    "accuracy",
+    "controlDot",
+    "relationIds",
+    "rotation"
+  ],
+  "description": "面板尺寸工具集"
+}

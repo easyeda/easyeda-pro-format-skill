@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "NORMAL",
+    "TEST",
+    "MARKER"
+  ],
+  "enumDescriptions": {
+    "NORMAL": "普通焊盘",
+    "TEST": "测试点",
+    "MARKER": "标识点"
+  },
+  "description": "焊盘功能类型"
+}

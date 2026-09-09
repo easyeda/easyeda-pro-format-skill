@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "isEOF": {
+      "description": "",
+      "type": "object"
+    },
+    "read": {
+      "description": "",
+      "type": "object"
+    },
+    "readn": {
+      "description": "",
+      "type": "array"
+    },
+    "readInto": {
+      "description": "",
+      "type": "object"
+    },
+    "readAsync": {
+      "description": "",
+      "type": "object"
+    },
+    "readnAsync": {
+      "description": "",
+      "type": "object"
+    },
+    "readIntoAsync": {
+      "description": "",
+      "type": "object"
+    }
+  },
+  "required": [
+    "isEOF",
+    "read",
+    "readn",
+    "readInto",
+    "readAsync",
+    "readnAsync",
+    "readIntoAsync"
+  ],
+  "description": ""
+}

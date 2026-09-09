@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "partitionId": {
+      "description": "所属分区编号，为null表示无分区",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "groupId": {
+      "description": "分组编号, 没有则为 0 不分组，非 0 为组标志，相同组标志的为一组",
+      "type": "string"
+    },
+    "layerId": {
+      "description": "层编号",
+      "type": "number"
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    },
+    "zIndex": {
+      "description": "Z 轴高度, null 为默认",
+      "type": [
+        "number",
+        "null"
+      ],
+      "default": null
+    },
+    "netName": {
+      "description": "NET，网络名称",
+      "type": "string"
+    },
+    "width": {
+      "description": "线宽",
+      "type": "number"
+    },
+    "name": {
+      "description": "覆铜名称",
+      "type": "string"
+    },
+    "order": {
+      "description": "覆铜优先级",
+      "type": "number"
+    },
+    "path": {
+      "description": "请参考复杂多边形章节",
+      "type": "array"
+    },
+    "pourType": {
+      "description": "覆铜类型定义",
+      "type": "object",
+      "properties": {
+        "pourType": {
+          "description": "实心填充",
+          "type": "object"
+        }
+      },
+      "required": [
+        "pourType"
+      ]
+    },
+    "keepIsland": {
+      "description": "是否保留孤岛",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "groupId",
+    "layerId",
+    "locked",
+    "zIndex",
+    "netName",
+    "width",
+    "name",
+    "order",
+    "path",
+    "pourType",
+    "keepIsland"
+  ],
+  "description": "覆铜边框"
+}

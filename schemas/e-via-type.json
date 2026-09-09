@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "NORMAL",
+    "BLIND",
+    "SUTURE"
+  ],
+  "enumDescriptions": {
+    "NORMAL": "通孔(普通过孔)",
+    "BLIND": "盲埋孔",
+    "SUTURE": "缝合孔"
+  },
+  "description": "过孔类型"
+}

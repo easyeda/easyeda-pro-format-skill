@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "path": {
+      "description": "复杂多边形",
+      "type": "array"
+    }
+  },
+  "required": [
+    "path"
+  ],
+  "description": "板子"
+}

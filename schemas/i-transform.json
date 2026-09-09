@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "transform": {
+      "description": "格式转换",
+      "type": "object"
+    }
+  },
+  "required": [
+    "transform"
+  ],
+  "description": "2.0 转 3.0"
+}

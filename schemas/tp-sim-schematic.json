@@ -1,0 +1,107 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "uuid": {
+      "description": "唯一编号",
+      "type": "string"
+    },
+    "creator": {
+      "description": "用户信息",
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "description": "用户 uuid",
+          "type": "string"
+        },
+        "nickname": {
+          "description": "用户昵称",
+          "type": "string"
+        },
+        "username": {
+          "description": "用户名称",
+          "type": "string"
+        },
+        "avatar": {
+          "description": "用户头像",
+          "type": "string"
+        }
+      },
+      "required": [
+        "uuid",
+        "nickname",
+        "username"
+      ]
+    },
+    "createTime": {
+      "description": "创建时间",
+      "type": "number"
+    },
+    "modifier": {
+      "description": "用户信息",
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "description": "用户 uuid",
+          "type": "string"
+        },
+        "nickname": {
+          "description": "用户昵称",
+          "type": "string"
+        },
+        "username": {
+          "description": "用户名称",
+          "type": "string"
+        },
+        "avatar": {
+          "description": "用户头像",
+          "type": "string"
+        }
+      },
+      "required": [
+        "uuid",
+        "nickname",
+        "username"
+      ]
+    },
+    "updateTime": {
+      "description": "更新时间",
+      "type": "number"
+    },
+    "isDelete": {
+      "description": "mgr内部使用，是否删除标志",
+      "type": "boolean"
+    },
+    "source": {
+      "description": "来源的 uuid(工程库独有)",
+      "type": "string"
+    },
+    "version": {
+      "description": "工程库的版本(工程库独有)",
+      "type": "string"
+    },
+    "ticket": {
+      "description": "逻辑时钟",
+      "type": "number"
+    },
+    "title": {
+      "description": "文档名称",
+      "type": "string"
+    },
+    "zIndex": {
+      "description": "排序大小",
+      "type": "number"
+    }
+  },
+  "required": [
+    "uuid",
+    "creator",
+    "createTime",
+    "modifier",
+    "updateTime",
+    "title",
+    "source",
+    "zIndex"
+  ],
+  "description": "仿真原理图"
+}

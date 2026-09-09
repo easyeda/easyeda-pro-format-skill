@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "partitionId": {
+      "description": "所属分区编号，为null表示无分区",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "groupId": {
+      "description": "分组编号, 没有则为 0 不分组，非 0 为组标志，相同组标志的为一组",
+      "type": "string"
+    },
+    "layerId": {
+      "description": "层编号",
+      "type": "number"
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    },
+    "zIndex": {
+      "description": "Z 轴高度, null 为默认",
+      "type": [
+        "number",
+        "null"
+      ],
+      "default": null
+    },
+    "type": {
+      "description": "实体区域类型",
+      "type": "string",
+      "enum": [
+        "SLOT",
+        "ENTITY"
+      ],
+      "enumDescriptions": {
+        "SLOT": "挖槽",
+        "ENTITY": "实体"
+      }
+    },
+    "entityBelong": {
+      "description": "实体归属",
+      "type": "string",
+      "enum": [
+        "AUTO",
+        "UPPER_SHELLS",
+        "LOWER_SHELLS"
+      ],
+      "enumDescriptions": {
+        "AUTO": "自动",
+        "UPPER_SHELLS": "上壳",
+        "LOWER_SHELLS": "下壳"
+      }
+    },
+    "slotOptions": {
+      "description": "挖槽选项",
+      "type": "string",
+      "enum": [
+        "OUTLINE",
+        "SCREW_PILLAR",
+        "ENTITY"
+      ],
+      "enumDescriptions": {
+        "OUTLINE": "外壳边框",
+        "SCREW_PILLAR": "螺丝柱",
+        "ENTITY": "实体"
+      }
+    },
+    "depth": {
+      "description": "深度",
+      "type": "number"
+    },
+    "strokeWidth": {
+      "description": "线宽",
+      "type": "number"
+    },
+    "path": {
+      "description": "参考复杂多边形",
+      "type": "array"
+    },
+    "refs": {
+      "description": "关联的图元编号",
+      "type": "array"
+    }
+  },
+  "required": [
+    "groupId",
+    "layerId",
+    "locked",
+    "zIndex",
+    "type",
+    "depth",
+    "strokeWidth",
+    "path"
+  ],
+  "description": "外壳实体区域"
+}

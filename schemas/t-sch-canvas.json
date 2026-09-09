@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "originX": {
+      "description": "画布原点 X",
+      "type": "number"
+    },
+    "originY": {
+      "description": "画布原点 Y",
+      "type": "number"
+    }
+  },
+  "required": [
+    "originX",
+    "originY"
+  ],
+  "description": "画布配置信息"
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "SLOT",
+    "ENTITY"
+  ],
+  "enumDescriptions": {
+    "SLOT": "挖槽",
+    "ENTITY": "实体"
+  },
+  "description": "实体区域类型"
+}

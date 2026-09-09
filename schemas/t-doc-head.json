@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "docType": {
+      "description": "文件头类型枚举",
+      "type": "string",
+      "enum": [
+        "DOCHEAD",
+        "EDIT_HEAD",
+        "SCH",
+        "SCH_PAGE",
+        "PCB",
+        "PANEL",
+        "PANEL_LIB",
+        "SYMBOL",
+        "FOOTPRINT",
+        "DEVICE",
+        "BLOB",
+        "INSTANCE",
+        "CONFIG",
+        "BOARD",
+        "FONT",
+        "VARIANT",
+        "COMPONENT_GROUP",
+        "COMPONENT_GROUP_DATA",
+        "SIMULATION",
+        "SIMULATION_SCH"
+      ],
+      "enumDescriptions": {
+        "DOCHEAD": "文档头标识",
+        "EDIT_HEAD": "编辑头标识",
+        "SCH": "原理图",
+        "SCH_PAGE": "原理图页",
+        "PCB": "PCB",
+        "PANEL": "面板",
+        "PANEL_LIB": "面板库",
+        "SYMBOL": "符号",
+        "FOOTPRINT": "封装",
+        "DEVICE": "器件",
+        "BLOB": "二进制数据",
+        "INSTANCE": "实例属性",
+        "CONFIG": "配置文件",
+        "BOARD": "板子",
+        "FONT": "字体",
+        "VARIANT": "变体",
+        "COMPONENT_GROUP": "元件分组",
+        "COMPONENT_GROUP_DATA": "元件分组属性",
+        "SIMULATION": "仿真页",
+        "SIMULATION_SCH": "仿真原理图"
+      }
+    },
+    "uuid": {
+      "description": "",
+      "type": "string"
+    },
+    "client": {
+      "description": "",
+      "type": "string"
+    },
+    "updateTime": {
+      "description": "",
+      "type": "number"
+    },
+    "version": {
+      "description": "",
+      "type": "string"
+    },
+    "user": {
+      "description": "用户信息",
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "description": "用户 uuid",
+          "type": "string"
+        },
+        "nickname": {
+          "description": "用户昵称",
+          "type": "string"
+        },
+        "username": {
+          "description": "用户名称",
+          "type": "string"
+        },
+        "avatar": {
+          "description": "用户头像",
+          "type": "string"
+        }
+      },
+      "required": [
+        "uuid",
+        "nickname",
+        "username"
+      ]
+    },
+    "ticket": {
+      "description": "",
+      "type": "number"
+    },
+    "editVersion": {
+      "description": "",
+      "type": "string"
+    },
+    "firstTicket": {
+      "description": "文档首次创建时的逻辑时钟，用于排序保证一致性（Git diff 友好）",
+      "type": "number"
+    }
+  },
+  "required": [
+    "docType",
+    "uuid",
+    "client"
+  ],
+  "description": "文档头 类型"
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "Symbol": {
+      "description": "当前绑定符号的 uuid",
+      "type": "string"
+    },
+    "Footprint": {
+      "description": "当前绑定封装的 uuid",
+      "type": "string"
+    },
+    "Description": {
+      "description": "器件描述",
+      "type": "string"
+    }
+  },
+  "description": "器件属性"
+}

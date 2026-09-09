@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "material": {
+      "description": "层材质",
+      "type": "string"
+    },
+    "thickness": {
+      "description": "厚度",
+      "type": "number"
+    },
+    "permittivity": {
+      "description": "介电常数",
+      "type": "number"
+    },
+    "lossTangent": {
+      "description": "损耗切线",
+      "type": "number"
+    },
+    "isKeepIsland": {
+      "description": "内电层是否保留孤岛",
+      "type": "boolean"
+    },
+    "zIndex": {
+      "description": "顺序大小",
+      "type": "number"
+    }
+  },
+  "required": [
+    "material",
+    "thickness",
+    "permittivity",
+    "lossTangent",
+    "isKeepIsland",
+    "zIndex"
+  ],
+  "description": "层物理特性配置"
+}

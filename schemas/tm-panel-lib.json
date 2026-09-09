@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "title": {
+      "description": "名称",
+      "type": "string"
+    },
+    "description": {
+      "description": "库描述",
+      "type": "string"
+    },
+    "tags": {
+      "description": "自定义分类",
+      "type": "array"
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "tags"
+  ],
+  "description": "面板库 META 类型"
+}

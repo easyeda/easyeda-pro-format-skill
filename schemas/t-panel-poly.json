@@ -1,0 +1,167 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "groupId": {
+      "description": "分组编号, 没有则为空（预留）：\"0\" 不分组，非 0 为组标志，相同组标志的为一组",
+      "type": "string",
+      "pattern": "^0$|^[1-9][0-9]*$"
+    },
+    "layer": {
+      "description": "层",
+      "type": "number",
+      "minimum": 0
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    },
+    "zIndex": {
+      "description": "Z 轴高度, null 为默认",
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "default": null
+    },
+    "valid": {
+      "description": "是否生效",
+      "type": "boolean"
+    },
+    "visible": {
+      "description": "是否可见",
+      "type": "boolean"
+    },
+    "cover": {
+      "description": "遮盖透明度",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "name": {
+      "description": "名称",
+      "type": "string"
+    },
+    "rotation": {
+      "description": "控制点旋转角度（角度制）",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 360
+    },
+    "strokeWidth": {
+      "description": "线宽",
+      "type": "number",
+      "minimum": 0
+    },
+    "strokeStyle": {
+      "description": "线型：SOLID 实线 SHORT_DASH 短划线 DOT 点线 DOT_DASH 点划线, null 为默认",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "SOLID",
+        "SHORT_DASH",
+        "DOT",
+        "DOT_DASH"
+      ],
+      "enumDescriptions": {
+        "SOLID": "实线",
+        "SHORT_DASH": "短划线",
+        "DOT": "点线",
+        "DOT_DASH": "点划线"
+      }
+    },
+    "strokeColor": {
+      "description": "描边颜色",
+      "type": "string",
+      "pattern": "^(#[0-9A-Fa-f]{6})|(rgb\\(\\d{1,3},\\d{1,3},\\d{1,3}\\))|(cmyk\\(\\d{1,3},\\d{1,3},\\d{1,3},\\d{1,3}\\))|$"
+    },
+    "fillColor": {
+      "description": "填充 1.无填充模式：\"\" 2.颜色模式：#FF00FF 3.图片内嵌模式：data,base64,xxxxaaa134234 4.图片外部引用模式：blob:hashid",
+      "type": "string",
+      "pattern": "^$|^(#[0-9A-Fa-f]{6})|(rgb\\(\\d{1,3},\\d{1,3},\\d{1,3}\\))|(cmyk\\(\\d{1,3},\\d{1,3},\\d{1,3},\\d{1,3}\\))$|^(data:)|(blob:)"
+    },
+    "opacity": {
+      "description": "不透明度：0 - 1",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "autoClose": {
+      "description": "是否自动闭合首尾端点",
+      "type": "boolean"
+    },
+    "ploys": {
+      "description": "复杂多边形",
+      "type": "array"
+    },
+    "displayFill": {
+      "description": "是否显示填充（可选）",
+      "type": "boolean"
+    },
+    "displayStroke": {
+      "description": "是否显示描边（可选）",
+      "type": "boolean"
+    },
+    "matrix": {
+      "description": "变换矩阵",
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "transScope": {
+      "description": "透明度控制范围",
+      "type": "string",
+      "enum": [
+        "PRINT",
+        "COVER",
+        "PRINT&COVER"
+      ],
+      "enumDescriptions": {
+        "PRINT": "打印",
+        "COVER": "遮盖",
+        "PRINT&COVER": "打印 + 遮盖"
+      }
+    },
+    "transPrint": {
+      "description": "自定义打印层不透明度（可选）：被控制范围选中，默认 0.3，未选中，默认 0，范围 0~1",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "transWhite": {
+      "description": "自定义遮盖层不透明度（可选）：被控制范围选中，默认 0.3，未选中，默认 0，范围 0~1",
+      "type": [
+        "number",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "groupId",
+    "layer",
+    "locked",
+    "zIndex",
+    "valid",
+    "visible",
+    "cover",
+    "name",
+    "rotation",
+    "strokeWidth",
+    "strokeStyle",
+    "strokeColor",
+    "fillColor",
+    "opacity",
+    "autoClose",
+    "ploys",
+    "displayFill",
+    "displayStroke",
+    "matrix"
+  ],
+  "description": "面板多边形"
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "acSetting": {
+      "description": "",
+      "type": "object"
+    },
+    "dcSetting": {
+      "description": "",
+      "type": "object"
+    },
+    "trSetting": {
+      "description": "",
+      "type": "object"
+    },
+    "currentSetting": {
+      "description": "",
+      "type": [
+        "object"
+      ]
+    },
+    "startDisable": {
+      "description": "",
+      "type": "object"
+    }
+  },
+  "required": [
+    "acSetting",
+    "dcSetting",
+    "trSetting",
+    "currentSetting",
+    "startDisable"
+  ],
+  "description": "仿真图页 - 仿真设置"
+}

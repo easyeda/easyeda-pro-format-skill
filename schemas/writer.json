@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "isEOF": {
+      "description": "",
+      "type": "object"
+    },
+    "write": {
+      "description": "",
+      "type": "object"
+    },
+    "writen1": {
+      "description": "",
+      "type": "object"
+    },
+    "writen2": {
+      "description": "",
+      "type": "object"
+    },
+    "writeAsync": {
+      "description": "",
+      "type": "object"
+    },
+    "writenAsync1": {
+      "description": "",
+      "type": "object"
+    },
+    "writenAsync2": {
+      "description": "",
+      "type": "object"
+    }
+  },
+  "required": [
+    "isEOF",
+    "write",
+    "writen1",
+    "writen2",
+    "writeAsync",
+    "writenAsync1",
+    "writenAsync2"
+  ],
+  "description": ""
+}

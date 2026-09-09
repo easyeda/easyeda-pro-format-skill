@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "ALL",
+    "LAYERED"
+  ],
+  "enumDescriptions": {
+    "ALL": "全部",
+    "LAYERED": "分层"
+  },
+  "description": "安全间距 - 显示状态"
+}

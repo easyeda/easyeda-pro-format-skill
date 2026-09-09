@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "netName": {
+      "description": "NET，网络名称",
+      "type": "string"
+    },
+    "path": {
+      "description": "简单多边形",
+      "type": "array"
+    },
+    "refs": {
+      "description": "关联的图元编号",
+      "type": "array"
+    }
+  },
+  "required": [
+    "netName",
+    "path"
+  ],
+  "description": "泪滴"
+}

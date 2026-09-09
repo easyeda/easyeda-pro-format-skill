@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "attrs": {
+      "description": "",
+      "type": "object"
+    }
+  },
+  "required": [
+    "attrs"
+  ],
+  "description": "元件"
+}

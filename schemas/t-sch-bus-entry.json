@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "order": {
+      "description": "顺序编号：在隶属的 BUS 里的顺序编号，可重复",
+      "type": "number",
+      "minimum": 0
+    },
+    "pointX": {
+      "description": "端点 X",
+      "type": "number"
+    },
+    "pointY": {
+      "description": "端点 Y",
+      "type": "number"
+    },
+    "rotation": {
+      "description": "旋转角度（角度制）：绕 端点 旋转",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 360
+    }
+  },
+  "required": [
+    "order",
+    "pointX",
+    "pointY",
+    "rotation"
+  ],
+  "description": "总线接入标识"
+}

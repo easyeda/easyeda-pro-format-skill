@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "等长组名称",
+      "type": "string"
+    },
+    "sort": {
+      "description": "排序",
+      "type": "number"
+    },
+    "pads": {
+      "description": "用 `位号:焊盘编号` 标识焊盘的数组",
+      "type": "array"
+    }
+  },
+  "required": [
+    "name",
+    "sort",
+    "pads"
+  ],
+  "description": "等长组"
+}

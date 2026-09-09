@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "title": {
+      "description": "名称",
+      "type": "string"
+    },
+    "description": {
+      "description": "库描述",
+      "type": "string"
+    },
+    "tags": {
+      "description": "自定义分类",
+      "type": "array"
+    },
+    "source": {
+      "description": "来源的 uuid(工程库独有)",
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "tags",
+    "source"
+  ],
+  "description": "库的 META 基础类型"
+}

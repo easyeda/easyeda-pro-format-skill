@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "partitionId": {
+      "description": "所属分区编号，为null表示无分区",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "groupId": {
+      "description": "分组编号, 没有则为 0 不分组，非 0 为组标志，相同组标志的为一组",
+      "type": "string"
+    },
+    "layerId": {
+      "description": "层编号",
+      "type": "number"
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    },
+    "zIndex": {
+      "description": "Z 轴高度, null 为默认",
+      "type": [
+        "number",
+        "null"
+      ],
+      "default": null
+    },
+    "x": {
+      "description": "位置 X",
+      "type": "number"
+    },
+    "y": {
+      "description": "位置 Y",
+      "type": "number"
+    },
+    "angle": {
+      "description": "旋转角度（角度制）",
+      "type": "number"
+    },
+    "attrs": {
+      "description": "自定义属性,固定 3D Model 为 3D 模型的 uuid，此 uuid 代表 components 表中 doctype = 16 的一条记录,固定 3D Model Transform 为 3D 模型变换参数",
+      "type": "object"
+    },
+    "footprintPrimitives": {
+      "description": "封装内图元，是否锁定, 默认为 true 锁定，3.3 版本新增字段",
+      "type": "boolean",
+      "default": true
+    },
+    "specialColor": {
+      "description": "特殊颜色",
+      "type": "string",
+      "pattern": "^$|^#[0-9A-Fa-f]{6}$"
+    },
+    "pinSwap": {
+      "description": "是否启用引脚交换，3.4 版本新增，默认不启用",
+      "type": "boolean",
+      "default": false
+    },
+    "pinSwapInfo": {
+      "description": "引脚交换相关信息，3.4 版本新增",
+      "type": "object"
+    },
+    "layerIdReplacements": {
+      "description": "层ID替换表(originLayerId -> layerIdToApply)",
+      "type": "object"
+    }
+  },
+  "required": [
+    "groupId",
+    "layerId",
+    "locked",
+    "zIndex",
+    "x",
+    "y",
+    "angle",
+    "attrs",
+    "footprintPrimitives"
+  ],
+  "description": "器件实例"
+}

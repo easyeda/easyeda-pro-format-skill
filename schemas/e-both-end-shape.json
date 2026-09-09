@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "NONE",
+    "ARROW",
+    "SOLID_ARROW",
+    "TAIL",
+    "SOLID_TAIL",
+    "CIRCLE",
+    "SQUARE",
+    "RHOMBUS"
+  ],
+  "enumDescriptions": {
+    "NONE": "无",
+    "ARROW": "箭头",
+    "SOLID_ARROW": "实心箭头",
+    "TAIL": "尾巴",
+    "SOLID_TAIL": "燕尾箭头",
+    "CIRCLE": "圆形",
+    "SQUARE": "方形",
+    "RHOMBUS": "菱形"
+  },
+  "description": "折线两端的点的形状"
+}

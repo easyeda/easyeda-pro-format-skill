@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "title": {
+      "description": "名称",
+      "type": "string"
+    },
+    "source": {
+      "description": "来源的 uuid(工程库独有)",
+      "type": "string"
+    },
+    "tags": {
+      "description": "自定义分类",
+      "type": "array"
+    },
+    "images": {
+      "description": "图片链接",
+      "type": "array"
+    },
+    "attributes": {
+      "description": "属性",
+      "type": "object"
+    }
+  },
+  "required": [
+    "title",
+    "source",
+    "tags",
+    "images",
+    "attributes"
+  ],
+  "description": "器件 META 类型"
+}

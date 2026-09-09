@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "名称",
+      "type": "string"
+    },
+    "nets": {
+      "description": "网络组",
+      "type": "array"
+    }
+  },
+  "required": [
+    "name",
+    "nets"
+  ],
+  "description": "网络类"
+}

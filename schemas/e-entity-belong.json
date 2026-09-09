@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "AUTO",
+    "UPPER_SHELLS",
+    "LOWER_SHELLS"
+  ],
+  "enumDescriptions": {
+    "AUTO": "自动",
+    "UPPER_SHELLS": "上壳",
+    "LOWER_SHELLS": "下壳"
+  },
+  "description": "实体归属"
+}

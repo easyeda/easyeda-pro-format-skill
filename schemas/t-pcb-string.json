@@ -1,0 +1,135 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "partitionId": {
+      "description": "所属分区编号，为null表示无分区",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "groupId": {
+      "description": "分组编号, 没有则为 0 不分组，非 0 为组标志，相同组标志的为一组",
+      "type": "string"
+    },
+    "layerId": {
+      "description": "层编号",
+      "type": "number"
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    },
+    "zIndex": {
+      "description": "Z 轴高度, null 为默认",
+      "type": [
+        "number",
+        "null"
+      ],
+      "default": null
+    },
+    "x": {
+      "description": "位置 X",
+      "type": "number"
+    },
+    "y": {
+      "description": "位置 Y",
+      "type": "number"
+    },
+    "text": {
+      "description": "内容",
+      "type": "string"
+    },
+    "fontFamily": {
+      "description": "字体名称",
+      "type": "string"
+    },
+    "fontSize": {
+      "description": "字号",
+      "type": "number",
+      "minimum": 1
+    },
+    "strokeWidth": {
+      "description": "粗细",
+      "type": "number",
+      "minimum": 0
+    },
+    "bold": {
+      "description": "是否加粗",
+      "type": "boolean"
+    },
+    "italic": {
+      "description": "是否斜体",
+      "type": "boolean"
+    },
+    "origin": {
+      "description": "对齐模式",
+      "type": "string",
+      "enum": [
+        "LEFT_BOTTOM",
+        "CENTER_BOTTOM",
+        "RIGHT_BOTTOM",
+        "LEFT_MIDDLE",
+        "CENTER_MIDDLE",
+        "RIGHT_MIDDLE",
+        "LEFT_TOP",
+        "CENTER_TOP",
+        "RIGHT_TOP"
+      ],
+      "enumDescriptions": {
+        "LEFT_BOTTOM": "左底",
+        "CENTER_BOTTOM": "中底",
+        "RIGHT_BOTTOM": "右底",
+        "LEFT_MIDDLE": "左中",
+        "CENTER_MIDDLE": "中中",
+        "RIGHT_MIDDLE": "右中",
+        "LEFT_TOP": "左顶",
+        "CENTER_TOP": "中顶",
+        "RIGHT_TOP": "右顶"
+      }
+    },
+    "angle": {
+      "description": "旋转角度（角度制）",
+      "type": "number",
+      "minimum": 0
+    },
+    "reverse": {
+      "description": "是否反相扩展",
+      "type": "boolean"
+    },
+    "expansion": {
+      "description": "反相扩展尺寸：反相扩展区域的尺寸，支持负数",
+      "type": "number"
+    },
+    "mirror": {
+      "description": "是否镜像，一般来说 ，当一个文字出现在底层，这里也需要相应调整成 1",
+      "type": "boolean"
+    },
+    "specialColor": {
+      "description": "特殊颜色",
+      "type": "string",
+      "pattern": "^$|^#[0-9A-Fa-f]{6}$"
+    }
+  },
+  "required": [
+    "groupId",
+    "layerId",
+    "locked",
+    "zIndex",
+    "x",
+    "y",
+    "text",
+    "fontFamily",
+    "fontSize",
+    "strokeWidth",
+    "bold",
+    "italic",
+    "origin",
+    "angle",
+    "reverse",
+    "expansion",
+    "mirror"
+  ],
+  "description": "PCB 文字"
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "componentId": {
+      "description": "元件 id",
+      "type": "string"
+    },
+    "primitiveId": {
+      "description": "封装内图元 id",
+      "type": "string"
+    },
+    "net": {
+      "description": "网络名称",
+      "type": "string"
+    }
+  },
+  "required": [
+    "componentId",
+    "primitiveId",
+    "net"
+  ],
+  "description": "封装图元网络映射，component + primitive 作为唯一 key"
+}

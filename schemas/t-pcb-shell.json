@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "shellType": {
+      "description": "外壳类型 T&B 上下壳 DRAWER 推盖 CLAM 翻盖",
+      "type": "object"
+    },
+    "shellHeight": {
+      "description": "外壳高度",
+      "type": "number"
+    },
+    "pcbHeight": {
+      "description": "PCB 高度",
+      "type": "number"
+    },
+    "strokeWidth": {
+      "description": "线宽（弃用）",
+      "type": "number"
+    },
+    "path": {
+      "description": "参考复杂多边形",
+      "type": "array"
+    },
+    "thickness": {
+      "description": "外壳厚度",
+      "type": "number"
+    },
+    "direction": {
+      "description": "推盖 - 推盖方向",
+      "type": "object"
+    },
+    "bottomHeight": {
+      "description": "上下壳 - 下壳高度",
+      "type": "number"
+    },
+    "topInnerHeight": {
+      "description": "上下壳 - 上壳内壁高度",
+      "type": "number"
+    },
+    "bottomInnerHeight": {
+      "description": "上下壳 - 下壳内壁高度",
+      "type": "number"
+    }
+  },
+  "required": [
+    "shellType",
+    "shellHeight",
+    "pcbHeight",
+    "strokeWidth",
+    "path",
+    "thickness"
+  ],
+  "description": "外壳"
+}

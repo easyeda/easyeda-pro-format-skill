@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "netName": {
+      "description": "NET，网络名称",
+      "type": "string"
+    },
+    "ruleName": {
+      "description": "过孔层类型：设计规则名称，定义过孔的开始层结束层",
+      "type": "string"
+    },
+    "centerX": {
+      "description": "坐标 X",
+      "type": "number"
+    },
+    "centerY": {
+      "description": "坐标 Y",
+      "type": "number"
+    },
+    "holeDiameter": {
+      "description": "孔直径",
+      "type": "number"
+    },
+    "viaDiameter": {
+      "description": "焊盘直径",
+      "type": "number"
+    },
+    "viaType": {
+      "description": "过孔类型",
+      "type": "string",
+      "enum": [
+        "NORMAL",
+        "BLIND",
+        "SUTURE"
+      ],
+      "enumDescriptions": {
+        "NORMAL": "通孔(普通过孔)",
+        "BLIND": "盲埋孔",
+        "SUTURE": "缝合孔"
+      }
+    },
+    "topSolderExpansion": {
+      "description": "顶层阻焊扩展：null 为遵循规则",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "bottomSolderExpansion": {
+      "description": "底层阻焊扩展：null 为遵循规则",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "unusedInnerLayers": {
+      "description": "隐藏焊盘层（可选）：被隐藏焊盘的层数组",
+      "type": "array"
+    },
+    "propagationDelay": {
+      "description": "传播延迟，3.3 新增",
+      "type": "number"
+    }
+  },
+  "required": [
+    "netName",
+    "ruleName",
+    "centerX",
+    "centerY",
+    "holeDiameter",
+    "viaDiameter",
+    "viaType",
+    "topSolderExpansion",
+    "bottomSolderExpansion",
+    "unusedInnerLayers",
+    "propagationDelay"
+  ],
+  "description": "过孔"
+}

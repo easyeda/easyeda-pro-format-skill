@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "DeviceName": {
+      "description": "记录文本器件/封装/符号的原子类型",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "",
+          "type": "string"
+        },
+        "source": {
+          "description": "",
+          "type": "string"
+        },
+        "uuid": {
+          "description": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "source",
+        "uuid"
+      ]
+    },
+    "Devices": {
+      "description": "备选器件，v4 新增",
+      "type": "array"
+    },
+    "FootprintName": {
+      "description": "记录文本器件/封装/符号的原子类型",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "",
+          "type": "string"
+        },
+        "source": {
+          "description": "",
+          "type": "string"
+        },
+        "uuid": {
+          "description": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "source",
+        "uuid"
+      ]
+    },
+    "Footprints": {
+      "description": "备选封装，v4 新增",
+      "type": "array"
+    },
+    "SymbolName": {
+      "description": "记录文本器件/封装/符号的原子类型",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "",
+          "type": "string"
+        },
+        "source": {
+          "description": "",
+          "type": "string"
+        },
+        "uuid": {
+          "description": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "source",
+        "uuid"
+      ]
+    },
+    "Symbols": {
+      "description": "备选符号，v4 新增",
+      "type": "array"
+    }
+  },
+  "description": "实例属性 attr"
+}

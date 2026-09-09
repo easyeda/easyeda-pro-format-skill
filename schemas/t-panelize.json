@@ -1,0 +1,277 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "on": {
+      "description": "是否启用",
+      "type": "boolean"
+    },
+    "row": {
+      "description": "行数",
+      "type": "number"
+    },
+    "column": {
+      "description": "列数",
+      "type": "number"
+    },
+    "rowSpacing": {
+      "description": "行距",
+      "type": "number"
+    },
+    "columnSpacing": {
+      "description": "列距",
+      "type": "number"
+    },
+    "onlyOutline": {
+      "description": "是否只拼边框",
+      "type": "boolean"
+    },
+    "horizontalStamp": {
+      "description": "邮票孔参数",
+      "type": "object",
+      "properties": {
+        "on": {
+          "description": "是否启用（不启用则使用 V-CUT）",
+          "type": "boolean"
+        },
+        "stampHoleGroupQuantity": {
+          "description": "邮票孔组数",
+          "type": "number"
+        },
+        "stampHoleDiameter": {
+          "description": "邮票孔直径",
+          "type": "number"
+        },
+        "stampHoleQuantityPerGroup": {
+          "description": "邮票孔每组数量",
+          "type": "number"
+        },
+        "stampHoleSpacing": {
+          "description": "邮票孔间距",
+          "type": "number"
+        },
+        "center_percent": {
+          "description": "邮票孔组位置与板子左侧的距离（百分比）",
+          "type": "array"
+        }
+      },
+      "required": [
+        "on",
+        "stampHoleGroupQuantity",
+        "stampHoleDiameter",
+        "stampHoleQuantityPerGroup",
+        "stampHoleSpacing"
+      ]
+    },
+    "verticalStamp": {
+      "description": "邮票孔参数",
+      "type": "object",
+      "properties": {
+        "on": {
+          "description": "是否启用（不启用则使用 V-CUT）",
+          "type": "boolean"
+        },
+        "stampHoleGroupQuantity": {
+          "description": "邮票孔组数",
+          "type": "number"
+        },
+        "stampHoleDiameter": {
+          "description": "邮票孔直径",
+          "type": "number"
+        },
+        "stampHoleQuantityPerGroup": {
+          "description": "邮票孔每组数量",
+          "type": "number"
+        },
+        "stampHoleSpacing": {
+          "description": "邮票孔间距",
+          "type": "number"
+        },
+        "center_percent": {
+          "description": "邮票孔组位置与板子左侧的距离（百分比）",
+          "type": "array"
+        }
+      },
+      "required": [
+        "on",
+        "stampHoleGroupQuantity",
+        "stampHoleDiameter",
+        "stampHoleQuantityPerGroup",
+        "stampHoleSpacing"
+      ]
+    },
+    "horizontalSize": {
+      "description": "工艺边参数",
+      "type": "object",
+      "properties": {
+        "on": {
+          "description": "是否启用（不启用则不使用工艺边）",
+          "type": "boolean"
+        },
+        "sideHeight": {
+          "description": "工艺边高度",
+          "type": "number"
+        },
+        "positionHoleDiameter": {
+          "description": "定位孔直径（0 表示无定位孔）",
+          "type": "number"
+        },
+        "markDiameter": {
+          "description": "Mark 点直径（0 表示不启用 Mark 点）",
+          "type": "number"
+        },
+        "markExpansion": {
+          "description": "Mark 点阻焊扩展",
+          "type": "number"
+        },
+        "borderRadius": {
+          "description": "工艺边圆角半径",
+          "type": [
+            "number",
+            "object"
+          ]
+        }
+      },
+      "required": [
+        "on",
+        "sideHeight",
+        "positionHoleDiameter",
+        "markDiameter",
+        "markExpansion",
+        "borderRadius"
+      ]
+    },
+    "verticalSize": {
+      "description": "工艺边参数",
+      "type": "object",
+      "properties": {
+        "on": {
+          "description": "是否启用（不启用则不使用工艺边）",
+          "type": "boolean"
+        },
+        "sideHeight": {
+          "description": "工艺边高度",
+          "type": "number"
+        },
+        "positionHoleDiameter": {
+          "description": "定位孔直径（0 表示无定位孔）",
+          "type": "number"
+        },
+        "markDiameter": {
+          "description": "Mark 点直径（0 表示不启用 Mark 点）",
+          "type": "number"
+        },
+        "markExpansion": {
+          "description": "Mark 点阻焊扩展",
+          "type": "number"
+        },
+        "borderRadius": {
+          "description": "工艺边圆角半径",
+          "type": [
+            "number",
+            "object"
+          ]
+        }
+      },
+      "required": [
+        "on",
+        "sideHeight",
+        "positionHoleDiameter",
+        "markDiameter",
+        "markExpansion",
+        "borderRadius"
+      ]
+    },
+    "mirrorBoard": {
+      "description": "阴阳板",
+      "type": [
+        "boolean",
+        "object"
+      ]
+    },
+    "mirrorEvenRow": {
+      "description": "偶数行翻面",
+      "type": [
+        "boolean",
+        "object"
+      ]
+    },
+    "mirrorEvenCol": {
+      "description": "偶数列翻面",
+      "type": [
+        "boolean",
+        "object"
+      ]
+    },
+    "evenRowRotation": {
+      "description": "偶数行角度",
+      "type": [
+        "number",
+        "object"
+      ]
+    },
+    "evenColRotation": {
+      "description": "偶数列角度",
+      "type": [
+        "number",
+        "object"
+      ]
+    },
+    "showVCutIndicator": {
+      "description": "v割标识",
+      "type": [
+        "boolean",
+        "object"
+      ]
+    },
+    "vCutLayer": {
+      "description": "层",
+      "type": [
+        "number",
+        "object"
+      ]
+    },
+    "markPosition": {
+      "description": "mark点位置 [左上，右上，左下，右下]四个mark点中心与最外侧bbox上右下左的距离",
+      "type": "array"
+    },
+    "positionHolePosition": {
+      "description": "定位点位置  [左上，右上，左下，右下]四个mark点中心与最外侧bbox上右下左的距离",
+      "type": "array"
+    },
+    "panelizeVersion": {
+      "description": "拼板的版本字段",
+      "type": "string",
+      "enum": [
+        "1.0",
+        "1.1",
+        "1.1"
+      ],
+      "enumDescriptions": {
+        "1.0": "拼板版本 1.0",
+        "1.1": "拼板版本 1.1"
+      }
+    }
+  },
+  "required": [
+    "on",
+    "row",
+    "column",
+    "rowSpacing",
+    "columnSpacing",
+    "onlyOutline",
+    "horizontalStamp",
+    "verticalStamp",
+    "horizontalSize",
+    "verticalSize",
+    "mirrorBoard",
+    "mirrorEvenRow",
+    "mirrorEvenCol",
+    "evenRowRotation",
+    "evenColRotation",
+    "showVCutIndicator",
+    "vCutLayer",
+    "panelizeVersion"
+  ],
+  "description": "拼板"
+}

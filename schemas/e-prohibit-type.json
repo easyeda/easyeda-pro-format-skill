@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "COMPONENT",
+    "VIA",
+    "TRACK",
+    "FILL",
+    "COPPER",
+    "PLANE"
+  ],
+  "enumDescriptions": {
+    "COMPONENT": "禁止元件",
+    "VIA": "禁止过孔",
+    "TRACK": "禁止布线",
+    "FILL": "禁止放置填充区域",
+    "COPPER": "禁止覆铜",
+    "PLANE": "禁止内电层"
+  },
+  "description": "区域禁止类型"
+}

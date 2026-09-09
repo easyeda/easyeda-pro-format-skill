@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "holeType": {
+      "description": "孔类型",
+      "type": "string",
+      "enum": [
+        "ROUND",
+        "RECT",
+        "SLOT",
+        "ROUND_RECT"
+      ],
+      "enumDescriptions": {
+        "ROUND": "长圆孔",
+        "RECT": "方孔",
+        "SLOT": "挖槽",
+        "ROUND_RECT": "圆角矩形"
+      }
+    },
+    "width": {
+      "description": "宽",
+      "type": "number"
+    },
+    "height": {
+      "description": "高",
+      "type": "number"
+    },
+    "cornerRadius": {
+      "description": "圆角矩形 - 圆角",
+      "type": "number"
+    }
+  },
+  "required": [
+    "holeType",
+    "width",
+    "height"
+  ],
+  "description": "孔定义，null 表示无孔"
+}

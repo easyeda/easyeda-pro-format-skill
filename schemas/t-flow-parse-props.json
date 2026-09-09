@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "onChunk": {
+      "description": "文档数据块就绪回调，当积累到 chunkLength 时触发，由外部处理这一块数据的缓存",
+      "type": "object"
+    },
+    "onEditHead": {
+      "description": "",
+      "type": "object"
+    },
+    "chunkLength": {
+      "description": "",
+      "type": "number"
+    },
+    "history": {
+      "description": "必要的历史节点数据",
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "description": "",
+          "type": "string"
+        },
+        "num": {
+          "description": "",
+          "type": "number"
+        },
+        "editHead": {
+          "description": "编辑头 类型",
+          "type": "object",
+          "properties": {
+            "uuid": {
+              "description": "",
+              "type": "string"
+            },
+            "username": {
+              "description": "",
+              "type": "string"
+            },
+            "nickname": {
+              "description": "",
+              "type": "string"
+            },
+            "updateTime": {
+              "description": "",
+              "type": "number"
+            }
+          },
+          "required": [
+            "uuid",
+            "username",
+            "nickname",
+            "updateTime"
+          ]
+        },
+        "start": {
+          "description": "",
+          "type": "number"
+        },
+        "size": {
+          "description": "",
+          "type": "number"
+        },
+        "dNum": {
+          "description": "",
+          "type": "number"
+        },
+        "hClient": {
+          "description": "",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "uuid",
+        "num"
+      ]
+    }
+  },
+  "description": ""
+}

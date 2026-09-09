@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "SOLID",
+    "GRID_LINE",
+    "HORIZONTAL_LINE",
+    "VERTICAL_LINE"
+  ],
+  "enumDescriptions": {
+    "SOLID": "实心填充",
+    "GRID_LINE": "网格线填充",
+    "HORIZONTAL_LINE": "水平线填充",
+    "VERTICAL_LINE": "垂直线填充"
+  },
+  "description": "覆铜类型"
+}

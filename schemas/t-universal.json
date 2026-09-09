@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "allowLibRename": {
+      "description": "是否工程库重名",
+      "type": "boolean"
+    },
+    "defaultNetName": {
+      "description": "原理图 - 是否默认网络名",
+      "type": "boolean"
+    },
+    "wireMultipleNet": {
+      "description": "原理图 - 是否导线多网络",
+      "type": "boolean"
+    },
+    "netFlagCrossLayerConnection": {
+      "description": "原理图 - 是否网络标识跨层连接",
+      "type": "boolean"
+    },
+    "netLabelCrossPageConnection": {
+      "description": "原理图 - 是否网络标识跨页连接",
+      "type": "boolean"
+    },
+    "busGenerateNetClass": {
+      "description": "原理图 - 是否网络标识总线生成网络类",
+      "type": "boolean"
+    },
+    "relevanceDisplayRow": {
+      "description": "关联显示方式",
+      "type": "string",
+      "enum": [
+        "SINGLE",
+        "MULTIPLE"
+      ],
+      "enumDescriptions": {
+        "SINGLE": "单行显示",
+        "MULTIPLE": "多行显示"
+      }
+    },
+    "relevanceBelongSchPage": {
+      "description": "关联所在图页",
+      "type": "string",
+      "enum": [
+        "NONE",
+        "NAME",
+        "NUMBER"
+      ],
+      "enumDescriptions": {
+        "NONE": "不显示",
+        "NAME": "名称",
+        "NUMBER": "序号"
+      }
+    },
+    "relevanceLocation": {
+      "description": "关联所在位置",
+      "type": "string",
+      "enum": [
+        "NONE",
+        "ZONE"
+      ],
+      "enumDescriptions": {
+        "NONE": "不显示",
+        "ZONE": "区域"
+      }
+    },
+    "multipartCrossLayer": {
+      "description": "多部件跨层",
+      "type": "boolean"
+    },
+    "nonElectronicAddIntoBom": {
+      "description": "无电气标识 - 允许加入BOM",
+      "type": "boolean"
+    },
+    "nonElectronicUpdatePcb": {
+      "description": "无电气标识 - 允许更新PCB",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "allowLibRename",
+    "defaultNetName",
+    "wireMultipleNet",
+    "netFlagCrossLayerConnection",
+    "netLabelCrossPageConnection",
+    "busGenerateNetClass",
+    "relevanceDisplayRow",
+    "relevanceBelongSchPage",
+    "relevanceLocation",
+    "multipartCrossLayer"
+  ],
+  "description": "通用设置"
+}

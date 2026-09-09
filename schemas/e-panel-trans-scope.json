@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "PRINT",
+    "COVER",
+    "PRINT&COVER"
+  ],
+  "enumDescriptions": {
+    "PRINT": "打印",
+    "COVER": "遮盖",
+    "PRINT&COVER": "打印 + 遮盖"
+  },
+  "description": "透明度控制范围"
+}

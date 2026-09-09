@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "uuid": {
+      "description": "唯一编号",
+      "type": "string"
+    },
+    "docType": {
+      "description": "文档类型",
+      "type": "number"
+    },
+    "modifier": {
+      "description": "用户信息",
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "description": "用户 uuid",
+          "type": "string"
+        },
+        "nickname": {
+          "description": "用户昵称",
+          "type": "string"
+        },
+        "username": {
+          "description": "用户名称",
+          "type": "string"
+        },
+        "avatar": {
+          "description": "用户头像",
+          "type": "string"
+        }
+      },
+      "required": [
+        "uuid",
+        "nickname",
+        "username"
+      ]
+    },
+    "updateTime": {
+      "description": "更新时间",
+      "type": "number"
+    },
+    "creator": {
+      "description": "用户信息",
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "description": "用户 uuid",
+          "type": "string"
+        },
+        "nickname": {
+          "description": "用户昵称",
+          "type": "string"
+        },
+        "username": {
+          "description": "用户名称",
+          "type": "string"
+        },
+        "avatar": {
+          "description": "用户头像",
+          "type": "string"
+        }
+      },
+      "required": [
+        "uuid",
+        "nickname",
+        "username"
+      ]
+    },
+    "createTime": {
+      "description": "创建时间",
+      "type": "number"
+    },
+    "canvas": {
+      "description": "存储3.0的画布数据",
+      "type": "string"
+    },
+    "isDelete": {
+      "description": "是否删除标志",
+      "type": "boolean"
+    },
+    "ticket": {
+      "description": "逻辑时钟",
+      "type": "number"
+    },
+    "version": {
+      "description": "工程库的版本(工程库独有)",
+      "type": "string"
+    },
+    "doc_id": {
+      "description": "计算的文档标识，目前仅 sheet 做了计算",
+      "type": "number"
+    },
+    "title": {
+      "description": "文档名称",
+      "type": "string"
+    },
+    "source": {
+      "description": "来源的 uuid(工程库独有)",
+      "type": "string"
+    },
+    "zIndex": {
+      "description": "排序大小",
+      "type": "number"
+    },
+    "schematic": {
+      "description": "所属原理图",
+      "type": "string"
+    }
+  },
+  "required": [
+    "uuid",
+    "docType",
+    "modifier",
+    "updateTime",
+    "creator",
+    "createTime",
+    "title",
+    "source",
+    "zIndex",
+    "schematic"
+  ],
+  "description": "原理图页"
+}

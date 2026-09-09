@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "projectUpdate": {
+      "description": "",
+      "type": "string"
+    },
+    "personUpdate": {
+      "description": "",
+      "type": "string"
+    },
+    "getProject": {
+      "description": "",
+      "type": "string"
+    },
+    "getPerson": {
+      "description": "",
+      "type": "string"
+    },
+    "unwatch": {
+      "description": "",
+      "type": "string"
+    },
+    "save": {
+      "description": "",
+      "type": "string"
+    },
+    "subDelete": {
+      "description": "",
+      "type": "string"
+    },
+    "projectCanSave": {
+      "description": "",
+      "type": "string"
+    },
+    "isBlob": {
+      "description": "",
+      "type": "object"
+    }
+  },
+  "required": [
+    "getProject"
+  ],
+  "description": ""
+}

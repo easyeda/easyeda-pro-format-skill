@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "layerId": {
+      "description": "层序号",
+      "type": "number"
+    }
+  },
+  "required": [
+    "layerId"
+  ],
+  "description": "配置当前激活层"
+}

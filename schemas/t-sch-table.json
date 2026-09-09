@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "startX": {
+      "description": "左上角 X",
+      "type": "number"
+    },
+    "startY": {
+      "description": "左上角 Y",
+      "type": "number"
+    },
+    "rowSizes": {
+      "description": "行高",
+      "type": "array"
+    },
+    "colSizes": {
+      "description": "列宽",
+      "type": "array"
+    },
+    "rowLocked": {
+      "description": "行锁定",
+      "type": "array"
+    },
+    "colLocked": {
+      "description": "列锁定",
+      "type": "array"
+    },
+    "rotation": {
+      "description": "旋转角度（角度制）",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 360
+    },
+    "tableCell": {
+      "description": "表格单元格",
+      "type": "array"
+    }
+  },
+  "required": [
+    "startX",
+    "startY",
+    "rowSizes",
+    "colSizes",
+    "rowLocked",
+    "colLocked",
+    "rotation",
+    "tableCell"
+  ],
+  "description": "表格"
+}

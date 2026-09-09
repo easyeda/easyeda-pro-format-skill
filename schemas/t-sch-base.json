@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "partId": {
+      "description": "部件编号；符号页专属，表示归属于某部件下, 非符号忽略该字段",
+      "type": "string"
+    },
+    "groupId": {
+      "description": "分组编号, 没有则为空",
+      "type": "string"
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    },
+    "zIndex": {
+      "description": "Z 轴高度",
+      "type": [
+        "number",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "groupId",
+    "locked",
+    "zIndex"
+  ],
+  "description": "基础字段"
+}

@@ -1,0 +1,267 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "partitionId": {
+      "description": "所属分区编号，为null表示无分区",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "groupId": {
+      "description": "分组编号, 没有则为 0 不分组，非 0 为组标志，相同组标志的为一组",
+      "type": "string"
+    },
+    "layerId": {
+      "description": "层编号",
+      "type": "number"
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    },
+    "zIndex": {
+      "description": "Z 轴高度, null 为默认",
+      "type": [
+        "number",
+        "null"
+      ],
+      "default": null
+    },
+    "netName": {
+      "description": "NET，网络名称",
+      "type": "string"
+    },
+    "num": {
+      "description": "焊盘编号",
+      "type": "string"
+    },
+    "centerX": {
+      "description": "焊盘原点 X",
+      "type": "number"
+    },
+    "centerY": {
+      "description": "焊盘原点 Y",
+      "type": "number"
+    },
+    "padAngle": {
+      "description": "焊盘旋转角度（角度制）",
+      "type": "number"
+    },
+    "hole": {
+      "description": "孔定义，null 表示无孔",
+      "type": "object",
+      "properties": {
+        "holeType": {
+          "description": "孔类型",
+          "type": "string",
+          "enum": [
+            "ROUND",
+            "RECT",
+            "SLOT",
+            "ROUND_RECT"
+          ],
+          "enumDescriptions": {
+            "ROUND": "长圆孔",
+            "RECT": "方孔",
+            "SLOT": "挖槽",
+            "ROUND_RECT": "圆角矩形"
+          }
+        },
+        "width": {
+          "description": "宽",
+          "type": "number"
+        },
+        "height": {
+          "description": "高",
+          "type": "number"
+        },
+        "cornerRadius": {
+          "description": "圆角矩形 - 圆角",
+          "type": "number"
+        }
+      },
+      "required": [
+        "holeType",
+        "width",
+        "height"
+      ]
+    },
+    "defaultPad": {
+      "description": "焊盘定义",
+      "type": "object",
+      "properties": {
+        "padType": {
+          "description": "焊盘形状类型",
+          "type": "string",
+          "enum": [
+            "ELLIPSE",
+            "RECT",
+            "OVAL",
+            "POLYGON"
+          ],
+          "enumDescriptions": {
+            "ELLIPSE": "圆焊盘",
+            "RECT": "矩形焊盘",
+            "OVAL": "长圆焊盘",
+            "POLYGON": "多边形焊盘"
+          }
+        }
+      },
+      "required": [
+        "padType"
+      ]
+    },
+    "specialPad": {
+      "description": "特殊焊盘",
+      "type": "array"
+    },
+    "padOffsetX": {
+      "description": "孔偏移 X",
+      "type": "number"
+    },
+    "padOffsetY": {
+      "description": "孔偏移 Y",
+      "type": "number"
+    },
+    "relativeAngle": {
+      "description": "孔相对焊盘旋转角度（角度制）",
+      "type": "number"
+    },
+    "plated": {
+      "description": "plated 是否金属化孔壁",
+      "type": "boolean"
+    },
+    "padType": {
+      "description": "焊盘功能类型",
+      "type": "string",
+      "enum": [
+        "NORMAL",
+        "TEST",
+        "MARKER"
+      ],
+      "enumDescriptions": {
+        "NORMAL": "普通焊盘",
+        "TEST": "测试点",
+        "MARKER": "标识点"
+      }
+    },
+    "topSolderExpansion": {
+      "description": "顶层阻焊扩展：null 为遵循规则",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "bottomSolderExpansion": {
+      "description": "底层阻焊扩展：null 为遵循规则",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "topPasteExpansion": {
+      "description": "顶层助焊扩展：null 为遵循规则",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "bottomPasteExpansion": {
+      "description": "底层助焊扩展：null 为遵循规则",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "connectMode": {
+      "description": "热焊-连接方式：null 为遵循规则，其他数据定义同设计规则",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "DIVERGENCE",
+        "DIRECT",
+        "NON_CONNECT"
+      ],
+      "enumDescriptions": {
+        "DIVERGENCE": "热焊（发散）",
+        "DIRECT": "直连",
+        "NON_CONNECT": "无连接"
+      }
+    },
+    "spokeSpace": {
+      "description": "热焊-发散间距：null 为遵循规则，其他数据定义同设计规则",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "spokeWidth": {
+      "description": "热焊-发散线宽：null 为遵循规则，其他数据定义同设计规则",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "spokeAngle": {
+      "description": "热焊-发散角度：null 为遵循规则，其他数据定义同设计规则",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "unusedInnerLayers": {
+      "description": "隐藏焊盘层（可选）：被隐藏焊盘的层数组",
+      "type": "array"
+    },
+    "padLen": {
+      "description": "引脚长度",
+      "type": "number"
+    },
+    "propagationDelay": {
+      "description": "传播延迟，3.3 新增",
+      "type": "number"
+    },
+    "attrsMap": {
+      "description": "自定义属性",
+      "type": "object"
+    },
+    "refs": {
+      "description": "关联的图元编号",
+      "type": "array"
+    }
+  },
+  "required": [
+    "groupId",
+    "layerId",
+    "locked",
+    "zIndex",
+    "netName",
+    "num",
+    "centerX",
+    "centerY",
+    "padAngle",
+    "hole",
+    "defaultPad",
+    "specialPad",
+    "padOffsetX",
+    "padOffsetY",
+    "relativeAngle",
+    "plated",
+    "padType",
+    "topSolderExpansion",
+    "bottomSolderExpansion",
+    "topPasteExpansion",
+    "bottomPasteExpansion",
+    "connectMode",
+    "spokeSpace",
+    "spokeWidth",
+    "spokeAngle",
+    "padLen",
+    "propagationDelay"
+  ],
+  "description": "焊盘"
+}

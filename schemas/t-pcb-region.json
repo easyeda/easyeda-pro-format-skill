@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "partitionId": {
+      "description": "所属分区编号，为null表示无分区",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "groupId": {
+      "description": "分组编号, 没有则为 0 不分组，非 0 为组标志，相同组标志的为一组",
+      "type": "string"
+    },
+    "layerId": {
+      "description": "层编号",
+      "type": "number"
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    },
+    "zIndex": {
+      "description": "Z 轴高度, null 为默认",
+      "type": [
+        "number",
+        "null"
+      ],
+      "default": null
+    },
+    "width": {
+      "description": "线宽",
+      "type": "number"
+    },
+    "prohibitType": {
+      "description": "区域禁止类型",
+      "type": "string",
+      "enum": [
+        "COMPONENT",
+        "VIA",
+        "TRACK",
+        "FILL",
+        "COPPER",
+        "PLANE"
+      ],
+      "enumDescriptions": {
+        "COMPONENT": "禁止元件",
+        "VIA": "禁止过孔",
+        "TRACK": "禁止布线",
+        "FILL": "禁止放置填充区域",
+        "COPPER": "禁止覆铜",
+        "PLANE": "禁止内电层"
+      }
+    },
+    "path": {
+      "description": "请参考复杂多边形章节",
+      "type": "array"
+    },
+    "name": {
+      "description": "名称（可选）",
+      "type": "string"
+    },
+    "regionType": {
+      "description": "区域类型",
+      "type": "string",
+      "enum": [
+        "PROHIBIT",
+        "CONSTRAINT"
+      ],
+      "enumDescriptions": {
+        "PROHIBIT": "禁止区域",
+        "CONSTRAINT": "约束区域"
+      }
+    }
+  },
+  "required": [
+    "groupId",
+    "layerId",
+    "locked",
+    "zIndex",
+    "width",
+    "prohibitType",
+    "path",
+    "name",
+    "regionType"
+  ],
+  "description": "区域"
+}

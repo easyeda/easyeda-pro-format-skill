@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "partitionId": {
+      "description": "所属分区编号，为null表示无分区",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "groupId": {
+      "description": "分组编号, 没有则为 0 不分组，非 0 为组标志，相同组标志的为一组",
+      "type": "string"
+    },
+    "layerId": {
+      "description": "层编号",
+      "type": "number"
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    },
+    "zIndex": {
+      "description": "Z 轴高度, null 为默认",
+      "type": [
+        "number",
+        "null"
+      ],
+      "default": null
+    },
+    "netName": {
+      "description": "NET，网络名称",
+      "type": "string"
+    },
+    "width": {
+      "description": "线宽",
+      "type": "number"
+    },
+    "path": {
+      "description": "请参考单多边形",
+      "type": "array"
+    },
+    "polyType": {
+      "description": "折线类型",
+      "type": "string",
+      "enum": [
+        "NORMAL",
+        "BOARD_OUTLINE"
+      ],
+      "enumDescriptions": {
+        "NORMAL": "普通",
+        "BOARD_OUTLINE": "板框"
+      }
+    },
+    "specialColor": {
+      "description": "特殊颜色",
+      "type": "string",
+      "pattern": "^$|^#[0-9A-Fa-f]{6}$"
+    }
+  },
+  "required": [
+    "groupId",
+    "layerId",
+    "locked",
+    "zIndex",
+    "netName",
+    "width",
+    "path",
+    "polyType"
+  ],
+  "description": "折线"
+}

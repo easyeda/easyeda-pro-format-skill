@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "defaultColor": {
+      "description": "默认颜色",
+      "type": "string",
+      "pattern": "^$|^#[0-9A-Fa-f]{6}$"
+    },
+    "baseColor": {
+      "description": "底色",
+      "type": "string",
+      "pattern": "^$|^#[0-9A-Fa-f]{6}$"
+    }
+  },
+  "required": [
+    "defaultColor",
+    "baseColor"
+  ],
+  "description": "丝印配置"
+}

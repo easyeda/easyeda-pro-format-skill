@@ -1,0 +1,120 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "uuid": {
+      "description": "唯一编号",
+      "type": "string"
+    },
+    "creator": {
+      "description": "用户信息",
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "description": "用户 uuid",
+          "type": "string"
+        },
+        "nickname": {
+          "description": "用户昵称",
+          "type": "string"
+        },
+        "username": {
+          "description": "用户名称",
+          "type": "string"
+        },
+        "avatar": {
+          "description": "用户头像",
+          "type": "string"
+        }
+      },
+      "required": [
+        "uuid",
+        "nickname",
+        "username"
+      ]
+    },
+    "createTime": {
+      "description": "创建时间",
+      "type": "number"
+    },
+    "modifier": {
+      "description": "用户信息",
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "description": "用户 uuid",
+          "type": "string"
+        },
+        "nickname": {
+          "description": "用户昵称",
+          "type": "string"
+        },
+        "username": {
+          "description": "用户名称",
+          "type": "string"
+        },
+        "avatar": {
+          "description": "用户头像",
+          "type": "string"
+        }
+      },
+      "required": [
+        "uuid",
+        "nickname",
+        "username"
+      ]
+    },
+    "updateTime": {
+      "description": "更新时间",
+      "type": "number"
+    },
+    "canvas": {
+      "description": "存储3.0画布数据",
+      "type": "string"
+    },
+    "isDelete": {
+      "description": "是否删除标志",
+      "type": "boolean"
+    },
+    "ticket": {
+      "description": "逻辑时钟",
+      "type": "number"
+    },
+    "version": {
+      "description": "工程库的版本(工程库独有)",
+      "type": "string"
+    },
+    "custom_tags": {
+      "description": "分类字段，JSON 数组字符串（个人库和工程库统一）",
+      "type": "string"
+    },
+    "title": {
+      "description": "名称",
+      "type": "string"
+    },
+    "description": {
+      "description": "库描述",
+      "type": "string"
+    },
+    "tags": {
+      "description": "自定义分类",
+      "type": "array"
+    },
+    "source": {
+      "description": "来源的 uuid(工程库独有)",
+      "type": "string"
+    }
+  },
+  "required": [
+    "uuid",
+    "creator",
+    "createTime",
+    "modifier",
+    "updateTime",
+    "title",
+    "description",
+    "tags",
+    "source"
+  ],
+  "description": "库"
+}

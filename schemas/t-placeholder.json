@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "dataType": {
+      "description": "",
+      "type": "string"
+    },
+    "max": {
+      "description": "",
+      "type": "number"
+    }
+  },
+  "required": [
+    "dataType",
+    "max"
+  ],
+  "description": "占位符"
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "1.0",
+    "1.1",
+    "1.1"
+  ],
+  "enumDescriptions": {
+    "1.0": "拼板版本 1.0",
+    "1.1": "拼板版本 1.1"
+  },
+  "description": "拼板的版本字段"
+}

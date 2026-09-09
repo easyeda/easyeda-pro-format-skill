@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "partId": {
+      "description": "子库编号：默认 \"\"",
+      "type": "string"
+    },
+    "x": {
+      "description": "位置 X",
+      "type": "number"
+    },
+    "y": {
+      "description": "位置 Y",
+      "type": "number"
+    },
+    "rotation": {
+      "description": "旋转角度（角度制）：绕 位置 旋转",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 360
+    },
+    "isMirror": {
+      "description": "是否镜像",
+      "type": "boolean"
+    },
+    "attrs": {
+      "description": "自定义属性",
+      "type": "object"
+    }
+  },
+  "required": [
+    "partId",
+    "x",
+    "y",
+    "rotation",
+    "isMirror",
+    "attrs"
+  ],
+  "description": "元件"
+}

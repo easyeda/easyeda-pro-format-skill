@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "META",
+    "CANVAS",
+    "GROUP",
+    "POLY",
+    "STRING",
+    "AUXLINE",
+    "DIMENSION",
+    "ELE_PLACEHOLDER"
+  ],
+  "enumDescriptions": {
+    "META": "基本信息",
+    "CANVAS": "画布配置",
+    "GROUP": "分组控制",
+    "POLY": "多边形",
+    "STRING": "文字",
+    "AUXLINE": "辅助线",
+    "DIMENSION": "尺寸工具集",
+    "ELE_PLACEHOLDER": "占位符"
+  },
+  "description": "数据类型"
+}

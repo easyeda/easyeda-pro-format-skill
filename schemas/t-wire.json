@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "groupId": {
+      "description": "分组编号, 没有则为空",
+      "type": "string"
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    },
+    "zIndex": {
+      "description": "Z 轴高度",
+      "type": "number"
+    }
+  },
+  "required": [
+    "groupId",
+    "locked",
+    "zIndex"
+  ],
+  "description": "导线组"
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "on": {
+      "description": "是否启用（不启用则不使用工艺边）",
+      "type": "boolean"
+    },
+    "sideHeight": {
+      "description": "工艺边高度",
+      "type": "number"
+    },
+    "positionHoleDiameter": {
+      "description": "定位孔直径（0 表示无定位孔）",
+      "type": "number"
+    },
+    "markDiameter": {
+      "description": "Mark 点直径（0 表示不启用 Mark 点）",
+      "type": "number"
+    },
+    "markExpansion": {
+      "description": "Mark 点阻焊扩展",
+      "type": "number"
+    },
+    "borderRadius": {
+      "description": "工艺边圆角半径",
+      "type": [
+        "number",
+        "object"
+      ]
+    }
+  },
+  "required": [
+    "on",
+    "sideHeight",
+    "positionHoleDiameter",
+    "markDiameter",
+    "markExpansion",
+    "borderRadius"
+  ],
+  "description": "工艺边参数"
+}

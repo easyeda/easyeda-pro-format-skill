@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "write": {
+      "description": "",
+      "type": [
+        "object"
+      ]
+    }
+  },
+  "required": [
+    "write"
+  ],
+  "description": "single-file stream writer (eprj3 compressSingleFile param)"
+}

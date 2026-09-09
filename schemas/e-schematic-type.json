@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "DIFFERENTIAL_PAIR",
+    "NET_CLASS",
+    "EQL_NET_GRP"
+  ],
+  "enumDescriptions": {
+    "DIFFERENTIAL_PAIR": "差分对",
+    "NET_CLASS": "网络类",
+    "EQL_NET_GRP": "等长网络组"
+  },
+  "description": "原理图数据类型枚举"
+}

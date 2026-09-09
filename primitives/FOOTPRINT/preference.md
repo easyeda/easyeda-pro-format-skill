@@ -1,0 +1,76 @@
+# TPreference
+
+> 返回 [FOOTPRINT 图元索引](../../documents/FOOTPRINT.md)
+
+## 定义
+
+偏好
+
+## 字段
+
+| 字段 | 类型 | 必需 | 约束 | 说明 |
+|------|------|------|------|------|
+| startTrackWidthFollowLast | `boolean` | ✓ | - | 起始布线是否跟随上次设置 |
+| lastTrackWidth | `number` | ✓ | - | 上次布线宽度 |
+| startViaSizeFollowLast | `boolean` | ✓ | - | 起始打孔尺寸是否跟随上次设置 |
+| lastViaInnerDiameter | `number` | ✓ | - | 上次打孔内径 |
+| lastViaDiameter | `number` | ✓ | - | 上次打孔外径 |
+| snap | `boolean` | ✓ | - | 是否自动吸附 |
+| routingMode | `ERoutingMode` | ✓ | - | 布线模式 |
+| routingCorner | `ERoutingConner` | ✓ | - | 布线拐角模式："L45" 线条 45 度、"L90" 线条 90 度、"R45" 圆弧 45 度、"R90" 圆弧 90 度、"L" 线条自由角度、"R" 圆弧自由角度 |
+| removeLoop | `boolean` | ✓ | - | 布线是否自动移除回路 |
+| rotatingObject | `boolean` | ✓ | - | 是否单对象旋转 |
+| trackFollow | `boolean` | ✓ | - | 导线是否跟随封装移动 |
+| stretchTrackMinCorner | `number` | ✓ | - | 拉伸导线最小拐角比率（比线宽） |
+| preferenceConfig | `string` | ✓ | - | 层堆叠偏好来源 |
+| realTimeUpdateUnusedLayers | `boolean` | ✓ | - | 是否自动移除未使用焊盘 |
+| unusedPadRange | `EUnusedPadRange` | ✓ | - | 移除未使用焊盘的范围 |
+| pushVia | `EPushViaOptimization` | ✓ | - | 推挤过孔优化 |
+| pathOptimization4BePushed | `EPathOptimization` | ✓ | - | 路径优化（单段/整段） |
+| currentPathOptimization4BePushed | `ECurrentPathOptimization` | ✓ | - | 当前导线路径优化 |
+| removeCircuitsContainingVias | `boolean` | ✓ | - | 移除有过孔的回路 |
+| removeAntenna | `boolean` | ✓ | - | 移除天线 |
+
+## JSON Schema
+
+→ [查看 JSON Schema](../../schemas/t-preference.json)
+
+## 校验规则
+
+| 规则 | 级别 | 说明 |
+|------|------|------|
+| required | ERROR | `startTrackWidthFollowLast`: 必需字段 |
+| required | ERROR | `lastTrackWidth`: 必需字段 |
+| required | ERROR | `startViaSizeFollowLast`: 必需字段 |
+| required | ERROR | `lastViaInnerDiameter`: 必需字段 |
+| required | ERROR | `lastViaDiameter`: 必需字段 |
+| required | ERROR | `snap`: 必需字段 |
+| required | ERROR | `routingMode`: 必需字段 |
+| required | ERROR | `routingCorner`: 必需字段 |
+| required | ERROR | `removeLoop`: 必需字段 |
+| required | ERROR | `rotatingObject`: 必需字段 |
+| required | ERROR | `trackFollow`: 必需字段 |
+| required | ERROR | `stretchTrackMinCorner`: 必需字段 |
+| required | ERROR | `preferenceConfig`: 必需字段 |
+| required | ERROR | `realTimeUpdateUnusedLayers`: 必需字段 |
+| required | ERROR | `unusedPadRange`: 必需字段 |
+| required | ERROR | `pushVia`: 必需字段 |
+| required | ERROR | `pathOptimization4BePushed`: 必需字段 |
+| required | ERROR | `currentPathOptimization4BePushed`: 必需字段 |
+| required | ERROR | `removeCircuitsContainingVias`: 必需字段 |
+| required | ERROR | `removeAntenna`: 必需字段 |
+| enum | ERROR | `routingMode`: 允许值: NONE, PUSH, SURROUND, OBSTRUCT, SURROUND&PUSH |
+| enum | ERROR | `routingCorner`: 允许值: L45, L90, L, R45, R90, R |
+| enum | ERROR | `unusedPadRange`: 允许值: ALL, PAD, VIA |
+| enum | ERROR | `pushVia`: 允许值: OPTIMIZA_OPEN, OPTIMIZA_NONE |
+| enum | ERROR | `pathOptimization4BePushed`: 允许值: NONE, SINGLE, ALL |
+| enum | ERROR | `currentPathOptimization4BePushed`: 允许值: OPTIMIZA_STRONG, OPTIMIZA_WEAK, OPTIMIZA_NONE |
+
+## 关联图元
+
+_无关联图元_
+
+## 示例
+
+→ [查看示例](../../examples/FOOTPRINT/t-preference.md)
+

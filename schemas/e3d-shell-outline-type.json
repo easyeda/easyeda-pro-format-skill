@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "DRAWER",
+    "T&B"
+  ],
+  "enumDescriptions": {
+    "DRAWER": "推盖",
+    "T&B": "上下壳"
+  },
+  "description": "3D 外壳类型"
+}

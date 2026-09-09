@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "display": {
+      "description": "是否显示",
+      "type": "boolean"
+    },
+    "pick": {
+      "description": "是否可拾取",
+      "type": "boolean"
+    },
+    "transparency": {
+      "description": "透明度",
+      "type": "number"
+    },
+    "color": {
+      "description": "颜色",
+      "type": "string",
+      "pattern": "^$|^#[0-9A-Fa-f]{6}$"
+    },
+    "layerId": {
+      "description": "层 id",
+      "type": "number"
+    },
+    "viewMode": {
+      "description": "图元-视图模式",
+      "type": "string",
+      "enum": [
+        "NORMAL",
+        "OUTLINE"
+      ],
+      "enumDescriptions": {
+        "NORMAL": "正常视图",
+        "OUTLINE": "轮廓视图"
+      }
+    }
+  },
+  "required": [
+    "display"
+  ],
+  "description": "图元配置"
+}

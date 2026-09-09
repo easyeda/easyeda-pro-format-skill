@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "netLengthPhysic": {
+      "description": "网络长度规则 --- 对应组的",
+      "type": "string"
+    },
+    "netLengthTolerancePhysics": {
+      "description": "网络长度公差规则 --- 对应组的",
+      "type": "string"
+    },
+    "targetNet": {
+      "description": "目标网络",
+      "type": "string"
+    }
+  },
+  "required": [
+    "netLengthPhysic",
+    "netLengthTolerancePhysics",
+    "targetNet"
+  ],
+  "description": "xNet 组"
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "path": {
+      "description": "唯一编号",
+      "type": "string"
+    },
+    "attr": {
+      "description": "属性值",
+      "type": "object"
+    },
+    "hash": {
+      "description": "属性分组",
+      "type": "number"
+    },
+    "isDelete": {
+      "description": "mgr内部使用，是否删除标志",
+      "type": "boolean"
+    },
+    "ticket": {
+      "description": "逻辑时钟",
+      "type": "number"
+    }
+  },
+  "required": [
+    "path",
+    "attr"
+  ],
+  "description": "实例属性"
+}

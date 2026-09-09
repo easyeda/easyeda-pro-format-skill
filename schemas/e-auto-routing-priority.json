@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "SPEED_FIRST",
+    "COMPLETION_FIRST"
+  ],
+  "enumDescriptions": {
+    "SPEED_FIRST": "速度优先",
+    "COMPLETION_FIRST": "完成度优先"
+  },
+  "description": "自动布线 - 效果优先级"
+}

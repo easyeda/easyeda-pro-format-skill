@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "NONE",
+    "NAME",
+    "NUMBER"
+  ],
+  "enumDescriptions": {
+    "NONE": "不显示",
+    "NAME": "名称",
+    "NUMBER": "序号"
+  },
+  "description": "关联所在图页"
+}

@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "partitionId": {
+      "description": "所属分区编号，为null表示无分区",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "groupId": {
+      "description": "分组编号, 没有则为 0 不分组，非 0 为组标志，相同组标志的为一组",
+      "type": "string"
+    },
+    "layerId": {
+      "description": "层编号",
+      "type": "number"
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    },
+    "zIndex": {
+      "description": "Z 轴高度, null 为默认",
+      "type": [
+        "number",
+        "null"
+      ],
+      "default": null
+    },
+    "centerX": {
+      "description": "中心 X",
+      "type": "number"
+    },
+    "centerY": {
+      "description": "中心 Y",
+      "type": "number"
+    },
+    "specification": {
+      "description": "螺丝型号：\"M2\" \"M3\" 等，或者 null 表示自定义",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "M2",
+        "M3",
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "enumDescriptions": {
+        "M2": "M2 螺丝",
+        "M3": "M3 螺丝",
+        "M4": "M4 螺丝",
+        "M5": "M5 螺丝",
+        "M6": "M6 螺丝"
+      }
+    },
+    "depth": {
+      "description": "螺丝柱高度",
+      "type": "number"
+    },
+    "thickness": {
+      "description": "螺丝柱壁厚",
+      "type": "number"
+    },
+    "holeDiameter": {
+      "description": "螺丝柱通孔直径",
+      "type": "number"
+    },
+    "counterBore": {
+      "description": "沉头所需参数 当此参数为 null 时表示不需要沉头",
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "stiffener": {
+      "description": "加强筋所需参数，当此参数为 null 时表示不需要加强筋",
+      "type": [
+        "object",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "groupId",
+    "layerId",
+    "locked",
+    "zIndex",
+    "centerX",
+    "centerY",
+    "specification",
+    "depth",
+    "thickness",
+    "holeDiameter",
+    "counterBore",
+    "stiffener"
+  ],
+  "description": "螺丝柱"
+}

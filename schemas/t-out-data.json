@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "",
+      "type": "string"
+    },
+    "id": {
+      "description": "",
+      "type": "string"
+    },
+    "ticket": {
+      "description": "",
+      "type": "number"
+    },
+    "client": {
+      "description": "",
+      "type": "string"
+    },
+    "firstTicket": {
+      "description": "",
+      "type": "number"
+    },
+    "pend": {
+      "description": "",
+      "type": "boolean"
+    },
+    "num": {
+      "description": "",
+      "type": "number"
+    }
+  },
+  "required": [
+    "type",
+    "id",
+    "ticket"
+  ],
+  "description": "外层数据类型"
+}

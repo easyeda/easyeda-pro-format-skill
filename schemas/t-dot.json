@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "x": {
+      "description": "坐标x轴数值",
+      "type": "number"
+    },
+    "y": {
+      "description": "坐标y轴数值",
+      "type": "number"
+    }
+  },
+  "required": [
+    "x",
+    "y"
+  ],
+  "description": "坐标点"
+}

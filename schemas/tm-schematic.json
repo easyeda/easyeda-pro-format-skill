@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "board": {
+      "description": "所属板子",
+      "type": "string"
+    },
+    "title": {
+      "description": "文档名称",
+      "type": "string"
+    },
+    "source": {
+      "description": "来源的 uuid(工程库独有)",
+      "type": "string"
+    },
+    "zIndex": {
+      "description": "排序大小",
+      "type": "number"
+    }
+  },
+  "required": [
+    "board",
+    "title",
+    "source",
+    "zIndex"
+  ],
+  "description": "原理图 META 类型"
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "devices": {
+      "description": "",
+      "type": "object"
+    },
+    "symbols": {
+      "description": "",
+      "type": "object"
+    },
+    "footprints": {
+      "description": "",
+      "type": "object"
+    },
+    "blobs": {
+      "description": "",
+      "type": "object"
+    },
+    "fonts": {
+      "description": "",
+      "type": "object"
+    },
+    "schCustomFootprint": {
+      "description": "",
+      "type": "object"
+    }
+  },
+  "required": [
+    "devices",
+    "symbols",
+    "footprints",
+    "blobs",
+    "fonts",
+    "schCustomFootprint"
+  ],
+  "description": "canvas-extracted doc references (eprj3 single-file export)"
+}

@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "layerType": {
+      "description": "层类型, 是固定枚举值",
+      "type": "string"
+    },
+    "layerName": {
+      "description": "层别名，需要唯一",
+      "type": "string"
+    },
+    "use": {
+      "description": "是否使用",
+      "type": "boolean"
+    },
+    "show": {
+      "description": "是否显示",
+      "type": "boolean"
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    },
+    "activeColor": {
+      "description": "激活颜色",
+      "type": "string",
+      "pattern": "^$|^#[0-9A-Fa-f]{6}$"
+    },
+    "activateTransparency": {
+      "description": "激活透明度",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "inactiveColor": {
+      "description": "非激活颜色",
+      "type": "string",
+      "pattern": "^$|^#[0-9A-Fa-f]{6}$"
+    },
+    "inactiveTransparency": {
+      "description": "非激活透明度",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "is3D": {
+      "description": "3.3 新增，是否是 3D 层",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "layerType",
+    "layerName",
+    "use",
+    "show",
+    "locked",
+    "activeColor",
+    "activateTransparency",
+    "inactiveColor",
+    "inactiveTransparency"
+  ],
+  "description": "层配置"
+}

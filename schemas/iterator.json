@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "hasNext": {
+      "description": "",
+      "type": "object"
+    },
+    "next": {
+      "description": "",
+      "type": "object"
+    }
+  },
+  "required": [
+    "hasNext",
+    "next"
+  ],
+  "description": ""
+}

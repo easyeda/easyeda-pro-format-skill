@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "ALL",
+    "PAD",
+    "VIA"
+  ],
+  "enumDescriptions": {
+    "ALL": "所有",
+    "PAD": "仅焊盘",
+    "VIA": "仅过孔"
+  },
+  "description": "移除未使用焊盘的范围"
+}

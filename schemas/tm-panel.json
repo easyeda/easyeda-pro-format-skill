@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "title": {
+      "description": "文档名称",
+      "type": "string"
+    },
+    "zIndex": {
+      "description": "排序大小",
+      "type": "number",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "title",
+    "zIndex"
+  ],
+  "description": "面板 META 类型"
+}

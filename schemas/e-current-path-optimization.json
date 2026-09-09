@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "OPTIMIZA_STRONG",
+    "OPTIMIZA_WEAK",
+    "OPTIMIZA_NONE"
+  ],
+  "enumDescriptions": {
+    "OPTIMIZA_STRONG": "强优化",
+    "OPTIMIZA_WEAK": "弱优化",
+    "OPTIMIZA_NONE": "不优化"
+  },
+  "description": "当前导线路径优化"
+}

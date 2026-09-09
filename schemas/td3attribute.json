@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "materials": {
+      "description": "基板材质",
+      "type": "string"
+    },
+    "silkTechnology": {
+      "description": "丝印工艺",
+      "type": "string"
+    },
+    "backgroundColor": {
+      "description": "背景颜色",
+      "type": "string",
+      "pattern": "^$|^#[0-9A-Fa-f]{6}$"
+    },
+    "boardColor": {
+      "description": "板子颜色",
+      "type": "string",
+      "pattern": "^$|^#[0-9A-Fa-f]{6}$"
+    },
+    "sprayColor": {
+      "description": "焊盘喷镀",
+      "type": "string",
+      "pattern": "^$|^#[0-9A-Fa-f]{6}$"
+    },
+    "layerExpose": {
+      "description": "层发散",
+      "type": "number"
+    },
+    "substrateHeight": {
+      "description": "PCB距外壳底面高度",
+      "type": "number"
+    }
+  },
+  "required": [
+    "materials",
+    "silkTechnology",
+    "backgroundColor",
+    "boardColor",
+    "sprayColor",
+    "layerExpose",
+    "substrateHeight"
+  ],
+  "description": "3d 右侧面板属性"
+}

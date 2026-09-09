@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "uuid": {
+      "description": "用户 uuid",
+      "type": "string"
+    },
+    "nickname": {
+      "description": "用户昵称",
+      "type": "string"
+    },
+    "username": {
+      "description": "用户名称",
+      "type": "string"
+    },
+    "avatar": {
+      "description": "用户头像",
+      "type": "string"
+    }
+  },
+  "required": [
+    "uuid",
+    "nickname",
+    "username"
+  ],
+  "description": "用户信息"
+}

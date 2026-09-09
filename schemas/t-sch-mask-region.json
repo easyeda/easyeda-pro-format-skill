@@ -1,0 +1,123 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "maskExpand": {
+      "description": "是否屏蔽,默认是",
+      "type": "boolean",
+      "default": true
+    },
+    "dotX1": {
+      "description": "点 1 X",
+      "type": "number"
+    },
+    "dotY1": {
+      "description": "点 1 Y",
+      "type": "number"
+    },
+    "dotX2": {
+      "description": "点 2 X",
+      "type": "number"
+    },
+    "dotY2": {
+      "description": "点 2 Y",
+      "type": "number"
+    },
+    "expandWidth": {
+      "description": "展开宽度",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "expandHeight": {
+      "description": "展开高度",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "strokeColor": {
+      "description": "颜色",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "strokeStyle": {
+      "description": "样式, null 为默认",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "SOLID",
+        "SHORT_DASH",
+        "DOT",
+        "DOT_DASH"
+      ],
+      "enumDescriptions": {
+        "SOLID": "实线",
+        "SHORT_DASH": "短划线",
+        "DOT": "点线",
+        "DOT_DASH": "点划线"
+      }
+    },
+    "fillColor": {
+      "description": "填充颜色：\"\" 不填充，填充自动闭合起始点和结束点",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "strokeWidth": {
+      "description": "宽度",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "fillStyle": {
+      "description": "填充样式, null 为默认",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "NONE",
+        "SOLID",
+        "GRID",
+        "HORIZONTAL_LINE",
+        "VERTICAL_LINE",
+        "RHOMBIC",
+        "LEFT_SLASH_LINE",
+        "RIGHT_SLASH_LINE"
+      ],
+      "enumDescriptions": {
+        "NONE": "无填充",
+        "SOLID": "实心填充",
+        "GRID": "网格",
+        "HORIZONTAL_LINE": "横线",
+        "VERTICAL_LINE": "竖线",
+        "RHOMBIC": "菱形网格",
+        "LEFT_SLASH_LINE": "左斜线",
+        "RIGHT_SLASH_LINE": "右斜线"
+      }
+    }
+  },
+  "required": [
+    "maskExpand",
+    "dotX1",
+    "dotY1",
+    "dotX2",
+    "dotY2",
+    "expandWidth",
+    "expandHeight",
+    "strokeColor",
+    "strokeStyle",
+    "fillColor",
+    "strokeWidth",
+    "fillStyle"
+  ],
+  "description": "屏蔽区域"
+}

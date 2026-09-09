@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "LEFT_BOTTOM",
+    "CENTER_BOTTOM",
+    "RIGHT_BOTTOM",
+    "LEFT_MIDDLE",
+    "CENTER_MIDDLE",
+    "RIGHT_MIDDLE",
+    "LEFT_TOP",
+    "CENTER_TOP",
+    "RIGHT_TOP"
+  ],
+  "enumDescriptions": {
+    "LEFT_BOTTOM": "左底",
+    "CENTER_BOTTOM": "中底",
+    "RIGHT_BOTTOM": "右底",
+    "LEFT_MIDDLE": "左中",
+    "CENTER_MIDDLE": "中中",
+    "RIGHT_MIDDLE": "右中",
+    "LEFT_TOP": "左顶",
+    "CENTER_TOP": "中顶",
+    "RIGHT_TOP": "右顶"
+  },
+  "description": "对齐模式"
+}

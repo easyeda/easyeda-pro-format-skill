@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "OUTLINE",
+    "SCREW_PILLAR",
+    "ENTITY"
+  ],
+  "enumDescriptions": {
+    "OUTLINE": "外壳边框",
+    "SCREW_PILLAR": "螺丝柱",
+    "ENTITY": "实体"
+  },
+  "description": "挖槽选项"
+}

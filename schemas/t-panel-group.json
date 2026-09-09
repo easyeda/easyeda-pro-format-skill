@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "parentId": {
+      "description": "父级分组编号：为 0 则表示无父级",
+      "type": "string"
+    },
+    "title": {
+      "description": "分组名称：可选，根据实际需求处理",
+      "type": "string"
+    },
+    "visible": {
+      "description": "是否可见",
+      "type": "boolean"
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "parentId",
+    "title",
+    "visible",
+    "locked"
+  ],
+  "description": "面板分组控制"
+}

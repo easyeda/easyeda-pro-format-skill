@@ -1,0 +1,109 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "originX": {
+      "description": "画布原点 X",
+      "type": "number"
+    },
+    "originY": {
+      "description": "画布原点 Y",
+      "type": "number"
+    },
+    "unit": {
+      "description": "显示单位（不会影响格式里数据的单位）",
+      "type": "string"
+    },
+    "gridXSize": {
+      "description": "网格尺寸 X",
+      "type": "number"
+    },
+    "gridYSize": {
+      "description": "网格尺寸 Y",
+      "type": "number"
+    },
+    "snapXSize": {
+      "description": "栅格尺寸 X",
+      "type": "number"
+    },
+    "snapYSize": {
+      "description": "栅格尺寸 Y",
+      "type": "number"
+    },
+    "altSnapXSize": {
+      "description": "Alt 栅格尺寸 X",
+      "type": "number"
+    },
+    "altSnapYSize": {
+      "description": "Alt 栅格尺寸 Y",
+      "type": "number"
+    },
+    "gridType": {
+      "description": "网格类型",
+      "type": "string",
+      "enum": [
+        "NONE",
+        "GRID",
+        "OUTLETS"
+      ],
+      "enumDescriptions": {
+        "NONE": "无",
+        "GRID": "网格",
+        "OUTLETS": "网点"
+      }
+    },
+    "multiGridType": {
+      "description": "网格类型",
+      "type": "string",
+      "enum": [
+        "NONE",
+        "GRID",
+        "OUTLETS"
+      ],
+      "enumDescriptions": {
+        "NONE": "无",
+        "GRID": "网格",
+        "OUTLETS": "网点"
+      }
+    },
+    "multiGridRatio": {
+      "description": "加粗网格倍数：number",
+      "type": "number"
+    },
+    "highlightValue": {
+      "description": "高亮亮度值",
+      "type": "number"
+    },
+    "layerBrightness": {
+      "description": "图层亮度类型",
+      "type": "string",
+      "enum": [
+        "NORMAL",
+        "INACTIVE_GRAY",
+        "INACTIVE_HIDDEN"
+      ],
+      "enumDescriptions": {
+        "NORMAL": "正常亮度",
+        "INACTIVE_GRAY": "非激活层置灰",
+        "INACTIVE_HIDDEN": "非激活层隐藏"
+      }
+    }
+  },
+  "required": [
+    "originX",
+    "originY",
+    "unit",
+    "gridXSize",
+    "gridYSize",
+    "snapXSize",
+    "snapYSize",
+    "altSnapXSize",
+    "altSnapYSize",
+    "gridType",
+    "multiGridType",
+    "multiGridRatio",
+    "highlightValue",
+    "layerBrightness"
+  ],
+  "description": "画布配置"
+}

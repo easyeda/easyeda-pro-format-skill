@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "partId": {
+      "description": "部件编号；符号页专属，表示归属于某部件下, 非符号忽略该字段",
+      "type": "string"
+    },
+    "groupId": {
+      "description": "分组编号, 没有则为空",
+      "type": "string"
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    },
+    "zIndex": {
+      "description": "Z 轴高度",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "display": {
+      "description": "是否在原理图显示",
+      "type": "boolean"
+    },
+    "x": {
+      "description": "位置 X",
+      "type": "number"
+    },
+    "y": {
+      "description": "位置 Y",
+      "type": "number"
+    },
+    "length": {
+      "description": "引脚长度",
+      "type": "number",
+      "minimum": 0
+    },
+    "rotation": {
+      "description": "旋转角度（角度制）：0 90 180 270",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 360
+    },
+    "color": {
+      "description": "引脚颜色",
+      "type": "string",
+      "pattern": "^$|^#[0-9A-Fa-f]{6}$"
+    },
+    "pinShape": {
+      "description": "引脚形状",
+      "type": "string",
+      "enum": [
+        "NONE",
+        "CLOCK",
+        "INVERTED",
+        "INVERTED_CLOCK"
+      ],
+      "enumDescriptions": {
+        "NONE": "无",
+        "CLOCK": "时钟",
+        "INVERTED": "反相",
+        "INVERTED_CLOCK": "反相时钟"
+      }
+    }
+  },
+  "required": [
+    "groupId",
+    "locked",
+    "zIndex",
+    "display",
+    "x",
+    "y",
+    "length",
+    "rotation",
+    "color",
+    "pinShape"
+  ],
+  "description": "标号"
+}

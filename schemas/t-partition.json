@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "分区名称",
+      "type": "string"
+    },
+    "fileUuid": {
+      "description": "子图 UUID",
+      "type": "string"
+    },
+    "path": {
+      "description": "分区形状 - 复杂多边形",
+      "type": "array"
+    }
+  },
+  "required": [
+    "name",
+    "fileUuid",
+    "path"
+  ],
+  "description": "分区"
+}

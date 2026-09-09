@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "Device",
+    "Symbol",
+    "Footprint",
+    "OBJ",
+    "3D Model",
+    "3D Model Title",
+    "Origin 3D Model Title",
+    "3D Model Transform",
+    "Origin Footprint"
+  ],
+  "enumDescriptions": {
+    "3D Model": "3D模型ID",
+    "3D Model Title": "3D模型名",
+    "Origin 3D Model Title": "源3D模型名",
+    "3D Model Transform": "3D模型偏移信息",
+    "Origin Footprint": "封装名"
+  },
+  "description": "属性值"
+}

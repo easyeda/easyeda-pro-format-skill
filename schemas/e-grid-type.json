@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "NONE",
+    "GRID",
+    "OUTLETS"
+  ],
+  "enumDescriptions": {
+    "NONE": "无",
+    "GRID": "网格",
+    "OUTLETS": "网点"
+  },
+  "description": "网格类型"
+}

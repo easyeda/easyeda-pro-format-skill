@@ -1,0 +1,131 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "docIds": {
+      "description": "",
+      "type": "array"
+    },
+    "updateTime": {
+      "description": "",
+      "type": "number"
+    },
+    "versions": {
+      "description": "",
+      "type": "object"
+    },
+    "ignoreType": {
+      "description": "",
+      "type": "array"
+    },
+    "keepClient": {
+      "description": "",
+      "type": "boolean"
+    },
+    "keepFirst": {
+      "description": "",
+      "type": "boolean"
+    },
+    "notDocHead": {
+      "description": "",
+      "type": "boolean"
+    },
+    "isPend": {
+      "description": "",
+      "type": "boolean"
+    },
+    "needType": {
+      "description": "",
+      "type": "array"
+    },
+    "user": {
+      "description": "用户信息",
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "description": "用户 uuid",
+          "type": "string"
+        },
+        "nickname": {
+          "description": "用户昵称",
+          "type": "string"
+        },
+        "username": {
+          "description": "用户名称",
+          "type": "string"
+        },
+        "avatar": {
+          "description": "用户头像",
+          "type": "string"
+        }
+      },
+      "required": [
+        "uuid",
+        "nickname",
+        "username"
+      ]
+    },
+    "headTicket": {
+      "description": "",
+      "type": "number"
+    },
+    "clearDelete": {
+      "description": "",
+      "type": "boolean"
+    },
+    "needNum": {
+      "description": "",
+      "type": "boolean"
+    },
+    "uniqueId": {
+      "description": "",
+      "type": "string"
+    },
+    "client": {
+      "description": "",
+      "type": "string"
+    },
+    "needDelete": {
+      "description": "",
+      "type": "boolean"
+    },
+    "removeBoard": {
+      "description": "",
+      "type": "array"
+    },
+    "eIds": {
+      "description": "",
+      "type": "object"
+    },
+    "chunkLength": {
+      "description": "",
+      "type": "number"
+    },
+    "extractData": {
+      "description": "",
+      "type": "object"
+    },
+    "notChangePend": {
+      "description": "",
+      "type": "boolean"
+    },
+    "keepPendPrev": {
+      "description": "当最新数据是未决时，同时编译上一条已决数据留痕，并将未决转为已决",
+      "type": "boolean"
+    },
+    "onProgress": {
+      "description": "进度回调: (已处理条目数, 总条目数)",
+      "type": "object"
+    },
+    "writer": {
+      "description": "",
+      "type": [
+        "object"
+      ]
+    }
+  },
+  "required": [
+    "writer"
+  ],
+  "description": ""
+}

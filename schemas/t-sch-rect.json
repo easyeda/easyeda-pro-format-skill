@@ -1,0 +1,289 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "partId": {
+      "description": "部件编号；符号页专属，表示归属于某部件下, 非符号忽略该字段",
+      "type": "string"
+    },
+    "groupId": {
+      "description": "分组编号, 没有则为空",
+      "type": "string"
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    },
+    "zIndex": {
+      "description": "Z 轴高度",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "dotX1": {
+      "description": "点 1 X",
+      "type": "number"
+    },
+    "dotY1": {
+      "description": "点 1 Y",
+      "type": "number"
+    },
+    "dotX2": {
+      "description": "点 2 X",
+      "type": "number"
+    },
+    "dotY2": {
+      "description": "点 2 Y",
+      "type": "number"
+    },
+    "radiusX": {
+      "description": "圆角半径 X：0 表示非圆角",
+      "type": "number",
+      "minimum": 0
+    },
+    "radiusY": {
+      "description": "圆角半径 Y：0 表示非圆角",
+      "type": "number",
+      "minimum": 0
+    },
+    "rotation": {
+      "description": "旋转角度（角度制）, 绕点 1 旋转",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 360
+    },
+    "text": {
+      "description": "文本",
+      "type": "object",
+      "properties": {
+        "partId": {
+          "description": "部件编号；符号页专属，表示归属于某部件下, 非符号忽略该字段",
+          "type": "string"
+        },
+        "groupId": {
+          "description": "分组编号, 没有则为空",
+          "type": "string"
+        },
+        "locked": {
+          "description": "是否锁定",
+          "type": "boolean"
+        },
+        "zIndex": {
+          "description": "Z 轴高度",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "x": {
+          "description": "文本坐标 X",
+          "type": "number"
+        },
+        "y": {
+          "description": "文本坐标 Y",
+          "type": "number"
+        },
+        "rotation": {
+          "description": "旋转角度（角度制），绕 文本坐标 旋转",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 360
+        },
+        "value": {
+          "description": "文本内容：任意字符",
+          "type": "string"
+        },
+        "version": {
+          "description": "表示来自 2.0 版本",
+          "type": "object"
+        },
+        "color": {
+          "description": "颜色",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fillColor": {
+          "description": "背景色",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fontFamily": {
+          "description": "字体名称",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fontSize": {
+          "description": "字体大小，与坐标等单位相同",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "strikeout": {
+          "description": "是否加删除线",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "underline": {
+          "description": "是否加下划线",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "italic": {
+          "description": "是否斜体",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "fontWeight": {
+          "description": "是否加粗",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "align": {
+          "description": "对齐模式",
+          "type": "string",
+          "enum": [
+            "LEFT_BOTTOM",
+            "CENTER_BOTTOM",
+            "RIGHT_BOTTOM",
+            "LEFT_MIDDLE",
+            "CENTER_MIDDLE",
+            "RIGHT_MIDDLE",
+            "LEFT_TOP",
+            "CENTER_TOP",
+            "RIGHT_TOP"
+          ],
+          "enumDescriptions": {
+            "LEFT_BOTTOM": "左底",
+            "CENTER_BOTTOM": "中底",
+            "RIGHT_BOTTOM": "右底",
+            "LEFT_MIDDLE": "左中",
+            "CENTER_MIDDLE": "中中",
+            "RIGHT_MIDDLE": "右中",
+            "LEFT_TOP": "左顶",
+            "CENTER_TOP": "中顶",
+            "RIGHT_TOP": "右顶"
+          }
+        }
+      },
+      "required": [
+        "groupId",
+        "locked",
+        "zIndex",
+        "x",
+        "y",
+        "rotation",
+        "value",
+        "color",
+        "fillColor",
+        "fontFamily",
+        "fontSize",
+        "strikeout",
+        "underline",
+        "italic",
+        "fontWeight",
+        "align"
+      ]
+    },
+    "strokeColor": {
+      "description": "颜色",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "strokeStyle": {
+      "description": "样式, null 为默认",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "SOLID",
+        "SHORT_DASH",
+        "DOT",
+        "DOT_DASH"
+      ],
+      "enumDescriptions": {
+        "SOLID": "实线",
+        "SHORT_DASH": "短划线",
+        "DOT": "点线",
+        "DOT_DASH": "点划线"
+      }
+    },
+    "fillColor": {
+      "description": "填充颜色：\"\" 不填充，填充自动闭合起始点和结束点",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "strokeWidth": {
+      "description": "宽度",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "fillStyle": {
+      "description": "填充样式, null 为默认",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "NONE",
+        "SOLID",
+        "GRID",
+        "HORIZONTAL_LINE",
+        "VERTICAL_LINE",
+        "RHOMBIC",
+        "LEFT_SLASH_LINE",
+        "RIGHT_SLASH_LINE"
+      ],
+      "enumDescriptions": {
+        "NONE": "无填充",
+        "SOLID": "实心填充",
+        "GRID": "网格",
+        "HORIZONTAL_LINE": "横线",
+        "VERTICAL_LINE": "竖线",
+        "RHOMBIC": "菱形网格",
+        "LEFT_SLASH_LINE": "左斜线",
+        "RIGHT_SLASH_LINE": "右斜线"
+      }
+    }
+  },
+  "required": [
+    "groupId",
+    "locked",
+    "zIndex",
+    "dotX1",
+    "dotY1",
+    "dotX2",
+    "dotY2",
+    "radiusX",
+    "radiusY",
+    "rotation",
+    "strokeColor",
+    "strokeStyle",
+    "fillColor",
+    "strokeWidth",
+    "fillStyle"
+  ],
+  "description": "矩形"
+}

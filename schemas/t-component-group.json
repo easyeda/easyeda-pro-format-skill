@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "uuid": {
+      "description": "唯一编号",
+      "type": "string"
+    },
+    "title": {
+      "description": "名称",
+      "type": "string"
+    },
+    "parent": {
+      "description": "子 元件分组的 父 元件分组 uuid",
+      "type": "string"
+    },
+    "data": {
+      "description": "元件分组的数据",
+      "type": "object",
+      "properties": {}
+    },
+    "belong": {
+      "description": "属于直接变体的元件分组 不参与 元件分组树构建",
+      "type": "string"
+    },
+    "zIndex": {
+      "description": "元件分组树中排序",
+      "type": "number"
+    },
+    "index": {
+      "description": "元件分组 被变体引用的zIndex",
+      "type": "object"
+    },
+    "schematicId": {
+      "description": "原理图",
+      "type": "string"
+    },
+    "isDelete": {
+      "description": "是否删除",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "uuid",
+    "title",
+    "parent",
+    "data",
+    "belong",
+    "zIndex",
+    "index",
+    "schematicId"
+  ],
+  "description": "元件分组结构"
+}

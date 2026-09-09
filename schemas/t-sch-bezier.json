@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "partId": {
+      "description": "部件编号；符号页专属，表示归属于某部件下, 非符号忽略该字段",
+      "type": "string"
+    },
+    "groupId": {
+      "description": "分组编号, 没有则为空",
+      "type": "string"
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    },
+    "zIndex": {
+      "description": "Z 轴高度",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "controls": {
+      "description": "控制点",
+      "type": "array"
+    },
+    "strokeColor": {
+      "description": "颜色",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "strokeStyle": {
+      "description": "样式, null 为默认",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "SOLID",
+        "SHORT_DASH",
+        "DOT",
+        "DOT_DASH"
+      ],
+      "enumDescriptions": {
+        "SOLID": "实线",
+        "SHORT_DASH": "短划线",
+        "DOT": "点线",
+        "DOT_DASH": "点划线"
+      }
+    },
+    "fillColor": {
+      "description": "填充颜色：\"\" 不填充，填充自动闭合起始点和结束点",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "strokeWidth": {
+      "description": "宽度",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "fillStyle": {
+      "description": "填充样式, null 为默认",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "NONE",
+        "SOLID",
+        "GRID",
+        "HORIZONTAL_LINE",
+        "VERTICAL_LINE",
+        "RHOMBIC",
+        "LEFT_SLASH_LINE",
+        "RIGHT_SLASH_LINE"
+      ],
+      "enumDescriptions": {
+        "NONE": "无填充",
+        "SOLID": "实心填充",
+        "GRID": "网格",
+        "HORIZONTAL_LINE": "横线",
+        "VERTICAL_LINE": "竖线",
+        "RHOMBIC": "菱形网格",
+        "LEFT_SLASH_LINE": "左斜线",
+        "RIGHT_SLASH_LINE": "右斜线"
+      }
+    }
+  },
+  "required": [
+    "groupId",
+    "locked",
+    "zIndex",
+    "controls",
+    "strokeColor",
+    "strokeStyle",
+    "fillColor",
+    "strokeWidth",
+    "fillStyle"
+  ],
+  "description": "贝塞尔"
+}

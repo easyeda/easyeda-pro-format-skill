@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "text": {
+      "description": "文字内容",
+      "type": "string"
+    },
+    "fontFamily": {
+      "description": "字体名称",
+      "type": "string"
+    },
+    "fontSize": {
+      "description": "字号",
+      "type": "number"
+    },
+    "thickness": {
+      "description": "粗细",
+      "type": "number"
+    },
+    "bold": {
+      "description": "是否加粗",
+      "type": "boolean"
+    },
+    "italic": {
+      "description": "是否斜体",
+      "type": "boolean"
+    },
+    "reverse": {
+      "description": "是否反相扩展",
+      "type": "boolean"
+    },
+    "expansion": {
+      "description": "反相扩展尺寸，支持负数",
+      "type": "number"
+    },
+    "width": {
+      "description": "宽",
+      "type": "number"
+    },
+    "height": {
+      "description": "高",
+      "type": "number"
+    },
+    "path": {
+      "description": "文字缓存，复杂多边形数组，参考复杂多边形",
+      "type": "array"
+    },
+    "id": {
+      "description": "唯一编号 1.6版本之前存在",
+      "type": "string"
+    }
+  },
+  "required": [
+    "text",
+    "fontFamily",
+    "fontSize",
+    "thickness",
+    "bold",
+    "italic",
+    "reverse",
+    "expansion",
+    "width",
+    "height",
+    "path"
+  ],
+  "description": "字体样式"
+}

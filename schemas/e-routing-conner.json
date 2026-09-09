@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "L45",
+    "L90",
+    "L",
+    "R45",
+    "R90",
+    "R"
+  ],
+  "enumDescriptions": {
+    "L45": "线条 45 度",
+    "L90": "线条 90 度",
+    "L": "线条自由角度",
+    "R45": "圆弧 45 度",
+    "R90": "圆弧 90 度",
+    "R": "圆弧自由角度"
+  },
+  "description": "布线拐角模式"
+}

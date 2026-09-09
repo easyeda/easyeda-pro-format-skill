@@ -1,0 +1,177 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "startTrackWidthFollowLast": {
+      "description": "起始布线是否跟随上次设置",
+      "type": "boolean"
+    },
+    "lastTrackWidth": {
+      "description": "上次布线宽度",
+      "type": "number"
+    },
+    "startViaSizeFollowLast": {
+      "description": "起始打孔尺寸是否跟随上次设置",
+      "type": "boolean"
+    },
+    "lastViaInnerDiameter": {
+      "description": "上次打孔内径",
+      "type": "number"
+    },
+    "lastViaDiameter": {
+      "description": "上次打孔外径",
+      "type": "number"
+    },
+    "snap": {
+      "description": "是否自动吸附",
+      "type": "boolean"
+    },
+    "routingMode": {
+      "description": "布线模式",
+      "type": "string",
+      "enum": [
+        "NONE",
+        "PUSH",
+        "SURROUND",
+        "OBSTRUCT",
+        "SURROUND&PUSH"
+      ],
+      "enumDescriptions": {
+        "NONE": "无",
+        "PUSH": "推挤",
+        "SURROUND": "环绕",
+        "OBSTRUCT": "阻挡",
+        "SURROUND&PUSH": "环绕并推挤"
+      }
+    },
+    "routingCorner": {
+      "description": "布线拐角模式",
+      "type": "string",
+      "enum": [
+        "L45",
+        "L90",
+        "L",
+        "R45",
+        "R90",
+        "R"
+      ],
+      "enumDescriptions": {
+        "L45": "线条 45 度",
+        "L90": "线条 90 度",
+        "L": "线条自由角度",
+        "R45": "圆弧 45 度",
+        "R90": "圆弧 90 度",
+        "R": "圆弧自由角度"
+      }
+    },
+    "removeLoop": {
+      "description": "布线是否自动移除回路",
+      "type": "boolean"
+    },
+    "rotatingObject": {
+      "description": "是否单对象旋转",
+      "type": "boolean"
+    },
+    "trackFollow": {
+      "description": "导线是否跟随封装移动",
+      "type": "boolean"
+    },
+    "stretchTrackMinCorner": {
+      "description": "拉伸导线最小拐角比率（比线宽）",
+      "type": "number"
+    },
+    "preferenceConfig": {
+      "description": "层堆叠偏好来源",
+      "type": "string"
+    },
+    "realTimeUpdateUnusedLayers": {
+      "description": "是否自动移除未使用焊盘",
+      "type": "boolean"
+    },
+    "unusedPadRange": {
+      "description": "移除未使用焊盘的范围",
+      "type": "string",
+      "enum": [
+        "ALL",
+        "PAD",
+        "VIA"
+      ],
+      "enumDescriptions": {
+        "ALL": "所有",
+        "PAD": "仅焊盘",
+        "VIA": "仅过孔"
+      }
+    },
+    "pushVia": {
+      "description": "推挤过孔",
+      "type": "string",
+      "enum": [
+        "OPTIMIZA_OPEN",
+        "OPTIMIZA_NONE"
+      ],
+      "enumDescriptions": {
+        "OPTIMIZA_OPEN": "开启",
+        "OPTIMIZA_NONE": "关闭"
+      }
+    },
+    "pathOptimization4BePushed": {
+      "description": "被推挤导线路径优化",
+      "type": "string",
+      "enum": [
+        "NONE",
+        "SINGLE",
+        "ALL"
+      ],
+      "enumDescriptions": {
+        "NONE": "无",
+        "SINGLE": "单段",
+        "ALL": "整段"
+      }
+    },
+    "currentPathOptimization4BePushed": {
+      "description": "当前导线路径优化",
+      "type": "string",
+      "enum": [
+        "OPTIMIZA_STRONG",
+        "OPTIMIZA_WEAK",
+        "OPTIMIZA_NONE"
+      ],
+      "enumDescriptions": {
+        "OPTIMIZA_STRONG": "强优化",
+        "OPTIMIZA_WEAK": "弱优化",
+        "OPTIMIZA_NONE": "不优化"
+      }
+    },
+    "removeCircuitsContainingVias": {
+      "description": "移除有过孔的回路",
+      "type": "boolean"
+    },
+    "removeAntenna": {
+      "description": "移除天线",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "startTrackWidthFollowLast",
+    "lastTrackWidth",
+    "startViaSizeFollowLast",
+    "lastViaInnerDiameter",
+    "lastViaDiameter",
+    "snap",
+    "routingMode",
+    "routingCorner",
+    "removeLoop",
+    "rotatingObject",
+    "trackFollow",
+    "stretchTrackMinCorner",
+    "preferenceConfig",
+    "realTimeUpdateUnusedLayers",
+    "unusedPadRange",
+    "pushVia",
+    "pathOptimization4BePushed",
+    "currentPathOptimization4BePushed",
+    "removeCircuitsContainingVias",
+    "removeAntenna"
+  ],
+  "description": "偏好"
+}

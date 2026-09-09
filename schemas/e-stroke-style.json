@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "SOLID",
+    "SHORT_DASH",
+    "DOT",
+    "DOT_DASH"
+  ],
+  "enumDescriptions": {
+    "SOLID": "实线",
+    "SHORT_DASH": "短划线",
+    "DOT": "点线",
+    "DOT_DASH": "点划线"
+  },
+  "description": "警告：该文件只留格式相关的枚举引用，非格式相关不要放在该文件"
+}

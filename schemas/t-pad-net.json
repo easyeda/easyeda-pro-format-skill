@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "partitionId": {
+      "description": "所属分区编号，为null表示无分区",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "componentId": {
+      "description": "所属器件实例编号",
+      "type": "string"
+    },
+    "padNum": {
+      "description": "焊盘编号",
+      "type": "string"
+    },
+    "padNet": {
+      "description": "网络名",
+      "type": "string"
+    },
+    "padId": {
+      "description": "封装内焊盘 ID（可选）",
+      "type": "string"
+    },
+    "padLen": {
+      "description": "引脚长度",
+      "type": "number"
+    },
+    "propagationDelay": {
+      "description": "传播延迟，3.4 新增",
+      "type": "number"
+    },
+    "attrsMap": {
+      "description": "自定义属性",
+      "type": "object"
+    }
+  },
+  "required": [
+    "componentId",
+    "padNum",
+    "padNet",
+    "padId",
+    "padLen",
+    "propagationDelay"
+  ],
+  "description": "焊盘实例网络映射"
+}

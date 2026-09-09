@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "NONE",
+    "CLOCK",
+    "INVERTED",
+    "INVERTED_CLOCK"
+  ],
+  "enumDescriptions": {
+    "NONE": "无",
+    "CLOCK": "时钟",
+    "INVERTED": "反相",
+    "INVERTED_CLOCK": "反相时钟"
+  },
+  "description": "引脚形状"
+}

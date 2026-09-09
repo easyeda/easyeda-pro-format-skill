@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "mil",
+    "inch",
+    "cm",
+    "mm"
+  ],
+  "enumDescriptions": {
+    "mil": "密耳",
+    "inch": "英寸",
+    "cm": "厘米",
+    "mm": "毫米"
+  },
+  "description": "单位"
+}

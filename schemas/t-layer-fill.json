@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "fill": {
+      "description": "",
+      "type": [
+        "object",
+        "array"
+      ]
+    }
+  },
+  "required": [
+    "fill"
+  ],
+  "description": "层填充"
+}

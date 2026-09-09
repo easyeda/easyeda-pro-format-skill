@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "config": {
+      "description": "工程配置 META 类型",
+      "type": "object",
+      "properties": {
+        "defaultSheet": {
+          "description": "默认原理图页 ID",
+          "type": "string",
+          "pattern": "^[0-9a-f]{16}$"
+        }
+      },
+      "required": [
+        "defaultSheet"
+      ]
+    },
+    "boards": {
+      "description": "",
+      "type": "object"
+    },
+    "schematics": {
+      "description": "",
+      "type": "object"
+    },
+    "simSchematics": {
+      "description": "",
+      "type": "object"
+    },
+    "sheets": {
+      "description": "",
+      "type": "object"
+    },
+    "simulations": {
+      "description": "",
+      "type": "object"
+    },
+    "pcbs": {
+      "description": "",
+      "type": "object"
+    },
+    "panels": {
+      "description": "",
+      "type": "object"
+    },
+    "panelLibs": {
+      "description": "",
+      "type": "object"
+    },
+    "symbols": {
+      "description": "",
+      "type": "object"
+    },
+    "footprints": {
+      "description": "",
+      "type": "object"
+    },
+    "devices": {
+      "description": "",
+      "type": "object"
+    },
+    "blobs": {
+      "description": "",
+      "type": "object"
+    },
+    "fonts": {
+      "description": "",
+      "type": "object"
+    },
+    "instances": {
+      "description": "",
+      "type": "object"
+    },
+    "otherData": {
+      "description": "",
+      "type": "object"
+    }
+  },
+  "required": [
+    "config",
+    "boards",
+    "schematics",
+    "simSchematics",
+    "sheets",
+    "simulations",
+    "pcbs",
+    "panels",
+    "panelLibs",
+    "symbols",
+    "footprints",
+    "devices",
+    "blobs",
+    "fonts",
+    "instances"
+  ],
+  "description": "工程数据完整结构"
+}

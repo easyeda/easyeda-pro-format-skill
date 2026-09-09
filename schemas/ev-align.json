@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "TOP",
+    "MIDDLE",
+    "BOTTOM"
+  ],
+  "enumDescriptions": {
+    "TOP": "上",
+    "MIDDLE": "中",
+    "BOTTOM": "下"
+  },
+  "description": "垂直对齐模式"
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "title": {
+      "description": "名称",
+      "type": "string"
+    },
+    "DeviceName": {
+      "description": "当前绑定的器件(目前为空用不上)，v4 新增",
+      "type": "object"
+    },
+    "FootprintName": {
+      "description": "当前绑定文本封装（uuid 可空），v4 新增",
+      "type": "object"
+    },
+    "Footprints": {
+      "description": "备选封装，v4 新增",
+      "type": "array"
+    }
+  },
+  "required": [
+    "title"
+  ],
+  "description": "部件"
+}

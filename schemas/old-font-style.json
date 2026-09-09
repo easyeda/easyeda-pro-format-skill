@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "color": {
+      "description": "颜色",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fillColor": {
+      "description": "背景色",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fontFamily": {
+      "description": "字体名称",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fontSize": {
+      "description": "字体大小，与坐标等单位相同",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "strikeout": {
+      "description": "是否加删除线",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "underline": {
+      "description": "是否加下划线",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "italic": {
+      "description": "是否斜体",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "fontWeight": {
+      "description": "是否加粗",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "hAlign": {
+      "description": "横向对齐",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "vAlign": {
+      "description": "竖向对齐",
+      "type": [
+        "number",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "color",
+    "fillColor",
+    "fontFamily",
+    "fontSize",
+    "strikeout",
+    "underline",
+    "italic",
+    "fontWeight",
+    "hAlign",
+    "vAlign"
+  ],
+  "description": ""
+}

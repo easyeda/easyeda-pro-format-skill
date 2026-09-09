@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "DIVERGENCE",
+    "DIRECT",
+    "NON_CONNECT"
+  ],
+  "enumDescriptions": {
+    "DIVERGENCE": "热焊（发散）",
+    "DIRECT": "直连",
+    "NON_CONNECT": "无连接"
+  },
+  "description": "焊盘 - 连接方式"
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "SOLID",
+    "GRID",
+    "PLANE"
+  ],
+  "enumDescriptions": {
+    "SOLID": "实心填充",
+    "GRID": "网格填充",
+    "PLANE": "内电层填充"
+  },
+  "description": "PCB 填充类型"
+}

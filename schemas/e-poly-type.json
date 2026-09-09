@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "NORMAL",
+    "BOARD_OUTLINE"
+  ],
+  "enumDescriptions": {
+    "NORMAL": "普通",
+    "BOARD_OUTLINE": "板框"
+  },
+  "description": "折线类型"
+}

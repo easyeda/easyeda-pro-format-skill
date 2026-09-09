@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "X_AXIS_POSITIVE",
+    "X_AXIS_NEGATIVE",
+    "Y_AXIS_POSITIVE",
+    "Y_AXIS_NEGATIVE"
+  ],
+  "enumDescriptions": {
+    "X_AXIS_POSITIVE": "X轴正向",
+    "X_AXIS_NEGATIVE": "X轴负向",
+    "Y_AXIS_POSITIVE": "Y轴正向",
+    "Y_AXIS_NEGATIVE": "Y轴负向"
+  },
+  "description": "3D 外壳推盖时的方向"
+}

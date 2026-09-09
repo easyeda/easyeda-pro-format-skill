@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "LESS",
+    "MID",
+    "MORE"
+  ],
+  "enumDescriptions": {
+    "LESS": "较少",
+    "MID": "中等",
+    "MORE": "较多"
+  },
+  "description": "自动布线 - 过孔数量"
+}

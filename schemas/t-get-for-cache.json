@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "init": {
+      "description": "",
+      "type": [
+        "object"
+      ]
+    },
+    "get": {
+      "description": "",
+      "type": "object"
+    },
+    "end": {
+      "description": "",
+      "type": "object"
+    }
+  },
+  "required": [
+    "init",
+    "get",
+    "end"
+  ],
+  "description": ""
+}

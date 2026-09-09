@@ -1,0 +1,485 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "唯一编号",
+      "type": "string",
+      "pattern": "^[0-9a-f]{16}$"
+    },
+    "value": {
+      "description": "内容",
+      "type": "string"
+    },
+    "rowIndex": {
+      "description": "行",
+      "type": "number",
+      "minimum": 0
+    },
+    "columnIndex": {
+      "description": "列",
+      "type": "number",
+      "minimum": 0
+    },
+    "rowSpan": {
+      "description": "宽度（占多少列）",
+      "type": "number",
+      "minimum": 1
+    },
+    "colSpan": {
+      "description": "高度（占多少行）",
+      "type": "number",
+      "minimum": 1
+    },
+    "topStyle": {
+      "description": "线型样式",
+      "type": "object",
+      "properties": {
+        "strokeColor": {
+          "description": "颜色",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "strokeStyle": {
+          "description": "样式, null 为默认",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "SOLID",
+            "SHORT_DASH",
+            "DOT",
+            "DOT_DASH"
+          ],
+          "enumDescriptions": {
+            "SOLID": "实线",
+            "SHORT_DASH": "短划线",
+            "DOT": "点线",
+            "DOT_DASH": "点划线"
+          }
+        },
+        "fillColor": {
+          "description": "填充颜色：\"\" 不填充，填充自动闭合起始点和结束点",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "strokeWidth": {
+          "description": "宽度",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "fillStyle": {
+          "description": "填充样式, null 为默认",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "NONE",
+            "SOLID",
+            "GRID",
+            "HORIZONTAL_LINE",
+            "VERTICAL_LINE",
+            "RHOMBIC",
+            "LEFT_SLASH_LINE",
+            "RIGHT_SLASH_LINE"
+          ],
+          "enumDescriptions": {
+            "NONE": "无填充",
+            "SOLID": "实心填充",
+            "GRID": "网格",
+            "HORIZONTAL_LINE": "横线",
+            "VERTICAL_LINE": "竖线",
+            "RHOMBIC": "菱形网格",
+            "LEFT_SLASH_LINE": "左斜线",
+            "RIGHT_SLASH_LINE": "右斜线"
+          }
+        }
+      },
+      "required": [
+        "strokeColor",
+        "strokeStyle",
+        "fillColor",
+        "strokeWidth",
+        "fillStyle"
+      ]
+    },
+    "rightStyle": {
+      "description": "线型样式",
+      "type": "object",
+      "properties": {
+        "strokeColor": {
+          "description": "颜色",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "strokeStyle": {
+          "description": "样式, null 为默认",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "SOLID",
+            "SHORT_DASH",
+            "DOT",
+            "DOT_DASH"
+          ],
+          "enumDescriptions": {
+            "SOLID": "实线",
+            "SHORT_DASH": "短划线",
+            "DOT": "点线",
+            "DOT_DASH": "点划线"
+          }
+        },
+        "fillColor": {
+          "description": "填充颜色：\"\" 不填充，填充自动闭合起始点和结束点",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "strokeWidth": {
+          "description": "宽度",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "fillStyle": {
+          "description": "填充样式, null 为默认",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "NONE",
+            "SOLID",
+            "GRID",
+            "HORIZONTAL_LINE",
+            "VERTICAL_LINE",
+            "RHOMBIC",
+            "LEFT_SLASH_LINE",
+            "RIGHT_SLASH_LINE"
+          ],
+          "enumDescriptions": {
+            "NONE": "无填充",
+            "SOLID": "实心填充",
+            "GRID": "网格",
+            "HORIZONTAL_LINE": "横线",
+            "VERTICAL_LINE": "竖线",
+            "RHOMBIC": "菱形网格",
+            "LEFT_SLASH_LINE": "左斜线",
+            "RIGHT_SLASH_LINE": "右斜线"
+          }
+        }
+      },
+      "required": [
+        "strokeColor",
+        "strokeStyle",
+        "fillColor",
+        "strokeWidth",
+        "fillStyle"
+      ]
+    },
+    "bottomStyle": {
+      "description": "线型样式",
+      "type": "object",
+      "properties": {
+        "strokeColor": {
+          "description": "颜色",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "strokeStyle": {
+          "description": "样式, null 为默认",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "SOLID",
+            "SHORT_DASH",
+            "DOT",
+            "DOT_DASH"
+          ],
+          "enumDescriptions": {
+            "SOLID": "实线",
+            "SHORT_DASH": "短划线",
+            "DOT": "点线",
+            "DOT_DASH": "点划线"
+          }
+        },
+        "fillColor": {
+          "description": "填充颜色：\"\" 不填充，填充自动闭合起始点和结束点",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "strokeWidth": {
+          "description": "宽度",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "fillStyle": {
+          "description": "填充样式, null 为默认",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "NONE",
+            "SOLID",
+            "GRID",
+            "HORIZONTAL_LINE",
+            "VERTICAL_LINE",
+            "RHOMBIC",
+            "LEFT_SLASH_LINE",
+            "RIGHT_SLASH_LINE"
+          ],
+          "enumDescriptions": {
+            "NONE": "无填充",
+            "SOLID": "实心填充",
+            "GRID": "网格",
+            "HORIZONTAL_LINE": "横线",
+            "VERTICAL_LINE": "竖线",
+            "RHOMBIC": "菱形网格",
+            "LEFT_SLASH_LINE": "左斜线",
+            "RIGHT_SLASH_LINE": "右斜线"
+          }
+        }
+      },
+      "required": [
+        "strokeColor",
+        "strokeStyle",
+        "fillColor",
+        "strokeWidth",
+        "fillStyle"
+      ]
+    },
+    "leftStyle": {
+      "description": "线型样式",
+      "type": "object",
+      "properties": {
+        "strokeColor": {
+          "description": "颜色",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "strokeStyle": {
+          "description": "样式, null 为默认",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "SOLID",
+            "SHORT_DASH",
+            "DOT",
+            "DOT_DASH"
+          ],
+          "enumDescriptions": {
+            "SOLID": "实线",
+            "SHORT_DASH": "短划线",
+            "DOT": "点线",
+            "DOT_DASH": "点划线"
+          }
+        },
+        "fillColor": {
+          "description": "填充颜色：\"\" 不填充，填充自动闭合起始点和结束点",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "strokeWidth": {
+          "description": "宽度",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "fillStyle": {
+          "description": "填充样式, null 为默认",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "NONE",
+            "SOLID",
+            "GRID",
+            "HORIZONTAL_LINE",
+            "VERTICAL_LINE",
+            "RHOMBIC",
+            "LEFT_SLASH_LINE",
+            "RIGHT_SLASH_LINE"
+          ],
+          "enumDescriptions": {
+            "NONE": "无填充",
+            "SOLID": "实心填充",
+            "GRID": "网格",
+            "HORIZONTAL_LINE": "横线",
+            "VERTICAL_LINE": "竖线",
+            "RHOMBIC": "菱形网格",
+            "LEFT_SLASH_LINE": "左斜线",
+            "RIGHT_SLASH_LINE": "右斜线"
+          }
+        }
+      },
+      "required": [
+        "strokeColor",
+        "strokeStyle",
+        "fillColor",
+        "strokeWidth",
+        "fillStyle"
+      ]
+    },
+    "fontStyle": {
+      "description": "表格字体样式",
+      "type": "object",
+      "properties": {
+        "color": {
+          "description": "颜色",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fillColor": {
+          "description": "背景色",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fontFamily": {
+          "description": "字体名称",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fontSize": {
+          "description": "字体大小，与坐标等单位相同",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "strikeout": {
+          "description": "是否加删除线",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "underline": {
+          "description": "是否加下划线",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "italic": {
+          "description": "是否斜体",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "fontWeight": {
+          "description": "是否加粗",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "hAlign": {
+          "description": "水平对齐模式",
+          "type": "string",
+          "enum": [
+            "LEFT",
+            "CENTER",
+            "RIGHT"
+          ],
+          "enumDescriptions": {
+            "LEFT": "左",
+            "CENTER": "中",
+            "RIGHT": "右"
+          }
+        },
+        "vAlign": {
+          "description": "垂直对齐模式",
+          "type": "string",
+          "enum": [
+            "TOP",
+            "MIDDLE",
+            "BOTTOM"
+          ],
+          "enumDescriptions": {
+            "TOP": "上",
+            "MIDDLE": "中",
+            "BOTTOM": "下"
+          }
+        }
+      },
+      "required": [
+        "color",
+        "fillColor",
+        "fontFamily",
+        "fontSize",
+        "strikeout",
+        "underline",
+        "italic",
+        "fontWeight",
+        "hAlign",
+        "vAlign"
+      ]
+    },
+    "lineHeight": {
+      "description": "行间距",
+      "type": "number",
+      "minimum": 0
+    },
+    "zIndex": {
+      "description": "Z 轴高度",
+      "type": [
+        "number",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "value",
+    "rowIndex",
+    "columnIndex",
+    "rowSpan",
+    "colSpan",
+    "topStyle",
+    "rightStyle",
+    "bottomStyle",
+    "leftStyle",
+    "fontStyle",
+    "lineHeight",
+    "zIndex"
+  ],
+  "description": "表格单元格"
+}

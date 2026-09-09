@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "parentId": {
+      "description": "父级分组编号，为 0 则表示无父级",
+      "type": "string"
+    },
+    "title": {
+      "description": "分组名称，无名称为空字符串 \"\"",
+      "type": "string"
+    }
+  },
+  "required": [
+    "parentId",
+    "title"
+  ],
+  "description": "原理图分组控制"
+}

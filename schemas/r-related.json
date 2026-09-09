@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "symbols": {
+      "description": "",
+      "type": "object"
+    },
+    "footprints": {
+      "description": "",
+      "type": "object"
+    },
+    "devices": {
+      "description": "",
+      "type": "object"
+    }
+  },
+  "required": [
+    "symbols",
+    "footprints",
+    "devices"
+  ],
+  "description": "directly related symbol/footprint/device uuids (eprj3 single-file export)"
+}

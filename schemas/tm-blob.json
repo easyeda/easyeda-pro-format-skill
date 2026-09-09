@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "filename": {
+      "description": "文件名",
+      "type": "string"
+    },
+    "content": {
+      "description": "二进制内容",
+      "type": "string"
+    }
+  },
+  "required": [
+    "filename",
+    "content"
+  ],
+  "description": "二进制数据 META 类型"
+}

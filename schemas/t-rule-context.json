@@ -1,0 +1,202 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "[ERuleType.SAFE]": {
+      "description": "安全间距 - 显示状态",
+      "type": "string",
+      "enum": [
+        "ALL",
+        "LAYERED"
+      ],
+      "enumDescriptions": {
+        "ALL": "全部",
+        "LAYERED": "分层"
+      }
+    },
+    "[ERuleType.OTHER]": {
+      "description": "间距 - 其他间距",
+      "type": "object"
+    },
+    "[ERuleType.CREEPAGE]": {
+      "description": "间距 - 爬电间距",
+      "type": "object"
+    },
+    "[ERuleType.TRACK]": {
+      "description": "物理 - 导线",
+      "type": "object"
+    },
+    "[ERuleType.BLIND]": {
+      "description": "物理 - 盲埋孔",
+      "type": "object"
+    },
+    "[ERuleType.RADIUS]": {
+      "description": "物理 - 孔径",
+      "type": "object"
+    },
+    "[ERuleType.PLANE]": {
+      "description": "焊盘 - 连接方式",
+      "type": "string",
+      "enum": [
+        "DIVERGENCE",
+        "DIRECT",
+        "NON_CONNECT"
+      ],
+      "enumDescriptions": {
+        "DIVERGENCE": "热焊（发散）",
+        "DIRECT": "直连",
+        "NON_CONNECT": "无连接"
+      }
+    },
+    "[ERuleType.COPPER]": {
+      "description": "焊盘 - 连接方式",
+      "type": "string",
+      "enum": [
+        "DIVERGENCE",
+        "DIRECT",
+        "NON_CONNECT"
+      ],
+      "enumDescriptions": {
+        "DIVERGENCE": "热焊（发散）",
+        "DIRECT": "直连",
+        "NON_CONNECT": "无连接"
+      }
+    },
+    "[ERuleType.PASTE]": {
+      "description": "扩展 - 助焊",
+      "type": "object"
+    },
+    "[ERuleType.SOLDER]": {
+      "description": "扩展 - 阻焊",
+      "type": "object"
+    },
+    "[ERuleType.DIFFER_ENTAIL]": {
+      "description": "物理 - 差分对",
+      "type": "array"
+    },
+    "[ERuleType.NET_LENGTH]": {
+      "description": "物理 - 网络长度范围",
+      "type": "object"
+    },
+    "[ERuleType.AUTO_ROUTER]": {
+      "description": "自动布线 - 拐角",
+      "type": "string",
+      "enum": [
+        "L45",
+        "L90",
+        "A90"
+      ],
+      "enumDescriptions": {
+        "L45": "45度",
+        "L90": "90度拐角",
+        "A90": "90度圆弧拐角"
+      }
+    },
+    "[ERuleType.NET_LENGTH_TOLERANCE]": {
+      "description": "物理 - 网络长度公差",
+      "type": "object"
+    },
+    "[ERuleType.HEIGHT]": {
+      "description": "",
+      "type": "object"
+    },
+    "[ERuleType.DFM_ACUTE_ANGLE]": {
+      "description": "制造-线路分析 - 锐角拐线",
+      "type": "object"
+    },
+    "[ERuleType.DFM_HOLE_FALLS_ON_PAD]": {
+      "description": "制造-线路分析 - 孔落在焊盘上",
+      "type": "object"
+    },
+    "[ERuleType.DFM_BARE_TRACK_ENDS]": {
+      "description": "制造-线路分析 - 裸线头",
+      "type": "object"
+    },
+    "[ERuleType.DFM_PAD_RING_DEFECT]": {
+      "description": "制造-线路分析 - 焊盘孔环",
+      "type": "object"
+    },
+    "[ERuleType.DFM_TRACK_NECKDOWN]": {
+      "description": "制造-线路分析 - 导线颈部收缩",
+      "type": "object"
+    },
+    "[ERuleType.DFM_SHORT_CIRCUIT_DETECT]": {
+      "description": "制造-线路分析 - 短路提示",
+      "type": "object"
+    },
+    "[ERuleType.DFM_MIN_COPPER_WIDTH]": {
+      "description": "制造-线路分析 - 最小铜箔宽度",
+      "type": "object"
+    },
+    "[ERuleType.DFM_DISCONNECTED_VIAS]": {
+      "description": "制造-钻孔分析 - 无连接过孔",
+      "type": "object"
+    },
+    "[ERuleType.DFM_MIN_HOLE_SIZE]": {
+      "description": "制造-钻孔分析 - 孔尺寸",
+      "type": "object"
+    },
+    "[ERuleType.DFM_NPTH_2_COPPER]": {
+      "description": "制造-钻孔分析 - NPTH孔到铜箔",
+      "type": "object"
+    },
+    "[ERuleType.DFM_SOLDER_MASK_BRIDGE]": {
+      "description": "制造-阻焊分析 - 阻焊桥",
+      "type": "object"
+    },
+    "[ERuleType.DFM_SMASK_OPENING_COPPER]": {
+      "description": "制造-阻焊分析 - 开窗露线",
+      "type": "object"
+    },
+    "[ERuleType.DFM_PAD_NEGATIVE_OPENING]": {
+      "description": "制造-阻焊分析 - 焊盘负开窗",
+      "type": "object"
+    },
+    "[ERuleType.DFM_SILKSCREEN_2_HOLE]": {
+      "description": "制造-丝印分析 - 丝印距孔",
+      "type": "object"
+    },
+    "[ERuleType.DFM_SILKSCREEN_2_PAD]": {
+      "description": "制造-丝印分析 - 丝印距焊盘",
+      "type": "object"
+    },
+    "[ERuleType.DFM_SILKSCREEN_LINE_WIDTH]": {
+      "description": "制造-丝印分析 - 丝印线条宽度",
+      "type": "object"
+    }
+  },
+  "required": [
+    "[ERuleType.SAFE]",
+    "[ERuleType.OTHER]",
+    "[ERuleType.CREEPAGE]",
+    "[ERuleType.TRACK]",
+    "[ERuleType.BLIND]",
+    "[ERuleType.RADIUS]",
+    "[ERuleType.PLANE]",
+    "[ERuleType.COPPER]",
+    "[ERuleType.PASTE]",
+    "[ERuleType.SOLDER]",
+    "[ERuleType.DIFFER_ENTAIL]",
+    "[ERuleType.NET_LENGTH]",
+    "[ERuleType.AUTO_ROUTER]",
+    "[ERuleType.NET_LENGTH_TOLERANCE]",
+    "[ERuleType.HEIGHT]",
+    "[ERuleType.DFM_ACUTE_ANGLE]",
+    "[ERuleType.DFM_HOLE_FALLS_ON_PAD]",
+    "[ERuleType.DFM_BARE_TRACK_ENDS]",
+    "[ERuleType.DFM_PAD_RING_DEFECT]",
+    "[ERuleType.DFM_TRACK_NECKDOWN]",
+    "[ERuleType.DFM_SHORT_CIRCUIT_DETECT]",
+    "[ERuleType.DFM_MIN_COPPER_WIDTH]",
+    "[ERuleType.DFM_DISCONNECTED_VIAS]",
+    "[ERuleType.DFM_MIN_HOLE_SIZE]",
+    "[ERuleType.DFM_NPTH_2_COPPER]",
+    "[ERuleType.DFM_SOLDER_MASK_BRIDGE]",
+    "[ERuleType.DFM_SMASK_OPENING_COPPER]",
+    "[ERuleType.DFM_PAD_NEGATIVE_OPENING]",
+    "[ERuleType.DFM_SILKSCREEN_2_HOLE]",
+    "[ERuleType.DFM_SILKSCREEN_2_PAD]",
+    "[ERuleType.DFM_SILKSCREEN_LINE_WIDTH]"
+  ],
+  "description": "设计规则内容"
+}

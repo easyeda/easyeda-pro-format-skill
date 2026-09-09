@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "ELLIPSE",
+    "RECT",
+    "OVAL",
+    "POLYGON"
+  ],
+  "enumDescriptions": {
+    "ELLIPSE": "圆焊盘",
+    "RECT": "矩形焊盘",
+    "OVAL": "长圆焊盘",
+    "POLYGON": "多边形焊盘"
+  },
+  "description": "焊盘形状类型"
+}

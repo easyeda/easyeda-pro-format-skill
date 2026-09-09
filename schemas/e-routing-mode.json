@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "NONE",
+    "PUSH",
+    "SURROUND",
+    "OBSTRUCT",
+    "SURROUND&PUSH"
+  ],
+  "enumDescriptions": {
+    "NONE": "无",
+    "PUSH": "推挤",
+    "SURROUND": "环绕",
+    "OBSTRUCT": "阻挡",
+    "SURROUND&PUSH": "环绕并推挤"
+  },
+  "description": "布线模式"
+}
