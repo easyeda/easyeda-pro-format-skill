@@ -309,6 +309,8 @@ const TYPE_MAP = {
   "attr": "t-sch-attr",  // TSchAttr
   "AUX_LINE": "t-aux-line",  // TAuxLine
   "aux_line": "t-aux-line",  // TAuxLine
+  "AUXLINE": "t-aux-line",  // TAuxLine（面板数据类型枚举中的正式名称）
+  "auxline": "t-aux-line",  // TAuxLine
   "BEZIER": "t-sch-bezier",  // TSchBezier
   "bezier": "t-sch-bezier",  // TSchBezier
   "BLOB": "tm-blob",  // TMBlob
@@ -343,6 +345,8 @@ const TYPE_MAP = {
   "eqlen_grp": "teq-len-grp",  // TEQLenGrp
   "FILL": "t-pcb-fill",  // TPcbFill
   "fill": "t-pcb-fill",  // TPcbFill
+  "FONT": "tm-font",  // TMFont
+  "font": "tm-font",  // TMFont
   "FOOTPRINT_NET": "t-footprint-net",  // TFootprintNet
   "footprint_net": "t-footprint-net",  // TFootprintNet
   "FPC_FILL": "t-pcb-fpc-fill",  // TPcbFpcFill
@@ -363,6 +367,28 @@ const TYPE_MAP = {
   "mask_region": "t-sch-mask-region",  // TSchMaskRegion
   "META": "tm-sheet",  // TMSheet
   "meta": "tm-sheet",  // TMSheet
+  "BOARD_META": "tm-board",  // TMBoard
+  "board_meta": "tm-board",  // TMBoard
+  "CONFIG_META": "tm-config",  // TMConfig
+  "config_meta": "tm-config",  // TMConfig
+  "DEVICE_META": "tm-device",  // TMDevice
+  "device_meta": "tm-device",  // TMDevice
+  "FOOTPRINT_META": "tm-footprint",  // TMFootprint
+  "footprint_meta": "tm-footprint",  // TMFootprint
+  "PANEL_META": "tm-panel",  // TMPanel
+  "panel_meta": "tm-panel",  // TMPanel
+  "PANEL_LIB_META": "tm-panel-lib",  // TMPanelLib
+  "panel_lib_meta": "tm-panel-lib",  // TMPanelLib
+  "PCB_META": "tm-pcb",  // TMPcb
+  "pcb_meta": "tm-pcb",  // TMPcb
+  "SCH_META": "tm-schematic",  // TMSchematic
+  "sch_meta": "tm-schematic",  // TMSchematic
+  "SIMULATION_META": "tm-simulation",  // TMSimulation
+  "simulation_meta": "tm-simulation",  // TMSimulation
+  "SIMULATION_SCH_META": "tm-sim-schematic",  // TMSimSchematic
+  "simulation_sch_meta": "tm-sim-schematic",  // TMSimSchematic
+  "SYMBOL_META": "tm-symbol",  // TMSymbol
+  "symbol_meta": "tm-symbol",  // TMSymbol
   "NET": "t-net",  // TNet
   "net": "t-net",  // TNet
   "NET_CLASS": "t-net-class",  // TNetClass
@@ -371,6 +397,22 @@ const TYPE_MAP = {
   "ng_setting": "tng-setting",  // TNGSetting
   "OBJ": "t-sch-obj",  // TSchObj
   "obj": "t-sch-obj",  // TSchObj
+  "PCB_ARC": "t-pcb-arc",  // TPcbArc
+  "pcb_arc": "t-pcb-arc",  // TPcbArc
+  "PCB_ATTR": "t-pcb-attr",  // TPcbAttr
+  "pcb_attr": "t-pcb-attr",  // TPcbAttr
+  "PCB_CANVAS": "t-canvas",  // TCanvas
+  "pcb_canvas": "t-canvas",  // TCanvas
+  "PCB_COMPONENT": "tm-pcb-component",  // TMPcbComponent
+  "pcb_component": "tm-pcb-component",  // TMPcbComponent
+  "PCB_GROUP": "t-pcb-group",  // TPcbGroup
+  "pcb_group": "t-pcb-group",  // TPcbGroup
+  "PCB_LINE": "t-pcb-line",  // TPcbLine
+  "pcb_line": "t-pcb-line",  // TPcbLine
+  "PCB_OBJ": "t-pcb-obj",  // TPcbObj
+  "pcb_obj": "t-pcb-obj",  // TPcbObj
+  "PCB_POLY": "t-pcb-poly",  // TPcbPoly
+  "pcb_poly": "t-pcb-poly",  // TPcbPoly
   "PAD": "t-pcb-pad",  // TPcbPad
   "pad": "t-pcb-pad",  // TPcbPad
   "PAD_NET": "t-pad-net",  // TPadNet
@@ -381,6 +423,16 @@ const TYPE_MAP = {
   "panelize_side": "t-panelize-side",  // TPanelizeSide
   "PANELIZE_STAMP": "t-panelize-stamp",  // TPanelizeStamp
   "panelize_stamp": "t-panelize-stamp",  // TPanelizeStamp
+  "PANEL_CANVAS": "t-panel-canvas",  // TPanelCanvas
+  "panel_canvas": "t-panel-canvas",  // TPanelCanvas
+  "PANEL_DIMENSION": "t-panel-dimension",  // TPanelDimension
+  "panel_dimension": "t-panel-dimension",  // TPanelDimension
+  "PANEL_GROUP": "t-panel-group",  // TPanelGroup
+  "panel_group": "t-panel-group",  // TPanelGroup
+  "PANEL_POLY": "t-panel-poly",  // TPanelPoly
+  "panel_poly": "t-panel-poly",  // TPanelPoly
+  "PANEL_STRING": "t-panel-string",  // TPanelString
+  "panel_string": "t-panel-string",  // TPanelString
   "PART": "t-part",  // TPart
   "part": "t-part",  // TPart
   "PARTITION": "t-partition",  // TPartition
@@ -512,7 +564,15 @@ function validateFormat(type, data) {
 
   const ajv = new Ajv({ allErrors: true, strict: false });
   addFormats(ajv);
-  const validate = ajv.compile(schema);
+  let validate;
+  try {
+    validate = ajv.compile(schema);
+  } catch (e) {
+    return {
+      valid: false,
+      errors: [{ field: "type", message: "Invalid schema for type " + type + ": " + e.message, severity: "ERROR" }]
+    };
+  }
 
   if (validate(data)) {
     return { valid: true, errors: [] };

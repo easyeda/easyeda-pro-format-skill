@@ -122,9 +122,7 @@
     "title",
     "description",
     "tags",
-    "source",
-    "title",
-    "description"
+    "source"
   ],
   "description": "面板库"
 }

@@ -87,7 +87,7 @@ npm install ajv ajv-formats
 也可以直接运行验证脚本确认依赖正常：
 
 ```bash
-node validate.js tm-font '{"width":50,"height":40,"path":[[2,5,"L",2,35,48,35,48,5,2,5]]}'
+node validate.js FONT '{"width":50,"height":40,"path":[[2,5,"L",2,35,48,35,48,5,2,5]]}'
 ```
 
 输出 `{"valid": true, "errors": []}` 即安装成功。
@@ -111,11 +111,11 @@ node validate.js tm-font '{"width":50,"height":40,"path":[[2,5,"L",2,35,48,35,48
 ```bash
 node validate.js [--save] <type> '<json-data>'
 
-# 示例（字体缓存，schema 类型名为小写 kebab-case，如 tm-font）
-node validate.js tm-font '{"width":50,"height":40,"path":[[2,5,"L",2,35,48,35,48,5,2,5]]}'
+# 示例
+node validate.js FONT '{"width":50,"height":40,"path":[[2,5,"L",2,35,48,35,48,5,2,5]]}'
 ```
 
-- `<type>`：schema 类型名（小写 kebab-case，如 `t-sch-line`、`tm-font`），常用图元也可用别名（如 `LINE`、`PAD`、`VIA`），详见 [types-index.md](types-index.md)
+- `<type>`：图元类型名（如 `FONT`、`LINE`、`PAD`、`VIA`），详见 [types-index.md](types-index.md)
 - `<json-data>`：图元属性 JSON
 - `--save`：可选，验证通过后自动存档
 
@@ -224,7 +224,7 @@ Or use the slash command:
 You can also run the validation script directly to confirm the dependencies work:
 
 ```bash
-node validate.js tm-font '{"width":50,"height":40,"path":[[2,5,"L",2,35,48,35,48,5,2,5]]}'
+node validate.js FONT '{"width":50,"height":40,"path":[[2,5,"L",2,35,48,35,48,5,2,5]]}'
 ```
 
 Output `{"valid": true, "errors": []}` means the installation succeeded.
@@ -248,11 +248,11 @@ Any of the following descriptions triggers this skill:
 ```bash
 node validate.js [--save] <type> '<json-data>'
 
-# Example (font cache; schema type names are lowercase kebab-case, e.g. tm-font)
-node validate.js tm-font '{"width":50,"height":40,"path":[[2,5,"L",2,35,48,35,48,5,2,5]]}'
+# Example
+node validate.js FONT '{"width":50,"height":40,"path":[[2,5,"L",2,35,48,35,48,5,2,5]]}'
 ```
 
-- `<type>`: schema type name (lowercase kebab-case, e.g. `t-sch-line`, `tm-font`); common primitives also accept aliases (e.g. `LINE`, `PAD`, `VIA`). See [types-index.md](types-index.md)
+- `<type>`: primitive type name (e.g. `FONT`, `LINE`, `PAD`, `VIA`). See [types-index.md](types-index.md)
 - `<json-data>`: primitive properties as JSON
 - `--save`: optional, archive automatically after passing validation
 

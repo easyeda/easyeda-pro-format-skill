@@ -119,8 +119,6 @@
     "createTime",
     "title",
     "source",
-    "zIndex",
-    "title",
     "zIndex"
   ],
   "description": "面板"

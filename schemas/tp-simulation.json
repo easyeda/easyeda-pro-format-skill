@@ -119,7 +119,6 @@
     "title",
     "source",
     "zIndex",
-    "docType",
     "simSchematic"
   ],
   "description": "仿真页"
