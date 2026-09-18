@@ -45,5 +45,5 @@
     "SIMULATION": "仿真页",
     "SIMULATION_SCH": "仿真原理图"
   },
-  "description": "文件头类型枚举"
+  "description": "文件头类型枚举\r\n\r\n原声明在 `type/public.ts`，2026-09-18 迁到这里：format-skill 生成器按 glob 收类型、不沿\r\nimport 递归，放在 public.ts 下收不到（会连带 DOCHEAD 校验失效）。public.ts 仍原样 re-export，\r\n对外 API 不变。这里也顺带取代了本文件里那份缺 DOCHEAD / EDIT_HEAD 的过期副本。"
 }

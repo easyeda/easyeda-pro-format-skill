@@ -11,8 +11,6 @@ description: >-
 when_to_use: 当需要生成任何嘉立创EDA/EasyEDA Pro 格式数据时使用。包括原理图元素（TSchLine、TSchPin、TSchComponent 等）、PCB 元素（TPcbVia、TPcbPad、TPcbLine、TPcbPoly 等）、面板元素（TPanelPoly、TPanelString 等）、规则元素（TRuleSelector、TRule、TRuleTemplate 等）、元数据（TMFont、TMBlob、TMBoard 等）及其他类型定义中的格式。
 argument-hint: <type> [field-values]
 allowed-tools: Bash Read Write Edit Glob
-permissions:
-  - create: true
 license: MIT
 metadata:
   author: EasyEDA
@@ -60,14 +58,44 @@ metadata:
 
 **外层数据**（最终一致性框架）：
 - `type`: 图元类型名（如 LINE、PAD、VIA）
-- `id`: 唯一编号（16位随机字符）
-- `ticket`: 逻辑时钟（递增整数）
+- `id`: 唯一标识。普通图元是 16 位十六进制随机串；单例原子（META / CANVAS / UNIVERSAL 等）直接用类型名；FONT 用字体键、BLOB 用内容哈希
+- `ticket`: 逻辑时钟（递增整数）。**只有 DOCHEAD 行例外 —— 它没有 `id` 和 `ticket`，外层只有 `type` 一个字段**
 
 **内层数据**：具体图元的属性值，每种图元有对应的字段定义。
 
+## ⚠️ 类型名与文档类型前缀（校验必读）
+
+**同名图元在不同文档类型下 schema 不同**：`LINE` 在原理图页是「导线」（有 lineGroup/strokeColor…），在 PCB 是「走线」（有 netName/layerId/width…）。校验时必须让校验器知道是哪种文档，否则会拿错 schema —— 表现为「缺一堆你用不到的字段」或「该报的错没报」。
+
+**方式一（推荐）**：校验时用 `<文档类型>_<图元名>` 前缀名：
+
+```bash
+node validate.js PCB_LINE '{"netName":"+5V",...}'
+node validate.js PANEL_POLY '{...}'
+node validate.js BOARD_META '{"title":"Board1",...}'
+```
+
+**方式二**：用 `--doc` 显式指定文档类型（用裸名时更清晰）：
+
+```bash
+node validate.js LINE '{"netName":"+5V",...}' --doc PCB
+```
+
+**方式三**：直接用裸名 —— 会按 `SCH_PAGE > SCH > SYMBOL > PCB > 其他` 的优先级解析，**跨文档类型时解析结果不是你想要的**，仅在原理图类文档下可靠。
+
+常用对照（完整清单见 `validate.js` 的 `TYPE_MAP`）：
+
+| 文档类型 | 走线 / 导线 | 多边形 | 元件 | 圆弧 | 元数据 | 画布 |
+|---------|------------|--------|------|------|--------|------|
+| SCH_PAGE / SYMBOL | SCH_PAGE_LINE | SCH_PAGE_POLY | SCH_PAGE_COMPONENT | SCH_PAGE_ARC | SCH_PAGE_META | SCH_PAGE_CANVAS |
+| PCB / FOOTPRINT | PCB_LINE | PCB_POLY | PCB_COMPONENT | PCB_ARC | PCB_META | PCB_CANVAS |
+| PANEL / PANEL_LIB | PANEL_AUXLINE | PANEL_POLY | — | — | PANEL_META | PANEL_CANVAS |
+| SIMULATION | SIMULATION_LINE | SIMULATION_POLY | SIMULATION_COMPONENT | SIMULATION_ARC | SIMULATION_META | SIMULATION_CANVAS |
+| BOARD / CONFIG / DEVICE / SCH / SIMULATION_SCH | — | — | — | — | BOARD_META / CONFIG_META / SCH_META / SIMULATION_SCH_META … | — |
+
 ## 必填格式：DOCHEAD 和 CANVAS
 
-**重要**: 生成任何图元格式时，**必须**首先包含以下两个必填格式，顺序为 DOCHEAD → CANVAS → 其他图元。
+**重要**: 生成任何图元格式时，**必须**首先包含 **DOCHEAD**；顺序为 DOCHEAD → CANVAS → 其他图元。**CANVAS 只对含画布的文档类型存在**（SCH_PAGE / SYMBOL / SIMULATION / PCB / FOOTPRINT / PANEL / PANEL_LIB，见下方对应表），FONT / BLOB / CONFIG / BOARD / DEVICE / SCH / SIMULATION_SCH 等文档没有 CANVAS，不要添加。
 
 ### DOCHEAD（文档头）
 
@@ -82,16 +110,16 @@ DOCHEAD 是每个文档的第一行，定义文档的类型和元数据。
 | 字段 | 类型 | 必需 | 说明 |
 |------|------|------|------|
 | docType | string | ✓ | 文档类型，如 `SCH_PAGE`、`PCB`、`SYMBOL`、`FOOTPRINT` |
-| client | string | - | 客户端 ID（16位随机字符）- 用户可指定，否则 AI 推断 |
-| uuid | string | - | 文档唯一标识（16位随机字符）- 用户可指定，否则 AI 推断 |
+| client | string | ✓ | 客户端 ID - **16 位小写十六进制**（如 `1f0f511a4641034c`），用户可指定，否则 AI 推断 |
+| uuid | string | ✓ | 文档唯一标识 - **16 位小写十六进制**，用户可指定，否则 AI 推断 |
 | updateTime | number | - | 更新时间戳（毫秒）- 用户可指定，否则 AI 推断（当前时间） |
 | version | string | - | 版本号 - 用户可指定，否则 AI 推断（通常与 updateTime 相同） |
 
 **用户字段指定规则**：
-- 如果用户在请求中提供了 `client`、`uuid`、`updateTime`、`version`，使用用户指定的值
+- 如果用户在请求中提供了 `client`、`uuid`、`updateTime`、`version`，使用用户指定的值（`client` / `uuid` 仍需满足 16 位小写十六进制）
 - 如果用户未提供，AI 推断合理的默认值：
-  - `client`: 生成 16 位随机字符
-  - `uuid`: 生成 16 位随机字符
+  - `client`: 生成 16 位小写十六进制字符
+  - `uuid`: 生成 16 位小写十六进制字符
   - `updateTime`: 使用当前时间戳（毫秒）
   - `version`: 与 `updateTime` 相同
 
@@ -100,9 +128,9 @@ DOCHEAD 是每个文档的第一行，定义文档的类型和元数据。
 {"type":"DOCHEAD"}||{"docType":"SCH_PAGE","client":"1f0f511a4641034c","uuid":"81ace96648894616","updateTime":1777537222142,"version":"1777537222142"}|
 ```
 
-**示例（用户指定 client）**:
+**示例（用户指定 client，同样必须是 16 位小写十六进制）**:
 ```json
-{"type":"DOCHEAD"}||{"docType":"SCH_PAGE","client":"user-provided-id","uuid":"81ace96648894616","updateTime":1777537222142,"version":"1777537222142"}|
+{"type":"DOCHEAD"}||{"docType":"SCH_PAGE","client":"a1b2c3d4e5f60718","uuid":"81ace96648894616","updateTime":1777537222142,"version":"1777537222142"}|
 ```
 
 **示例（PCB）**:
@@ -129,7 +157,7 @@ CANVAS 是每个文档的第二行，定义画布的原点和配置信息。根�
 
 **示例**:
 ```json
-{"type":"CANVAS","ticket":1,"id":"CANVAS"}||{"originX":0,"originY":0}|
+{"type":"CANVAS","id":"CANVAS","ticket":1}||{"originX":0,"originY":0}
 ```
 
 #### PCB / FOOTPRINT 画布（完整版）
@@ -151,34 +179,41 @@ CANVAS 是每个文档的第二行，定义画布的原点和配置信息。根�
 | snapYSize | number | ✓ | 栅格尺寸 Y |
 | altSnapXSize | number | ✓ | Alt 栅格尺寸 X |
 | altSnapYSize | number | ✓ | Alt 栅格尺寸 Y |
-| gridType | EGridType | ✓ | 网格类型（如 "LINE"） |
+| gridType | EGridType | ✓ | 网格类型（如 "GRID"） |
 | multiGridType | EGridType | ✓ | 加粗网格类型 |
 | multiGridRatio | number | ✓ | 加粗网格倍数 |
 | highlightValue | number | ✓ | 高亮亮度值 |
-| layerBrightness | ELayerBrightness | - | 图层亮度（如 "BRIGHT"） |
+| layerBrightness | ELayerBrightness | ✓ | 图层亮度（如 "NORMAL"） |
 
-**示例**:
+**示例（PCB / FOOTPRINT）**:
 ```json
-{"type":"CANVAS","ticket":1,"id":"CANVAS"}||{"originX":0,"originY":0,"unit":"mm","gridXSize":10,"gridYSize":10,"snapXSize":1,"snapYSize":1,"altSnapXSize":0.1,"altSnapYSize":0.1,"gridType":"LINE","multiGridType":"LINE","multiGridRatio":10,"highlightValue":10,"layerBrightness":"BRIGHT"}|
+{"type":"CANVAS","ticket":1,"id":"CANVAS"}||{"originX":0,"originY":0,"unit":"mm","gridXSize":10,"gridYSize":10,"snapXSize":1,"snapYSize":1,"altSnapXSize":0.1,"altSnapYSize":0.1,"gridType":"NONE","multiGridType":"NONE","multiGridRatio":10,"highlightValue":10,"layerBrightness":"NORMAL"}
+```
+
+**示例（PANEL / PANEL_LIB，字段与上面的网格画布完全不同）**:
+```json
+{"type":"CANVAS","ticket":1,"id":"CANVAS"}||{"material":"acrylic","thickness":"0.8mm","print":"Bottom Side","craft":"Transparent","desc":"","coverColor":"white","width":"393mm","height":"579mm","originX":0,"originY":0,"orderWidth":"393mm","orderHeight":"579mm","backgroundColor":""}
 ```
 
 ### 生成顺序和规则
 
 **生成顺序**：
 1. DOCHEAD（第1行）- 固定 type 为 "DOCHEAD"
-2. CANVAS（第2行）- 固定 ticket 为 1，id 为 "CANVAS"
+2. CANVAS（第2行，**仅下面列出的文档类型有**）- 固定 ticket 为 1，id 为 "CANVAS"
 3. 其他图元（从第3行开始）- ticket 从 2 开始递增
 
 **文档类型与 CANVAS 类型对应表**:
-| 文档类型 | CANVAS 类型 | CANVAS 格式 |
-|---------|-------------|-------------|
-| SCH_PAGE | TSchCanvas | 简化版（仅 originX, originY） |
-| SYMBOL | TSchCanvas | 简化版（仅 originX, originY） |
-| SIMULATION | TSchCanvas | 简化版（仅 originX, originY） |
-| PCB | TCanvas | 完整版 |
-| FOOTPRINT | TCanvas | 完整版 |
-| PANEL | TCanvas | 完整版 |
-| PANEL_LIB | TCanvas | 完整版 |
+| 文档类型 | CANVAS 类型 | CANVAS 格式 | 校验用类型名 |
+|---------|-------------|-------------|-------------|
+| SCH_PAGE | TSchCanvas | 简化版（仅 originX, originY） | SCH_PAGE_CANVAS |
+| SYMBOL | TSchCanvas | 简化版（仅 originX, originY） | SYMBOL_CANVAS |
+| SIMULATION | TSchCanvas | 简化版（仅 originX, originY） | SIMULATION_CANVAS |
+| PCB | TCanvas | 完整版 | PCB_CANVAS |
+| FOOTPRINT | TCanvas | 完整版 | FOOTPRINT_CANVAS |
+| PANEL | TPanelCanvas | 面板画布（材质/厚度/印刷/颜色…） | PANEL_CANVAS |
+| PANEL_LIB | TPanelCanvas | 面板画布（材质/厚度/印刷/颜色…） | PANEL_LIB_CANVAS |
+
+**没有 CANVAS 的文档类型**：FONT、BLOB、CONFIG、BOARD、DEVICE、SCH、SIMULATION_SCH —— 这些文档只有 DOCHEAD + 图元，不要塞 CANVAS 行。
 
 ## LLM 工作流
 
@@ -223,24 +258,28 @@ CANVAS 是每个文档的第二行，定义画布的原点和配置信息。根�
 
 ### 关联图元示例（DOCHEAD + CANVAS + TBus + LINE + ATTR）
 
-以下是一个完整的 SCH_PAGE 文件示例，包含文件头、画布、BUS 图元及其关联图元（2 条 LINE 和 1 个 ATTR）：
+以下是一个完整的 SCH_PAGE 文件示例（代码块内每行均可直接复制）：
+
+包含文件头、画布、BUS 图元及其关联图元（4 条 LINE 和 1 个 ATTR）：
 
 ```json
-{"type":"DOCHEAD"}||{"docType":"SCH_PAGE","client":"1f0f511a4641034c","uuid":"81ace96648894616","updateTime":1777537222142,"version":"1777537222142"}|   ← 第 1 行末尾有 | 分隔符
-{"type":"CANVAS","ticket":1,"id":"CANVAS"}||{"originX":0,"originY":0}|   ← 第 2 行末尾有 | 分隔符
-{"type":"BUS","ticket":2,"id":"bd976bf9f140414e"}||{"busEntry":{},"zIndex":0}|   ← 第 3 行末尾有 | 分隔符
-{"type":"LINE","ticket":3,"id":"13376d0319ab1d36"}||{"fillColor":null,"fillStyle":null,"strokeColor":null,"strokeStyle":null,"strokeWidth":null,"startX":1565,"startY":60,"endX":1565,"endY":-290,"lineGroup":"bd976bf9f140414e"}|   ← 第 4 行末尾有 | 分隔符
-{"type":"LINE","ticket":4,"id":"0687ad1999716d8d"}||{"fillColor":null,"fillStyle":null,"strokeColor":null,"strokeStyle":null,"strokeWidth":null,"startX":1565,"startY":-290,"endX":655,"endY":-290,"lineGroup":"bd976bf9f140414e"}|   ← 第 5 行末尾有 | 分隔符
-{"type":"ATTR","ticket":5,"id":"27665c857da1f31d"}||{"x":1110,"y":-290,"rotation":null,"color":null,"fontFamily":null,"fontSize":null,"fontWeight":null,"italic":null,"underline":null,"align":null,"value":"BUS[0:5]","keyVisible":false,"valueVisible":true,"key":"NET","fillColor":null,"parentId":"bd976bf9f140414e","zIndex":2}   ← 最后 1 行末尾没有 | 分隔符
+{"type":"DOCHEAD"}||{"docType":"SCH_PAGE","client":"1f0f511a4641034c","uuid":"81ace96648894616","updateTime":1777537222142,"version":"1777537222142"}|
+{"type":"CANVAS","id":"CANVAS","ticket":1}||{"originX":0,"originY":0}|
+{"type":"BUS","ticket":35,"id":"917cf8401f113481"}||{"busEntry":{},"zIndex":6,"groupId":"","locked":false}|
+{"type":"LINE","ticket":36,"id":"899f254f57c290ca"}||{"fillColor":null,"fillStyle":null,"strokeColor":null,"strokeStyle":null,"strokeWidth":null,"startX":600,"startY":-570,"endX":680,"endY":-570,"lineGroup":"917cf8401f113481"}|
+{"type":"LINE","ticket":37,"id":"0cbf6fa91e809769"}||{"fillColor":null,"fillStyle":null,"strokeColor":null,"strokeStyle":null,"strokeWidth":null,"startX":680,"startY":-570,"endX":680,"endY":-500,"lineGroup":"917cf8401f113481"}|
+{"type":"LINE","ticket":38,"id":"133a0ef467701da4"}||{"fillColor":null,"fillStyle":null,"strokeColor":null,"strokeStyle":null,"strokeWidth":null,"startX":680,"startY":-500,"endX":505,"endY":-500,"lineGroup":"917cf8401f113481"}|
+{"type":"LINE","ticket":39,"id":"e7c73f80b9a41723"}||{"fillColor":null,"fillStyle":null,"strokeColor":null,"strokeStyle":null,"strokeWidth":null,"startX":505,"startY":-500,"endX":505,"endY":-565,"lineGroup":"917cf8401f113481"}|
+{"type":"ATTR","ticket":40,"id":"fd36cf31312bbfcd"}||{"x":592.5,"y":-500,"rotation":0,"color":null,"fontFamily":null,"fontSize":null,"fontWeight":null,"italic":null,"underline":null,"align":"LEFT_BOTTOM","value":"BUS[0:5]","keyVisible":false,"valueVisible":true,"key":"NET","fillColor":null,"parentId":"917cf8401f113481","zIndex":4,"groupId":"","locked":false,"strikeout":null}
 ```
+
+> 上面代码块里每行末尾的 `|` 是行分隔符：除最后一行外每行都要有，最后一行不要。
 
 要点：
 - DOCHEAD 定义文档类型和元数据
 - CANVAS 定义画布原点坐标
-- BUS 的 id 为 `bd976bf9f140414e`
-- 所有 LINE 的 `lineGroup` 都指向 BUS 的 id
-- LINE 的 ticket（3-4）大于 BUS 的 ticket（2）
-- ATTR 的 `parentId` 指向 BUS 的 id，显示总线名称
+- 同一组的图元用 id 互相引用：LINE 的 `lineGroup`、ATTR 的 `parentId` 都指向 BUS 的 id
+- 后生成的图元 ticket 更大
 - 每行格式末尾需要 `|` 分隔符（最后一行除外）
 
 ### 🔍 验证步骤（核心流程）
@@ -249,7 +288,10 @@ CANVAS 是每个文档的第二行，定义画布的原点和配置信息。根�
 
 **步骤 1**：调用验证脚本
 ```bash
-node ./validate.js <type> '<json-data>'
+# 用「文档类型_图元名」前缀名（推荐，跨文档类型的同名图元必须这样写）
+node ./validate.js PCB_LINE '{"netName":"+5V",...}'
+# 或用 --doc 指定文档类型
+node ./validate.js LINE '{"netName":"+5V",...}' --doc PCB
 ```
 
 **步骤 2**：检查验证结果

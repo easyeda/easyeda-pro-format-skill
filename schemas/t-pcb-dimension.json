@@ -30,7 +30,7 @@
       "default": null
     },
     "type": {
-      "description": "尺寸类型",
+      "description": "尺寸类型： RADIUS 半径 LENGTH 长度 ANGLE 角度",
       "type": "string",
       "enum": [
         "LENGTH",
@@ -44,7 +44,7 @@
       }
     },
     "unit": {
-      "description": "单位",
+      "description": "单位 mm cm inch mil",
       "type": "string",
       "enum": [
         "mil",
@@ -77,7 +77,7 @@
       "type": "array"
     },
     "text": {
-      "description": "PCB 文字",
+      "description": "文本",
       "type": "object",
       "properties": {
         "partitionId": {
@@ -142,7 +142,7 @@
           "type": "boolean"
         },
         "origin": {
-          "description": "对齐模式",
+          "description": "对齐模式（取值与含义见 EAlign）",
           "type": "string",
           "enum": [
             "LEFT_BOTTOM",

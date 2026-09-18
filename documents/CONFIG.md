@@ -11,6 +11,7 @@ CONFIG 是嘉立创 EDA 格式中的工程设置文档类型，用于存储整�
 |------|------|------|
 | TMConfig | META | [详细](../primitives/CONFIG/meta.md) |
 | TUniversal | UNIVERSAL | [详细](../primitives/CONFIG/universal.md) |
+| ESettingType |  | [详细](../primitives/CONFIG/e-setting-type.md) |
 
 ## Related Resources
 

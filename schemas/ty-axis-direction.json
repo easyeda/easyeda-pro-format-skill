@@ -1,0 +1,9 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "up",
+    "down"
+  ],
+  "description": "原子 data 里的 Y 轴方向标记（**仅 eprj3 本地文件格式使用**）。\r\n\r\n语义：**缺字段等价于 `'down'`**（云格式 / 云端 / 缓存 / 实时同步 / 改动前的老本地文件），\r\n写本地文件时一律写成 `'up'`。该字段的加/去与坐标翻转的唯一实现是\r\n`3.0/local-format/y-axis.ts` 的 `addUpAndFlipY` / `stripUpAndFlipY`，\r\n**业务层不该感知它**（读盘时就被剥离了）。"
+}

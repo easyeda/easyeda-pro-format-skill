@@ -12,7 +12,18 @@
     },
     "zIndex": {
       "description": "Z 轴高度",
-      "type": "number"
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "yAxisDirection": {
+      "description": "Y 轴方向标记：仅 eprj3 本地文件格式会带，读盘时被剥离；语义见 TYAxisDirection",
+      "type": "string",
+      "enum": [
+        "up",
+        "down"
+      ]
     }
   },
   "required": [

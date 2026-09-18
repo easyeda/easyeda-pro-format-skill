@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"PIN","ticket":60,"id":"pin123"}||{"partId":"1","groupId":"","locked":false,"zIndex":20,"display":true,"x":0,"y":50,"length":100,"rotation":270,"color":"#000000","pinShape":"LINE"}
+{"type":"PIN","ticket":60,"id":"pin123"}||{"partId":"1","groupId":"","locked":false,"zIndex":20,"display":true,"x":0,"y":50,"length":100,"rotation":270,"color":"#000000","pinShape":"NONE"}
 ```
 
 ## 返回文档

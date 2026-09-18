@@ -2,6 +2,44 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
+    "groupId": {
+      "description": "分组编号, 没有则为空（预留）：\"0\" 不分组，非 0 为组标志，相同组标志的为一组",
+      "type": "string",
+      "pattern": "^0$|^[1-9][0-9]*$"
+    },
+    "layer": {
+      "description": "层",
+      "type": "number",
+      "minimum": 0
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    },
+    "zIndex": {
+      "description": "Z 轴高度, null 为默认",
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "default": null
+    },
+    "visible": {
+      "description": "是否可见",
+      "type": "boolean"
+    },
+    "cover": {
+      "description": "遮盖透明度",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "name": {
+      "description": "名称",
+      "type": "string"
+    },
     "x": {
       "description": "X",
       "type": "number"
@@ -31,14 +69,16 @@
         "SOLID",
         "SHORT_DASH",
         "DOT",
-        "DOT_DASH"
+        "DOT_DASH",
+        null
       ],
       "enumDescriptions": {
         "SOLID": "实线",
         "SHORT_DASH": "短划线",
         "DOT": "点线",
         "DOT_DASH": "点划线"
-      }
+      },
+      "default": null
     },
     "color": {
       "description": "颜色",
@@ -52,6 +92,13 @@
     }
   },
   "required": [
+    "groupId",
+    "layer",
+    "locked",
+    "zIndex",
+    "visible",
+    "cover",
+    "name",
     "x",
     "y",
     "rotation",
@@ -60,5 +107,5 @@
     "color",
     "length"
   ],
-  "description": "辅助线"
+  "description": "辅助线\r\n\r\n原子类型取数据流里的实际取值（EPanelDataType.AUX_LINE 的值是 \"AUXLINE\"，\r\n枚举成员名里的下划线不进数据流）。"
 }

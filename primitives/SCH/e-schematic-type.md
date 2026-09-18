@@ -6,6 +6,14 @@
 
 原理图数据类型枚举
 
+## 取值
+
+| 取值 | 类型 | 说明 |
+|------|------|------|
+| `DIFFERENTIAL_PAIR` | string | 差分对 |
+| `NET_CLASS` | string | 网络类 |
+| `EQL_NET_GRP` | string | 等长网络组 |
+
 ## JSON Schema
 
 → [查看 JSON Schema](../../schemas/e-schematic-type.json)

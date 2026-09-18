@@ -12,9 +12,9 @@
 |------|------|------|------|------|
 | materials | `string` | ✓ | - | 基板材质 |
 | silkTechnology | `string` | ✓ | - | 丝印工艺 |
-| backgroundColor | `string` | ✓ | pattern: ^$|^#[0-9A-Fa-f]{6}$ | 背景颜色 |
-| boardColor | `string` | ✓ | pattern: ^$|^#[0-9A-Fa-f]{6}$ | 板子颜色 |
-| sprayColor | `string` | ✓ | pattern: ^$|^#[0-9A-Fa-f]{6}$ | 焊盘喷镀 |
+| backgroundColor | `string` | ✓ | pattern: ^$\|^#[0-9A-Fa-f]{6}$ | 背景颜色 |
+| boardColor | `string` | ✓ | pattern: ^$\|^#[0-9A-Fa-f]{6}$ | 板子颜色 |
+| sprayColor | `string` | ✓ | pattern: ^$\|^#[0-9A-Fa-f]{6}$ | 焊盘喷镀 |
 | layerExpose | `number` | ✓ | - | 层发散 |
 | substrateHeight | `number` | ✓ | - | PCB距外壳底面高度 |
 
@@ -33,9 +33,9 @@
 | required | ERROR | `sprayColor`: 必需字段 |
 | required | ERROR | `layerExpose`: 必需字段 |
 | required | ERROR | `substrateHeight`: 必需字段 |
-| pattern | ERROR | `backgroundColor`: 匹配模式: ^$|^#[0-9A-Fa-f]{6}$ |
-| pattern | ERROR | `boardColor`: 匹配模式: ^$|^#[0-9A-Fa-f]{6}$ |
-| pattern | ERROR | `sprayColor`: 匹配模式: ^$|^#[0-9A-Fa-f]{6}$ |
+| pattern | ERROR | `backgroundColor`: 匹配模式: ^$\|^#[0-9A-Fa-f]{6}$ |
+| pattern | ERROR | `boardColor`: 匹配模式: ^$\|^#[0-9A-Fa-f]{6}$ |
+| pattern | ERROR | `sprayColor`: 匹配模式: ^$\|^#[0-9A-Fa-f]{6}$ |
 
 ## 关联图元
 

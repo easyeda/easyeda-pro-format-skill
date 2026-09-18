@@ -8,24 +8,30 @@
 
 ## 功能特性
 
-- **全领域覆盖**：原理图（SCH_PAGE / SYMBOL）、PCB（PCB / FOOTPRINT）、面板（PANEL / PANEL_LIB）、仿真（SIMULATION）、规则与元数据等 13 个文档领域
+- **全领域覆盖**：原理图（SCH_PAGE / SYMBOL）、PCB（PCB / FOOTPRINT）、面板（PANEL / PANEL_LIB）、仿真（SIMULATION / SIMULATION_SCH）、字体、规则与元数据等 14 个文档领域
 - **渐进式资料加载**：类型索引 → 文档层 → 图元层 → 示例层 / JSON Schema，按需加载，避免上下文爆炸
 - **关联图元自动推断**：生成主图元时自动推断并生成关联图元（父子、容器成员、内嵌结构、引用关联），无需用户干预
 - **强制验证**：每次生成后必须调用 `validate.js` 校验，`valid: true` 才允许返回结果
+- **同名图元按文档类型区分**：`LINE` 在原理图页是导线、在 PCB 是走线，校验时用 `<文档类型>_<图元名>` 前缀名或 `--doc` 指定
 - **自动存档**：验证通过后保存到 `format/{type}_{timestamp}.txt`
 
 ## 目录结构
 
 ```
 easyeda-pro-format-skill/
-├── SKILL.md           # Skill 主文档（核心流程、行数据格式、LLM 工作流）
-├── types-index.md     # 全部图元类型索引（中文名 → 类型名 → 文档层路径）
-├── validate.js        # 格式验证脚本（基于 ajv）
-├── documents/         # 文档层：13 个领域的图元索引
-├── primitives/        # 图元层：每种图元的字段定义、约束、关联图元说明
-├── examples/          # 示例层：真实格式数据参考
-├── schemas/           # JSON Schema：字段级约束定义
-└── format/            # 生成结果的存档目录（运行时创建）
+├── SKILL.md            # Skill 主文档（核心流程、行数据格式、LLM 工作流）
+├── README.md           # 本文件
+├── types-index.md      # 全部图元类型索引（中文名 → 类型名 → 文档层路径）
+├── validate.js         # 格式验证脚本（基于 ajv）
+├── package.json        # 验证脚本的依赖声明（ajv / ajv-formats）
+├── package-lock.json   # 依赖版本锁定
+├── .gitignore          # 忽略 node_modules/ 与运行时的 format/ 目录
+├── LICENSE             # MIT
+├── documents/          # 文档层：14 个领域的图元索引
+├── primitives/         # 图元层：每种图元的字段定义、约束、关联图元说明
+├── examples/           # 示例层：真实格式数据参考
+├── schemas/            # JSON Schema：字段级约束定义
+└── format/             # 生成结果的存档目录（运行时创建）
 ```
 
 ## 安装
@@ -109,7 +115,7 @@ node validate.js FONT '{"width":50,"height":40,"path":[[2,5,"L",2,35,48,35,48,5,
 ### 验证脚本
 
 ```bash
-node validate.js [--save] <type> '<json-data>'
+node validate.js [--doc <文档类型>] <type> '<json-data>'
 
 # 示例
 node validate.js FONT '{"width":50,"height":40,"path":[[2,5,"L",2,35,48,35,48,5,2,5]]}'
@@ -117,7 +123,17 @@ node validate.js FONT '{"width":50,"height":40,"path":[[2,5,"L",2,35,48,35,48,5,
 
 - `<type>`：图元类型名（如 `FONT`、`LINE`、`PAD`、`VIA`），详见 [types-index.md](types-index.md)
 - `<json-data>`：图元属性 JSON
-- `--save`：可选，验证通过后自动存档
+- `--doc <文档类型>`：可选，显式指定文档类型
+
+> **同名图元在不同文档类型下 schema 不同**：`LINE` 在原理图页是导线，在 PCB 是走线。
+> 跨文档类型校验时必须用 `<文档类型>_<图元名>` 前缀名，或用 `--doc` 指定：
+>
+> ```bash
+> node validate.js PCB_LINE '{"netName":"+5V",...}'
+> node validate.js LINE '{"netName":"+5V",...}' --doc PCB
+> ```
+>
+> 直接用裸名会按 `SCH_PAGE > SCH > SYMBOL > PCB > 其他` 的优先级解析，仅在原理图类文档下可靠。
 
 ### 工作流程
 
@@ -127,7 +143,7 @@ node validate.js FONT '{"width":50,"height":40,"path":[[2,5,"L",2,35,48,35,48,5,
                                               修复并重试（最多3次）
 ```
 
-生成的行数据格式为 `{type, id, ticket}||{实际数据}`，每个文档必须以 `DOCHEAD` 和 `CANVAS` 两行开头。完整规则见 [SKILL.md](SKILL.md)。
+生成的行数据格式为 `{type, id, ticket}||{实际数据}`，每个文档必须以 `DOCHEAD` 开头，且仅含画布的文档类型（SCH_PAGE / SYMBOL / SIMULATION / PCB / FOOTPRINT / PANEL / PANEL_LIB）才有 `CANVAS` 行。完整规则见 [SKILL.md](SKILL.md)。
 
 ## 许可证
 
@@ -145,24 +161,30 @@ It generates schematic / PCB / symbol / footprint data conforming to the EasyEDA
 
 ## Features
 
-- **Full domain coverage**: 13 document domains including schematic (SCH_PAGE / SYMBOL), PCB (PCB / FOOTPRINT), panels (PANEL / PANEL_LIB), simulation, rules, and metadata
+- **Full domain coverage**: 14 document domains including schematic (SCH_PAGE / SYMBOL), PCB (PCB / FOOTPRINT), panels (PANEL / PANEL_LIB), simulation (SIMULATION / SIMULATION_SCH), fonts, rules, and metadata
 - **Progressive context loading**: type index → document layer → primitive layer → examples / JSON Schema, loaded on demand to avoid context explosion
 - **Automatic related primitives**: related primitives (parent-child, container members, embedded structures, references) are inferred together with the main primitive — no user intervention needed
 - **Mandatory validation**: every generation must be validated with `validate.js`; results may only be returned when `valid: true`
+- **Document-type-aware type names**: `LINE` is a wire in SCH_PAGE but a track in PCB — validate with a `<DOCTYPE>_<PRIMITIVE>` prefixed name or `--doc`
 - **Automatic archiving**: validated results are saved to `format/{type}_{timestamp}.txt`
 
 ## Directory Structure
 
 ```
 easyeda-pro-format-skill/
-├── SKILL.md           # Main skill document (core workflow, line data format, LLM workflow)
-├── types-index.md     # Index of all primitive types (Chinese name → type name → document path)
-├── validate.js        # Format validation script (based on ajv)
-├── documents/         # Document layer: primitive indexes for the 13 domains
-├── primitives/        # Primitive layer: field definitions, constraints, related primitives
-├── examples/          # Example layer: real format data for reference
-├── schemas/           # JSON Schema: field-level constraints
-└── format/            # Archive directory for generated output (created at runtime)
+├── SKILL.md            # Main skill document (core workflow, line data format, LLM workflow)
+├── README.md           # This file
+├── types-index.md      # Index of all primitive types (Chinese name → type name → document path)
+├── validate.js         # Format validation script (based on ajv)
+├── package.json        # Dependencies for the validation script (ajv / ajv-formats)
+├── package-lock.json   # Locked dependency versions
+├── .gitignore          # Ignores node_modules/ and the runtime format/ directory
+├── LICENSE             # MIT
+├── documents/          # Document layer: primitive indexes for the 14 domains
+├── primitives/         # Primitive layer: field definitions, constraints, related primitives
+├── examples/           # Example layer: real format data for reference
+├── schemas/            # JSON Schema: field-level constraints
+└── format/             # Archive directory for generated output (created at runtime)
 ```
 
 ## Installation
@@ -246,7 +268,7 @@ Any of the following descriptions triggers this skill:
 ### Validation script
 
 ```bash
-node validate.js [--save] <type> '<json-data>'
+node validate.js [--doc <docType>] <type> '<json-data>'
 
 # Example
 node validate.js FONT '{"width":50,"height":40,"path":[[2,5,"L",2,35,48,35,48,5,2,5]]}'
@@ -254,7 +276,17 @@ node validate.js FONT '{"width":50,"height":40,"path":[[2,5,"L",2,35,48,35,48,5,
 
 - `<type>`: primitive type name (e.g. `FONT`, `LINE`, `PAD`, `VIA`). See [types-index.md](types-index.md)
 - `<json-data>`: primitive properties as JSON
-- `--save`: optional, archive automatically after passing validation
+- `--doc <docType>`: optional, explicitly specify the document type
+
+> **The same primitive name has a different schema per document type**: `LINE` is a wire in SCH_PAGE but a track in PCB.
+> Cross-document validation must use a `<DOCTYPE>_<PRIMITIVE>` prefixed name, or `--doc`:
+>
+> ```bash
+> node validate.js PCB_LINE '{"netName":"+5V",...}'
+> node validate.js LINE '{"netName":"+5V",...}' --doc PCB
+> ```
+>
+> A bare name resolves by the priority `SCH_PAGE > SCH > SYMBOL > PCB > others` and is only reliable for schematic-family documents.
 
 ### Workflow
 
@@ -264,7 +296,7 @@ node validate.js FONT '{"width":50,"height":40,"path":[[2,5,"L",2,35,48,35,48,5,
                                                     fix and retry (up to 3 times)
 ```
 
-The generated line format is `{type, id, ticket}||{data}`, and every document must start with the `DOCHEAD` and `CANVAS` lines. See [SKILL.md](SKILL.md) for the complete rules.
+The generated line format is `{type, id, ticket}||{data}`. Every document must start with a `DOCHEAD` line; a `CANVAS` line follows only for the canvas-bearing document types (SCH_PAGE / SYMBOL / SIMULATION / PCB / FOOTPRINT / PANEL / PANEL_LIB). See [SKILL.md](SKILL.md) for the complete rules.
 
 ## License
 

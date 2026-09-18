@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"X_NET_GROUP","ticket":25,"id":["X_NET_GROUP","group1"]}||{"netLengthPhysic":"rule1","netLengthTolerancePhysics":"rule2"}
+{"type":"X_NET_GROUP","ticket":25,"id":"[\"X_NET_GROUP\",\"group1\"]"}||{"netLengthPhysic":"rule1","netLengthTolerancePhysics":"rule2","targetNet":""}
 ```
 
 ## 返回文档

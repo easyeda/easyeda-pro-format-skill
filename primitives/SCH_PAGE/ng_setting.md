@@ -10,24 +10,10 @@
 
 | 字段 | 类型 | 必需 | 约束 | 说明 |
 |------|------|------|------|------|
-| acSetting | `{
-		acAnalysisType: string;
-		freMult: string;
-		startFrequency: string;
-		stopFrequency: string;
-	}` | ✓ | - |  |
-| dcSetting | `{
-		dcSourceData1: TDCSourceData;
-		dcSourceData2: TDCSourceData;
-		sourceStatus: boolean;
-	}` | ✓ | - |  |
-| trSetting | `{
-		timeStep: string;
-		stopTime: string;
-		startTime: string;
-		maxTimeStep: string;
-	}` | ✓ | - |  |
-| currentSetting | `'AC' | 'DC' | 'TR'` | ✓ | - |  |
+| acSetting | `{ acAnalysisType: string; freMult: string; startFrequency: string; stopFrequency: string }` | ✓ | - |  |
+| dcSetting | `{ dcSourceData1: TDCSourceData; dcSourceData2: TDCSourceData; sourceStatus: boolean }` | ✓ | - |  |
+| trSetting | `{ timeStep: string; stopTime: string; startTime: string; maxTimeStep: string }` | ✓ | - |  |
+| currentSetting | `'AC' \| 'DC' \| 'TR'` | ✓ | - |  |
 | startDisable | `{ [key: string]: boolean }` | ✓ | - |  |
 
 ## JSON Schema
@@ -43,6 +29,7 @@
 | required | ERROR | `trSetting`: 必需字段 |
 | required | ERROR | `currentSetting`: 必需字段 |
 | required | ERROR | `startDisable`: 必需字段 |
+| enum | ERROR | `currentSetting`: 允许值: AC, DC, TR |
 
 ## 关联图元
 

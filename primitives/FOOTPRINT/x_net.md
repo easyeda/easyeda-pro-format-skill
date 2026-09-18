@@ -12,18 +12,25 @@
 |------|------|------|------|------|
 | xNetsGroup | `string` | ✓ | - | xNet 组 id |
 | name | `string` | ✓ | - | xNet名称 |
-| netLengthPhysic | `string` | ✓ | - | 网络长度规则  --- 对应具体xNet规则的 |
-| netLengthTolerancePhysics | `string` | ✓ | - | 网络长度公差规则  --- 对应具体xNet规则的 |
+| netLengthPhysic | `string` | ✓ | - | 网络长度规则 --- 对应具体xNet规则的 |
+| netLengthTolerancePhysics | `string` | ✓ | - | 网络长度公差规则 --- 对应具体xNet规则的 |
 | targetNet | `string` | ✓ | - | 目标网络 |
 | length | `number` | ✓ | - | xNet 路径长度 |
-| xNet | `{
-		/** 起点 */
-		start: TPcbXNetNode;
-		/** 终点 */
-		end: TPcbXNetNode;
-		/** 所有联通节点顺序<焊盘、过孔、器件> */
-		nodes: TPcbXNetNode[];
-	}` | ✓ | - | xNet的连通路径 |
+| xNet | `{ start: TPcbXNetNode; end: TPcbXNetNode; nodes: TPcbXNetNode[] }` | ✓ | - | xNet的连通路径 |
+
+## 对象字段成员
+
+以下字段的类型是内联对象，成员定义如下：
+
+### `xNet`
+
+xNet的连通路径
+
+| 成员 | 类型 | 必需 | 说明 |
+|------|------|------|------|
+| start | `TPcbXNetNode` | ✓ | 起点 |
+| end | `TPcbXNetNode` | ✓ | 终点 |
+| nodes | `TPcbXNetNode[]` | ✓ | 所有联通节点顺序<焊盘、过孔、器件> |
 
 ## JSON Schema
 

@@ -1,26 +1,123 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "properties": {
-    "padType": {
-      "description": "焊盘形状类型",
-      "type": "string",
-      "enum": [
-        "ELLIPSE",
-        "RECT",
-        "OVAL",
-        "POLYGON"
+  "description": "焊盘定义",
+  "anyOf": [
+    {
+      "type": "object",
+      "properties": {
+        "padType": {
+          "description": "长圆焊盘",
+          "type": "string",
+          "enum": [
+            "ELLIPSE"
+          ],
+          "enumDescriptions": {
+            "ELLIPSE": "圆焊盘"
+          }
+        },
+        "width": {
+          "description": "宽",
+          "type": "number"
+        },
+        "height": {
+          "description": "高",
+          "type": "number"
+        }
+      },
+      "required": [
+        "padType",
+        "width",
+        "height"
       ],
-      "enumDescriptions": {
-        "ELLIPSE": "圆焊盘",
-        "RECT": "矩形焊盘",
-        "OVAL": "长圆焊盘",
-        "POLYGON": "多边形焊盘"
-      }
+      "description": "长圆焊盘"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "padType": {
+          "description": "矩形焊盘",
+          "type": "string",
+          "enum": [
+            "RECT"
+          ],
+          "enumDescriptions": {
+            "RECT": "矩形焊盘"
+          }
+        },
+        "width": {
+          "description": "宽",
+          "type": "number"
+        },
+        "height": {
+          "description": "高",
+          "type": "number"
+        },
+        "radius": {
+          "description": "圆角半径",
+          "type": "number"
+        }
+      },
+      "required": [
+        "padType",
+        "width",
+        "height",
+        "radius"
+      ],
+      "description": "矩形焊盘"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "padType": {
+          "description": "正多边形焊盘",
+          "type": "string",
+          "enum": [
+            "OVAL"
+          ],
+          "enumDescriptions": {
+            "OVAL": "长圆焊盘"
+          }
+        },
+        "width": {
+          "description": "宽",
+          "type": "number"
+        },
+        "height": {
+          "description": "高",
+          "type": "number"
+        }
+      },
+      "required": [
+        "padType",
+        "width",
+        "height"
+      ],
+      "description": "正多边形焊盘"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "padType": {
+          "description": "多边形焊盘",
+          "type": "string",
+          "enum": [
+            "POLYGON"
+          ],
+          "enumDescriptions": {
+            "POLYGON": "多边形焊盘"
+          }
+        },
+        "path": {
+          "description": "参考单多边形",
+          "type": "array"
+        }
+      },
+      "required": [
+        "padType",
+        "path"
+      ],
+      "description": "多边形焊盘"
     }
-  },
-  "required": [
-    "padType"
-  ],
-  "description": "焊盘定义"
+  ]
 }

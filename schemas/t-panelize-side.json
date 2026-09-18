@@ -24,10 +24,7 @@
     },
     "borderRadius": {
       "description": "工艺边圆角半径",
-      "type": [
-        "number",
-        "object"
-      ]
+      "type": "number"
     }
   },
   "required": [

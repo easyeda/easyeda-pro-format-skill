@@ -2,6 +2,29 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
+    "groupId": {
+      "description": "分组编号, 没有则为空",
+      "type": "string"
+    },
+    "zIndex": {
+      "description": "Z 轴高度",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "partId": {
+      "description": "部件编号；符号页专属，表示归属于某部件下, 非符号忽略该字段",
+      "type": "string"
+    },
+    "yAxisDirection": {
+      "description": "Y 轴方向标记：仅 eprj3 本地文件格式会带，读盘时被剥离；语义见 TYAxisDirection",
+      "type": "string",
+      "enum": [
+        "up",
+        "down"
+      ]
+    },
     "startX": {
       "description": "左上角 X",
       "type": "number"
@@ -38,6 +61,8 @@
     }
   },
   "required": [
+    "groupId",
+    "zIndex",
     "startX",
     "startY",
     "rowSizes",

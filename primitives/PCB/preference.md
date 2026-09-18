@@ -16,18 +16,18 @@
 | lastViaInnerDiameter | `number` | ✓ | - | 上次打孔内径 |
 | lastViaDiameter | `number` | ✓ | - | 上次打孔外径 |
 | snap | `boolean` | ✓ | - | 是否自动吸附 |
-| routingMode | `ERoutingMode` | ✓ | - | 布线模式 |
-| routingCorner | `ERoutingConner` | ✓ | - | 布线拐角模式："L45" 线条 45 度、"L90" 线条 90 度、"R45" 圆弧 45 度、"R90" 圆弧 90 度、"L" 线条自由角度、"R" 圆弧自由角度 |
+| routingMode | `ERoutingMode` | ✓ | - | 取值范围：NONE（无）、PUSH（推挤）、SURROUND（环绕）、OBSTRUCT（阻挡）、SURROUND&PUSH（环绕并推挤） |
+| routingCorner | `ERoutingConner` | ✓ | - | 取值范围：L45（线条 45 度）、L90（线条 90 度）、L（线条自由角度）、R45（圆弧 45 度）、R90（圆弧 90 度）、R（圆弧自由角度） |
 | removeLoop | `boolean` | ✓ | - | 布线是否自动移除回路 |
 | rotatingObject | `boolean` | ✓ | - | 是否单对象旋转 |
 | trackFollow | `boolean` | ✓ | - | 导线是否跟随封装移动 |
 | stretchTrackMinCorner | `number` | ✓ | - | 拉伸导线最小拐角比率（比线宽） |
 | preferenceConfig | `string` | ✓ | - | 层堆叠偏好来源 |
 | realTimeUpdateUnusedLayers | `boolean` | ✓ | - | 是否自动移除未使用焊盘 |
-| unusedPadRange | `EUnusedPadRange` | ✓ | - | 移除未使用焊盘的范围 |
-| pushVia | `EPushViaOptimization` | ✓ | - | 推挤过孔优化 |
-| pathOptimization4BePushed | `EPathOptimization` | ✓ | - | 路径优化（单段/整段） |
-| currentPathOptimization4BePushed | `ECurrentPathOptimization` | ✓ | - | 当前导线路径优化 |
+| unusedPadRange | `EUnusedPadRange` | ✓ | - | 取值范围：ALL（所有）、PAD（仅焊盘）、VIA（仅过孔） |
+| pushVia | `EPushViaOptimization` | ✓ | - | 取值范围：OPTIMIZA_OPEN（开启）、OPTIMIZA_NONE（关闭） |
+| pathOptimization4BePushed | `EPathOptimization` | ✓ | - | 取值范围：NONE（无）、SINGLE（单段）、ALL（整段） |
+| currentPathOptimization4BePushed | `ECurrentPathOptimization` | ✓ | - | 取值范围：OPTIMIZA_STRONG（强优化）、OPTIMIZA_WEAK（弱优化）、OPTIMIZA_NONE（不优化） |
 | removeCircuitsContainingVias | `boolean` | ✓ | - | 移除有过孔的回路 |
 | removeAntenna | `boolean` | ✓ | - | 移除天线 |
 

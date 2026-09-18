@@ -2,9 +2,40 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
+    "groupId": {
+      "description": "分组编号, 没有则为 0 不分组，非 0 为组标志，相同组标志的为一组",
+      "type": "string"
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    },
+    "zIndex": {
+      "description": "Z 轴高度, null 为默认",
+      "type": [
+        "number",
+        "null"
+      ],
+      "default": null
+    },
+    "partitionId": {
+      "description": "所属分区编号，为null表示无分区",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
     "shellType": {
-      "description": "外壳类型 T&B 上下壳 DRAWER 推盖 CLAM 翻盖",
-      "type": "object"
+      "description": "外壳类型（取值与含义见 E3DShellOutlineType）",
+      "type": "string",
+      "enum": [
+        "DRAWER",
+        "T&B"
+      ],
+      "enumDescriptions": {
+        "DRAWER": "推盖",
+        "T&B": "上下壳"
+      }
     },
     "shellHeight": {
       "description": "外壳高度",
@@ -28,7 +59,19 @@
     },
     "direction": {
       "description": "推盖 - 推盖方向",
-      "type": "object"
+      "type": "string",
+      "enum": [
+        "X_AXIS_POSITIVE",
+        "X_AXIS_NEGATIVE",
+        "Y_AXIS_POSITIVE",
+        "Y_AXIS_NEGATIVE"
+      ],
+      "enumDescriptions": {
+        "X_AXIS_POSITIVE": "X轴正向",
+        "X_AXIS_NEGATIVE": "X轴负向",
+        "Y_AXIS_POSITIVE": "Y轴正向",
+        "Y_AXIS_NEGATIVE": "Y轴负向"
+      }
     },
     "bottomHeight": {
       "description": "上下壳 - 下壳高度",
@@ -44,6 +87,9 @@
     }
   },
   "required": [
+    "groupId",
+    "locked",
+    "zIndex",
     "shellType",
     "shellHeight",
     "pcbHeight",

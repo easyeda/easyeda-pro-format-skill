@@ -32,7 +32,7 @@
       "minimum": 1
     },
     "topStyle": {
-      "description": "线型样式",
+      "description": "边框线形样式（上）",
       "type": "object",
       "properties": {
         "strokeColor": {
@@ -52,14 +52,16 @@
             "SOLID",
             "SHORT_DASH",
             "DOT",
-            "DOT_DASH"
+            "DOT_DASH",
+            null
           ],
           "enumDescriptions": {
             "SOLID": "实线",
             "SHORT_DASH": "短划线",
             "DOT": "点线",
             "DOT_DASH": "点划线"
-          }
+          },
+          "default": null
         },
         "fillColor": {
           "description": "填充颜色：\"\" 不填充，填充自动闭合起始点和结束点",
@@ -89,7 +91,8 @@
             "VERTICAL_LINE",
             "RHOMBIC",
             "LEFT_SLASH_LINE",
-            "RIGHT_SLASH_LINE"
+            "RIGHT_SLASH_LINE",
+            null
           ],
           "enumDescriptions": {
             "NONE": "无填充",
@@ -100,7 +103,8 @@
             "RHOMBIC": "菱形网格",
             "LEFT_SLASH_LINE": "左斜线",
             "RIGHT_SLASH_LINE": "右斜线"
-          }
+          },
+          "default": null
         }
       },
       "required": [
@@ -112,7 +116,7 @@
       ]
     },
     "rightStyle": {
-      "description": "线型样式",
+      "description": "边框线形样式（右）",
       "type": "object",
       "properties": {
         "strokeColor": {
@@ -132,14 +136,16 @@
             "SOLID",
             "SHORT_DASH",
             "DOT",
-            "DOT_DASH"
+            "DOT_DASH",
+            null
           ],
           "enumDescriptions": {
             "SOLID": "实线",
             "SHORT_DASH": "短划线",
             "DOT": "点线",
             "DOT_DASH": "点划线"
-          }
+          },
+          "default": null
         },
         "fillColor": {
           "description": "填充颜色：\"\" 不填充，填充自动闭合起始点和结束点",
@@ -169,7 +175,8 @@
             "VERTICAL_LINE",
             "RHOMBIC",
             "LEFT_SLASH_LINE",
-            "RIGHT_SLASH_LINE"
+            "RIGHT_SLASH_LINE",
+            null
           ],
           "enumDescriptions": {
             "NONE": "无填充",
@@ -180,7 +187,8 @@
             "RHOMBIC": "菱形网格",
             "LEFT_SLASH_LINE": "左斜线",
             "RIGHT_SLASH_LINE": "右斜线"
-          }
+          },
+          "default": null
         }
       },
       "required": [
@@ -192,7 +200,7 @@
       ]
     },
     "bottomStyle": {
-      "description": "线型样式",
+      "description": "边框线形样式（下）",
       "type": "object",
       "properties": {
         "strokeColor": {
@@ -212,14 +220,16 @@
             "SOLID",
             "SHORT_DASH",
             "DOT",
-            "DOT_DASH"
+            "DOT_DASH",
+            null
           ],
           "enumDescriptions": {
             "SOLID": "实线",
             "SHORT_DASH": "短划线",
             "DOT": "点线",
             "DOT_DASH": "点划线"
-          }
+          },
+          "default": null
         },
         "fillColor": {
           "description": "填充颜色：\"\" 不填充，填充自动闭合起始点和结束点",
@@ -249,7 +259,8 @@
             "VERTICAL_LINE",
             "RHOMBIC",
             "LEFT_SLASH_LINE",
-            "RIGHT_SLASH_LINE"
+            "RIGHT_SLASH_LINE",
+            null
           ],
           "enumDescriptions": {
             "NONE": "无填充",
@@ -260,7 +271,8 @@
             "RHOMBIC": "菱形网格",
             "LEFT_SLASH_LINE": "左斜线",
             "RIGHT_SLASH_LINE": "右斜线"
-          }
+          },
+          "default": null
         }
       },
       "required": [
@@ -272,7 +284,7 @@
       ]
     },
     "leftStyle": {
-      "description": "线型样式",
+      "description": "边框线形样式（左）",
       "type": "object",
       "properties": {
         "strokeColor": {
@@ -292,14 +304,16 @@
             "SOLID",
             "SHORT_DASH",
             "DOT",
-            "DOT_DASH"
+            "DOT_DASH",
+            null
           ],
           "enumDescriptions": {
             "SOLID": "实线",
             "SHORT_DASH": "短划线",
             "DOT": "点线",
             "DOT_DASH": "点划线"
-          }
+          },
+          "default": null
         },
         "fillColor": {
           "description": "填充颜色：\"\" 不填充，填充自动闭合起始点和结束点",
@@ -329,7 +343,8 @@
             "VERTICAL_LINE",
             "RHOMBIC",
             "LEFT_SLASH_LINE",
-            "RIGHT_SLASH_LINE"
+            "RIGHT_SLASH_LINE",
+            null
           ],
           "enumDescriptions": {
             "NONE": "无填充",
@@ -340,7 +355,8 @@
             "RHOMBIC": "菱形网格",
             "LEFT_SLASH_LINE": "左斜线",
             "RIGHT_SLASH_LINE": "右斜线"
-          }
+          },
+          "default": null
         }
       },
       "required": [
@@ -352,7 +368,7 @@
       ]
     },
     "fontStyle": {
-      "description": "表格字体样式",
+      "description": "字体样式",
       "type": "object",
       "properties": {
         "color": {
@@ -412,7 +428,7 @@
           ]
         },
         "hAlign": {
-          "description": "水平对齐模式",
+          "description": "水平对齐",
           "type": "string",
           "enum": [
             "LEFT",
@@ -426,7 +442,7 @@
           }
         },
         "vAlign": {
-          "description": "垂直对齐模式",
+          "description": "垂直对齐",
           "type": "string",
           "enum": [
             "TOP",
@@ -481,5 +497,5 @@
     "lineHeight",
     "zIndex"
   ],
-  "description": "表格单元格"
+  "description": "表格单元格\r\n\r\n注意：这是**内嵌结构**，不是数据流里的独立图元（表格的原子类型 TABLE 见 TSchTable），\r\n因此这里不声明 primitiveType 标签。"
 }

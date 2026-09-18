@@ -4,7 +4,18 @@
   "properties": {
     "layerType": {
       "description": "层类型, 是固定枚举值",
-      "type": "string"
+      "type": "string",
+      "enum": [
+        "SIGNAL",
+        "GROUND",
+        "POWER",
+        "MIXED",
+        "JUMPER",
+        "DRC",
+        "DOCUMENT",
+        "BOARD_OUTLINE",
+        "MULTI_LAYER"
+      ]
     },
     "layerName": {
       "description": "层别名，需要唯一",

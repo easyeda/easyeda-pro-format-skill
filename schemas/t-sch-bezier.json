@@ -21,6 +21,14 @@
         "null"
       ]
     },
+    "yAxisDirection": {
+      "description": "Y 轴方向标记：仅 eprj3 本地文件格式会带，读盘时被剥离；语义见 TYAxisDirection",
+      "type": "string",
+      "enum": [
+        "up",
+        "down"
+      ]
+    },
     "controls": {
       "description": "控制点",
       "type": "array"
@@ -42,14 +50,16 @@
         "SOLID",
         "SHORT_DASH",
         "DOT",
-        "DOT_DASH"
+        "DOT_DASH",
+        null
       ],
       "enumDescriptions": {
         "SOLID": "实线",
         "SHORT_DASH": "短划线",
         "DOT": "点线",
         "DOT_DASH": "点划线"
-      }
+      },
+      "default": null
     },
     "fillColor": {
       "description": "填充颜色：\"\" 不填充，填充自动闭合起始点和结束点",
@@ -79,7 +89,8 @@
         "VERTICAL_LINE",
         "RHOMBIC",
         "LEFT_SLASH_LINE",
-        "RIGHT_SLASH_LINE"
+        "RIGHT_SLASH_LINE",
+        null
       ],
       "enumDescriptions": {
         "NONE": "无填充",
@@ -90,7 +101,8 @@
         "RHOMBIC": "菱形网格",
         "LEFT_SLASH_LINE": "左斜线",
         "RIGHT_SLASH_LINE": "右斜线"
-      }
+      },
+      "default": null
     }
   },
   "required": [

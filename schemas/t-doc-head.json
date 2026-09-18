@@ -3,7 +3,7 @@
   "type": "object",
   "properties": {
     "docType": {
-      "description": "文件头类型枚举",
+      "description": "",
       "type": "string",
       "enum": [
         "DOCHEAD",
@@ -51,12 +51,14 @@
       }
     },
     "uuid": {
-      "description": "",
-      "type": "string"
+      "description": "文档唯一标识，16 位小写十六进制",
+      "type": "string",
+      "pattern": "^[a-f0-9]{16}$"
     },
     "client": {
-      "description": "",
-      "type": "string"
+      "description": "客户端标识，16 位小写十六进制",
+      "type": "string",
+      "pattern": "^[a-f0-9]{16}$"
     },
     "updateTime": {
       "description": "",

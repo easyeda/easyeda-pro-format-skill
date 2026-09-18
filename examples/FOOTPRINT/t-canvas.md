@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"CANVAS","ticket":1,"id":"CANVAS"}||{"originX":0,"originY":0,"unit":"mm","gridXSize":10,"gridYSize":10,"snapXSize":1,"snapYSize":1,"altSnapXSize":0.1,"altSnapYSize":0.1,"gridType":"LINE","multiGridType":"LINE","multiGridRatio":10,"highlightValue":10,"layerBrightness":"BRIGHT"}
+{"type":"CANVAS","ticket":1,"id":"CANVAS"}||{"originX":0,"originY":0,"unit":"mm","gridXSize":10,"gridYSize":10,"snapXSize":1,"snapYSize":1,"altSnapXSize":0.1,"altSnapYSize":0.1,"gridType":"NONE","multiGridType":"NONE","multiGridRatio":10,"highlightValue":10,"layerBrightness":"NORMAL"}
 ```
 
 ## 返回文档

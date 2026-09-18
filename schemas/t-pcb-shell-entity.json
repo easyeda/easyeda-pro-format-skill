@@ -30,7 +30,7 @@
       "default": null
     },
     "type": {
-      "description": "实体区域类型",
+      "description": "类型",
       "type": "string",
       "enum": [
         "SLOT",
@@ -42,7 +42,7 @@
       }
     },
     "entityBelong": {
-      "description": "实体归属",
+      "description": "实体 - 归属",
       "type": "string",
       "enum": [
         "AUTO",
@@ -56,17 +56,20 @@
       }
     },
     "slotOptions": {
-      "description": "挖槽选项",
-      "type": "string",
-      "enum": [
-        "OUTLINE",
-        "SCREW_PILLAR",
-        "ENTITY"
-      ],
-      "enumDescriptions": {
-        "OUTLINE": "外壳边框",
-        "SCREW_PILLAR": "螺丝柱",
-        "ENTITY": "实体"
+      "description": "挖槽 - 选项",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "OUTLINE",
+          "SCREW_PILLAR",
+          "ENTITY"
+        ],
+        "enumDescriptions": {
+          "OUTLINE": "外壳边框",
+          "SCREW_PILLAR": "螺丝柱",
+          "ENTITY": "实体"
+        }
       }
     },
     "depth": {

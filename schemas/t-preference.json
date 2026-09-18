@@ -45,7 +45,7 @@
       }
     },
     "routingCorner": {
-      "description": "布线拐角模式",
+      "description": "布线拐角模式：\"L45\" 线条 45 度、\"L90\" 线条 90 度、\"R45\" 圆弧 45 度、\"R90\" 圆弧 90 度、\"L\" 线条自由角度、\"R\" 圆弧自由角度",
       "type": "string",
       "enum": [
         "L45",
@@ -103,7 +103,7 @@
       }
     },
     "pushVia": {
-      "description": "推挤过孔",
+      "description": "推挤过孔优化",
       "type": "string",
       "enum": [
         "OPTIMIZA_OPEN",
@@ -115,7 +115,7 @@
       }
     },
     "pathOptimization4BePushed": {
-      "description": "被推挤导线路径优化",
+      "description": "路径优化（单段/整段）",
       "type": "string",
       "enum": [
         "NONE",

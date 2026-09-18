@@ -27,9 +27,11 @@
 | required | ERROR | `negativeNet`: 必需字段 |
 | required | ERROR | `positiveNet`: 必需字段 |
 
-## 关联图元
+### 引用关联
 
-_无关联图元_
+以下字段引用其他图元的 id：`positiveNet`, `negativeNet`
+
+positiveNet 和 negativeNet 引用网络名称
 
 ## 示例
 

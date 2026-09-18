@@ -64,7 +64,7 @@
       "type": "boolean"
     },
     "origin": {
-      "description": "对齐模式",
+      "description": "对齐模式（取值与含义见 EAlign）",
       "type": "string",
       "enum": [
         "LEFT_BOTTOM",

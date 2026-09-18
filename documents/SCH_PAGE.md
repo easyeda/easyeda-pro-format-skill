@@ -25,7 +25,7 @@
 | TSchObj | OBJ | [详细](../primitives/SCH_PAGE/obj.md) |
 | TMSchComponent | COMPONENT | [详细](../primitives/SCH_PAGE/component.md) |
 | TSchEllipse | ELLIPSE | [详细](../primitives/SCH_PAGE/ellipse.md) |
-| TTableCell | TABLE | [详细](../primitives/SCH_PAGE/t-sch-table.md) |
+| TTableCell |  | [详细](../primitives/SCH_PAGE/t-table-cell.md) |
 | TSchTable | TABLE | [详细](../primitives/SCH_PAGE/table.md) |
 | TSchAttr | ATTR | [详细](../primitives/SCH_PAGE/attr.md) |
 | TPart | PART | [详细](../primitives/SCH_PAGE/part.md) |

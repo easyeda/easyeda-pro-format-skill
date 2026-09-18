@@ -38,7 +38,7 @@
       "type": "number"
     },
     "fillStyle": {
-      "description": "PCB 填充类型",
+      "description": "填充模式（取值与含义见 EPcbFillStyle）",
       "type": "string",
       "enum": [
         "SOLID",

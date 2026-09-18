@@ -10,14 +10,14 @@
 
 | 字段 | 类型 | 必需 | 约束 | 说明 |
 |------|------|------|------|------|
-| dimensionType | `string` | ✓ | - | 尺寸类型：
-LENGTH-CONSTRAINT 长度约束,
-LENGTH-MEASUREMENT 长度测量,
-ANGLE-CONSTRAINT 角度约束,
-ANGLE-MEASUREMENT 角度测量,
-RADIUS-MEASUREMENT 半径测量,
-ANGLE 游离角度,
-LENGTH 游离长度 |
+| layer | `number` | ✓ | min: 0 | 层 |
+| locked | `boolean` | ✓ | - | 是否锁定 |
+| zIndex | `number \| null` | ✓ | min: 0, default: null | Z 轴高度, null 为默认 |
+| valid | `boolean` | ✓ | - | 是否生效 |
+| visible | `boolean` | ✓ | - | 是否可见 |
+| cover | `number \| null` | ✓ | - | 遮盖透明度 |
+| name | `string` | ✓ | - | 名称 |
+| dimensionType | `string` | ✓ | enum: LENGTH-CONSTRAINT, LENGTH-MEASUREMENT, ANGLE-CONSTRAINT, ANGLE-MEASUREMENT, RADIUS-MEASUREMENT, ANGLE, LENGTH | 尺寸类型： LENGTH-CONSTRAINT 长度约束, LENGTH-MEASUREMENT 长度测量, ANGLE-CONSTRAINT 角度约束, ANGLE-MEASUREMENT 角度测量, RADIUS-MEASUREMENT 半径测量, ANGLE 游离角度, LENGTH 游离长度 |
 | unit | `string` | ✓ | - | 单位（预留）：mm cm inch mil 或 null 为跟随画布单位 |
 | strokeWidth | `number` | ✓ | min: 0 | 线宽（预留，与画布尺寸无关） |
 | accuracy | `number` | ✓ | - | 精度（预留） |
@@ -33,6 +33,13 @@ LENGTH 游离长度 |
 
 | 规则 | 级别 | 说明 |
 |------|------|------|
+| required | ERROR | `layer`: 必需字段 |
+| required | ERROR | `locked`: 必需字段 |
+| required | ERROR | `zIndex`: 必需字段 |
+| required | ERROR | `valid`: 必需字段 |
+| required | ERROR | `visible`: 必需字段 |
+| required | ERROR | `cover`: 必需字段 |
+| required | ERROR | `name`: 必需字段 |
 | required | ERROR | `dimensionType`: 必需字段 |
 | required | ERROR | `unit`: 必需字段 |
 | required | ERROR | `strokeWidth`: 必需字段 |
@@ -40,6 +47,9 @@ LENGTH 游离长度 |
 | required | ERROR | `controlDot`: 必需字段 |
 | required | ERROR | `relationIds`: 必需字段 |
 | required | ERROR | `rotation`: 必需字段 |
+| minimum | ERROR | `layer`: 最小值: 0 |
+| minimum | ERROR | `zIndex`: 最小值: 0 |
+| enum | ERROR | `dimensionType`: 允许值: LENGTH-CONSTRAINT, LENGTH-MEASUREMENT, ANGLE-CONSTRAINT, ANGLE-MEASUREMENT, RADIUS-MEASUREMENT, ANGLE, LENGTH |
 | minimum | ERROR | `strokeWidth`: 最小值: 0 |
 | minimum | ERROR | `rotation`: 最小值: 0 |
 | maximum | ERROR | `rotation`: 最大值: 360 |

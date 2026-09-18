@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"CIRCLE","ticket":28,"id":"cda155f9448228df"}||{"centerX":-40,"centerY":10,"radius":10,"strokeColor":null,"strokeStyle":null,"fillColor":null,"strokeWidth":null,"fillStyle":null,"zIndex":15,"partId":"1"}
+{"type":"CIRCLE","ticket":28,"id":"cda155f9448228df"}||{"centerX":-40,"centerY":10,"radius":10,"strokeColor":null,"strokeStyle":null,"fillColor":null,"strokeWidth":null,"fillStyle":null,"zIndex":15,"partId":"1","groupId":"","locked":false}
 ```
 
 ## 返回文档

@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{ "type": "RULE_SELECTOR", "id":"UUID", "ticket": 1 }||{"ruleSelect":["NET", "GND"],"ruleOrder":0,"ruleKeyValue":{ "Safe Clearance": "通用", "Other Clearance": "通用" }}
+{"type":"RULE_SELECTOR","id":"UUID","ticket":1}||{"ruleSelect":["NET","GND"],"ruleOrder":0,"ruleKeyValue":{"Safe Clearance":"通用","Other Clearance":"通用"},"copperValue":{},"innerPlaneValue":{}}
 ```
 
 ## 返回文档

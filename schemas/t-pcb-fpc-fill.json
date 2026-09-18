@@ -30,7 +30,7 @@
       "default": null
     },
     "material": {
-      "description": "柔性工艺补强板材质",
+      "description": "材质（取值与含义见 EFpcMaterial）",
       "type": "string",
       "enum": [
         "Polyimide",

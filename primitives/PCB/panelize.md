@@ -20,16 +20,16 @@
 | verticalStamp | `TPanelizeStamp` | ✓ | - | 邮票孔参数 - 垂直 |
 | horizontalSize | `TPanelizeSide` | ✓ | - | 工艺边参数 - 水平 |
 | verticalSize | `TPanelizeSide` | ✓ | - | 工艺边参数 - 垂直 |
-| mirrorBoard | `boolean | undefined` | ✓ | - | 阴阳板 |
-| mirrorEvenRow | `boolean | undefined` | ✓ | - | 偶数行翻面 |
-| mirrorEvenCol | `boolean | undefined` | ✓ | - | 偶数列翻面 |
-| evenRowRotation | `number | undefined` | ✓ | - | 偶数行角度 |
-| evenColRotation | `number | undefined` | ✓ | - | 偶数列角度 |
-| showVCutIndicator | `boolean | undefined` | ✓ | - | v割标识 |
-| vCutLayer | `number | undefined` | ✓ | - | 层 |
+| mirrorBoard | `boolean \| undefined` | ✓ | - | 阴阳板 |
+| mirrorEvenRow | `boolean \| undefined` | ✓ | - | 偶数行翻面 |
+| mirrorEvenCol | `boolean \| undefined` | ✓ | - | 偶数列翻面 |
+| evenRowRotation | `number \| undefined` | ✓ | - | 偶数行角度 |
+| evenColRotation | `number \| undefined` | ✓ | - | 偶数列角度 |
+| showVCutIndicator | `boolean \| undefined` | ✓ | - | v割标识 |
+| vCutLayer | `number \| undefined` | ✓ | - | 层 |
 | markPosition | `Array<Array<number>>` |  | - | mark点位置 [左上，右上，左下，右下]四个mark点中心与最外侧bbox上右下左的距离 |
-| positionHolePosition | `Array<Array<number>>` |  | - | 定位点位置  [左上，右上，左下，右下]四个mark点中心与最外侧bbox上右下左的距离 |
-| panelizeVersion | `EPanelizeVersion` | ✓ | - | 拼板版本，默认字段 EPanelizeVersion.pro （新产生的都是最新版本）; 主要作用是要区分不同时期的拼板交互效果和输出的gerber差异 |
+| positionHolePosition | `Array<Array<number>>` |  | - | 定位点位置 [左上，右上，左下，右下]四个mark点中心与最外侧bbox上右下左的距离 |
+| panelizeVersion | `EPanelizeVersion` | ✓ | - | 取值范围：1.0（拼板版本 1.0）、1.1（拼板版本 1.1） |
 
 ## JSON Schema
 
@@ -57,7 +57,7 @@
 | required | ERROR | `showVCutIndicator`: 必需字段 |
 | required | ERROR | `vCutLayer`: 必需字段 |
 | required | ERROR | `panelizeVersion`: 必需字段 |
-| enum | ERROR | `panelizeVersion`: 允许值: 1.0, 1.1, 1.1 |
+| enum | ERROR | `panelizeVersion`: 允许值: 1.0, 1.1 |
 
 ## 关联图元
 

@@ -34,23 +34,26 @@
       "type": "number"
     },
     "prohibitType": {
-      "description": "区域禁止类型",
-      "type": "string",
-      "enum": [
-        "COMPONENT",
-        "VIA",
-        "TRACK",
-        "FILL",
-        "COPPER",
-        "PLANE"
-      ],
-      "enumDescriptions": {
-        "COMPONENT": "禁止元件",
-        "VIA": "禁止过孔",
-        "TRACK": "禁止布线",
-        "FILL": "禁止放置填充区域",
-        "COPPER": "禁止覆铜",
-        "PLANE": "禁止内电层"
+      "description": "禁止类型，可同时存在多个（取值与含义见 EProhibitType）\r\n\r\n旧格式遗留的编号（不是当前取值，解析时需兼容）：\r\n1 布线与放置填充区域、2 元件、3 过孔、4 覆铜与内电层、\r\n5 布线、6 放置填充区域、7 覆铜、8 内电层",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "COMPONENT",
+          "VIA",
+          "TRACK",
+          "FILL",
+          "COPPER",
+          "PLANE"
+        ],
+        "enumDescriptions": {
+          "COMPONENT": "禁止元件",
+          "VIA": "禁止过孔",
+          "TRACK": "禁止布线",
+          "FILL": "禁止放置填充区域",
+          "COPPER": "禁止覆铜",
+          "PLANE": "禁止内电层"
+        }
       }
     },
     "path": {
@@ -62,7 +65,7 @@
       "type": "string"
     },
     "regionType": {
-      "description": "区域类型",
+      "description": "区域类型：0 禁止区域，1 约束区域",
       "type": "string",
       "enum": [
         "PROHIBIT",

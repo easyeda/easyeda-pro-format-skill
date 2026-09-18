@@ -10,6 +10,10 @@
 
 | 字段 | 类型 | 必需 | 约束 | 说明 |
 |------|------|------|------|------|
+| groupId | `string` | ✓ | - | 分组编号, 没有则为空 |
+| locked | `boolean` | ✓ | - | 是否锁定 |
+| zIndex | `number \| null` | ✓ | - | Z 轴高度 |
+| yAxisDirection | `TYAxisDirection` |  | - | Y 轴方向标记：仅 eprj3 本地文件格式会带，读盘时被剥离；语义见 TYAxisDirection |
 | order | `number` | ✓ | min: 0 | 顺序编号：在隶属的 BUS 里的顺序编号，可重复 |
 | pointX | `number` | ✓ | - | 端点 X |
 | pointY | `number` | ✓ | - | 端点 Y |
@@ -23,10 +27,14 @@
 
 | 规则 | 级别 | 说明 |
 |------|------|------|
+| required | ERROR | `groupId`: 必需字段 |
+| required | ERROR | `locked`: 必需字段 |
+| required | ERROR | `zIndex`: 必需字段 |
 | required | ERROR | `order`: 必需字段 |
 | required | ERROR | `pointX`: 必需字段 |
 | required | ERROR | `pointY`: 必需字段 |
 | required | ERROR | `rotation`: 必需字段 |
+| enum | ERROR | `yAxisDirection`: 允许值: up, down |
 | minimum | ERROR | `order`: 最小值: 0 |
 | minimum | ERROR | `rotation`: 最小值: 0 |
 | maximum | ERROR | `rotation`: 最大值: 360 |

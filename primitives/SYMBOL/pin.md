@@ -13,14 +13,15 @@
 | partId | `string` |  | - | 部件编号；符号页专属，表示归属于某部件下, 非符号忽略该字段 |
 | groupId | `string` | ✓ | - | 分组编号, 没有则为空 |
 | locked | `boolean` | ✓ | - | 是否锁定 |
-| zIndex | `number | null` | ✓ | - | Z 轴高度 |
+| zIndex | `number \| null` | ✓ | - | Z 轴高度 |
+| yAxisDirection | `TYAxisDirection` |  | - | Y 轴方向标记：仅 eprj3 本地文件格式会带，读盘时被剥离；语义见 TYAxisDirection |
 | display | `boolean` | ✓ | - | 是否在原理图显示 |
 | x | `number` | ✓ | - | 位置 X |
 | y | `number` | ✓ | - | 位置 Y |
 | length | `number` | ✓ | min: 0 | 引脚长度 |
 | rotation | `number` | ✓ | min: 0, max: 360 | 旋转角度（角度制）：0 90 180 270 |
-| color | `string` | ✓ | pattern: ^$|^#[0-9A-Fa-f]{6}$ | 引脚颜色 |
-| pinShape | `EPinShape` | ✓ | - | 引脚样式 |
+| color | `string` | ✓ | pattern: ^$\|^#[0-9A-Fa-f]{6}$ | 引脚颜色 |
+| pinShape | `EPinShape` | ✓ | - | 取值范围：NONE（无）、CLOCK（时钟）、INVERTED（反相）、INVERTED_CLOCK（反相时钟） |
 
 ## JSON Schema
 
@@ -40,10 +41,11 @@
 | required | ERROR | `rotation`: 必需字段 |
 | required | ERROR | `color`: 必需字段 |
 | required | ERROR | `pinShape`: 必需字段 |
+| enum | ERROR | `yAxisDirection`: 允许值: up, down |
 | minimum | ERROR | `length`: 最小值: 0 |
 | minimum | ERROR | `rotation`: 最小值: 0 |
 | maximum | ERROR | `rotation`: 最大值: 360 |
-| pattern | ERROR | `color`: 匹配模式: ^$|^#[0-9A-Fa-f]{6}$ |
+| pattern | ERROR | `color`: 匹配模式: ^$\|^#[0-9A-Fa-f]{6}$ |
 | enum | ERROR | `pinShape`: 允许值: NONE, CLOCK, INVERTED, INVERTED_CLOCK |
 
 ## 关联图元

@@ -24,9 +24,11 @@
 | required | ERROR | `name`: 必需字段 |
 | required | ERROR | `nets`: 必需字段 |
 
-## 关联图元
+### 引用关联
 
-_无关联图元_
+以下字段引用其他图元的 id：`nets`
+
+nets 字段包含多个网络名称
 
 ## 示例
 

@@ -21,6 +21,14 @@
         "null"
       ]
     },
+    "yAxisDirection": {
+      "description": "Y 轴方向标记：仅 eprj3 本地文件格式会带，读盘时被剥离；语义见 TYAxisDirection",
+      "type": "string",
+      "enum": [
+        "up",
+        "down"
+      ]
+    },
     "display": {
       "description": "是否在原理图显示",
       "type": "boolean"
@@ -50,7 +58,7 @@
       "pattern": "^$|^#[0-9A-Fa-f]{6}$"
     },
     "pinShape": {
-      "description": "引脚形状",
+      "description": "引脚样式",
       "type": "string",
       "enum": [
         "NONE",

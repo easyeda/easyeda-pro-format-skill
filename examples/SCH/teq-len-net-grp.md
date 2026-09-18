@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"EQL_NET_GRP","ticket":407,"id":"[\"EQL_NET_GRP\",\"AASD\"]"}||{"nets":[]}
+{"type":"EQL_NET_GRP","ticket":407,"id":"[\"EQL_NET_GRP\",\"AASD\"]"}||{"nets":[],"name":""}
 ```
 
 ## 返回文档

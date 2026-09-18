@@ -12,7 +12,8 @@
 |------|------|------|------|------|
 | groupId | `string` | ✓ | - | 分组编号, 没有则为空 |
 | locked | `boolean` | ✓ | - | 是否锁定 |
-| zIndex | `number` | ✓ | - | Z 轴高度 |
+| zIndex | `number \| null` | ✓ | - | Z 轴高度 |
+| yAxisDirection | `TYAxisDirection` |  | - | Y 轴方向标记：仅 eprj3 本地文件格式会带，读盘时被剥离；语义见 TYAxisDirection |
 
 ## JSON Schema
 
@@ -25,6 +26,7 @@
 | required | ERROR | `groupId`: 必需字段 |
 | required | ERROR | `locked`: 必需字段 |
 | required | ERROR | `zIndex`: 必需字段 |
+| enum | ERROR | `yAxisDirection`: 允许值: up, down |
 
 ## 关联图元
 

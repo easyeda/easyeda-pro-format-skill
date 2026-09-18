@@ -58,7 +58,7 @@
       "type": "number"
     },
     "arcType": {
-      "description": "圆弧类型",
+      "description": "圆弧类型：0 两点圆弧，1 中心圆弧",
       "type": "string",
       "enum": [
         "DOT",

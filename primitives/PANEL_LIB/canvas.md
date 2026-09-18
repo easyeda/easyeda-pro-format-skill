@@ -19,8 +19,8 @@
 | print | `string` | ✓ | - | 打印方式 |
 | craft | `string` | ✓ | - | 表面工艺 |
 | desc | `string` | ✓ | - | 描述 |
-| coverColor | `string` | ✓ | pattern: ^(#[0-9A-Fa-f]{6})|(rgb\(\d{1,3},\d{1,3},\d{1,3}\))|(cmyk\(\d{1,3},\d{1,3},\d{1,3},\d{1,3}\))|$ | 遮盖颜色 |
-| backgroundColor | `string` | ✓ | pattern: ^(#[0-9A-Fa-f]{6})|(rgb\(\d{1,3},\d{1,3},\d{1,3}\))|(cmyk\(\d{1,3},\d{1,3},\d{1,3},\d{1,3}\))|$ | 背景颜色 |
+| coverColor | `string` | ✓ | pattern: ^(#[0-9A-Fa-f]{6})\|(rgb\(\d{1,3},\d{1,3},\d{1,3}\))\|(cmyk\(\d{1,3},\d{1,3},\d{1,3},\d{1,3}\))\|$ | 遮盖颜色 |
+| backgroundColor | `string` | ✓ | pattern: ^(#[0-9A-Fa-f]{6})\|(rgb\(\d{1,3},\d{1,3},\d{1,3}\))\|(cmyk\(\d{1,3},\d{1,3},\d{1,3},\d{1,3}\))\|$ | 背景颜色 |
 | orderWidth | `string` | ✓ | - | 下单板框最大宽度 |
 | orderHeight | `string` | ✓ | - | 下单板框最大高度 |
 
@@ -45,8 +45,8 @@
 | required | ERROR | `backgroundColor`: 必需字段 |
 | required | ERROR | `orderWidth`: 必需字段 |
 | required | ERROR | `orderHeight`: 必需字段 |
-| pattern | ERROR | `coverColor`: 匹配模式: ^(#[0-9A-Fa-f]{6})|(rgb\(\d{1,3},\d{1,3},\d{1,3}\))|(cmyk\(\d{1,3},\d{1,3},\d{1,3},\d{1,3}\))|$ |
-| pattern | ERROR | `backgroundColor`: 匹配模式: ^(#[0-9A-Fa-f]{6})|(rgb\(\d{1,3},\d{1,3},\d{1,3}\))|(cmyk\(\d{1,3},\d{1,3},\d{1,3},\d{1,3}\))|$ |
+| pattern | ERROR | `coverColor`: 匹配模式: ^(#[0-9A-Fa-f]{6})\|(rgb\(\d{1,3},\d{1,3},\d{1,3}\))\|(cmyk\(\d{1,3},\d{1,3},\d{1,3},\d{1,3}\))\|$ |
+| pattern | ERROR | `backgroundColor`: 匹配模式: ^(#[0-9A-Fa-f]{6})\|(rgb\(\d{1,3},\d{1,3},\d{1,3}\))\|(cmyk\(\d{1,3},\d{1,3},\d{1,3},\d{1,3}\))\|$ |
 
 ## 关联图元
 

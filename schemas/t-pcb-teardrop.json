@@ -2,6 +2,25 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
+    "groupId": {
+      "description": "分组编号, 没有则为 0 不分组，非 0 为组标志，相同组标志的为一组",
+      "type": "string"
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    },
+    "layerId": {
+      "description": "层编号",
+      "type": "number"
+    },
+    "partitionId": {
+      "description": "所属分区编号，为null表示无分区",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
     "netName": {
       "description": "NET，网络名称",
       "type": "string"
@@ -16,6 +35,9 @@
     }
   },
   "required": [
+    "groupId",
+    "locked",
+    "layerId",
     "netName",
     "path"
   ],

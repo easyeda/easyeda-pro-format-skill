@@ -53,7 +53,7 @@
       }
     },
     "multiGridType": {
-      "description": "网格类型",
+      "description": "加粗网格类型",
       "type": "string",
       "enum": [
         "NONE",
@@ -75,7 +75,7 @@
       "type": "number"
     },
     "layerBrightness": {
-      "description": "图层亮度类型",
+      "description": "图层亮度,3.3 版本新增",
       "type": "string",
       "enum": [
         "NORMAL",

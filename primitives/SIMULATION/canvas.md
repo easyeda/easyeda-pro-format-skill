@@ -1,0 +1,36 @@
+# TSchCanvas
+
+> 返回 [SIMULATION 图元索引](../../documents/SIMULATION.md)
+
+## 定义
+
+画布配置信息
+
+## 字段
+
+| 字段 | 类型 | 必需 | 约束 | 说明 |
+|------|------|------|------|------|
+| originX | `number` | ✓ | - | 画布原点 X |
+| originY | `number` | ✓ | - | 画布原点 Y |
+| yAxisDirection | `TYAxisDirection` |  | - | Y 轴方向标记：仅 eprj3 本地文件格式会带，读盘时被剥离；语义见 TYAxisDirection |
+
+## JSON Schema
+
+→ [查看 JSON Schema](../../schemas/t-sch-canvas.json)
+
+## 校验规则
+
+| 规则 | 级别 | 说明 |
+|------|------|------|
+| required | ERROR | `originX`: 必需字段 |
+| required | ERROR | `originY`: 必需字段 |
+| enum | ERROR | `yAxisDirection`: 允许值: up, down |
+
+## 关联图元
+
+_无关联图元_
+
+## 示例
+
+→ [查看示例](../../examples/SIMULATION/t-sch-canvas.md)
+

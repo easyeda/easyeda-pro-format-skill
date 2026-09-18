@@ -19,11 +19,11 @@
 | snapYSize | `number` | ✓ | - | 栅格尺寸 Y |
 | altSnapXSize | `number` | ✓ | - | Alt 栅格尺寸 X |
 | altSnapYSize | `number` | ✓ | - | Alt 栅格尺寸 Y |
-| gridType | `EGridType` | ✓ | - | 网格类型 |
-| multiGridType | `EGridType` | ✓ | - | 加粗网格类型 |
+| gridType | `EGridType` | ✓ | - | 取值范围：NONE（无）、GRID（网格）、OUTLETS（网点） |
+| multiGridType | `EGridType` | ✓ | - | 取值范围：NONE（无）、GRID（网格）、OUTLETS（网点） |
 | multiGridRatio | `number` | ✓ | - | 加粗网格倍数：number |
 | highlightValue | `number` | ✓ | - | 高亮亮度值 |
-| layerBrightness | `ELayerBrightness` | ✓ | - | 图层亮度,3.3 版本新增 |
+| layerBrightness | `ELayerBrightness` | ✓ | - | 取值范围：NORMAL（正常亮度）、INACTIVE_GRAY（非激活层置灰）、INACTIVE_HIDDEN（非激活层隐藏） |
 
 ## JSON Schema
 

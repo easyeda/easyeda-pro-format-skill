@@ -21,6 +21,14 @@
         "null"
       ]
     },
+    "yAxisDirection": {
+      "description": "Y 轴方向标记：仅 eprj3 本地文件格式会带，读盘时被剥离；语义见 TYAxisDirection",
+      "type": "string",
+      "enum": [
+        "up",
+        "down"
+      ]
+    },
     "parentId": {
       "description": "隶属编号：隶属于哪个图元，\"\" 表示属于当前块 默认块是文件",
       "type": "string"
@@ -63,7 +71,10 @@
     },
     "version": {
       "description": "表示来自 2.0 版本",
-      "type": "object"
+      "type": "string",
+      "enum": [
+        "2.0"
+      ]
     },
     "color": {
       "description": "颜色",

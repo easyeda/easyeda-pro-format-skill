@@ -59,7 +59,7 @@
       ]
     },
     "hAlign": {
-      "description": "水平对齐模式",
+      "description": "水平对齐",
       "type": "string",
       "enum": [
         "LEFT",
@@ -73,7 +73,7 @@
       }
     },
     "vAlign": {
-      "description": "垂直对齐模式",
+      "description": "垂直对齐",
       "type": "string",
       "enum": [
         "TOP",

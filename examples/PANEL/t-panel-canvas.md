@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"CANVAS","ticket":1,"id":"CANVAS"}||{"material":"acrylic","thickness":"0.8mm","print":"Bottom Side","craft":"Transparent","desc":"","coverColor":"white","width":"393mm","height":"579mm","originX":0,"originY":0,"orderWidth":"393mm","orderHeight":"579mm"}
+{"type":"CANVAS","ticket":1,"id":"CANVAS"}||{"material":"acrylic","thickness":"0.8mm","print":"Bottom Side","craft":"Transparent","desc":"","coverColor":"white","width":"393mm","height":"579mm","originX":0,"originY":0,"orderWidth":"393mm","orderHeight":"579mm","backgroundColor":""}
 ```
 
 ## 返回文档

@@ -42,7 +42,7 @@
       "type": "array"
     },
     "polyType": {
-      "description": "折线类型",
+      "description": "折线类型（取值与含义见 EPolyType）",
       "type": "string",
       "enum": [
         "NORMAL",

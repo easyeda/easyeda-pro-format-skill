@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"DIFFERENTIAL_PAIR","ticket":405,"id":"[\"DIFFERENTIAL_PAIR\",\"DP1\"]"}||{"positiveNet":"$1N1","negativeNet":"$1N2"}
+{"type":"DIFFERENTIAL_PAIR","ticket":405,"id":"[\"DIFFERENTIAL_PAIR\",\"DP1\"]"}||{"positiveNet":"$1N1","negativeNet":"$1N2","name":""}
 ```
 
 ## 返回文档

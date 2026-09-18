@@ -10,19 +10,19 @@ PCB 尺寸工具集
 
 | 字段 | 类型 | 必需 | 约束 | 说明 |
 |------|------|------|------|------|
-| partitionId | `string | null` |  | - | 所属分区编号，为null表示无分区 |
+| partitionId | `string \| null` |  | - | 所属分区编号，为null表示无分区 |
 | groupId | `string` | ✓ | - | 分组编号, 没有则为 0 不分组，非 0 为组标志，相同组标志的为一组 |
 | layerId | `number` | ✓ | - | 层编号 |
 | locked | `boolean` | ✓ | - | 是否锁定 |
-| zIndex | `number | null` | ✓ | - | Z 轴高度, null 为默认 |
-| type | `EDimensionType` | ✓ | - | 尺寸类型： RADIUS 半径 LENGTH 长度 ANGLE 角度 |
-| unit | `EUnitName` | ✓ | - | 单位 mm cm inch mil |
+| zIndex | `number \| null` | ✓ | default: null | Z 轴高度, null 为默认 |
+| type | `EDimensionType` | ✓ | - | 取值范围：LENGTH（长度）、RADIUS（半径）、ANGLE（角度） |
+| unit | `EUnitName` | ✓ | - | 取值范围：mil（密耳）、inch（英寸）、cm（厘米）、mm（毫米） |
 | strokeWidth | `number` | ✓ | - | 线宽 |
 | precision | `number` | ✓ | min: 0 | 精度 |
 | textFollow | `boolean` | ✓ | - | 文字是否跟随：1 工具自动决定文字的位置 0 永远采用 ATTR 的位置 |
 | coords | `number[]` | ✓ | - | 坐标集 X1 Y1 X2 Y2 X3 Y3 ... 不同尺寸类型对坐标有不同的定义 |
 | text | `TPcbString` | ✓ | - | 文本 |
-| specialColor | `string` |  | pattern: ^$|^#[0-9A-Fa-f]{6}$ | 特殊颜色 |
+| specialColor | `string` |  | pattern: ^$\|^#[0-9A-Fa-f]{6}$ | 特殊颜色 |
 
 ## JSON Schema
 
@@ -46,7 +46,7 @@ PCB 尺寸工具集
 | enum | ERROR | `type`: 允许值: LENGTH, RADIUS, ANGLE |
 | enum | ERROR | `unit`: 允许值: mil, inch, cm, mm |
 | minimum | ERROR | `precision`: 最小值: 0 |
-| pattern | ERROR | `specialColor`: 匹配模式: ^$|^#[0-9A-Fa-f]{6}$ |
+| pattern | ERROR | `specialColor`: 匹配模式: ^$\|^#[0-9A-Fa-f]{6}$ |
 
 ## 关联图元
 

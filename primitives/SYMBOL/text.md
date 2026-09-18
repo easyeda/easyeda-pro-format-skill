@@ -13,21 +13,22 @@
 | partId | `string` |  | - | 部件编号；符号页专属，表示归属于某部件下, 非符号忽略该字段 |
 | groupId | `string` | ✓ | - | 分组编号, 没有则为空 |
 | locked | `boolean` | ✓ | - | 是否锁定 |
-| zIndex | `number | null` | ✓ | - | Z 轴高度 |
+| zIndex | `number \| null` | ✓ | - | Z 轴高度 |
+| yAxisDirection | `TYAxisDirection` |  | - | Y 轴方向标记：仅 eprj3 本地文件格式会带，读盘时被剥离；语义见 TYAxisDirection |
 | x | `number` | ✓ | - | 文本坐标 X |
 | y | `number` | ✓ | - | 文本坐标 Y |
 | rotation | `number` | ✓ | min: 0, max: 360 | 旋转角度（角度制），绕 文本坐标 旋转 |
 | value | `string` | ✓ | - | 文本内容：任意字符 |
 | version | `'2.0'` |  | - | 表示来自 2.0 版本 |
-| color | `string | null` | ✓ | - | 颜色 |
-| fillColor | `string | null` | ✓ | - | 背景色 |
-| fontFamily | `string | null` | ✓ | - | 字体名称 |
-| fontSize | `number | null` | ✓ | - | 字体大小，与坐标等单位相同 |
-| strikeout | `boolean | null` | ✓ | - | 是否加删除线 |
-| underline | `boolean | null` | ✓ | - | 是否加下划线 |
-| italic | `boolean | null` | ✓ | - | 是否斜体 |
-| fontWeight | `boolean | null` | ✓ | - | 是否加粗 |
-| align | `EAlign` | ✓ | - | 对齐模式 |
+| color | `string \| null` | ✓ | - | 颜色 |
+| fillColor | `string \| null` | ✓ | - | 背景色 |
+| fontFamily | `string \| null` | ✓ | - | 字体名称 |
+| fontSize | `number \| null` | ✓ | - | 字体大小，与坐标等单位相同 |
+| strikeout | `boolean \| null` | ✓ | - | 是否加删除线 |
+| underline | `boolean \| null` | ✓ | - | 是否加下划线 |
+| italic | `boolean \| null` | ✓ | - | 是否斜体 |
+| fontWeight | `boolean \| null` | ✓ | - | 是否加粗 |
+| align | `EAlign` | ✓ | - | 取值范围：LEFT_BOTTOM（左底）、CENTER_BOTTOM（中底）、RIGHT_BOTTOM（右底）、LEFT_MIDDLE（左中）、CENTER_MIDDLE（中中）、RIGHT_MIDDLE（右中）、LEFT_TOP（左顶）、CENTER_TOP（中顶）、RIGHT_TOP（右顶） |
 
 ## JSON Schema
 
@@ -53,8 +54,10 @@
 | required | ERROR | `italic`: 必需字段 |
 | required | ERROR | `fontWeight`: 必需字段 |
 | required | ERROR | `align`: 必需字段 |
+| enum | ERROR | `yAxisDirection`: 允许值: up, down |
 | minimum | ERROR | `rotation`: 最小值: 0 |
 | maximum | ERROR | `rotation`: 最大值: 360 |
+| enum | ERROR | `version`: 允许值: 2.0 |
 | enum | ERROR | `align`: 允许值: LEFT_BOTTOM, CENTER_BOTTOM, RIGHT_BOTTOM, LEFT_MIDDLE, CENTER_MIDDLE, RIGHT_MIDDLE, LEFT_TOP, CENTER_TOP, RIGHT_TOP |
 
 ## 关联图元

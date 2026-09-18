@@ -10,11 +10,11 @@
 
 | 字段 | 类型 | 必需 | 约束 | 说明 |
 |------|------|------|------|------|
-| partitionId | `string | null` |  | - | 所属分区编号，为null表示无分区 |
+| partitionId | `string \| null` |  | - | 所属分区编号，为null表示无分区 |
 | groupId | `string` | ✓ | - | 分组编号, 没有则为 0 不分组，非 0 为组标志，相同组标志的为一组 |
 | layerId | `number` | ✓ | - | 层编号 |
 | locked | `boolean` | ✓ | - | 是否锁定 |
-| zIndex | `number | null` | ✓ | - | Z 轴高度, null 为默认 |
+| zIndex | `number \| null` | ✓ | default: null | Z 轴高度, null 为默认 |
 | netName | `string` | ✓ | - | NET，网络名称 |
 | num | `string` | ✓ | - | 焊盘编号 |
 | centerX | `number` | ✓ | - | 焊盘原点 X |
@@ -22,32 +22,39 @@
 | padAngle | `number` | ✓ | - | 焊盘旋转角度（角度制） |
 | hole | `THoleDef` | ✓ | - | 孔，null 表示无孔 |
 | defaultPad | `TPadDef` | ✓ | - | 默认焊盘：参考焊盘 |
-| specialPad | `{
-		/** 开始层 */
-		startLayer: number;
-		/** 结束层 */
-		endLayer: number;
-		/** 参考焊盘 */
-		pad: TPadDef;
-	}[]` | ✓ | - | 特殊焊盘 |
+| specialPad | `{ startLayer: number; endLayer: number; pad: TPadDef }[]` | ✓ | - | 特殊焊盘 |
 | padOffsetX | `number` | ✓ | - | 孔偏移 X |
 | padOffsetY | `number` | ✓ | - | 孔偏移 Y |
 | relativeAngle | `number` | ✓ | - | 孔相对焊盘旋转角度（角度制） |
 | plated | `boolean` | ✓ | - | plated 是否金属化孔壁 |
-| padType | `EPadFuncType` | ✓ | - | 焊盘功能 |
-| topSolderExpansion | `number | null` | ✓ | - | 顶层阻焊扩展：null 为遵循规则 |
-| bottomSolderExpansion | `number | null` | ✓ | - | 底层阻焊扩展：null 为遵循规则 |
-| topPasteExpansion | `number | null` | ✓ | - | 顶层助焊扩展：null 为遵循规则 |
-| bottomPasteExpansion | `number | null` | ✓ | - | 底层助焊扩展：null 为遵循规则 |
-| connectMode | `EPadConnect | null` | ✓ | - | 热焊-连接方式：null 为遵循规则，其他数据定义同设计规则 |
-| spokeSpace | `number | null` | ✓ | - | 热焊-发散间距：null 为遵循规则，其他数据定义同设计规则 |
-| spokeWidth | `number | null` | ✓ | - | 热焊-发散线宽：null 为遵循规则，其他数据定义同设计规则 |
-| spokeAngle | `number | null` | ✓ | - | 热焊-发散角度：null 为遵循规则，其他数据定义同设计规则 |
+| padType | `EPadFuncType` | ✓ | - | 取值范围：NORMAL（普通焊盘）、TEST（测试点）、MARKER（标识点） |
+| topSolderExpansion | `number \| null` | ✓ | - | 顶层阻焊扩展：null 为遵循规则 |
+| bottomSolderExpansion | `number \| null` | ✓ | - | 底层阻焊扩展：null 为遵循规则 |
+| topPasteExpansion | `number \| null` | ✓ | - | 顶层助焊扩展：null 为遵循规则 |
+| bottomPasteExpansion | `number \| null` | ✓ | - | 底层助焊扩展：null 为遵循规则 |
+| connectMode | `EPadConnect \| null` | ✓ | - | 取值范围：DIVERGENCE（热焊（发散））、DIRECT（直连）、NON_CONNECT（无连接） |
+| spokeSpace | `number \| null` | ✓ | - | 热焊-发散间距：null 为遵循规则，其他数据定义同设计规则 |
+| spokeWidth | `number \| null` | ✓ | - | 热焊-发散线宽：null 为遵循规则，其他数据定义同设计规则 |
+| spokeAngle | `number \| null` | ✓ | - | 热焊-发散角度：null 为遵循规则，其他数据定义同设计规则 |
 | unusedInnerLayers | `number[]` |  | - | 隐藏焊盘层（可选）：被隐藏焊盘的层数组 |
 | padLen | `number` | ✓ | - | 引脚长度 |
 | propagationDelay | `number` | ✓ | - | 传播延迟，3.3 新增 |
 | attrsMap | `{ [key: string]: any }` |  | - | 自定义属性 |
 | refs | `string[]` |  | - | 关联的图元编号 |
+
+## 对象字段成员
+
+以下字段的类型是内联对象，成员定义如下：
+
+### `specialPad`
+
+特殊焊盘
+
+| 成员 | 类型 | 必需 | 说明 |
+|------|------|------|------|
+| startLayer | `number` | ✓ | 开始层 |
+| endLayer | `number` | ✓ | 结束层 |
+| pad | `TPadDef` | ✓ | 参考焊盘 |
 
 ## JSON Schema
 
@@ -85,7 +92,7 @@
 | required | ERROR | `padLen`: 必需字段 |
 | required | ERROR | `propagationDelay`: 必需字段 |
 | enum | ERROR | `padType`: 允许值: NORMAL, TEST, MARKER |
-| enum | ERROR | `connectMode`: 允许值: DIVERGENCE, DIRECT, NON_CONNECT |
+| enum | ERROR | `connectMode`: 允许值: DIVERGENCE, DIRECT, NON_CONNECT, null |
 
 ## 关联图元
 

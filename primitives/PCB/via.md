@@ -10,15 +10,19 @@
 
 | 字段 | 类型 | 必需 | 约束 | 说明 |
 |------|------|------|------|------|
+| groupId | `string` | ✓ | - | 分组编号, 没有则为 0 不分组，非 0 为组标志，相同组标志的为一组 |
+| locked | `boolean` | ✓ | - | 是否锁定 |
+| zIndex | `number \| null` | ✓ | default: null | Z 轴高度, null 为默认 |
+| partitionId | `string \| null` |  | - | 所属分区编号，为null表示无分区 |
 | netName | `string` | ✓ | - | NET，网络名称 |
 | ruleName | `string` | ✓ | - | 过孔层类型：设计规则名称，定义过孔的开始层结束层 |
 | centerX | `number` | ✓ | - | 坐标 X |
 | centerY | `number` | ✓ | - | 坐标 Y |
 | holeDiameter | `number` | ✓ | - | 孔直径 |
 | viaDiameter | `number` | ✓ | - | 焊盘直径 |
-| viaType | `EViaType` | ✓ | - | 过孔类型 |
-| topSolderExpansion | `number | null` | ✓ | - | 顶层阻焊扩展：null 为遵循规则 |
-| bottomSolderExpansion | `number | null` | ✓ | - | 底层阻焊扩展：null 为遵循规则 |
+| viaType | `EViaType` | ✓ | - | 取值范围：NORMAL（通孔(普通过孔)）、BLIND（盲埋孔）、SUTURE（缝合孔） |
+| topSolderExpansion | `number \| null` | ✓ | - | 顶层阻焊扩展：null 为遵循规则 |
+| bottomSolderExpansion | `number \| null` | ✓ | - | 底层阻焊扩展：null 为遵循规则 |
 | unusedInnerLayers | `number[]` | ✓ | - | 隐藏焊盘层（可选）：被隐藏焊盘的层数组 |
 | propagationDelay | `number` | ✓ | - | 传播延迟，3.3 新增 |
 
@@ -30,6 +34,9 @@
 
 | 规则 | 级别 | 说明 |
 |------|------|------|
+| required | ERROR | `groupId`: 必需字段 |
+| required | ERROR | `locked`: 必需字段 |
+| required | ERROR | `zIndex`: 必需字段 |
 | required | ERROR | `netName`: 必需字段 |
 | required | ERROR | `ruleName`: 必需字段 |
 | required | ERROR | `centerX`: 必需字段 |

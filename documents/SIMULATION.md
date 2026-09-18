@@ -10,6 +10,28 @@
 | 类型 | 简述 | 定义 |
 |------|------|------|
 | TMSimulation | META | [详细](../primitives/SIMULATION/meta.md) |
+| TSchLine | LINE | [详细](../primitives/SIMULATION/line.md) |
+| TSchBusEntry | BUSENTRY | [详细](../primitives/SIMULATION/busentry.md) |
+| TWire | WIRE | [详细](../primitives/SIMULATION/wire.md) |
+| TBus | BUS | [详细](../primitives/SIMULATION/bus.md) |
+| TSchGroup | GROUP | [详细](../primitives/SIMULATION/group.md) |
+| TSchBezier | BEZIER | [详细](../primitives/SIMULATION/bezier.md) |
+| TSchText | TEXT | [详细](../primitives/SIMULATION/text.md) |
+| TSchPoly | POLY | [详细](../primitives/SIMULATION/poly.md) |
+| TSchCircle | CIRCLE | [详细](../primitives/SIMULATION/circle.md) |
+| TSchArc | ARC | [详细](../primitives/SIMULATION/arc.md) |
+| TSchRect | RECT | [详细](../primitives/SIMULATION/rect.md) |
+| TSchPin | PIN | [详细](../primitives/SIMULATION/pin.md) |
+| TSchObj | OBJ | [详细](../primitives/SIMULATION/obj.md) |
+| TMSchComponent | COMPONENT | [详细](../primitives/SIMULATION/component.md) |
+| TSchEllipse | ELLIPSE | [详细](../primitives/SIMULATION/ellipse.md) |
+| TTableCell |  | [详细](../primitives/SIMULATION/t-table-cell.md) |
+| TSchTable | TABLE | [详细](../primitives/SIMULATION/table.md) |
+| TSchAttr | ATTR | [详细](../primitives/SIMULATION/attr.md) |
+| TPart | PART | [详细](../primitives/SIMULATION/part.md) |
+| TSchCanvas | CANVAS | [详细](../primitives/SIMULATION/canvas.md) |
+| TSchMaskRegion | MASK_REGION | [详细](../primitives/SIMULATION/mask_region.md) |
+| TNGSetting | NG_SETTING | [详细](../primitives/SIMULATION/ng_setting.md) |
 
 ## Related Resources
 

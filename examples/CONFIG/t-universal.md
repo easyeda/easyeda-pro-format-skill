@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"UNIVERSAL","ticket":1,"id":"UNIVERSAL"}||{"allowLibRename":true,"defaultNetName":true,"wireMultipleNet":true,"netFlagCrossLayerConnection":true,"netLabelCrossPageConnection":true,"busGenerateNetClass":true,"relevanceDisplayRow":"SINGLE","relevanceBelongSchPage":"NAME","relevanceLocation":"ZONE"}
+{"type":"UNIVERSAL","ticket":1,"id":"UNIVERSAL"}||{"allowLibRename":true,"defaultNetName":true,"wireMultipleNet":true,"netFlagCrossLayerConnection":true,"netLabelCrossPageConnection":true,"busGenerateNetClass":true,"relevanceDisplayRow":"SINGLE","relevanceBelongSchPage":"NAME","relevanceLocation":"ZONE","multipartCrossLayer":false}
 ```
 
 ## 返回文档

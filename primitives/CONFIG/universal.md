@@ -16,9 +16,9 @@
 | netFlagCrossLayerConnection | `boolean` | ✓ | - | 原理图 - 是否网络标识跨层连接 |
 | netLabelCrossPageConnection | `boolean` | ✓ | - | 原理图 - 是否网络标识跨页连接 |
 | busGenerateNetClass | `boolean` | ✓ | - | 原理图 - 是否网络标识总线生成网络类 |
-| relevanceDisplayRow | `ERelevanceDisplayRowType` | ✓ | - | 原理图 - 显示方式 |
-| relevanceBelongSchPage | `ERelevanceBelongSchPage` | ✓ | - | 原理图 - 所在图页 |
-| relevanceLocation | `ERelevanceLocation` | ✓ | - | 原理图 - 所在位置 |
+| relevanceDisplayRow | `ERelevanceDisplayRowType` | ✓ | - | 取值范围：SINGLE（单行显示）、MULTIPLE（多行显示） |
+| relevanceBelongSchPage | `ERelevanceBelongSchPage` | ✓ | - | 取值范围：NONE（不显示）、NAME（名称）、NUMBER（序号） |
+| relevanceLocation | `ERelevanceLocation` | ✓ | - | 取值范围：NONE（不显示）、ZONE（区域） |
 | multipartCrossLayer | `boolean` | ✓ | - | 多部件跨层 |
 | nonElectronicAddIntoBom | `boolean` |  | - | 无电气标识 - 允许加入BOM |
 | nonElectronicUpdatePcb | `boolean` |  | - | 无电气标识 - 允许更新PCB |

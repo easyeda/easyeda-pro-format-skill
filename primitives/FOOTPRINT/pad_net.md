@@ -10,7 +10,7 @@
 
 | 字段 | 类型 | 必需 | 约束 | 说明 |
 |------|------|------|------|------|
-| partitionId | `string | null` |  | - | 所属分区编号，为null表示无分区 |
+| partitionId | `string \| null` |  | - | 所属分区编号，为null表示无分区 |
 | componentId | `string` | ✓ | - | 所属器件实例编号 |
 | padNum | `string` | ✓ | - | 焊盘编号 |
 | padNet | `string` | ✓ | - | 网络名 |

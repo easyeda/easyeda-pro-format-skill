@@ -3,7 +3,7 @@
   "type": "object",
   "properties": {
     "transScope": {
-      "description": "透明度控制范围",
+      "description": "透明度控制范围（取值与含义见 EPanelTransScope）",
       "type": "string",
       "enum": [
         "PRINT",

@@ -13,7 +13,8 @@
 | partId | `string` |  | - | 部件编号；符号页专属，表示归属于某部件下, 非符号忽略该字段 |
 | groupId | `string` | ✓ | - | 分组编号, 没有则为空 |
 | locked | `boolean` | ✓ | - | 是否锁定 |
-| zIndex | `number | null` | ✓ | - | Z 轴高度 |
+| zIndex | `number \| null` | ✓ | - | Z 轴高度 |
+| yAxisDirection | `TYAxisDirection` |  | - | Y 轴方向标记：仅 eprj3 本地文件格式会带，读盘时被剥离；语义见 TYAxisDirection |
 | fileName | `string` | ✓ | - | 文件名 |
 | startX | `number` | ✓ | - | 左上角 X |
 | startY | `number` | ✓ | - | 左上角 Y |
@@ -21,7 +22,7 @@
 | height | `number` | ✓ | min: 0 | 高 |
 | rotation | `number` | ✓ | min: 0, max: 360 | 旋转角度（角度制）：绕左上角旋转 |
 | isMirror | `boolean` | ✓ | - | 是否镜像 |
-| content | `string` | ✓ | pattern: ^(data:)|(blob:) | 二进制数据，有两种模式一般格式，1.遵循 Data Urls 规范 data:[<mediatype>][;base64],<data> 2.BLOB引用模式，blob:hashid |
+| content | `string` | ✓ | pattern: ^(data:)\|(blob:) | 二进制数据，有两种模式一般格式，1.遵循 Data Urls 规范 data:[<mediatype>][;base64],<data> 2.BLOB引用模式，blob:hashid |
 
 ## JSON Schema
 
@@ -42,11 +43,12 @@
 | required | ERROR | `rotation`: 必需字段 |
 | required | ERROR | `isMirror`: 必需字段 |
 | required | ERROR | `content`: 必需字段 |
+| enum | ERROR | `yAxisDirection`: 允许值: up, down |
 | minimum | ERROR | `width`: 最小值: 0 |
 | minimum | ERROR | `height`: 最小值: 0 |
 | minimum | ERROR | `rotation`: 最小值: 0 |
 | maximum | ERROR | `rotation`: 最大值: 360 |
-| pattern | ERROR | `content`: 匹配模式: ^(data:)|(blob:) |
+| pattern | ERROR | `content`: 匹配模式: ^(data:)\|(blob:) |
 
 ## 关联图元
 

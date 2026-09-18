@@ -13,18 +13,19 @@
 | partId | `string` |  | - | 部件编号；符号页专属，表示归属于某部件下, 非符号忽略该字段 |
 | groupId | `string` | ✓ | - | 分组编号, 没有则为空 |
 | locked | `boolean` | ✓ | - | 是否锁定 |
-| zIndex | `number | null` | ✓ | - | Z 轴高度 |
+| zIndex | `number \| null` | ✓ | - | Z 轴高度 |
+| yAxisDirection | `TYAxisDirection` |  | - | Y 轴方向标记：仅 eprj3 本地文件格式会带，读盘时被剥离；语义见 TYAxisDirection |
 | startX | `number` | ✓ | - | 起始 X |
 | startY | `number` | ✓ | - | 起始 Y |
 | referX | `number` | ✓ | - | 参考 X |
 | referY | `number` | ✓ | - | 参考 Y |
 | endX | `number` | ✓ | - | 结束 X |
 | endY | `number` | ✓ | - | 结束 Y |
-| strokeColor | `string | null` | ✓ | - | 颜色 |
-| strokeStyle | `EStrokeStyle | null` | ✓ | - | 样式, null 为默认 |
-| fillColor | `string | null` | ✓ | - | 填充颜色："" 不填充，填充自动闭合起始点和结束点 |
-| strokeWidth | `number | null` | ✓ | - | 宽度 |
-| fillStyle | `ESchFillStyle | null` | ✓ | - | 填充样式, null 为默认 |
+| strokeColor | `string \| null` | ✓ | - | 颜色 |
+| strokeStyle | `EStrokeStyle \| null` | ✓ | default: null | 取值范围：SOLID（实线）、SHORT_DASH（短划线）、DOT（点线）、DOT_DASH（点划线） |
+| fillColor | `string \| null` | ✓ | - | 填充颜色："" 不填充，填充自动闭合起始点和结束点 |
+| strokeWidth | `number \| null` | ✓ | - | 宽度 |
+| fillStyle | `ESchFillStyle \| null` | ✓ | default: null | 取值范围：NONE（无填充）、SOLID（实心填充）、GRID（网格）、HORIZONTAL_LINE（横线）、VERTICAL_LINE（竖线）、RHOMBIC（菱形网格）、LEFT_SLASH_LINE（左斜线）、RIGHT_SLASH_LINE（右斜线） |
 
 ## JSON Schema
 
@@ -48,8 +49,9 @@
 | required | ERROR | `fillColor`: 必需字段 |
 | required | ERROR | `strokeWidth`: 必需字段 |
 | required | ERROR | `fillStyle`: 必需字段 |
-| enum | ERROR | `strokeStyle`: 允许值: SOLID, SHORT_DASH, DOT, DOT_DASH |
-| enum | ERROR | `fillStyle`: 允许值: NONE, SOLID, GRID, HORIZONTAL_LINE, VERTICAL_LINE, RHOMBIC, LEFT_SLASH_LINE, RIGHT_SLASH_LINE |
+| enum | ERROR | `yAxisDirection`: 允许值: up, down |
+| enum | ERROR | `strokeStyle`: 允许值: SOLID, SHORT_DASH, DOT, DOT_DASH, null |
+| enum | ERROR | `fillStyle`: 允许值: NONE, SOLID, GRID, HORIZONTAL_LINE, VERTICAL_LINE, RHOMBIC, LEFT_SLASH_LINE, RIGHT_SLASH_LINE, null |
 
 ## 关联图元
 

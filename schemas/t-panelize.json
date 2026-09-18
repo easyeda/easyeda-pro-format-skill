@@ -27,7 +27,7 @@
       "type": "boolean"
     },
     "horizontalStamp": {
-      "description": "邮票孔参数",
+      "description": "邮票孔参数 - 水平",
       "type": "object",
       "properties": {
         "on": {
@@ -64,7 +64,7 @@
       ]
     },
     "verticalStamp": {
-      "description": "邮票孔参数",
+      "description": "邮票孔参数 - 垂直",
       "type": "object",
       "properties": {
         "on": {
@@ -101,7 +101,7 @@
       ]
     },
     "horizontalSize": {
-      "description": "工艺边参数",
+      "description": "工艺边参数 - 水平",
       "type": "object",
       "properties": {
         "on": {
@@ -126,10 +126,7 @@
         },
         "borderRadius": {
           "description": "工艺边圆角半径",
-          "type": [
-            "number",
-            "object"
-          ]
+          "type": "number"
         }
       },
       "required": [
@@ -142,7 +139,7 @@
       ]
     },
     "verticalSize": {
-      "description": "工艺边参数",
+      "description": "工艺边参数 - 垂直",
       "type": "object",
       "properties": {
         "on": {
@@ -167,10 +164,7 @@
         },
         "borderRadius": {
           "description": "工艺边圆角半径",
-          "type": [
-            "number",
-            "object"
-          ]
+          "type": "number"
         }
       },
       "required": [
@@ -184,52 +178,31 @@
     },
     "mirrorBoard": {
       "description": "阴阳板",
-      "type": [
-        "boolean",
-        "object"
-      ]
+      "type": "boolean"
     },
     "mirrorEvenRow": {
       "description": "偶数行翻面",
-      "type": [
-        "boolean",
-        "object"
-      ]
+      "type": "boolean"
     },
     "mirrorEvenCol": {
       "description": "偶数列翻面",
-      "type": [
-        "boolean",
-        "object"
-      ]
+      "type": "boolean"
     },
     "evenRowRotation": {
       "description": "偶数行角度",
-      "type": [
-        "number",
-        "object"
-      ]
+      "type": "number"
     },
     "evenColRotation": {
       "description": "偶数列角度",
-      "type": [
-        "number",
-        "object"
-      ]
+      "type": "number"
     },
     "showVCutIndicator": {
       "description": "v割标识",
-      "type": [
-        "boolean",
-        "object"
-      ]
+      "type": "boolean"
     },
     "vCutLayer": {
       "description": "层",
-      "type": [
-        "number",
-        "object"
-      ]
+      "type": "number"
     },
     "markPosition": {
       "description": "mark点位置 [左上，右上，左下，右下]四个mark点中心与最外侧bbox上右下左的距离",
@@ -240,7 +213,7 @@
       "type": "array"
     },
     "panelizeVersion": {
-      "description": "拼板的版本字段",
+      "description": "拼板版本，默认字段 EPanelizeVersion.pro （新产生的都是最新版本）; 主要作用是要区分不同时期的拼板交互效果和输出的gerber差异",
       "type": "string",
       "enum": [
         "1.0",

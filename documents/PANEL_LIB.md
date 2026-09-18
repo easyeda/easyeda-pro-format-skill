@@ -13,7 +13,7 @@
 | TPanelPoly | POLY | [详细](../primitives/PANEL_LIB/poly.md) |
 | TPanelString | STRING | [详细](../primitives/PANEL_LIB/string.md) |
 | TPanelDimension | DIMENSION | [详细](../primitives/PANEL_LIB/dimension.md) |
-| TAuxLine | AUX_LINE | [详细](../primitives/PANEL_LIB/aux_line.md) |
+| TAuxLine | AUXLINE | [详细](../primitives/PANEL_LIB/auxline.md) |
 | TPanelGroup | GROUP | [详细](../primitives/PANEL_LIB/group.md) |
 | TPanelCanvas | CANVAS | [详细](../primitives/PANEL_LIB/canvas.md) |
 | EPanelDataType |  | [详细](../primitives/PANEL_LIB/e-panel-data-type.md) |

@@ -10,7 +10,7 @@
 
 | 字段 | 类型 | 必需 | 约束 | 说明 |
 |------|------|------|------|------|
-| fill | `StrictOmit<TPcbFill & { id: string }, 'layerId' | 'fillStyle'>[]` | ✓ | - |  |
+| fill | `StrictOmit<TPcbFill & { id: string }, 'layerId' \| 'fillStyle'>[]` | ✓ | - |  |
 
 ## JSON Schema
 

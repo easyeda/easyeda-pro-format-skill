@@ -13,9 +13,9 @@
 | display | `boolean` | ✓ | - | 是否显示 |
 | pick | `boolean` |  | - | 是否可拾取 |
 | transparency | `number` |  | - | 透明度 |
-| color | `string` |  | pattern: ^$|^#[0-9A-Fa-f]{6}$ | 颜色 |
+| color | `string` |  | pattern: ^$\|^#[0-9A-Fa-f]{6}$ | 颜色 |
 | layerId | `number` |  | - | 层 id |
-| viewMode | `EPrimitiveViewMode` |  | - | 视图模式 |
+| viewMode | `EPrimitiveViewMode` |  | - | 取值范围：NORMAL（正常视图）、OUTLINE（轮廓视图） |
 
 ## JSON Schema
 
@@ -26,7 +26,7 @@
 | 规则 | 级别 | 说明 |
 |------|------|------|
 | required | ERROR | `display`: 必需字段 |
-| pattern | ERROR | `color`: 匹配模式: ^$|^#[0-9A-Fa-f]{6}$ |
+| pattern | ERROR | `color`: 匹配模式: ^$\|^#[0-9A-Fa-f]{6}$ |
 | enum | ERROR | `viewMode`: 允许值: NORMAL, OUTLINE |
 
 ## 关联图元

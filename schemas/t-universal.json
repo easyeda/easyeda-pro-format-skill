@@ -27,7 +27,7 @@
       "type": "boolean"
     },
     "relevanceDisplayRow": {
-      "description": "关联显示方式",
+      "description": "原理图 - 显示方式",
       "type": "string",
       "enum": [
         "SINGLE",
@@ -39,7 +39,7 @@
       }
     },
     "relevanceBelongSchPage": {
-      "description": "关联所在图页",
+      "description": "原理图 - 所在图页",
       "type": "string",
       "enum": [
         "NONE",
@@ -53,7 +53,7 @@
       }
     },
     "relevanceLocation": {
-      "description": "关联所在位置",
+      "description": "原理图 - 所在位置",
       "type": "string",
       "enum": [
         "NONE",

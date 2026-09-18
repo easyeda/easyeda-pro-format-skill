@@ -22,5 +22,5 @@
     "height",
     "path"
   ],
-  "description": "警告：该文件只留格式相关的类型定义，非格式相关不要放在该文件"
+  "description": "字体缓存"
 }

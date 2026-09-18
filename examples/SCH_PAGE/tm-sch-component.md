@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"COMPONENT","ticket":51,"id":"548cc7e4efcc835c"}||{"partId":"pid8a0e77bacb214e","x":295,"y":-495,"rotation":0,"isMirror":false,"attrs":{},"zIndex":53}
+{"type":"COMPONENT","ticket":51,"id":"548cc7e4efcc835c"}||{"partId":"pid8a0e77bacb214e","x":295,"y":-495,"rotation":0,"isMirror":false,"attrs":{},"zIndex":53,"groupId":"","locked":false}
 ```
 
 ## 返回文档

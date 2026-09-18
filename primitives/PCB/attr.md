@@ -10,29 +10,29 @@ PCB 属性
 
 | 字段 | 类型 | 必需 | 约束 | 说明 |
 |------|------|------|------|------|
-| partitionId | `string | null` |  | - | 所属分区编号，为null表示无分区 |
+| partitionId | `string \| null` |  | - | 所属分区编号，为null表示无分区 |
 | groupId | `string` | ✓ | - | 分组编号, 没有则为 0 不分组，非 0 为组标志，相同组标志的为一组 |
 | layerId | `number` | ✓ | - | 层编号 |
 | locked | `boolean` | ✓ | - | 是否锁定 |
-| zIndex | `number | null` | ✓ | - | Z 轴高度, null 为默认 |
+| zIndex | `number \| null` | ✓ | default: null | Z 轴高度, null 为默认 |
 | parentId | `string` | ✓ | - | 父级编号，没有则为空 |
-| x | `number | null` | ✓ | - | 位置 X：未显示过的属性位置固定为 null |
-| y | `number | null` | ✓ | - | 位置 Y：未显示过的属性位置固定为 null |
+| x | `number \| null` | ✓ | - | 位置 X：未显示过的属性位置固定为 null |
+| y | `number \| null` | ✓ | - | 位置 Y：未显示过的属性位置固定为 null |
 | key | `string` | ✓ | - | Key |
 | value | `string` | ✓ | - | Value |
 | keyVisible | `boolean` | ✓ | - | 是否显示 Key |
 | valueVisible | `boolean` | ✓ | - | 是否显示 Value |
-| fontFamily | `string | null` | ✓ | - | 字体名称 |
-| fontSize | `number | null` | ✓ | - | 字号 |
+| fontFamily | `string \| null` | ✓ | - | 字体名称 |
+| fontSize | `number \| null` | ✓ | - | 字号 |
 | strokeWidth | `number` | ✓ | - | 粗细 |
 | bold | `boolean` | ✓ | - | 是否加粗 |
-| italic | `boolean | null` | ✓ | - | 是否斜体 |
-| origin | `EAlign` | ✓ | - | 对齐模式 0 左顶 1 中顶 2 右顶 3 左中 4 中中 5 右中 6 左底 7 中底 8 右底 |
+| italic | `boolean \| null` | ✓ | - | 是否斜体 |
+| origin | `EAlign` | ✓ | - | 取值范围：LEFT_BOTTOM（左底）、CENTER_BOTTOM（中底）、RIGHT_BOTTOM（右底）、LEFT_MIDDLE（左中）、CENTER_MIDDLE（中中）、RIGHT_MIDDLE（右中）、LEFT_TOP（左顶）、CENTER_TOP（中顶）、RIGHT_TOP（右顶） |
 | angle | `number` | ✓ | - | 旋转角度（角度制） |
 | reverse | `boolean` | ✓ | - | 是否反相扩展 |
 | expansion | `number` | ✓ | - | 反相扩展尺寸：反相扩展区域的尺寸，支持负数 |
 | mirror | `boolean` | ✓ | - | 是否镜像，一般来说，当一个文字出现在底层，这里也需要相应调整成 1 |
-| specialColor | `string` |  | pattern: ^$|^#[0-9A-Fa-f]{6}$ | 特殊颜色 |
+| specialColor | `string` |  | pattern: ^$\|^#[0-9A-Fa-f]{6}$ | 特殊颜色 |
 
 ## JSON Schema
 
@@ -64,7 +64,7 @@ PCB 属性
 | required | ERROR | `expansion`: 必需字段 |
 | required | ERROR | `mirror`: 必需字段 |
 | enum | ERROR | `origin`: 允许值: LEFT_BOTTOM, CENTER_BOTTOM, RIGHT_BOTTOM, LEFT_MIDDLE, CENTER_MIDDLE, RIGHT_MIDDLE, LEFT_TOP, CENTER_TOP, RIGHT_TOP |
-| pattern | ERROR | `specialColor`: 匹配模式: ^$|^#[0-9A-Fa-f]{6}$ |
+| pattern | ERROR | `specialColor`: 匹配模式: ^$\|^#[0-9A-Fa-f]{6}$ |
 
 ## 关联图元
 

@@ -24,7 +24,7 @@
       "type": "number"
     },
     "viewMode": {
-      "description": "图元-视图模式",
+      "description": "视图模式",
       "type": "string",
       "enum": [
         "NORMAL",

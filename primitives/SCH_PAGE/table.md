@@ -10,6 +10,10 @@
 
 | 字段 | 类型 | 必需 | 约束 | 说明 |
 |------|------|------|------|------|
+| groupId | `string` | ✓ | - | 分组编号, 没有则为空 |
+| zIndex | `number \| null` | ✓ | - | Z 轴高度 |
+| partId | `string` |  | - | 部件编号；符号页专属，表示归属于某部件下, 非符号忽略该字段 |
+| yAxisDirection | `TYAxisDirection` |  | - | Y 轴方向标记：仅 eprj3 本地文件格式会带，读盘时被剥离；语义见 TYAxisDirection |
 | startX | `number` | ✓ | - | 左上角 X |
 | startY | `number` | ✓ | - | 左上角 Y |
 | rowSizes | `number[]` | ✓ | - | 行高 |
@@ -27,6 +31,8 @@
 
 | 规则 | 级别 | 说明 |
 |------|------|------|
+| required | ERROR | `groupId`: 必需字段 |
+| required | ERROR | `zIndex`: 必需字段 |
 | required | ERROR | `startX`: 必需字段 |
 | required | ERROR | `startY`: 必需字段 |
 | required | ERROR | `rowSizes`: 必需字段 |
@@ -35,6 +41,7 @@
 | required | ERROR | `colLocked`: 必需字段 |
 | required | ERROR | `rotation`: 必需字段 |
 | required | ERROR | `tableCell`: 必需字段 |
+| enum | ERROR | `yAxisDirection`: 允许值: up, down |
 | minimum | ERROR | `rotation`: 最小值: 0 |
 | maximum | ERROR | `rotation`: 最大值: 360 |
 
@@ -42,7 +49,7 @@
 
 此图元包含以下内嵌结构：
 
-- 内嵌类型: [TTableCell](../../primitives/SCH_PAGE/table.md)
+- 内嵌类型: [TTableCell](../../primitives/SCH_PAGE/t-table-cell.md)
 - 包含内嵌结构的字段: `tableCell`
 
 tableCell 字段包含多个 TTableCell

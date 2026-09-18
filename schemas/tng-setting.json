@@ -16,8 +16,11 @@
     },
     "currentSetting": {
       "description": "",
-      "type": [
-        "object"
+      "type": "string",
+      "enum": [
+        "AC",
+        "DC",
+        "TR"
       ]
     },
     "startDisable": {

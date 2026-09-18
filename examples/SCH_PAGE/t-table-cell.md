@@ -7,5 +7,5 @@
 ## 返回文档
 
 - [返回 SCH_PAGE 汇总](../../documents/SCH_PAGE.md)
-- [查看图元定义](../../primitives/SCH_PAGE/table.md)
+- [查看图元定义](../../primitives/SCH_PAGE/t-table-cell.md)
 

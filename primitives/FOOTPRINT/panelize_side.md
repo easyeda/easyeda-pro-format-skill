@@ -15,7 +15,7 @@
 | positionHoleDiameter | `number` | ✓ | - | 定位孔直径（0 表示无定位孔） |
 | markDiameter | `number` | ✓ | - | Mark 点直径（0 表示不启用 Mark 点） |
 | markExpansion | `number` | ✓ | - | Mark 点阻焊扩展 |
-| borderRadius | `number | undefined` | ✓ | - | 工艺边圆角半径 |
+| borderRadius | `number \| undefined` | ✓ | - | 工艺边圆角半径 |
 
 ## JSON Schema
 

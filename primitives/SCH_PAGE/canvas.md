@@ -12,6 +12,7 @@
 |------|------|------|------|------|
 | originX | `number` | ✓ | - | 画布原点 X |
 | originY | `number` | ✓ | - | 画布原点 Y |
+| yAxisDirection | `TYAxisDirection` |  | - | Y 轴方向标记：仅 eprj3 本地文件格式会带，读盘时被剥离；语义见 TYAxisDirection |
 
 ## JSON Schema
 
@@ -23,6 +24,7 @@
 |------|------|------|
 | required | ERROR | `originX`: 必需字段 |
 | required | ERROR | `originY`: 必需字段 |
+| enum | ERROR | `yAxisDirection`: 允许值: up, down |
 
 ## 关联图元
 

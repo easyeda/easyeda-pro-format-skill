@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"NET_CLASS","ticket":387,"id":"[\"NET_CLASS\",\"AAS\"]"}||{"nets":[]}
+{"type":"NET_CLASS","ticket":387,"id":"[\"NET_CLASS\",\"AAS\"]"}||{"nets":[],"name":""}
 ```
 
 ## 返回文档
