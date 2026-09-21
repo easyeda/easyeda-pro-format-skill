@@ -7,9 +7,11 @@
       "type": "string"
     },
     "zIndex": {
-      "description": "排序大小",
-      "type": "number",
-      "minimum": 0
+      "description": "排序大小：**可以是 `null`**\r\n\r\n ⚠️ 本类型**不继承 `TMDocument`**，故在此单独说明写侧规则：面板写盘时对 0 或缺省\r\n **一律写 `null`**（`zIndex: data.zIndex || null`），读取端须容忍 `null`；\r\n 正因为 `null` 是缺省表示，本字段**不设下限**。",
+      "type": [
+        "number",
+        "null"
+      ]
     }
   },
   "required": [

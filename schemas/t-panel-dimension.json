@@ -3,21 +3,20 @@
   "type": "object",
   "properties": {
     "layer": {
-      "description": "层",
+      "description": "层\r\n\r\n取值（面板层枚举）：\r\n- `1` 打印层（PRINT_LAYER）\r\n- `2` 透明控制层（OPACITY_LAYER）\r\n- `3` 板框层（BOARD_LAYER）\r\n- `4` 板框挖空/挖孔层（BOARD_HOLE）\r\n- `5` 背胶挖空层（GLUE_HOLE）\r\n- `6` 灯光层（LIGHT_LAYER）\r\n- `7` 鼓包层（BUN）\r\n- `8` 辅助绘制层（ASSIST，辅助线恒落此层）\r\n- `99` 适应所有（APPLY_ALL，虚构层，属于此层的一律导出）\r\n\r\n枚举中另有 `-1` 图页-边界层（BOUNDARY_LAYER）。",
       "type": "number",
-      "minimum": 0
+      "minimum": -1
     },
     "locked": {
       "description": "是否锁定",
       "type": "boolean"
     },
     "zIndex": {
-      "description": "Z 轴高度, null 为默认",
+      "description": "叠放次序：越大越靠上。检测到重复值时会按图元顺序整体重编号（index+1），\r\n 无重复时原样保留。\r\n\r\n **缺省表示是 `null`**（不写 0），读取端把 `null` 当 0 处理。\r\n ⚠️ `null` 与「下限 0」互斥，故本字段**不设下限**，只保留缺省标签。",
       "type": [
         "number",
         "null"
       ],
-      "minimum": 0,
       "default": null
     },
     "valid": {
@@ -29,7 +28,7 @@
       "type": "boolean"
     },
     "cover": {
-      "description": "遮盖透明度",
+      "description": "是否加盖遮盖层：0/1 的布尔开关（属性面板的 Cover），与透明度无关。\r\n 透明度见 transScope/transPrint/transWhite，遮盖颜色见 TPanelCanvas.coverColor",
       "type": [
         "number",
         "null"
@@ -40,7 +39,7 @@
       "type": "string"
     },
     "dimensionType": {
-      "description": "尺寸类型：\r\nLENGTH-CONSTRAINT 长度约束,\r\nLENGTH-MEASUREMENT 长度测量,\r\nANGLE-CONSTRAINT 角度约束,\r\nANGLE-MEASUREMENT 角度测量,\r\nRADIUS-MEASUREMENT 半径测量,\r\nANGLE 游离角度,\r\nLENGTH 游离长度",
+      "description": "尺寸类型：\r\nLENGTH-CONSTRAINT 长度约束,\r\nLENGTH-MEASUREMENT 长度测量,\r\nANGLE-CONSTRAINT 角度约束,\r\nANGLE-MEASUREMENT 角度测量,\r\nRADIUS-MEASUREMENT 半径测量,\r\nANGLE 游离角度,\r\nLENGTH 游离长度\r\n\r\n注：目前编辑器只实现了 LENGTH-CONSTRAINT / LENGTH-MEASUREMENT /\r\nRADIUS-MEASUREMENT / ANGLE / LENGTH 五种，ANGLE-CONSTRAINT 与\r\nANGLE-MEASUREMENT 尚无消费代码。",
       "type": "string",
       "enum": [
         "LENGTH-CONSTRAINT",
@@ -53,25 +52,31 @@
       ]
     },
     "unit": {
-      "description": "单位（预留）：mm cm inch mil 或 null 为跟随画布单位",
+      "description": "单位（预留，当前未启用）：写盘恒为空串，解析时不读取。\r\n 画布显示单位是另一套配置，与本字段无关。",
       "type": "string"
     },
     "strokeWidth": {
-      "description": "线宽（预留，与画布尺寸无关）",
+      "description": "线宽（预留，当前未启用）：写盘恒为 0，解析时不读取",
       "type": "number",
       "minimum": 0
     },
     "accuracy": {
-      "description": "精度（预留）",
+      "description": "精度（预留，当前未启用）：写盘恒为 0，解析时不读取",
       "type": "number"
     },
     "controlDot": {
-      "description": "控制点 X1 Y1 X2 Y2 X3 Y3 ... 不同尺寸类型对控制点有不同的定义，LENGTH-XXXX 长度工具有 4 个控制点，ANGLE-XXXX 角度工具有 3 个控制点",
-      "type": "array"
+      "description": "控制点 X1 Y1 X2 Y2 X3 Y3 ... 扁平数组，点数随尺寸类型而异：\r\n LENGTH-CONSTRAINT / LENGTH-MEASUREMENT / ANGLE / LENGTH 各 4 个点，\r\n RADIUS-MEASUREMENT 为 3 个点",
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
     },
     "relationIds": {
-      "description": "关联图元Id",
-      "type": "array"
+      "description": "关联图元 id 列表，**基数随尺寸类型变化**：\r\n LENGTH-CONSTRAINT / LENGTH-MEASUREMENT 为 `[起点图元 id, 终点图元 id]`（2 个）；\r\n RADIUS-MEASUREMENT 为 `[椭圆 id]`（1 个）；\r\n ANGLE（游离角度）/ LENGTH（游离长度）为 `[]`。",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     },
     "rotation": {
       "description": "旋转角度（角度制）",

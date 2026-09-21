@@ -16,6 +16,7 @@ SCH 是嘉立创 EDA 格式中的原理图文档类型，与 PCB 页关联。SCH
 | TDifferentialPair | DIFFERENTIAL_PAIR | [详细](../primitives/SCH/differential_pair.md) |
 | TNetClass | NET_CLASS | [详细](../primitives/SCH/net_class.md) |
 | TEQLenNetGrp | EQL_NET_GRP | [详细](../primitives/SCH/eql_net_grp.md) |
+| TCustomGlobalNet | CUSTOM_GLOBAL_NET | [详细](../primitives/SCH/custom_global_net.md) |
 | ESchematicType |  | [详细](../primitives/SCH/e-schematic-type.md) |
 
 ## Related Resources

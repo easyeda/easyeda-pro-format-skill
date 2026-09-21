@@ -3,7 +3,7 @@
   "type": "object",
   "properties": {
     "xNetsGroup": {
-      "description": "xNet 组 id",
+      "description": "所属 xNet 组的组名：必须指向一个已存在的 X_NET_GROUP\r\n\r\n 【联动增删·必须成组操作】X_NET 不能脱离组存在——\r\n **新增 X_NET 时必须确保其所属的 X_NET_GROUP 已写出；\r\n 删除 X_NET_GROUP 时必须把组内所有 X_NET 一并删除**（见 X_NET_GROUP 的说明）。",
       "type": "string"
     },
     "name": {
@@ -28,7 +28,18 @@
     },
     "xNet": {
       "description": "xNet的连通路径",
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "start": {
+          "description": "起点"
+        },
+        "end": {
+          "description": "终点"
+        },
+        "nodes": {
+          "description": "所有联通节点顺序<焊盘、过孔、器件>"
+        }
+      }
     }
   },
   "required": [

@@ -35,5 +35,5 @@
     "markExpansion",
     "borderRadius"
   ],
-  "description": "工艺边参数"
+  "description": "工艺边参数\r\n\r\n⚠️ **不要往示例里补 `direction`**：真实样本的 `horizontalSize` / `verticalSize` 里都没有该键，\r\n区分水平/垂直靠的是它在 PANELIZE 里的**位置**（`horizontalSize` 还是 `verticalSize`）。\r\n解码端会自己往里注入一个 `direction` 字段（水平注入 `0`、垂直注入 `1`），\r\n所以**读盘时不要依赖这个键**。"
 }

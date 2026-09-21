@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"LAYER_PHYS","ticket":3,"id":"1"}||{"material":"FR4","thickness":0.16,"permittivity":4.4,"lossTangent":0.02,"isKeepIsland":false,"zIndex":1}
+{"type":"LAYER_PHYS","ticket":3,"id":"[\"LAYER_PHYS\",1]"}||{"material":"FR-4","thickness":12.6,"permittivity":4.4,"lossTangent":0.02,"isKeepIsland":false,"zIndex":1}
 ```
 
 ## 返回文档

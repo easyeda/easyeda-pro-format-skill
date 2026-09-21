@@ -51,7 +51,7 @@ PCB 页是嘉立创 EDA 格式中用于 PCB 版图设计的文档类型。PCB �
 | TPadNet | PAD_NET | [详细](../primitives/PCB/pad_net.md) |
 | TPcbAttr | ATTR | [详细](../primitives/PCB/attr.md) |
 | TPcbXNets | X_NET | [详细](../primitives/PCB/x_net.md) |
-| TBaseXNetsGroup | X_NET_GROUP | [详细](../primitives/PCB/x_net_group.md) |
+| TPcbXNetsGroup | X_NET_GROUP | [详细](../primitives/PCB/x_net_group.md) |
 | TD3Attribute | D3_ATTRIBUTE | [详细](../primitives/PCB/d3_attribute.md) |
 | EPcbDataType |  | [详细](../primitives/PCB/e-pcb-data-type.md) |
 | TRuleTemplate | RULE_TEMPLATE | [详细](../primitives/PCB/rule_template.md) |

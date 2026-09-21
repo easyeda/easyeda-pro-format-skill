@@ -10,7 +10,7 @@
 
 | 字段 | 类型 | 必需 | 约束 | 说明 |
 |------|------|------|------|------|
-| defaultSheet | `string` | ✓ | pattern: ^[0-9a-f]{16}$ | 默认原理图页 ID |
+| defaultSheet | `string` | ✓ | pattern: ^$\|^[0-9a-f]{16}$ | 默认原理图页 ID：**空串合法**（真机存在 `{"defaultSheet":""}`，表示未设置默认图页） |
 
 ## JSON Schema
 
@@ -21,7 +21,7 @@
 | 规则 | 级别 | 说明 |
 |------|------|------|
 | required | ERROR | `defaultSheet`: 必需字段 |
-| pattern | ERROR | `defaultSheet`: 匹配模式: ^[0-9a-f]{16}$ |
+| pattern | ERROR | `defaultSheet`: 匹配模式: ^$\|^[0-9a-f]{16}$ |
 
 ## 关联图元
 

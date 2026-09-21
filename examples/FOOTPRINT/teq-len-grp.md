@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"EQLEN_GRP","ticket":17,"id":"EQLEN_GRP1"}||{"name":"EQLEN_GRP1","sort":1,"pads":[["U1","1"],["U1","2"]]}
+{"type":"EQLEN_GRP","ticket":17,"id":"4eeeae0acc059866"}||{"name":"EQLEN_GRP1","sort":1,"pads":[["U1:1","U2:1"]]}
 ```
 
 ## 返回文档

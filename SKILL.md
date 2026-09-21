@@ -56,10 +56,12 @@ metadata:
 {type, id, ticket}||{实际数据}
 ```
 
+**行终止符**：每行以 `|` 加换行（LF，**不是 CRLF**）结尾。`||` 是外壳/载荷分界，行尾的 `|` + 换行才是记录结束；载荷/外壳内不得出现「字面 `|` 紧跟字面换行」（JSON 序列化已保证不会）。
+
 **外层数据**（最终一致性框架）：
 - `type`: 图元类型名（如 LINE、PAD、VIA）
 - `id`: 唯一标识。普通图元是 16 位十六进制随机串；单例原子（META / CANVAS / UNIVERSAL 等）直接用类型名；FONT 用字体键、BLOB 用内容哈希
-- `ticket`: 逻辑时钟（递增整数）。**只有 DOCHEAD 行例外 —— 它没有 `id` 和 `ticket`，外层只有 `type` 一个字段**
+- `ticket`: 逻辑时钟（递增整数）。**DOCHEAD 行没有 `id`**，外层只有 `type` 和 `ticket` —— `ticket` 由写入方决定，eprj3 保存路径会写（`ProConsistencyManager` 的 `JSON.stringify({ type: DOCHEAD, ticket })`，解析侧 `ProOuterParser` 也会读回来）
 
 **内层数据**：具体图元的属性值，每种图元有对应的字段定义。
 
@@ -103,7 +105,7 @@ DOCHEAD 是每个文档的第一行，定义文档的类型和元数据。
 
 **格式**:
 ```
-{"type":"DOCHEAD"}||{docType, client, uuid, updateTime, version}
+{"type":"DOCHEAD","ticket":1}||{docType, client, uuid, updateTime, version}
 ```
 
 **字段说明**:
@@ -125,17 +127,17 @@ DOCHEAD 是每个文档的第一行，定义文档的类型和元数据。
 
 **示例（SCH_PAGE）**:
 ```json
-{"type":"DOCHEAD"}||{"docType":"SCH_PAGE","client":"1f0f511a4641034c","uuid":"81ace96648894616","updateTime":1777537222142,"version":"1777537222142"}|
+{"type":"DOCHEAD","ticket":1}||{"docType":"SCH_PAGE","client":"1f0f511a4641034c","uuid":"81ace96648894616","updateTime":1777537222142,"version":"1777537222142"}|
 ```
 
 **示例（用户指定 client，同样必须是 16 位小写十六进制）**:
 ```json
-{"type":"DOCHEAD"}||{"docType":"SCH_PAGE","client":"a1b2c3d4e5f60718","uuid":"81ace96648894616","updateTime":1777537222142,"version":"1777537222142"}|
+{"type":"DOCHEAD","ticket":1}||{"docType":"SCH_PAGE","client":"a1b2c3d4e5f60718","uuid":"81ace96648894616","updateTime":1777537222142,"version":"1777537222142"}|
 ```
 
 **示例（PCB）**:
 ```json
-{"type":"DOCHEAD"}||{"docType":"PCB","client":"1f0f511a4641034c","uuid":"81ace96648894616","updateTime":1777537222142,"version":"1777537222142"}|
+{"type":"DOCHEAD","ticket":1}||{"docType":"PCB","client":"1f0f511a4641034c","uuid":"81ace96648894616","updateTime":1777537222142,"version":"1777537222142"}|
 ```
 
 ### CANVAS（画布配置）
@@ -157,7 +159,7 @@ CANVAS 是每个文档的第二行，定义画布的原点和配置信息。根�
 
 **示例**:
 ```json
-{"type":"CANVAS","id":"CANVAS","ticket":1}||{"originX":0,"originY":0}
+{"type":"CANVAS","ticket":1,"id":"CANVAS"}||{"originX":0,"originY":0}
 ```
 
 #### PCB / FOOTPRINT 画布（完整版）
@@ -187,7 +189,7 @@ CANVAS 是每个文档的第二行，定义画布的原点和配置信息。根�
 
 **示例（PCB / FOOTPRINT）**:
 ```json
-{"type":"CANVAS","ticket":1,"id":"CANVAS"}||{"originX":0,"originY":0,"unit":"mm","gridXSize":10,"gridYSize":10,"snapXSize":1,"snapYSize":1,"altSnapXSize":0.1,"altSnapYSize":0.1,"gridType":"NONE","multiGridType":"NONE","multiGridRatio":10,"highlightValue":10,"layerBrightness":"NORMAL"}
+{"type":"CANVAS","ticket":1,"id":"CANVAS"}||{"originX":0,"originY":0,"unit":"mm","gridXSize":10,"gridYSize":10,"snapXSize":1,"snapYSize":1,"altSnapXSize":0.1,"altSnapYSize":0.1,"gridType":"NONE","multiGridType":"NONE","multiGridRatio":10,"highlightValue":0.5,"layerBrightness":"NORMAL"}
 ```
 
 **示例（PANEL / PANEL_LIB，字段与上面的网格画布完全不同）**:
@@ -263,8 +265,8 @@ CANVAS 是每个文档的第二行，定义画布的原点和配置信息。根�
 包含文件头、画布、BUS 图元及其关联图元（4 条 LINE 和 1 个 ATTR）：
 
 ```json
-{"type":"DOCHEAD"}||{"docType":"SCH_PAGE","client":"1f0f511a4641034c","uuid":"81ace96648894616","updateTime":1777537222142,"version":"1777537222142"}|
-{"type":"CANVAS","id":"CANVAS","ticket":1}||{"originX":0,"originY":0}|
+{"type":"DOCHEAD","ticket":1}||{"docType":"SCH_PAGE","client":"1f0f511a4641034c","uuid":"81ace96648894616","updateTime":1777537222142,"version":"1777537222142"}|
+{"type":"CANVAS","ticket":1,"id":"CANVAS"}||{"originX":0,"originY":0}|
 {"type":"BUS","ticket":35,"id":"917cf8401f113481"}||{"busEntry":{},"zIndex":6,"groupId":"","locked":false}|
 {"type":"LINE","ticket":36,"id":"899f254f57c290ca"}||{"fillColor":null,"fillStyle":null,"strokeColor":null,"strokeStyle":null,"strokeWidth":null,"startX":600,"startY":-570,"endX":680,"endY":-570,"lineGroup":"917cf8401f113481"}|
 {"type":"LINE","ticket":37,"id":"0cbf6fa91e809769"}||{"fillColor":null,"fillStyle":null,"strokeColor":null,"strokeStyle":null,"strokeWidth":null,"startX":680,"startY":-570,"endX":680,"endY":-500,"lineGroup":"917cf8401f113481"}|

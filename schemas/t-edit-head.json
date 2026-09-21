@@ -3,19 +3,19 @@
   "type": "object",
   "properties": {
     "uuid": {
-      "description": "",
+      "description": "文档唯一标识，与对应文档头的 uuid 一致",
       "type": "string"
     },
     "username": {
-      "description": "",
+      "description": "最后编辑者的用户名称",
       "type": "string"
     },
     "nickname": {
-      "description": "",
+      "description": "最后编辑者的用户昵称",
       "type": "string"
     },
     "updateTime": {
-      "description": "",
+      "description": "最后编辑时间：保存时写入的时间戳（毫秒）",
       "type": "number"
     }
   },

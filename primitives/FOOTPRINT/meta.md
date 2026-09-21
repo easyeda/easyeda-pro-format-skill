@@ -13,7 +13,7 @@
 | title | `string` | ✓ | - | 名称 |
 | description | `string` | ✓ | - | 库描述 |
 | tags | `string[]` | ✓ | - | 自定义分类 |
-| source | `string` | ✓ | - | 来源的 uuid(工程库独有) |
+| source | `string` | ✓ | - | 来源：`<来源条目 uuid>\|<来源工程 uuid>` 两段式（工程库独有） 第 2 段是**来源工程的 uuid**（不是库内路径），**工程内自建条目为空串**。 |
 
 ## JSON Schema
 

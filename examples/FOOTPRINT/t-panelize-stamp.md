@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"PANELIZE_STAMP","ticket":27,"id":"stamp1"}||{"on":true,"stampHoleGroupQuantity":2,"stampHoleDiameter":20,"stampHoleQuantityPerGroup":3,"stampHoleSpacing":50,"center_percent":[50,50]}
+{"type":"PANELIZE_STAMP","ticket":27,"id":"aae44f06f91cd2f7"}||{"on":true,"stampHoleGroupQuantity":2,"stampHoleDiameter":20,"stampHoleQuantityPerGroup":3,"stampHoleSpacing":50,"center_percent":[0.3333,0.6667]}
 ```
 
 ## 返回文档

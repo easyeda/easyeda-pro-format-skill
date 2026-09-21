@@ -1,0 +1,181 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "toleranceList": {
+      "description": "容差列表",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "行唯一 id",
+            "type": "string"
+          },
+          "parameterType": {
+            "description": "参数类型：器件参数|模型参数",
+            "type": "string",
+            "enum": [
+              "device",
+              "model"
+            ]
+          },
+          "targetId": {
+            "description": "器件实例 id",
+            "type": "string"
+          },
+          "designator": {
+            "description": "位号",
+            "type": "string"
+          },
+          "deviceKind": {
+            "description": "器件/模型类型副标题",
+            "type": "string"
+          },
+          "parameter": {
+            "description": "参数名",
+            "type": "string"
+          },
+          "field": {
+            "description": "spice 侧字段标识，模型参数行=参数键",
+            "type": "string"
+          },
+          "currentValue": {
+            "description": "当前值",
+            "type": "string"
+          },
+          "unit": {
+            "description": "单位",
+            "type": "string"
+          },
+          "toleranceType": {
+            "description": "容差类别",
+            "type": "string",
+            "enum": [
+              "percent",
+              "absolute"
+            ]
+          },
+          "toleranceValue": {
+            "description": "容差值",
+            "type": "string"
+          },
+          "distribution": {
+            "description": "分布，仅蒙特卡洛",
+            "type": "string",
+            "enum": [
+              "gaussian",
+              "uniform"
+            ]
+          },
+          "description": {
+            "description": "参数描述",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "parameterType",
+          "targetId",
+          "designator",
+          "deviceKind",
+          "parameter",
+          "currentValue",
+          "toleranceType",
+          "toleranceValue"
+        ],
+        "description": "容差列表条目（MC/WC 共用结构）"
+      }
+    },
+    "baseAnalysis": {
+      "description": "基础分析",
+      "type": "object",
+      "properties": {
+        "type": {
+          "description": "基础分析类型",
+          "type": "string",
+          "enum": [
+            "transient",
+            "ac",
+            "dc"
+          ]
+        },
+        "transient": {
+          "description": "",
+          "type": "object"
+        },
+        "ac": {
+          "description": "",
+          "type": "object"
+        },
+        "dc": {
+          "description": "",
+          "type": "object"
+        },
+        "compatMode": {
+          "description": "兼容模式",
+          "type": "string",
+          "enum": [
+            "hsa",
+            "lta",
+            "psa",
+            "ltpsa"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "outputVariable": {
+      "description": "输出变量（探针位号）",
+      "type": "string"
+    },
+    "measurementTime": {
+      "description": "瞬态·测量时间",
+      "type": "string"
+    },
+    "measurementFrequency": {
+      "description": "交流·测量频率",
+      "type": "string"
+    },
+    "measurementVoltage": {
+      "description": "直流·测量电压（留空用扫描最后点）",
+      "type": "string"
+    },
+    "expected": {
+      "description": "预期范围",
+      "type": "object",
+      "properties": {
+        "min": {
+          "description": "",
+          "type": "string"
+        },
+        "max": {
+          "description": "",
+          "type": "string"
+        }
+      }
+    },
+    "expectedPhase": {
+      "description": "交流分析的预期相位范围",
+      "type": "object",
+      "properties": {
+        "min": {
+          "description": "",
+          "type": "string"
+        },
+        "max": {
+          "description": "",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": [
+    "toleranceList",
+    "baseAnalysis",
+    "outputVariable"
+  ],
+  "description": "最坏情况分析设置"
+}

@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "groupId": {
+      "description": "分组编号；**两种「未成组」形态都表示未成组**：\r\n - **3.0 写盘时该键根本不存在**：写入端取 `model.combination?.id`，未成组即 `undefined`，\r\n   经 `JSON.stringify` 后整键被丢弃，消费方须**按可选键处理**；\r\n - **`\"\"` 只出现在 2.0 迁移数据里**（2.0 → 3.0 转换腿原样带着它）。",
+      "type": "string"
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    },
+    "zIndex": {
+      "description": "同层内的叠放次序：渲染排序键，数值越小越靠下（格式里没有高度语义）",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "yAxisDirection": {
+      "description": "Y 轴方向标记：**仅 eprj3 本地文件格式会带**，读盘时被剥离。\r\n\r\n 取值：`up` **已按 Y 轴向上写出**（本地文件固定用它）、`down` Y 轴向下\r\n （**字段缺失等价于它**，两者是同一件事）。完整语义见 `TYAxisDirection`。\r\n\r\n ⚠️ 本基类被多个图元继承，**各自被翻转的字段不同**——完整对照表见 `TYAxisDirection`。\r\n 本基类直接覆盖的：`ATTR`/`TEXT`/`PIN`/`COMPONENT` 翻 `y`；`OBJ`/`TABLE` 翻 `startY`；\r\n `ARC` 翻 `startY`/`referY`/`endY`；`CIRCLE`/`ELLIPSE` 翻 `centerY` + 内嵌 `text.y`；\r\n `RECT` 翻 `dotY1`/`dotY2` + `text.y`；`MASK_REGION` 翻 `dotY1`/`dotY2`；`POLY` 翻\r\n `points` 各项的 `y`；`BEZIER` 翻 `controls` 的奇数下标。\r\n `rotation` / `isMirror` / `zIndex` 与所有幅值字段**不翻**。",
+      "type": "string",
+      "enum": [
+        "up",
+        "down"
+      ]
+    },
+    "x": {
+      "description": "入口位置 X",
+      "type": "number"
+    },
+    "y": {
+      "description": "入口位置 Y",
+      "type": "number"
+    },
+    "rotation": {
+      "description": "文本旋转角度（角度制）",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 360
+    },
+    "value": {
+      "description": "入口名称（显示的文本内容）",
+      "type": "string"
+    },
+    "parentId": {
+      "description": "所属线束连接器的 id",
+      "type": "string",
+      "pattern": "^[0-9a-f]{16}$"
+    },
+    "harnessType": {
+      "description": "线束类型-可自定义",
+      "type": "string"
+    },
+    "color": {
+      "description": "字体颜色：`\"#RRGGBB\"` 十六进制色值；null 表示采用主题默认色",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fillColor": {
+      "description": "字体背景色：`\"#RRGGBB\"` 十六进制色值；null 表示无背景 / 采用主题默认\r\n\r\n ⚠️ **语义随宿主而变**：只有 **TABLE 单元格**上的它才是真正的背景色；\r\n 在 TEXT / ATTR 上它与 `color` 同源（同一个颜色字段），且**解码端根本不读它**\r\n （只读 `color`），不要把它当独立字段依赖。",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fontFamily": {
+      "description": "字体名称",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fontSize": {
+      "description": "字体大小，与坐标等单位相同",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "strikeout": {
+      "description": "是否加删除线",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "underline": {
+      "description": "是否加下划线",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "italic": {
+      "description": "是否斜体",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "fontWeight": {
+      "description": "是否加粗",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "groupId",
+    "locked",
+    "zIndex",
+    "x",
+    "y",
+    "rotation",
+    "value",
+    "parentId",
+    "harnessType",
+    "color",
+    "fillColor",
+    "fontFamily",
+    "fontSize",
+    "strikeout",
+    "underline",
+    "italic",
+    "fontWeight"
+  ],
+  "description": "线束入口"
+}

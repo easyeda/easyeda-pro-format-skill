@@ -3,26 +3,24 @@
   "type": "object",
   "properties": {
     "groupId": {
-      "description": "分组编号, 没有则为空（预留）：\"0\" 不分组，非 0 为组标志，相同组标志的为一组",
-      "type": "string",
-      "pattern": "^0$|^[1-9][0-9]*$"
+      "description": "分组编号：**无组合时写 `\"0\"`**（仅 2.0 转 3.0 转换腿产生的数据可能是**空串**）。\r\n\r\n3.0 格式下是所属组合的 id，无组合时恒为 `\"0\"`；\r\n2.0 位置化格式下是数字序号（非 0 为组标志，相同组标志的为一组），\r\n由此转换而来的数据是 `e<数字序号>` 形式。",
+      "type": "string"
     },
     "layer": {
-      "description": "层",
+      "description": "层\r\n\r\n取值（面板层枚举）：\r\n- `1` 打印层（PRINT_LAYER）\r\n- `2` 透明控制层（OPACITY_LAYER）\r\n- `3` 板框层（BOARD_LAYER）\r\n- `4` 板框挖空/挖孔层（BOARD_HOLE）\r\n- `5` 背胶挖空层（GLUE_HOLE）\r\n- `6` 灯光层（LIGHT_LAYER）\r\n- `7` 鼓包层（BUN）\r\n- `8` 辅助绘制层（ASSIST，辅助线恒落此层）\r\n- `99` 适应所有（APPLY_ALL，虚构层，属于此层的一律导出）\r\n\r\n枚举中另有 `-1` 图页-边界层（BOUNDARY_LAYER）。",
       "type": "number",
-      "minimum": 0
+      "minimum": -1
     },
     "locked": {
       "description": "是否锁定",
       "type": "boolean"
     },
     "zIndex": {
-      "description": "Z 轴高度, null 为默认",
+      "description": "叠放次序：越大越靠上。检测到重复值时会按图元顺序整体重编号（index+1），\r\n 无重复时原样保留。\r\n\r\n **缺省表示是 `null`**（不写 0），读取端把 `null` 当 0 处理。\r\n ⚠️ `null` 与「下限 0」互斥，故本字段**不设下限**，只保留缺省标签。",
       "type": [
         "number",
         "null"
       ],
-      "minimum": 0,
       "default": null
     },
     "visible": {
@@ -30,7 +28,7 @@
       "type": "boolean"
     },
     "cover": {
-      "description": "遮盖透明度",
+      "description": "是否加盖遮盖层：0/1 的布尔开关（属性面板的 Cover），与透明度无关。\r\n 透明度见 transScope/transPrint/transWhite，遮盖颜色见 TPanelCanvas.coverColor",
       "type": [
         "number",
         "null"
@@ -60,7 +58,7 @@
       "minimum": 0
     },
     "strokeStyle": {
-      "description": "线型：SOLID 实线 SHORT_DASH 短划线 DOT 点线 DOT_DASH 点划线, null 为默认",
+      "description": "线型：null 为默认\r\n\r\n 取值：`SOLID` 实线、`SHORT_DASH` 短划线、`DOT` 点线、`DOT_DASH` 点划线。",
       "type": [
         "string",
         "null"
@@ -86,7 +84,7 @@
       "pattern": "^(#[0-9A-Fa-f]{6})|(rgb\\(\\d{1,3},\\d{1,3},\\d{1,3}\\))|(cmyk\\(\\d{1,3},\\d{1,3},\\d{1,3},\\d{1,3}\\))|$"
     },
     "length": {
-      "description": "长度（非画布尺寸）",
+      "description": "长度：同时充当**点/线的判别值**——辅助点为 `0`，辅助线为 `100`（按图元类型写死）",
       "type": "number",
       "minimum": 0
     }
@@ -107,5 +105,5 @@
     "color",
     "length"
   ],
-  "description": "辅助线\r\n\r\n原子类型取数据流里的实际取值（EPanelDataType.AUX_LINE 的值是 \"AUXLINE\"，\r\n枚举成员名里的下划线不进数据流）。"
+  "description": "辅助线\r\n\r\n原子类型取数据流里的实际取值（EPanelDataType.AUX_LINE 的值是 \"AUXLINE\"，\r\n枚举成员名里的下划线不进数据流）。\r\n\r\n⚠️ 本类型继承自 `TPanelBase` 的 `layer` 字段**解析端不读取**：写盘侧虽然照写，\r\n但辅助线恒落在辅助层（**ASSIST = 8**），解码后不会被还原成载荷里写的值。"
 }

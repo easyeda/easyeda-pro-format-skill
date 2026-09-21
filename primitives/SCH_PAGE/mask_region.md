@@ -6,25 +6,28 @@
 
 屏蔽区域
 
+以 (dotX1, dotY1) 与 (dotX2, dotY2) 为对角的一个矩形区域；
+区域内绘制一个「三角标」（固定底 6 单位、高 6 单位的三角形）标示该屏蔽区。
+
 ## 字段
 
 | 字段 | 类型 | 必需 | 约束 | 说明 |
 |------|------|------|------|------|
-| groupId | `string` | ✓ | - | 分组编号, 没有则为空 |
+| groupId | `string` | ✓ | - | 分组编号；**两种「未成组」形态都表示未成组**： - **3.0 写盘时该键根本不存在**：写入端取 `model.combination?.id`，未成组即 `undefined`， 经 `JSON.stringify` 后整键被丢弃，消费方须**按可选键处理**； - **`""` 只出现在 2.0 迁移数据里**（2.0 → 3.0 转换腿原样带着它）。 |
 | locked | `boolean` | ✓ | - | 是否锁定 |
-| zIndex | `number \| null` | ✓ | - | Z 轴高度 |
-| yAxisDirection | `TYAxisDirection` |  | - | Y 轴方向标记：仅 eprj3 本地文件格式会带，读盘时被剥离；语义见 TYAxisDirection |
-| maskExpand | `boolean` | ✓ | default: true | 是否屏蔽,默认是 |
-| dotX1 | `number` | ✓ | - | 点 1 X |
-| dotY1 | `number` | ✓ | - | 点 1 Y |
-| dotX2 | `number` | ✓ | - | 点 2 X |
-| dotY2 | `number` | ✓ | - | 点 2 Y |
-| expandWidth | `number \| null` | ✓ | - | 展开宽度 |
-| expandHeight | `number \| null` | ✓ | - | 展开高度 |
-| strokeColor | `string \| null` | ✓ | - | 颜色 |
+| zIndex | `number \| null` | ✓ | - | 同层内的叠放次序：渲染排序键，数值越小越靠下（格式里没有高度语义） |
+| yAxisDirection | `TYAxisDirection` |  | - | Y 轴方向标记：**仅 eprj3 本地文件格式会带**，读盘时被剥离。 取值：`up` **已按 Y 轴向上写出**（本地文件固定用它）、`down` Y 轴向下 （**字段缺失等价于它**，两者是同一件事）。完整语义见 `TYAxisDirection`。 ⚠️ 本基类被多个图元继承，**各自被翻转的字段不同**——完整对照表见 `TYAxisDirection`。 本基类直接覆盖的：`ATTR`/`TEXT`/`PIN`/`COMPONENT` 翻 `y`；`OBJ`/`TABLE` 翻 `startY`； `ARC` 翻 `startY`/`referY`/`endY`；`CIRCLE`/`ELLIPSE` 翻 `centerY` + 内嵌 `text.y`； `RECT` 翻 `dotY1`/`dotY2` + `text.y`；`MASK_REGION` 翻 `dotY1`/`dotY2`；`POLY` 翻 `points` 各项的 `y`；`BEZIER` 翻 `controls` 的奇数下标。 `rotation` / `isMirror` / `zIndex` 与所有幅值字段**不翻**。 |
+| maskExpand | `boolean` | ✓ | default: true | 是否按扩展尺寸绘制屏蔽区域： - `true`：区域范围取 `expandWidth` / `expandHeight`，即 dotX2 = dotX1 + expandWidth、 dotY2 = dotY1 + expandHeight - `false`：退化为默认三角形尺寸（区域退到「三角边长 6 + 描边宽 ×2 + 间隔 4」推算的大小） |
+| dotX1 | `number` | ✓ | - | 点 1 X：区域左上角 X |
+| dotY1 | `number` | ✓ | - | 点 1 Y：区域左上角 Y |
+| dotX2 | `number` | ✓ | - | 点 2 X：区域右下角 X |
+| dotY2 | `number` | ✓ | - | 点 2 Y：区域右下角 Y |
+| expandWidth | `number \| null` | ✓ | - | 展开宽度：maskExpand 为 true 时区域的宽；可空，null 表示未设置（缺省为 null） |
+| expandHeight | `number \| null` | ✓ | - | 展开高度：maskExpand 为 true 时区域的高；可空，null 表示未设置（缺省为 null） |
+| strokeColor | `string \| null` | ✓ | - | 描边颜色：`"#RRGGBB"` 十六进制色值；**null 表示采用主题默认色** 注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现； 可参照同文件 `TSchPin.color` 的 `@pattern ^$\|^#[0-9A-Fa-f]{6}$`。 |
 | strokeStyle | `EStrokeStyle \| null` | ✓ | default: null | 取值范围：SOLID（实线）、SHORT_DASH（短划线）、DOT（点线）、DOT_DASH（点划线） |
-| fillColor | `string \| null` | ✓ | - | 填充颜色："" 不填充，填充自动闭合起始点和结束点 |
-| strokeWidth | `number \| null` | ✓ | - | 宽度 |
+| fillColor | `string \| null` | ✓ | - | 填充颜色：`"#RRGGBB"` 十六进制色值；`""` 表示不填充（填充会自动闭合起始点与结束点）； null 表示采用主题默认 |
+| strokeWidth | `number \| null` | ✓ | default: null | 宽度：null 表示采用主题默认线宽 |
 | fillStyle | `ESchFillStyle \| null` | ✓ | default: null | 取值范围：NONE（无填充）、SOLID（实心填充）、GRID（网格）、HORIZONTAL_LINE（横线）、VERTICAL_LINE（竖线）、RHOMBIC（菱形网格）、LEFT_SLASH_LINE（左斜线）、RIGHT_SLASH_LINE（右斜线） |
 
 ## JSON Schema

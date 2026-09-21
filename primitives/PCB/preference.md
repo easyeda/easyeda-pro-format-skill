@@ -20,7 +20,7 @@
 | routingCorner | `ERoutingConner` | ✓ | - | 取值范围：L45（线条 45 度）、L90（线条 90 度）、L（线条自由角度）、R45（圆弧 45 度）、R90（圆弧 90 度）、R（圆弧自由角度） |
 | removeLoop | `boolean` | ✓ | - | 布线是否自动移除回路 |
 | rotatingObject | `boolean` | ✓ | - | 是否单对象旋转 |
-| trackFollow | `boolean` | ✓ | - | 导线是否跟随封装移动 |
+| trackFollow | `boolean \| null` | ✓ | - | 导线是否跟随封装移动。 ⚠️ **真实数据里 `null` 是常态**（工程文件里 `"trackFollow":null` 出现数十次， `false` 只有个位数），`null` 表示未设置、按默认处理，所以类型放宽为可空。 |
 | stretchTrackMinCorner | `number` | ✓ | - | 拉伸导线最小拐角比率（比线宽） |
 | preferenceConfig | `string` | ✓ | - | 层堆叠偏好来源 |
 | realTimeUpdateUnusedLayers | `boolean` | ✓ | - | 是否自动移除未使用焊盘 |

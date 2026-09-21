@@ -17,15 +17,15 @@
 | value | `string` | ✓ | - | 内容 |
 | rowIndex | `number` | ✓ | min: 0 | 行 |
 | columnIndex | `number` | ✓ | min: 0 | 列 |
-| rowSpan | `number` | ✓ | min: 1 | 宽度（占多少列） |
-| colSpan | `number` | ✓ | min: 1 | 高度（占多少行） |
+| rowSpan | `number` | ✓ | min: 1 | 跨行数：本单元格纵向占多少行（其高度 = 连续 rowSpan 行的高度之和） |
+| colSpan | `number` | ✓ | min: 1 | 跨列数：本单元格横向占多少列（其宽度 = 连续 colSpan 列的宽度之和） |
 | topStyle | `TLineStyle` | ✓ | - | 边框线形样式（上） |
 | rightStyle | `TLineStyle` | ✓ | - | 边框线形样式（右） |
 | bottomStyle | `TLineStyle` | ✓ | - | 边框线形样式（下） |
 | leftStyle | `TLineStyle` | ✓ | - | 边框线形样式（左） |
 | fontStyle | `TTableFontStyle` | ✓ | - | 字体样式 |
-| lineHeight | `number` | ✓ | min: 0 | 行间距 |
-| zIndex | `number \| null` | ✓ | - | Z 轴高度 |
+| lineHeight | `number \| null` | ✓ | min: 0 | 行高倍数：相对字号的倍数（默认 1.2），实际行高 = lineHeight × fontSize；null 表示用主题默认 （**写入端未设置时即产出 `null`**，判空一律用 `== null`） |
+| zIndex | `number \| null` | ✓ | - | 单元格独立层序：控制同一表格内各单元格的叠放次序 |
 
 ## JSON Schema
 

@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"PANELIZE_SIDE","ticket":28,"id":"side1"}||{"on":true,"sideHeight":100,"positionHoleDiameter":30,"markDiameter":50,"markExpansion":20,"borderRadius":0}
+{"type":"PANELIZE_SIDE","ticket":28,"id":"b03e01b4e5fc1f3e"}||{"on":true,"sideHeight":100,"positionHoleDiameter":30,"markDiameter":50,"markExpansion":20,"borderRadius":0}
 ```
 
 ## 返回文档

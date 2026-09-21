@@ -7,9 +7,8 @@
       "type": "string"
     },
     "zIndex": {
-      "description": "表示排序层级",
-      "type": "number",
-      "minimum": 0
+      "description": "表示排序层级\r\n\r\n 板子建议**写负数压底**（真机数据里出现过 `-1`），故本字段**不设下限**；\r\n 读取端须容忍 `-1`。",
+      "type": "number"
     }
   },
   "required": [

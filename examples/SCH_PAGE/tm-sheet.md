@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"META","ticket":39,"id":"META"}||{"schematic":"schematic-uuid","title":"Page 1","source":"project-uuid","zIndex":0}
+{"type":"META","ticket":39,"id":"META"}||{"schematic":"7f3e9a2c5d1b8046","title":"Page 1","source":"2eb7b89d891135ec|bac6e37798284239bedae653a8874016","zIndex":0}
 ```
 
 ## 返回文档

@@ -16,7 +16,7 @@
 | padNet | `string` | ✓ | - | 网络名 |
 | padId | `string` | ✓ | - | 封装内焊盘 ID（可选） |
 | padLen | `number` | ✓ | - | 引脚长度 |
-| propagationDelay | `number` | ✓ | - | 传播延迟，3.4 新增 |
+| propagationDelay | `number` | ✓ | - | 传播延迟，3.3+ 新增：**单位 ps（皮秒）**。 表示该焊盘（网络节点）对所属网络总延迟的贡献，与 `padLen` 一起参与等长/时序分析。 默认 0 表示不额外贡献延迟。 |
 | attrsMap | `{ [key: string]: any }` |  | - | 自定义属性 |
 
 ## JSON Schema

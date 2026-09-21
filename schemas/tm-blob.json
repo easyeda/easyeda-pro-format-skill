@@ -15,5 +15,5 @@
     "filename",
     "content"
   ],
-  "description": "二进制数据 META 类型"
+  "description": "二进制数据 META 类型\r\n\r\n【id 规则】id = `sha256(content)` 的十六进制（64 字符）；\r\n**哈希对象是 `content` 原文（data URL 字符串），不是解码后的二进制**\r\n（见 `sha256Hash(content)`）。"
 }

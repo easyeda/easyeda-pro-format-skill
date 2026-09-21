@@ -3,43 +3,47 @@
   "type": "object",
   "properties": {
     "originX": {
-      "description": "画布原点 X",
+      "description": "画布原点 X（单位同本图元坐标口径，即 mil）",
       "type": "number"
     },
     "originY": {
-      "description": "画布原点 Y",
+      "description": "画布原点 Y（单位同本图元坐标口径，即 mil）",
       "type": "number"
     },
     "unit": {
-      "description": "显示单位（不会影响格式里数据的单位）",
-      "type": "string"
+      "description": "显示单位。取值是**小写字面量 `mm` / `mil`**，其它值（含大写 `MM` / `MIL`）会导致\r\n 整条 CANVAS 被丢弃——解码端按小写比较，真机样本只有 `\"mil\"` / `\"mm\"`、无一大写。\r\n **不要照枚举成员名写成大写。**",
+      "type": "string",
+      "enum": [
+        "mm",
+        "mil"
+      ]
     },
     "gridXSize": {
-      "description": "网格尺寸 X",
+      "description": "网格尺寸 X（mil；写盘 ×10、读盘 ÷10）",
       "type": "number"
     },
     "gridYSize": {
-      "description": "网格尺寸 Y",
+      "description": "网格尺寸 Y（mil；写盘 ×10、读盘 ÷10）",
       "type": "number"
     },
     "snapXSize": {
-      "description": "栅格尺寸 X",
+      "description": "栅格尺寸 X（mil；写盘 ×10、读盘 ÷10）",
       "type": "number"
     },
     "snapYSize": {
-      "description": "栅格尺寸 Y",
+      "description": "栅格尺寸 Y（mil；写盘 ×10、读盘 ÷10）",
       "type": "number"
     },
     "altSnapXSize": {
-      "description": "Alt 栅格尺寸 X",
+      "description": "Alt 栅格尺寸 X。\r\n\r\n ⚠️ **口径与 `gridXSize` / `snapXSize` 不同**：它写读都**不做 ×10/÷10**，\r\n 单位是 `unit` 字段所指定的**显示单位**。**不要按上面几个字段的换算方式来算它。**\r\n\r\n ⚠️ **缺省时回退成该层 `gridXSize` ÷10 后的内部值**（取不到值时回退成 `gridXSize / 10`），\r\n 与**显式赋值时用的原始盘值**口径**不一致**。**生成数据时请显式写上**，不要依赖缺省。",
       "type": "number"
     },
     "altSnapYSize": {
-      "description": "Alt 栅格尺寸 Y",
+      "description": "Alt 栅格尺寸 Y。口径同 `altSnapXSize`（不做 ×10/÷10，单位随 `unit`；\r\n **缺省时同样回退为 `gridYSize` ÷10 后的内部值**）。",
       "type": "number"
     },
     "gridType": {
-      "description": "网格类型",
+      "description": "网格类型。\r\n\r\n 取值：`NONE` 无、`GRID` 网格、`OUTLETS` 网点。",
       "type": "string",
       "enum": [
         "NONE",
@@ -53,7 +57,7 @@
       }
     },
     "multiGridType": {
-      "description": "加粗网格类型",
+      "description": "加粗网格类型。\r\n\r\n 取值：`NONE` 无、`GRID` 网格、`OUTLETS` 网点。",
       "type": "string",
       "enum": [
         "NONE",
@@ -67,15 +71,15 @@
       }
     },
     "multiGridRatio": {
-      "description": "加粗网格倍数：number",
+      "description": "加粗网格倍数。\r\n\r\n 合法取值 ≥ 1；**小于 1 时会被强制成 5**（`getGridRatio` 兜底）。\r\n 负值或 NaN 会导致整条 CANVAS 被丢弃。",
       "type": "number"
     },
     "highlightValue": {
-      "description": "高亮亮度值",
+      "description": "高亮亮度值：**0 ~ 0.99 的比例**（不是百分比、不是 0~100）。\r\n 大于 0.99 会被夹到 0.99；默认 0.5。",
       "type": "number"
     },
     "layerBrightness": {
-      "description": "图层亮度,3.3 版本新增",
+      "description": "图层亮度，3.3 版本新增。\r\n\r\n 取值：`NORMAL` 正常亮度、`INACTIVE_GRAY` 非激活层置灰、`INACTIVE_HIDDEN` 非激活层隐藏。",
       "type": "string",
       "enum": [
         "NORMAL",

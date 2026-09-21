@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"FOOTPRINT_NET","ticket":21,"id":"fnet1"}||{"componentId":"U1","primitiveId":"pad1","net":"VCC"}
+{"type":"FOOTPRINT_NET","ticket":21,"id":"1dbe910aa685bdb9"}||{"componentId":"U1","primitiveId":"pad1","net":"VCC"}
 ```
 
 ## 返回文档

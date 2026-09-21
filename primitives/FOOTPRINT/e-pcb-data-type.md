@@ -40,7 +40,7 @@ PCB 数据类型枚举
 | `FPC_FILL` | string | 柔性工艺补强板 |
 | `SHELL` | string | 外壳 |
 | `CREASE` | string | 侧面基准线（折痕） |
-| `SHELLCUT` | string | 外壳挖槽区域 |
+| `SHELLCUT` | string | 外壳挖槽区域（**已废弃**：当前版本写盘已停用，被 SHELL_ENTITY 取代，仅保留解析兼容） |
 | `SHELL_ENTITY` | string | 外壳实体区域 |
 | `BOSS` | string | 螺丝柱 |
 | `STRING` | string | 文字 |
@@ -56,7 +56,7 @@ PCB 数据类型枚举
 | `BOARD` | string | 板子，一个 PCB 只有一个该类型图元 #39359 【layout】支持板框内外不同颜色 |
 | `X_NET_GROUP` | string | xNet 组 #135141 【拓斯达】【致远电子】支持信号逻辑等长xSignals（已更名为 xNet） |
 | `X_NET` | string | X_NET #135141 【拓斯达】【致远电子】支持信号逻辑等长xSignals（已更名为 xNet） |
-| `ELE_PLACEHOLDER` | string | 占位符 |
+| `ELE_PLACEHOLDER` | string | 占位符：**3.0 侧没有正式写入点、也没有读取语义**，纯粹占位—— 它只在 **2.0 → 3.0 转换**时被写出来凑数（转换腿写 `{ dataType, max }`，id 形如 `placeholder1`），读取端一律**显式跳过**（对应分支是空的 `break;`）。 格式文档生成器也会跳过它。 |
 
 ## JSON Schema
 

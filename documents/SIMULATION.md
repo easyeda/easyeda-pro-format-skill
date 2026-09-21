@@ -11,7 +11,7 @@
 |------|------|------|
 | TMSimulation | META | [详细](../primitives/SIMULATION/meta.md) |
 | TSchLine | LINE | [详细](../primitives/SIMULATION/line.md) |
-| TSchBusEntry | BUSENTRY | [详细](../primitives/SIMULATION/busentry.md) |
+| TSchBusEntry |  | [详细](../primitives/SIMULATION/t-sch-bus-entry.md) |
 | TWire | WIRE | [详细](../primitives/SIMULATION/wire.md) |
 | TBus | BUS | [详细](../primitives/SIMULATION/bus.md) |
 | TSchGroup | GROUP | [详细](../primitives/SIMULATION/group.md) |
@@ -31,6 +31,7 @@
 | TPart | PART | [详细](../primitives/SIMULATION/part.md) |
 | TSchCanvas | CANVAS | [详细](../primitives/SIMULATION/canvas.md) |
 | TSchMaskRegion | MASK_REGION | [详细](../primitives/SIMULATION/mask_region.md) |
+| TDCSourceData |  | [详细](../primitives/SIMULATION/tdc-source-data.md) |
 | TNGSetting | NG_SETTING | [详细](../primitives/SIMULATION/ng_setting.md) |
 
 ## Related Resources

@@ -20,11 +20,11 @@
       "pattern": "^$|^#[0-9A-Fa-f]{6}$"
     },
     "layerId": {
-      "description": "层 id",
+      "description": "层 id。\r\n\r\n ⚠️ **它在盘上以两种形态出现**——PCB 侧写盘时会把它**推进外壳 id**\r\n （id 变成 `[\"PRIMITIVE\", 图元名, 层号]`）并从载荷里 `delete`（编码端\r\n `encodePrimitive`：层号非空时推进 id 并删除载荷键）；FOOTPRINT 侧则**留在载荷里**。\r\n 所以 PCB 数据里载荷不出现该键、层号要去 id 的第三段读。",
       "type": "number"
     },
     "viewMode": {
-      "description": "视图模式",
+      "description": "视图模式。\r\n\r\n 取值：`NORMAL` 正常视图、`OUTLINE` 轮廓视图。",
       "type": "string",
       "enum": [
         "NORMAL",

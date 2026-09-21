@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "hsa",
+    "lta",
+    "psa",
+    "ltpsa"
+  ],
+  "description": "ngspice 兼容模式：无(不传)/Hspice/LTspice/Pspice/LTspice+Pspice"
+}

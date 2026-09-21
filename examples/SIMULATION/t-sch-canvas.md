@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"CANVAS","id":"CANVAS","ticket":1}||{"originX":0,"originY":0}
+{"type":"CANVAS","ticket":1,"id":"CANVAS"}||{"originX":0,"originY":0}
 ```
 
 ## 返回文档

@@ -10,7 +10,7 @@
       ]
     },
     "groupId": {
-      "description": "分组编号, 没有则为 0 不分组，非 0 为组标志，相同组标志的为一组",
+      "description": "分组编号：相同值的图元属于同一组；**未分组时的取值见下**。\r\n\r\n ⚠️ **未分组写的是数字 `0`**（不是字符串 `\"0\"`）——真实数据里 `\"groupId\":0` 出现\r\n 5 千余次，而 `\"groupId\":\"0\"` **一次都没有**；FOOTPRINT 文档下该字段**恒为 0**。\r\n 成组时才是字符串（组合 id）；未分组的判定是「`groupId` 为空或 FOOTPRINT 文档」，此时写**数字 0**。\r\n\r\n ⚠️ 上方的类型 `string` 比实际形态窄（装不下数字 0）——**放宽类型会波及 pro-* 仓的\r\n 消费方，需跨仓协调后再改**，故此处暂以说明为准。本文件各 `@example` 里的\r\n `\"groupId\":\"0\"` 也是同一问题，同理按“说明为准”处理。",
       "type": "string"
     },
     "layerId": {
@@ -22,12 +22,12 @@
       "type": "boolean"
     },
     "zIndex": {
-      "description": "Z 轴高度, null 为默认",
+      "description": "同层内的叠放次序（渲染排序键，格式里没有高度语义）。\r\n\r\n **它是独立字段，不由 id 推导**：3.0 里未设置时写盘为 **-1**（内部实现即\r\n `_zIndex || -1`；真实数据 `\"zIndex\":-1` 出现 4 千余次）。**例外**：`ATTR` / `META`\r\n 的默认体直接写 `null`。\r\n\r\n 「由 id 尾部数字推导」是 **2.0 的语义**（2.0 的 `getZIndex` + `idReg`；那个正则也\r\n 匹配不了 3.0 的随机 16 位十六进制 id）。**不要照它推导 3.0 的值。**\r\n\r\n ⚠️ **VIA 是个特例：3.0 写盘不会产出该键**——写盘端的 switch 里**没有** zIndex 分支\r\n （虽然槽位表里有该槽位），取值为 `undefined` 时会被 JSON 序列化整个丢弃。\r\n 但**真机存量里仍能遇到 2.0 遗留的带 `zIndex` 的 VIA 行**（样本 15455 条 VIA 中\r\n 10404 条载荷含该键，其值恰好等于 id 尾部的数字——正是上面说的「2.0 语义」）。\r\n **读盘时不要假设它不存在。**",
       "type": [
         "number",
         "null"
       ],
-      "default": null
+      "default": -1
     },
     "netName": {
       "description": "NET，网络名称",
@@ -57,7 +57,7 @@
       ],
       "properties": {
         "holeType": {
-          "description": "孔类型（ROUND 长圆孔、RECT 方孔）",
+          "description": "孔类型。\r\n\r\n 取值：`ROUND` 圆形孔、`RECT` 方孔、`SLOT` 挖槽、`ROUND_RECT` 圆角矩形。",
           "type": "string",
           "enum": [
             "ROUND",
@@ -66,22 +66,22 @@
             "ROUND_RECT"
           ],
           "enumDescriptions": {
-            "ROUND": "长圆孔",
+            "ROUND": "圆形孔",
             "RECT": "方孔",
             "SLOT": "挖槽",
             "ROUND_RECT": "圆角矩形"
           }
         },
         "width": {
-          "description": "宽",
+          "description": "宽：**单位 mil**，编码为 `pad.holeLength × 10`。\r\n\r\n ⚠️ **不要把它与 `height` 当成同一个矩形的宽高**，两者不是同一维度：\r\n - `SLOT`（挖槽）：本字段是**槽长**，`height` 是孔径（槽长 ≥ 孔径）；\r\n - `ROUND`（圆孔）：**本字段与 `height` 相等、都是孔直径**——圆孔的 `holeLength`\r\n   中途会被强制成直径（`holeShape == CIRCLE` 时 `holeLength = diameter`），真实数据里\r\n   圆孔只有 `33.4646/33.4646` 这种「宽高相等」与 `0/0` 两种形态，**不存在**\r\n   「宽 0 而高为孔径」的组合；\r\n - **`width` 与 `height` 同为 0** 表示该焊盘没有孔。",
           "type": "number"
         },
         "height": {
-          "description": "高",
+          "description": "高：**单位 mil**，编码为 `pad.holeRadius × 20`（即半径 ×2 ×10），也就是**孔直径",
           "type": "number"
         },
         "cornerRadius": {
-          "description": "圆角矩形 - 圆角",
+          "description": "圆角矩形（`ROUND_RECT`）- 圆角，**单位 mil**（编码为 `holeCornerRadius × 10`）",
           "type": "number"
         }
       },
@@ -92,14 +92,14 @@
       ]
     },
     "defaultPad": {
-      "description": "默认焊盘：参考焊盘",
+      "description": "默认焊盘定义：各层通用的焊盘形状，结构为 TPadDef 的四个变体之一\r\n （按 `padType` 区分：ELLIPSE 圆 / RECT 矩形 / OVAL 长圆 / POLYGON 多边形）。\r\n 需要按层给出不同形状时用下面的 `specialPad`。",
       "type": "object",
       "anyOf": [
         {
           "type": "object",
           "properties": {
             "padType": {
-              "description": "长圆焊盘",
+              "description": "圆焊盘（椭圆形状，width/height 相等即为正圆）",
               "type": "string",
               "enum": [
                 "ELLIPSE"
@@ -122,13 +122,13 @@
             "width",
             "height"
           ],
-          "description": "长圆焊盘"
+          "description": "圆焊盘（椭圆形状，width/height 相等即为正圆）"
         },
         {
           "type": "object",
           "properties": {
             "padType": {
-              "description": "矩形焊盘",
+              "description": "矩形焊盘（radius 为圆角半径，0 表示直角）",
               "type": "string",
               "enum": [
                 "RECT"
@@ -156,13 +156,13 @@
             "height",
             "radius"
           ],
-          "description": "矩形焊盘"
+          "description": "矩形焊盘（radius 为圆角半径，0 表示直角）"
         },
         {
           "type": "object",
           "properties": {
             "padType": {
-              "description": "正多边形焊盘",
+              "description": "长圆焊盘（胶囊形：两端半圆、中间矩形）",
               "type": "string",
               "enum": [
                 "OVAL"
@@ -185,7 +185,7 @@
             "width",
             "height"
           ],
-          "description": "正多边形焊盘"
+          "description": "长圆焊盘（胶囊形：两端半圆、中间矩形）"
         },
         {
           "type": "object",
@@ -201,8 +201,9 @@
               }
             },
             "path": {
-              "description": "参考单多边形",
-              "type": "array"
+              "description": "焊盘外形：**本身就是一个单多边形**（首尾自动闭合的一条不间断线），不是多边形的数组。\r\n\r\n 【单多边形结构】扁平数组：前两个数字是起点坐标，其后是\r\n 「指令名 + 该指令参数」的重复序列——\r\n - `L` 直线：`x y L x y x y ...`，各点依次直线相连\r\n - `ARC` 圆弧：`startX startY ARC angle endX endY`（angle 逆时针为正、顺时针为负）\r\n - `CARC` 中心圆弧：`startX startY CARC angle endX endY`\r\n - `C` 三阶贝塞尔：`x1 y1 C x2 y2 x3 y3 x4 y4 ...`，四个一组为一条曲线\r\n\r\n 焊盘外形**不支持** `[\"R\", ...]` 矩形形态，仅支持 `[\"CIRCLE\", cx, cy, r]` 整圆\r\n 与上述指令序列。",
+              "type": "array",
+              "items": {}
             }
           },
           "required": [
@@ -215,7 +216,21 @@
     },
     "specialPad": {
       "description": "特殊焊盘",
-      "type": "array"
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "startLayer": {
+            "description": "开始层"
+          },
+          "endLayer": {
+            "description": "结束层"
+          },
+          "pad": {
+            "description": "该层区间的焊盘定义：结构见 TPadDef，覆盖 startLayer 到 endLayer 这几层"
+          }
+        }
+      }
     },
     "padOffsetX": {
       "description": "孔偏移 X",
@@ -234,7 +249,7 @@
       "type": "boolean"
     },
     "padType": {
-      "description": "焊盘功能",
+      "description": "焊盘功能。\r\n\r\n 取值：`NORMAL` 普通焊盘、`TEST` 测试点、`MARKER` 标识点。",
       "type": "string",
       "enum": [
         "NORMAL",
@@ -276,7 +291,7 @@
       ]
     },
     "connectMode": {
-      "description": "热焊-连接方式：null 为遵循规则，其他数据定义同设计规则",
+      "description": "热焊-连接方式：null 为遵循规则，其他数据定义同设计规则。\r\n\r\n 取值：`DIVERGENCE` 热焊（发散）、`DIRECT` 直连、`NON_CONNECT` 无连接；`null` 为遵循规则。",
       "type": [
         "string",
         "null"
@@ -316,14 +331,17 @@
     },
     "unusedInnerLayers": {
       "description": "隐藏焊盘层（可选）：被隐藏焊盘的层数组",
-      "type": "array"
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
     },
     "padLen": {
-      "description": "引脚长度",
+      "description": "引脚长度：**单位 mil**（写盘 ×10，编码为 `toFix(pad.padLen * 10, 4)`）",
       "type": "number"
     },
     "propagationDelay": {
-      "description": "传播延迟，3.3 新增",
+      "description": "传播延迟，3.3+ 新增：**单位 ps（皮秒）**。\r\n\r\n 表示信号经过本焊盘所引入的延迟，参与网络总延迟/等长分析。\r\n 默认 0 表示不额外贡献延迟。",
       "type": "number"
     },
     "attrsMap": {
@@ -331,8 +349,11 @@
       "type": "object"
     },
     "refs": {
-      "description": "关联的图元编号",
-      "type": "array"
+      "description": "*反向**关联的图元编号：记录的是「哪些图元引用了本焊盘」\r\n （与 TPcbFill/TPcbShell*.refs 的「本图元引用了谁」方向相反）",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     }
   },
   "required": [
@@ -364,5 +385,5 @@
     "padLen",
     "propagationDelay"
   ],
-  "description": "焊盘"
+  "description": "焊盘\r\n\r\n⚠️ **本类型的 `layerId`（继承自 `TPcbBase`）是封闭三选一**：只有 **顶层 / 底层 / 多层**\r\n三个层号合法（编辑器只区分这三种）。\r\n同一个 `layerId` 在 `LINE` / `POLY` 上表示**任意层号**，**在 `PAD` 上是三选一**——\r\n不要把两者的取值域当成一样。"
 }

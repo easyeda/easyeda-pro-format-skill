@@ -6,6 +6,17 @@
 
 部件
 
+**本行的外壳 id 就是 `partId`**：`TMSchComponent.partId` 必须指向它，
+用于从多部件（多 PART）的符号里选出具体部件。
+
+⚠️ **PART 行只存在于 SYMBOL 文档**——真机 SCH 文档里**一个 PART 行都没有**
+（只有 symbol-consistency-manager 实现了 `onPart`）。所以表页 COMPONENT 的 `partId`
+指向的是「它 `key:"Symbol"` 属性值所标识的那个**符号文档**」里的 PART 行
+（样本里 `"Symbol"` → `412ca47752bc0af4`，正是那个含 `{"type":"PART",…,"id":"-1"}`
+的 SYMBOL 文档的文档头 uuid），**不要去图页文档里找**。
+
+⚠️ 真机载荷里会多出一个**类型定义之外**的 `BBOX` 字段（透传字段），**不要当坏数据**。
+
 ## 字段
 
 | 字段 | 类型 | 必需 | 约束 | 说明 |
@@ -25,9 +36,15 @@
 |------|------|------|
 | required | ERROR | `title`: 必需字段 |
 
-## 关联图元
+### 父子图元
 
-_无关联图元_
+此图元包含以下子图元类型：
+
+- 子图元类型: [TMSchComponent](../../primitives/SCH_PAGE/component.md)
+- 子图元中的关联字段: `partId` (指向父图元 id)
+- 父图元中的引用字段: `id`
+
+COMPONENT 通过 partId 指向某个 PART 的 id（该 PART 行在其关联的 SYMBOL 文档里），用于从多部件符号中选出具体部件
 
 ## 示例
 

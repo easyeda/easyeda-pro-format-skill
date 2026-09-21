@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"X_NET","ticket":24,"id":"xnet1"}||{"xNetsGroup":"group1","name":"xnet1","netLengthPhysic":"rule1","netLengthTolerancePhysics":"rule2","length":1000,"xNet":{"start":{"designator":"U1","number":"1","net":"VCC","globalIndex":"g1","padId":"pad1"},"end":{"designator":"U2","number":"2","net":"VCC","globalIndex":"g2","padId":"pad2"},"nodes":[{"designator":"U1","number":"1","net":"VCC","globalIndex":"g1","padId":"pad1"},{"designator":"U2","number":"2","net":"VCC","globalIndex":"g2","padId":"pad2"}]},"targetNet":""}
+{"type":"X_NET","ticket":24,"id":"f72db6e5345f4aa9"}||{"xNetsGroup":"group1","name":"xnet1","netLengthPhysic":"rule1","netLengthTolerancePhysics":"rule2","length":1000,"xNet":{"start":{"designator":"U1","number":"1","net":"VCC","globalIndex":"U1","padId":"U1pad1"},"end":{"designator":"U2","number":"2","net":"VCC","globalIndex":"U2","padId":"U2pad2"},"nodes":[{"designator":"U1","number":"1","net":"VCC","globalIndex":"U1","padId":"U1pad1"},{"designator":null,"number":"3","net":"VCC","globalIndex":"v1","padId":null},{"designator":"U2","number":"2","net":"VCC","globalIndex":"U2","padId":"U2pad2"}]},"targetNet":""}
 ```
 
 ## 返回文档

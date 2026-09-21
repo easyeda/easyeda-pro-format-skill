@@ -3,7 +3,7 @@
   "type": "object",
   "properties": {
     "groupId": {
-      "description": "分组编号, 没有则为空",
+      "description": "分组编号；**两种「未成组」形态都表示未成组**：\r\n - **3.0 写盘时该键根本不存在**：写入端取 `model.combination?.id`，未成组即 `undefined`，\r\n   经 `JSON.stringify` 后整键被丢弃，消费方须**按可选键处理**；\r\n - **`\"\"` 只出现在 2.0 迁移数据里**（2.0 → 3.0 转换腿原样带着它）。",
       "type": "string"
     },
     "locked": {
@@ -11,14 +11,14 @@
       "type": "boolean"
     },
     "zIndex": {
-      "description": "Z 轴高度",
+      "description": "同层内的叠放次序：渲染排序键，数值越小越靠下（格式里没有高度语义）",
       "type": [
         "number",
         "null"
       ]
     },
     "yAxisDirection": {
-      "description": "Y 轴方向标记：仅 eprj3 本地文件格式会带，读盘时被剥离；语义见 TYAxisDirection",
+      "description": "Y 轴方向标记：**仅 eprj3 本地文件格式会带**，读盘时被剥离。\r\n\r\n 取值：`up` **已按 Y 轴向上写出**（本地文件固定用它）、`down` Y 轴向下\r\n （**字段缺失等价于它**，两者是同一件事）。完整语义见 `TYAxisDirection`。\r\n\r\n ⚠️ 本基类被多个图元继承，**各自被翻转的字段不同**——完整对照表见 `TYAxisDirection`。\r\n 本基类直接覆盖的：`ATTR`/`TEXT`/`PIN`/`COMPONENT` 翻 `y`；`OBJ`/`TABLE` 翻 `startY`；\r\n `ARC` 翻 `startY`/`referY`/`endY`；`CIRCLE`/`ELLIPSE` 翻 `centerY` + 内嵌 `text.y`；\r\n `RECT` 翻 `dotY1`/`dotY2` + `text.y`；`MASK_REGION` 翻 `dotY1`/`dotY2`；`POLY` 翻\r\n `points` 各项的 `y`；`BEZIER` 翻 `controls` 的奇数下标。\r\n `rotation` / `isMirror` / `zIndex` 与所有幅值字段**不翻**。",
       "type": "string",
       "enum": [
         "up",
@@ -36,5 +36,5 @@
     "zIndex",
     "busEntry"
   ],
-  "description": "总线组"
+  "description": "总线组\r\n\r\n【联动增删·必须成组操作】BUS 与其成员 LINE、成员 ATTR 是**同一生命周期**：\r\n**新增 BUS 时必须一并写出它的 LINE；删除 BUS 时必须一并删除它的 LINE 与 ATTR**。\r\n`lineGroup` 是必填字段，成员 LINE 无法脱离组独立存在，只删 BUS 会留下悬空引用。\r\n\r\n成员类型只列 `TSchLine`：`ATTR` **亦属同一生命周期**（要一并增删），但它是经 `parentId`\r\n指向本组 id 的（**`ATTR` 上没有 `lineGroup`**），**不走 `lineGroup`**，故不算成员类型。"
 }

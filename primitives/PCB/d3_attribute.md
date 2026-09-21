@@ -16,7 +16,7 @@
 | boardColor | `string` | ✓ | pattern: ^$\|^#[0-9A-Fa-f]{6}$ | 板子颜色 |
 | sprayColor | `string` | ✓ | pattern: ^$\|^#[0-9A-Fa-f]{6}$ | 焊盘喷镀 |
 | layerExpose | `number` | ✓ | - | 层发散 |
-| substrateHeight | `number` | ✓ | - | PCB距外壳底面高度 |
+| substrateHeight | `number` | ✓ | - | PCB 距外壳底面的高度：**单位为 mm**。 ⚠️ 读写两端都**不做 ×10 / ÷10 换算**（编码 `D3AttributeEncode` 原样返回、 解码 `D3AttributeDecode` 直接取用），盘上的值就是 mm 值（例 `1.6` = 1.6 mm）。 |
 
 ## JSON Schema
 

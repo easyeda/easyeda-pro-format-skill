@@ -3,14 +3,14 @@
   "type": "object",
   "properties": {
     "color": {
-      "description": "颜色",
+      "description": "字体颜色：`\"#RRGGBB\"` 十六进制色值；null 表示采用主题默认色",
       "type": [
         "string",
         "null"
       ]
     },
     "fillColor": {
-      "description": "背景色",
+      "description": "字体背景色：`\"#RRGGBB\"` 十六进制色值；null 表示无背景 / 采用主题默认\r\n\r\n ⚠️ **语义随宿主而变**：只有 **TABLE 单元格**上的它才是真正的背景色；\r\n 在 TEXT / ATTR 上它与 `color` 同源（同一个颜色字段），且**解码端根本不读它**\r\n （只读 `color`），不要把它当独立字段依赖。",
       "type": [
         "string",
         "null"
@@ -59,7 +59,7 @@
       ]
     },
     "align": {
-      "description": "对齐模式",
+      "description": "对齐模式\r\n\r\n 取值：\r\n - `LEFT_BOTTOM` 左底\r\n - `CENTER_BOTTOM` 中底\r\n - `RIGHT_BOTTOM` 右底\r\n - `LEFT_MIDDLE` 左中\r\n - `CENTER_MIDDLE` 中中\r\n - `RIGHT_MIDDLE` 右中\r\n - `LEFT_TOP` 左顶\r\n - `CENTER_TOP` 中顶\r\n - `RIGHT_TOP` 右顶",
       "type": "string",
       "enum": [
         "LEFT_BOTTOM",

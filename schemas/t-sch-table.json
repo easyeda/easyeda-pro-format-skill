@@ -3,22 +3,22 @@
   "type": "object",
   "properties": {
     "groupId": {
-      "description": "分组编号, 没有则为空",
+      "description": "分组编号；**两种「未成组」形态都表示未成组**：\r\n - **3.0 写盘时该键根本不存在**：写入端取 `model.combination?.id`，未成组即 `undefined`，\r\n   经 `JSON.stringify` 后整键被丢弃，消费方须**按可选键处理**；\r\n - **`\"\"` 只出现在 2.0 迁移数据里**（2.0 → 3.0 转换腿原样带着它）。",
       "type": "string"
     },
     "zIndex": {
-      "description": "Z 轴高度",
+      "description": "同层内的叠放次序：渲染排序键，数值越小越靠下（格式里没有高度语义）",
       "type": [
         "number",
         "null"
       ]
     },
     "partId": {
-      "description": "部件编号；符号页专属，表示归属于某部件下, 非符号忽略该字段",
+      "description": "所属部件编号（**可选**，真机存在整键缺失的 COMPONENT）：\r\n **符号页**上表示自身归属于哪个部件，**图页**的元件则指向它**关联的符号文档**里的部件。\r\n 取值即目标 `PART` 行的 `id`（`PART` 行只存在于 SYMBOL 文档，见 `TPart`）。",
       "type": "string"
     },
     "yAxisDirection": {
-      "description": "Y 轴方向标记：仅 eprj3 本地文件格式会带，读盘时被剥离；语义见 TYAxisDirection",
+      "description": "Y 轴方向标记：**仅 eprj3 本地文件格式会带**，读盘时被剥离。\r\n\r\n 取值：`up` **已按 Y 轴向上写出**（本地文件固定用它）、`down` Y 轴向下\r\n （**字段缺失等价于它**，两者是同一件事）。完整语义见 `TYAxisDirection`。\r\n\r\n ⚠️ 本基类被多个图元继承，**各自被翻转的字段不同**——完整对照表见 `TYAxisDirection`。\r\n 本基类直接覆盖的：`ATTR`/`TEXT`/`PIN`/`COMPONENT` 翻 `y`；`OBJ`/`TABLE` 翻 `startY`；\r\n `ARC` 翻 `startY`/`referY`/`endY`；`CIRCLE`/`ELLIPSE` 翻 `centerY` + 内嵌 `text.y`；\r\n `RECT` 翻 `dotY1`/`dotY2` + `text.y`；`MASK_REGION` 翻 `dotY1`/`dotY2`；`POLY` 翻\r\n `points` 各项的 `y`；`BEZIER` 翻 `controls` 的奇数下标。\r\n `rotation` / `isMirror` / `zIndex` 与所有幅值字段**不翻**。",
       "type": "string",
       "enum": [
         "up",
@@ -35,19 +35,31 @@
     },
     "rowSizes": {
       "description": "行高",
-      "type": "array"
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
     },
     "colSizes": {
       "description": "列宽",
-      "type": "array"
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
     },
     "rowLocked": {
       "description": "行锁定",
-      "type": "array"
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
     },
     "colLocked": {
       "description": "列锁定",
-      "type": "array"
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
     },
     "rotation": {
       "description": "旋转角度（角度制）",
@@ -57,7 +69,522 @@
     },
     "tableCell": {
       "description": "表格单元格",
-      "type": "array"
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "唯一编号",
+            "type": "string",
+            "pattern": "^[0-9a-f]{16}$"
+          },
+          "value": {
+            "description": "内容",
+            "type": "string"
+          },
+          "rowIndex": {
+            "description": "行",
+            "type": "number",
+            "minimum": 0
+          },
+          "columnIndex": {
+            "description": "列",
+            "type": "number",
+            "minimum": 0
+          },
+          "rowSpan": {
+            "description": "跨行数：本单元格纵向占多少行（其高度 = 连续 rowSpan 行的高度之和）",
+            "type": "number",
+            "minimum": 1
+          },
+          "colSpan": {
+            "description": "跨列数：本单元格横向占多少列（其宽度 = 连续 colSpan 列的宽度之和）",
+            "type": "number",
+            "minimum": 1
+          },
+          "topStyle": {
+            "description": "边框线形样式（上）",
+            "type": "object",
+            "properties": {
+              "strokeColor": {
+                "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n 注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n 可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "strokeStyle": {
+                "description": "样式, null 为默认\r\n\r\n 取值：`SOLID` 实线、`SHORT_DASH` 短划线、`DOT` 点线、`DOT_DASH` 点划线。",
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "SOLID",
+                  "SHORT_DASH",
+                  "DOT",
+                  "DOT_DASH",
+                  null
+                ],
+                "enumDescriptions": {
+                  "SOLID": "实线",
+                  "SHORT_DASH": "短划线",
+                  "DOT": "点线",
+                  "DOT_DASH": "点划线"
+                },
+                "default": null
+              },
+              "fillColor": {
+                "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\n null 表示采用主题默认",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "strokeWidth": {
+                "description": "宽度：null 表示采用主题默认线宽",
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "default": null
+              },
+              "fillStyle": {
+                "description": "填充样式, null 为默认\r\n\r\n 取值：\r\n - `NONE` 无填充\r\n - `SOLID` 实心填充\r\n - `GRID` 网格\r\n - `HORIZONTAL_LINE` 横线\r\n - `VERTICAL_LINE` 竖线\r\n - `RHOMBIC` 菱形网格\r\n - `LEFT_SLASH_LINE` 左斜线\r\n - `RIGHT_SLASH_LINE` 右斜线",
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "NONE",
+                  "SOLID",
+                  "GRID",
+                  "HORIZONTAL_LINE",
+                  "VERTICAL_LINE",
+                  "RHOMBIC",
+                  "LEFT_SLASH_LINE",
+                  "RIGHT_SLASH_LINE",
+                  null
+                ],
+                "enumDescriptions": {
+                  "NONE": "无填充",
+                  "SOLID": "实心填充",
+                  "GRID": "网格",
+                  "HORIZONTAL_LINE": "横线",
+                  "VERTICAL_LINE": "竖线",
+                  "RHOMBIC": "菱形网格",
+                  "LEFT_SLASH_LINE": "左斜线",
+                  "RIGHT_SLASH_LINE": "右斜线"
+                },
+                "default": null
+              }
+            },
+            "required": [
+              "strokeColor",
+              "strokeStyle",
+              "fillColor",
+              "strokeWidth",
+              "fillStyle"
+            ]
+          },
+          "rightStyle": {
+            "description": "边框线形样式（右）",
+            "type": "object",
+            "properties": {
+              "strokeColor": {
+                "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n 注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n 可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "strokeStyle": {
+                "description": "样式, null 为默认\r\n\r\n 取值：`SOLID` 实线、`SHORT_DASH` 短划线、`DOT` 点线、`DOT_DASH` 点划线。",
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "SOLID",
+                  "SHORT_DASH",
+                  "DOT",
+                  "DOT_DASH",
+                  null
+                ],
+                "enumDescriptions": {
+                  "SOLID": "实线",
+                  "SHORT_DASH": "短划线",
+                  "DOT": "点线",
+                  "DOT_DASH": "点划线"
+                },
+                "default": null
+              },
+              "fillColor": {
+                "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\n null 表示采用主题默认",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "strokeWidth": {
+                "description": "宽度：null 表示采用主题默认线宽",
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "default": null
+              },
+              "fillStyle": {
+                "description": "填充样式, null 为默认\r\n\r\n 取值：\r\n - `NONE` 无填充\r\n - `SOLID` 实心填充\r\n - `GRID` 网格\r\n - `HORIZONTAL_LINE` 横线\r\n - `VERTICAL_LINE` 竖线\r\n - `RHOMBIC` 菱形网格\r\n - `LEFT_SLASH_LINE` 左斜线\r\n - `RIGHT_SLASH_LINE` 右斜线",
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "NONE",
+                  "SOLID",
+                  "GRID",
+                  "HORIZONTAL_LINE",
+                  "VERTICAL_LINE",
+                  "RHOMBIC",
+                  "LEFT_SLASH_LINE",
+                  "RIGHT_SLASH_LINE",
+                  null
+                ],
+                "enumDescriptions": {
+                  "NONE": "无填充",
+                  "SOLID": "实心填充",
+                  "GRID": "网格",
+                  "HORIZONTAL_LINE": "横线",
+                  "VERTICAL_LINE": "竖线",
+                  "RHOMBIC": "菱形网格",
+                  "LEFT_SLASH_LINE": "左斜线",
+                  "RIGHT_SLASH_LINE": "右斜线"
+                },
+                "default": null
+              }
+            },
+            "required": [
+              "strokeColor",
+              "strokeStyle",
+              "fillColor",
+              "strokeWidth",
+              "fillStyle"
+            ]
+          },
+          "bottomStyle": {
+            "description": "边框线形样式（下）",
+            "type": "object",
+            "properties": {
+              "strokeColor": {
+                "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n 注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n 可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "strokeStyle": {
+                "description": "样式, null 为默认\r\n\r\n 取值：`SOLID` 实线、`SHORT_DASH` 短划线、`DOT` 点线、`DOT_DASH` 点划线。",
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "SOLID",
+                  "SHORT_DASH",
+                  "DOT",
+                  "DOT_DASH",
+                  null
+                ],
+                "enumDescriptions": {
+                  "SOLID": "实线",
+                  "SHORT_DASH": "短划线",
+                  "DOT": "点线",
+                  "DOT_DASH": "点划线"
+                },
+                "default": null
+              },
+              "fillColor": {
+                "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\n null 表示采用主题默认",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "strokeWidth": {
+                "description": "宽度：null 表示采用主题默认线宽",
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "default": null
+              },
+              "fillStyle": {
+                "description": "填充样式, null 为默认\r\n\r\n 取值：\r\n - `NONE` 无填充\r\n - `SOLID` 实心填充\r\n - `GRID` 网格\r\n - `HORIZONTAL_LINE` 横线\r\n - `VERTICAL_LINE` 竖线\r\n - `RHOMBIC` 菱形网格\r\n - `LEFT_SLASH_LINE` 左斜线\r\n - `RIGHT_SLASH_LINE` 右斜线",
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "NONE",
+                  "SOLID",
+                  "GRID",
+                  "HORIZONTAL_LINE",
+                  "VERTICAL_LINE",
+                  "RHOMBIC",
+                  "LEFT_SLASH_LINE",
+                  "RIGHT_SLASH_LINE",
+                  null
+                ],
+                "enumDescriptions": {
+                  "NONE": "无填充",
+                  "SOLID": "实心填充",
+                  "GRID": "网格",
+                  "HORIZONTAL_LINE": "横线",
+                  "VERTICAL_LINE": "竖线",
+                  "RHOMBIC": "菱形网格",
+                  "LEFT_SLASH_LINE": "左斜线",
+                  "RIGHT_SLASH_LINE": "右斜线"
+                },
+                "default": null
+              }
+            },
+            "required": [
+              "strokeColor",
+              "strokeStyle",
+              "fillColor",
+              "strokeWidth",
+              "fillStyle"
+            ]
+          },
+          "leftStyle": {
+            "description": "边框线形样式（左）",
+            "type": "object",
+            "properties": {
+              "strokeColor": {
+                "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n 注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n 可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "strokeStyle": {
+                "description": "样式, null 为默认\r\n\r\n 取值：`SOLID` 实线、`SHORT_DASH` 短划线、`DOT` 点线、`DOT_DASH` 点划线。",
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "SOLID",
+                  "SHORT_DASH",
+                  "DOT",
+                  "DOT_DASH",
+                  null
+                ],
+                "enumDescriptions": {
+                  "SOLID": "实线",
+                  "SHORT_DASH": "短划线",
+                  "DOT": "点线",
+                  "DOT_DASH": "点划线"
+                },
+                "default": null
+              },
+              "fillColor": {
+                "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\n null 表示采用主题默认",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "strokeWidth": {
+                "description": "宽度：null 表示采用主题默认线宽",
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "default": null
+              },
+              "fillStyle": {
+                "description": "填充样式, null 为默认\r\n\r\n 取值：\r\n - `NONE` 无填充\r\n - `SOLID` 实心填充\r\n - `GRID` 网格\r\n - `HORIZONTAL_LINE` 横线\r\n - `VERTICAL_LINE` 竖线\r\n - `RHOMBIC` 菱形网格\r\n - `LEFT_SLASH_LINE` 左斜线\r\n - `RIGHT_SLASH_LINE` 右斜线",
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "NONE",
+                  "SOLID",
+                  "GRID",
+                  "HORIZONTAL_LINE",
+                  "VERTICAL_LINE",
+                  "RHOMBIC",
+                  "LEFT_SLASH_LINE",
+                  "RIGHT_SLASH_LINE",
+                  null
+                ],
+                "enumDescriptions": {
+                  "NONE": "无填充",
+                  "SOLID": "实心填充",
+                  "GRID": "网格",
+                  "HORIZONTAL_LINE": "横线",
+                  "VERTICAL_LINE": "竖线",
+                  "RHOMBIC": "菱形网格",
+                  "LEFT_SLASH_LINE": "左斜线",
+                  "RIGHT_SLASH_LINE": "右斜线"
+                },
+                "default": null
+              }
+            },
+            "required": [
+              "strokeColor",
+              "strokeStyle",
+              "fillColor",
+              "strokeWidth",
+              "fillStyle"
+            ]
+          },
+          "fontStyle": {
+            "description": "字体样式",
+            "type": "object",
+            "properties": {
+              "color": {
+                "description": "字体颜色：`\"#RRGGBB\"` 十六进制色值；null 表示采用主题默认色",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "fillColor": {
+                "description": "字体背景色：`\"#RRGGBB\"` 十六进制色值；null 表示无背景 / 采用主题默认\r\n\r\n ⚠️ **语义随宿主而变**：只有 **TABLE 单元格**上的它才是真正的背景色；\r\n 在 TEXT / ATTR 上它与 `color` 同源（同一个颜色字段），且**解码端根本不读它**\r\n （只读 `color`），不要把它当独立字段依赖。",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "fontFamily": {
+                "description": "字体名称",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "fontSize": {
+                "description": "字体大小，与坐标等单位相同",
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "strikeout": {
+                "description": "是否加删除线",
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "underline": {
+                "description": "是否加下划线",
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "italic": {
+                "description": "是否斜体",
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "fontWeight": {
+                "description": "是否加粗",
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "hAlign": {
+                "description": "水平对齐；**可为 `null`**：写入端在取值缺失时直接落 `null`，表示未设置（取默认对齐）\r\n\r\n 取值：`LEFT` 左、`CENTER` 中、`RIGHT` 右。",
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "LEFT",
+                  "CENTER",
+                  "RIGHT",
+                  null
+                ],
+                "enumDescriptions": {
+                  "LEFT": "左",
+                  "CENTER": "中",
+                  "RIGHT": "右"
+                }
+              },
+              "vAlign": {
+                "description": "垂直对齐；**可为 `null`**：写入端在取值缺失时直接落 `null`，表示未设置（取默认对齐）\r\n\r\n 取值：`TOP` 上、`MIDDLE` 中、`BOTTOM` 下。",
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "TOP",
+                  "MIDDLE",
+                  "BOTTOM",
+                  null
+                ],
+                "enumDescriptions": {
+                  "TOP": "上",
+                  "MIDDLE": "中",
+                  "BOTTOM": "下"
+                }
+              }
+            },
+            "required": [
+              "color",
+              "fillColor",
+              "fontFamily",
+              "fontSize",
+              "strikeout",
+              "underline",
+              "italic",
+              "fontWeight",
+              "hAlign",
+              "vAlign"
+            ]
+          },
+          "lineHeight": {
+            "description": "行高倍数：相对字号的倍数（默认 1.2），实际行高 = lineHeight × fontSize；null 表示用主题默认\r\n （**写入端未设置时即产出 `null`**，判空一律用 `== null`）",
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "zIndex": {
+            "description": "单元格独立层序：控制同一表格内各单元格的叠放次序",
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "value",
+          "rowIndex",
+          "columnIndex",
+          "rowSpan",
+          "colSpan",
+          "topStyle",
+          "rightStyle",
+          "bottomStyle",
+          "leftStyle",
+          "fontStyle",
+          "lineHeight",
+          "zIndex"
+        ],
+        "description": "表格单元格\r\n\r\n注意：这是**内嵌结构**，不是数据流里的独立图元（表格的原子类型 TABLE 见 TSchTable），\r\n因此这里不声明 primitiveType 标签。"
+      }
     }
   },
   "required": [

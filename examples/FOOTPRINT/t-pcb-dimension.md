@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"DIMENSION","ticket":4,"id":"e119b4dd7d409ea8b"}||{"layerId":8,"dimensionType":"LENGTH-CONSTRAINT","unit":"mil","strokeWidth":0,"accuracy":0,"controlDot":[391.732,1173.2280787401573,391.732,1171.654,470.472157480315,1171.654,470.472157480315,1173.2280787401573],"relationIds":["efc5949f2664c1144","efc5949f2664c1144"],"locked":false,"zIndex":4,"visible":true,"cover":0,"name":"","valid":true,"groupId":"0","type":"LENGTH","precision":0,"textFollow":false,"coords":[],"text":{"groupId":"0","layerId":0,"locked":false,"zIndex":null,"x":0,"y":0,"text":"","fontFamily":"","fontSize":1,"strokeWidth":0,"bold":false,"italic":false,"origin":"LEFT_BOTTOM","angle":0,"reverse":false,"expansion":0,"mirror":false}}
+{"type":"DIMENSION","ticket":27,"id":"7a1c9f3e5b2d8046"}||{"partitionId":"","groupId":"0","layerId":8,"type":"LENGTH","unit":"mil","strokeWidth":6,"precision":1,"textFollow":true,"coords":[-11350,-7780,-11290,-7780,-11080,-7780,-11080,-7785],"locked":false,"zIndex":-1,"text":{"layerId":13,"groupId":"0","x":-11350.99,"y":-7723.53,"text":"0.0mil","fontFamily":"default","fontSize":100,"strokeWidth":6,"bold":false,"italic":false,"origin":"LEFT_BOTTOM","angle":0,"reverse":false,"expansion":0,"mirror":false,"locked":false,"zIndex":-1},"specialColor":""}
 ```
 
 ## 返回文档

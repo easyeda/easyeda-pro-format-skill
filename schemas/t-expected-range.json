@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "min": {
+      "description": "",
+      "type": "string"
+    },
+    "max": {
+      "description": "",
+      "type": "string"
+    }
+  },
+  "description": "预期范围（电压/电流/增益）"
+}

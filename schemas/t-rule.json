@@ -3,7 +3,7 @@
   "type": "object",
   "properties": {
     "ruleType": {
-      "description": "规则类型：EDA 自己决定",
+      "description": "规则类型\r\n\r\n 取值（`ERuleType`，共 31 项）：\r\n - `SAFE` 间距 - 安全间距\r\n - `OTHER` 间距 - 其他间距\r\n - `CREEPAGE` 间距 - 爬电间距\r\n - `TRACK` 物理 - 导线\r\n - `BLIND` 物理 - 盲埋孔\r\n - `RADIUS` 物理 - 孔径\r\n - `DIFFER_ENTAIL` 物理 - 差分对\r\n - `NET_LENGTH` 物理 - 网络长度范围\r\n - `NET_LENGTH_TOLERANCE` 物理 - 网络长度公差\r\n - `HEIGHT` 物理 - 高度\r\n - `PLANE` 平面 - 内电层\r\n - `COPPER` 平面 - 铺铜\r\n - `PASTE` 扩展 - 助焊\r\n - `SOLDER` 扩展 - 阻焊\r\n - `AUTO_ROUTER` 布线 - 自动布线\r\n - `DFM_ACUTE_ANGLE` 制造-线路分析 - 锐角拐线\r\n - `DFM_HOLE_FALLS_ON_PAD` 制造-线路分析 - 孔落在焊盘上\r\n - `DFM_BARE_TRACK_ENDS` 制造-线路分析 - 裸线头\r\n - `DFM_PAD_RING_DEFECT` 制造-线路分析 - 焊盘孔环\r\n - `DFM_TRACK_NECKDOWN` 制造-线路分析 - 导线颈部收缩\r\n - `DFM_SHORT_CIRCUIT_DETECT` 制造-线路分析 - 短路提示\r\n - `DFM_MIN_COPPER_WIDTH` 制造-线路分析 - 最小铜箔宽度\r\n - `DFM_DISCONNECTED_VIAS` 制造-钻孔分析 - 无连接过孔\r\n - `DFM_MIN_HOLE_SIZE` 制造-钻孔分析 - 孔尺寸\r\n - `DFM_NPTH_2_COPPER` 制造-钻孔分析 - NPTH孔到铜箔\r\n - `DFM_SOLDER_MASK_BRIDGE` 制造-阻焊分析 - 阻焊桥\r\n - `DFM_SMASK_OPENING_COPPER` 制造-阻焊分析 - 开窗露线\r\n - `DFM_PAD_NEGATIVE_OPENING` 制造-阻焊分析 - 焊盘负开窗\r\n - `DFM_SILKSCREEN_2_HOLE` 制造-丝印分析 - 丝印距孔\r\n - `DFM_SILKSCREEN_2_PAD` 制造-丝印分析 - 丝印距焊盘\r\n - `DFM_SILKSCREEN_LINE_WIDTH` 制造-丝印分析 - 丝印线条宽度\r\n\r\n ⚠️ **不是载荷字段**：写盘时它被移进行的 `id` ——\r\n `id` 为 `[\"RULE\", ruleType, ruleName]`，载荷里**不含**本字段。\r\n 解析端会从 id 里把它取回来再注入，故运行时对象上有该字段，但**生成数据时不要写进载荷**。\r\n （两字段标注为可选；**生成时只写 `ruleState` / `ruleContext`**——\r\n `ruleType` 与 `ruleName` 在写盘时会被搬进外壳 id、并从载荷 `delete`。）",
       "type": "string",
       "enum": [
         "SAFE",
@@ -51,33 +51,33 @@
         "HEIGHT": "物理 - 高度",
         "PLANE": "平面 - 内电层",
         "COPPER": "平面 - 铺铜",
-        "PASTE": "扩展 - 阻焊",
-        "SOLDER": "扩展 - 助焊",
+        "PASTE": "扩展 - 助焊",
+        "SOLDER": "扩展 - 阻焊",
         "AUTO_ROUTER": "布线 - 自动布线",
-        "DFM_ACUTE_ANGLE": "================= 制造-线路分析 =================",
+        "DFM_ACUTE_ANGLE": "制造-线路分析 - 锐角拐线",
         "DFM_HOLE_FALLS_ON_PAD": "制造-线路分析 - 孔落在焊盘上",
         "DFM_BARE_TRACK_ENDS": "制造-线路分析 - 裸线头",
         "DFM_PAD_RING_DEFECT": "制造-线路分析 - 焊盘孔环",
         "DFM_TRACK_NECKDOWN": "制造-线路分析 - 导线颈部收缩",
         "DFM_SHORT_CIRCUIT_DETECT": "制造-线路分析 - 短路提示",
         "DFM_MIN_COPPER_WIDTH": "制造-线路分析 - 最小铜箔宽度",
-        "DFM_DISCONNECTED_VIAS": "================= 制造-钻孔分析 =================",
+        "DFM_DISCONNECTED_VIAS": "制造-钻孔分析 - 无连接过孔",
         "DFM_MIN_HOLE_SIZE": "制造-钻孔分析 - 孔尺寸",
         "DFM_NPTH_2_COPPER": "制造-钻孔分析 - NPTH孔到铜箔",
-        "DFM_SOLDER_MASK_BRIDGE": "================= 制造-阻焊分析 =================",
+        "DFM_SOLDER_MASK_BRIDGE": "制造-阻焊分析 - 阻焊桥",
         "DFM_SMASK_OPENING_COPPER": "制造-阻焊分析 - 开窗露线",
         "DFM_PAD_NEGATIVE_OPENING": "制造-阻焊分析 - 焊盘负开窗",
-        "DFM_SILKSCREEN_2_HOLE": "================= 制造-丝印分析 =================",
+        "DFM_SILKSCREEN_2_HOLE": "制造-丝印分析 - 丝印距孔",
         "DFM_SILKSCREEN_2_PAD": "制造-丝印分析 - 丝印距焊盘",
         "DFM_SILKSCREEN_LINE_WIDTH": "制造-丝印分析 - 丝印线条宽度"
       }
     },
     "ruleName": {
-      "description": "规则名称",
+      "description": "规则名称：同 ruleType，写盘时移进行的 `id`，载荷里不含",
       "type": "string"
     },
     "ruleState": {
-      "description": "规则状态（取值与含义见 ERuleStatus）",
+      "description": "规则状态\r\n\r\n 取值（`ERuleStatus`）：\r\n - `NORMAL` 普通规则\r\n - `DEFAULT` 默认规则",
       "type": "string",
       "enum": [
         "NORMAL",
@@ -94,8 +94,6 @@
     }
   },
   "required": [
-    "ruleType",
-    "ruleName",
     "ruleState",
     "ruleContext"
   ],

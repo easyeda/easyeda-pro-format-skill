@@ -11,7 +11,7 @@
 |------|------|------|
 | TMSheet | META | [详细](../primitives/SCH_PAGE/meta.md) |
 | TSchLine | LINE | [详细](../primitives/SCH_PAGE/line.md) |
-| TSchBusEntry | BUSENTRY | [详细](../primitives/SCH_PAGE/busentry.md) |
+| TSchBusEntry |  | [详细](../primitives/SCH_PAGE/t-sch-bus-entry.md) |
 | TWire | WIRE | [详细](../primitives/SCH_PAGE/wire.md) |
 | TBus | BUS | [详细](../primitives/SCH_PAGE/bus.md) |
 | TSchGroup | GROUP | [详细](../primitives/SCH_PAGE/group.md) |
@@ -31,7 +31,14 @@
 | TPart | PART | [详细](../primitives/SCH_PAGE/part.md) |
 | TSchCanvas | CANVAS | [详细](../primitives/SCH_PAGE/canvas.md) |
 | TSchMaskRegion | MASK_REGION | [详细](../primitives/SCH_PAGE/mask_region.md) |
+| TDCSourceData |  | [详细](../primitives/SCH_PAGE/tdc-source-data.md) |
 | TNGSetting | NG_SETTING | [详细](../primitives/SCH_PAGE/ng_setting.md) |
+| THarnessConnector | HARNESS_CONNECTOR | [详细](../primitives/SCH_PAGE/harness_connector.md) |
+| THarnessEntry | HARNESS_ENTRY | [详细](../primitives/SCH_PAGE/harness_entry.md) |
+| TSignalHarness | SIGNAL_HARNESS | [详细](../primitives/SCH_PAGE/signal_harness.md) |
+| TSignalHarnessLine | SIGNAL_HARNESS_LINE | [详细](../primitives/SCH_PAGE/signal_harness_line.md) |
+| TSchBracket | BRACKET | [详细](../primitives/SCH_PAGE/bracket.md) |
+| TSchArrow | ARROW | [详细](../primitives/SCH_PAGE/arrow.md) |
 
 ## Related Resources
 

@@ -8,7 +8,7 @@
     "ROUND_RECT"
   ],
   "enumDescriptions": {
-    "ROUND": "长圆孔",
+    "ROUND": "圆形孔",
     "RECT": "方孔",
     "SLOT": "挖槽",
     "ROUND_RECT": "圆角矩形"

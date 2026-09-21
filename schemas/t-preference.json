@@ -27,7 +27,7 @@
       "type": "boolean"
     },
     "routingMode": {
-      "description": "布线模式",
+      "description": "布线模式。\r\n\r\n 取值：`NONE` 无、`PUSH` 推挤、`SURROUND` 环绕、`OBSTRUCT` 阻挡、`SURROUND&PUSH` 环绕并推挤。",
       "type": "string",
       "enum": [
         "NONE",
@@ -45,7 +45,7 @@
       }
     },
     "routingCorner": {
-      "description": "布线拐角模式：\"L45\" 线条 45 度、\"L90\" 线条 90 度、\"R45\" 圆弧 45 度、\"R90\" 圆弧 90 度、\"L\" 线条自由角度、\"R\" 圆弧自由角度",
+      "description": "布线拐角模式。\r\n\r\n 取值：`L45` 线条 45 度、`L90` 线条 90 度、`L` 线条自由角度、`R45` 圆弧 45 度、\r\n `R90` 圆弧 90 度、`R` 圆弧自由角度。",
       "type": "string",
       "enum": [
         "L45",
@@ -73,8 +73,11 @@
       "type": "boolean"
     },
     "trackFollow": {
-      "description": "导线是否跟随封装移动",
-      "type": "boolean"
+      "description": "导线是否跟随封装移动。\r\n\r\n ⚠️ **真实数据里 `null` 是常态**（工程文件里 `\"trackFollow\":null` 出现数十次，\r\n `false` 只有个位数），`null` 表示未设置、按默认处理，所以类型放宽为可空。",
+      "type": [
+        "boolean",
+        "null"
+      ]
     },
     "stretchTrackMinCorner": {
       "description": "拉伸导线最小拐角比率（比线宽）",
@@ -89,7 +92,7 @@
       "type": "boolean"
     },
     "unusedPadRange": {
-      "description": "移除未使用焊盘的范围",
+      "description": "移除未使用焊盘的范围。\r\n\r\n 取值：`ALL` 所有、`PAD` 仅焊盘、`VIA` 仅过孔。",
       "type": "string",
       "enum": [
         "ALL",
@@ -103,7 +106,7 @@
       }
     },
     "pushVia": {
-      "description": "推挤过孔优化",
+      "description": "推挤过孔优化。\r\n\r\n 取值：`OPTIMIZA_OPEN` 开启、`OPTIMIZA_NONE` 关闭。",
       "type": "string",
       "enum": [
         "OPTIMIZA_OPEN",
@@ -115,7 +118,7 @@
       }
     },
     "pathOptimization4BePushed": {
-      "description": "路径优化（单段/整段）",
+      "description": "路径优化（单段/整段）。\r\n\r\n 取值：`NONE` 无、`SINGLE` 单段、`ALL` 整段。",
       "type": "string",
       "enum": [
         "NONE",
@@ -129,7 +132,7 @@
       }
     },
     "currentPathOptimization4BePushed": {
-      "description": "当前导线路径优化",
+      "description": "当前导线路径优化。\r\n\r\n 取值：`OPTIMIZA_STRONG` 强优化、`OPTIMIZA_WEAK` 弱优化、`OPTIMIZA_NONE` 不优化。",
       "type": "string",
       "enum": [
         "OPTIMIZA_STRONG",

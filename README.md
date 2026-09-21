@@ -1,5 +1,158 @@
 # EasyEDA Pro Format Skill
 
+# English
+
+English | [简体中文](#简体中文)
+
+An EasyEDA (嘉立创EDA) Pro format data generation skill for AI agents such as Claude Code.
+
+It generates schematic / PCB / symbol / footprint data conforming to the EasyEDA Pro format from type definitions and JSON Schemas, with a built-in validation script to guarantee correct output.
+
+## Features
+
+- **Full domain coverage**: 14 document domains including schematic (SCH_PAGE / SYMBOL), PCB (PCB / FOOTPRINT), panels (PANEL / PANEL_LIB), simulation (SIMULATION / SIMULATION_SCH), fonts, rules, and metadata
+- **Progressive context loading**: type index → document layer → primitive layer → examples / JSON Schema, loaded on demand to avoid context explosion
+- **Automatic related primitives**: related primitives (parent-child, container members, embedded structures, references) are inferred together with the main primitive — no user intervention needed
+- **Mandatory validation**: every generation must be validated with `validate.js`; results may only be returned when `valid: true`
+- **Document-type-aware type names**: `LINE` is a wire in SCH_PAGE but a track in PCB — validate with a `<DOCTYPE>_<PRIMITIVE>` prefixed name or `--doc`
+- **Automatic archiving**: validated results are saved to `format/{type}_{timestamp}.txt`
+
+## Directory Structure
+
+```
+easyeda-pro-format-skill/
+├── SKILL.md            # Main skill document (core workflow, line data format, LLM workflow)
+├── README.md           # This file
+├── types-index.md      # Index of all primitive types (Chinese name → type name → document path)
+├── validate.js         # Format validation script (based on ajv)
+├── package.json        # Dependencies for the validation script (ajv / ajv-formats)
+├── package-lock.json   # Locked dependency versions
+├── .gitignore          # Ignores node_modules/ and the runtime format/ directory
+├── LICENSE             # MIT
+├── documents/          # Document layer: primitive indexes for the 14 domains
+├── primitives/         # Primitive layer: field definitions, constraints, related primitives
+├── examples/           # Example layer: real format data for reference
+├── schemas/            # JSON Schema: field-level constraints
+└── format/             # Archive directory for generated output (created at runtime)
+```
+
+## Installation
+
+### Option 1: Global installation (available in all projects)
+
+Clone this repository into the Claude Code personal skills directory `~/.claude/skills/`:
+
+```bash
+# macOS / Linux
+git clone https://github.com/easyeda/easyeda-pro-format-skill.git \
+  ~/.claude/skills/easyeda-pro-format-skill
+
+# Windows (PowerShell)
+git clone https://github.com/easyeda/easyeda-pro-format-skill.git `
+  "$env:USERPROFILE\.claude\skills\easyeda-pro-format-skill"
+```
+
+> On Windows this corresponds to `C:\Users\<username>\.claude\skills\easyeda-pro-format-skill`
+
+### Option 2: Project-level installation (current project only)
+
+Clone into `.claude/skills/` under the project root:
+
+```bash
+git clone https://github.com/easyeda/easyeda-pro-format-skill.git \
+  <your-project>/.claude/skills/easyeda-pro-format-skill
+```
+
+### Option 3: Manual copy
+
+If you downloaded the repository (e.g. as a zip archive), simply copy the whole `easyeda-pro-format-skill` folder into either of the skills directories above.
+
+> Note: the directory name must match the skill name (`easyeda-pro-format-skill`), and `SKILL.md` must be located at the root of that directory.
+
+### Install validation dependencies
+
+The validation script depends on `ajv` and `ajv-formats`. Run inside the skill directory:
+
+```bash
+cd ~/.claude/skills/easyeda-pro-format-skill
+npm install ajv ajv-formats
+```
+
+### Verify the installation
+
+After restarting the Claude Code session, type a trigger phrase in the conversation, for example:
+
+```
+生成过孔的格式
+```
+
+Or use the slash command:
+
+```
+/easyeda-pro-format-skill 过孔
+```
+
+You can also run the validation script directly to confirm the dependencies work:
+
+```bash
+node validate.js FONT '{"width":50,"height":40,"path":[[2,5,"L",2,35,48,35,48,5,2,5]]}'
+```
+
+Output `{"valid": true, "errors": []}` means the installation succeeded.
+
+## Usage
+
+### Trigger examples
+
+Any of the following descriptions triggers this skill:
+
+| Domain | Example trigger phrases |
+|--------|------------------------|
+| PCB | 「生成过孔」 (generate via), 「添加焊盘」 (add pad), 「画一段 PCB 走线」 (draw a PCB trace) |
+| Schematic | 「画导线的格式」 (draw wire), 「创建总线」 (create bus), 「添加文字标注」 (add text annotation) |
+| Components | 「创建电阻元件」 (create resistor), 「创建电容元件」 (create capacitor) |
+| Format lookup | 「生成 TBus 的格式」, 「生成 TSchText 的格式」 |
+| English | 「generate via format」「draw wire」「add pad」 |
+
+### Validation script
+
+```bash
+node validate.js [--doc <docType>] <type> '<json-data>'
+
+# Example
+node validate.js FONT '{"width":50,"height":40,"path":[[2,5,"L",2,35,48,35,48,5,2,5]]}'
+```
+
+- `<type>`: primitive type name (e.g. `FONT`, `LINE`, `PAD`, `VIA`). See [types-index.md](types-index.md)
+- `<json-data>`: primitive properties as JSON
+- `--doc <docType>`: optional, explicitly specify the document type
+
+> **The same primitive name has a different schema per document type**: `LINE` is a wire in SCH_PAGE but a track in PCB.
+> Cross-document validation must use a `<DOCTYPE>_<PRIMITIVE>` prefixed name, or `--doc`:
+>
+> ```bash
+> node validate.js PCB_LINE '{"netName":"+5V",...}'
+> node validate.js LINE '{"netName":"+5V",...}' --doc PCB
+> ```
+>
+> A bare name resolves by the priority `SCH_PAGE > SCH > SYMBOL > PCB > others` and is only reliable for schematic-family documents.
+
+### Workflow
+
+```
+1. Look up docs → 2. Check related primitives → 3. Generate format → 4. Validate → 5. Archive
+                                                          ↓ failure
+                                                    fix and retry (up to 3 times)
+```
+
+The generated line format is `{type, id, ticket}||{data}`. Every document must start with a `DOCHEAD` line; a `CANVAS` line follows only for the canvas-bearing document types (SCH_PAGE / SYMBOL / SIMULATION / PCB / FOOTPRINT / PANEL / PANEL_LIB). See [SKILL.md](SKILL.md) for the complete rules.
+
+## License
+
+[MIT](LICENSE)
+
+# 简体中文
+
 简体中文 | [English](#english)
 
 嘉立创EDA（EasyEDA）Pro 格式数据生成技能，供 Claude Code 等 AI Agent 使用。
@@ -150,154 +303,3 @@ node validate.js FONT '{"width":50,"height":40,"path":[[2,5,"L",2,35,48,35,48,5,
 [MIT](LICENSE)
 
 ---
-
-# English
-
-简体中文 | [English](#english)
-
-An EasyEDA (嘉立创EDA) Pro format data generation skill for AI agents such as Claude Code.
-
-It generates schematic / PCB / symbol / footprint data conforming to the EasyEDA Pro format from type definitions and JSON Schemas, with a built-in validation script to guarantee correct output.
-
-## Features
-
-- **Full domain coverage**: 14 document domains including schematic (SCH_PAGE / SYMBOL), PCB (PCB / FOOTPRINT), panels (PANEL / PANEL_LIB), simulation (SIMULATION / SIMULATION_SCH), fonts, rules, and metadata
-- **Progressive context loading**: type index → document layer → primitive layer → examples / JSON Schema, loaded on demand to avoid context explosion
-- **Automatic related primitives**: related primitives (parent-child, container members, embedded structures, references) are inferred together with the main primitive — no user intervention needed
-- **Mandatory validation**: every generation must be validated with `validate.js`; results may only be returned when `valid: true`
-- **Document-type-aware type names**: `LINE` is a wire in SCH_PAGE but a track in PCB — validate with a `<DOCTYPE>_<PRIMITIVE>` prefixed name or `--doc`
-- **Automatic archiving**: validated results are saved to `format/{type}_{timestamp}.txt`
-
-## Directory Structure
-
-```
-easyeda-pro-format-skill/
-├── SKILL.md            # Main skill document (core workflow, line data format, LLM workflow)
-├── README.md           # This file
-├── types-index.md      # Index of all primitive types (Chinese name → type name → document path)
-├── validate.js         # Format validation script (based on ajv)
-├── package.json        # Dependencies for the validation script (ajv / ajv-formats)
-├── package-lock.json   # Locked dependency versions
-├── .gitignore          # Ignores node_modules/ and the runtime format/ directory
-├── LICENSE             # MIT
-├── documents/          # Document layer: primitive indexes for the 14 domains
-├── primitives/         # Primitive layer: field definitions, constraints, related primitives
-├── examples/           # Example layer: real format data for reference
-├── schemas/            # JSON Schema: field-level constraints
-└── format/             # Archive directory for generated output (created at runtime)
-```
-
-## Installation
-
-### Option 1: Global installation (available in all projects)
-
-Clone this repository into the Claude Code personal skills directory `~/.claude/skills/`:
-
-```bash
-# macOS / Linux
-git clone https://github.com/easyeda/easyeda-pro-format-skill.git \
-  ~/.claude/skills/easyeda-pro-format-skill
-
-# Windows (PowerShell)
-git clone https://github.com/easyeda/easyeda-pro-format-skill.git `
-  "$env:USERPROFILE\.claude\skills\easyeda-pro-format-skill"
-```
-
-> On Windows this corresponds to `C:\Users\<username>\.claude\skills\easyeda-pro-format-skill`
-
-### Option 2: Project-level installation (current project only)
-
-Clone into `.claude/skills/` under the project root:
-
-```bash
-git clone https://github.com/easyeda/easyeda-pro-format-skill.git \
-  <your-project>/.claude/skills/easyeda-pro-format-skill
-```
-
-### Option 3: Manual copy
-
-If you downloaded the repository (e.g. as a zip archive), simply copy the whole `easyeda-pro-format-skill` folder into either of the skills directories above.
-
-> Note: the directory name must match the skill name (`easyeda-pro-format-skill`), and `SKILL.md` must be located at the root of that directory.
-
-### Install validation dependencies
-
-The validation script depends on `ajv` and `ajv-formats`. Run inside the skill directory:
-
-```bash
-cd ~/.claude/skills/easyeda-pro-format-skill
-npm install ajv ajv-formats
-```
-
-### Verify the installation
-
-After restarting the Claude Code session, type a trigger phrase in the conversation, for example:
-
-```
-生成过孔的格式
-```
-
-Or use the slash command:
-
-```
-/easyeda-pro-format-skill 过孔
-```
-
-You can also run the validation script directly to confirm the dependencies work:
-
-```bash
-node validate.js FONT '{"width":50,"height":40,"path":[[2,5,"L",2,35,48,35,48,5,2,5]]}'
-```
-
-Output `{"valid": true, "errors": []}` means the installation succeeded.
-
-## Usage
-
-### Trigger examples
-
-Any of the following descriptions triggers this skill:
-
-| Domain | Example trigger phrases |
-|--------|------------------------|
-| PCB | 「生成过孔」 (generate via), 「添加焊盘」 (add pad), 「画一段 PCB 走线」 (draw a PCB trace) |
-| Schematic | 「画导线的格式」 (draw wire), 「创建总线」 (create bus), 「添加文字标注」 (add text annotation) |
-| Components | 「创建电阻元件」 (create resistor), 「创建电容元件」 (create capacitor) |
-| Format lookup | 「生成 TBus 的格式」, 「生成 TSchText 的格式」 |
-| English | 「generate via format」「draw wire」「add pad」 |
-
-### Validation script
-
-```bash
-node validate.js [--doc <docType>] <type> '<json-data>'
-
-# Example
-node validate.js FONT '{"width":50,"height":40,"path":[[2,5,"L",2,35,48,35,48,5,2,5]]}'
-```
-
-- `<type>`: primitive type name (e.g. `FONT`, `LINE`, `PAD`, `VIA`). See [types-index.md](types-index.md)
-- `<json-data>`: primitive properties as JSON
-- `--doc <docType>`: optional, explicitly specify the document type
-
-> **The same primitive name has a different schema per document type**: `LINE` is a wire in SCH_PAGE but a track in PCB.
-> Cross-document validation must use a `<DOCTYPE>_<PRIMITIVE>` prefixed name, or `--doc`:
->
-> ```bash
-> node validate.js PCB_LINE '{"netName":"+5V",...}'
-> node validate.js LINE '{"netName":"+5V",...}' --doc PCB
-> ```
->
-> A bare name resolves by the priority `SCH_PAGE > SCH > SYMBOL > PCB > others` and is only reliable for schematic-family documents.
-
-### Workflow
-
-```
-1. Look up docs → 2. Check related primitives → 3. Generate format → 4. Validate → 5. Archive
-                                                          ↓ failure
-                                                    fix and retry (up to 3 times)
-```
-
-The generated line format is `{type, id, ticket}||{data}`. Every document must start with a `DOCHEAD` line; a `CANVAS` line follows only for the canvas-bearing document types (SCH_PAGE / SYMBOL / SIMULATION / PCB / FOOTPRINT / PANEL / PANEL_LIB). See [SKILL.md](SKILL.md) for the complete rules.
-
-## License
-
-[MIT](LICENSE)

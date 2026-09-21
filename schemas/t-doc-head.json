@@ -3,7 +3,7 @@
   "type": "object",
   "properties": {
     "docType": {
-      "description": "",
+      "description": "文档类型：标识本块数据属于哪种文档（原理图页 / PCB / 符号 / 封装等）\r\n\r\n 取值：\r\n - `DOCHEAD` 文档头标识\r\n - `EDIT_HEAD` 编辑头标识\r\n - `SCH` 原理图\r\n - `SCH_PAGE` 原理图页\r\n - `PCB` PCB\r\n - `PANEL` 面板\r\n - `PANEL_LIB` 面板库\r\n - `SYMBOL` 符号\r\n - `FOOTPRINT` 封装\r\n - `DEVICE` 器件\r\n - `BLOB` 二进制数据\r\n - `INSTANCE` 实例属性\r\n - `CONFIG` 配置文件\r\n - `BOARD` 板子\r\n - `FONT` 字体\r\n - `VARIANT` 变体\r\n - `COMPONENT_GROUP` 元件分组\r\n - `COMPONENT_GROUP_DATA` 元件分组属性\r\n - `SIMULATION` 仿真页\r\n - `SIMULATION_SCH` 仿真原理图",
       "type": "string",
       "enum": [
         "DOCHEAD",
@@ -51,9 +51,8 @@
       }
     },
     "uuid": {
-      "description": "文档唯一标识，16 位小写十六进制",
-      "type": "string",
-      "pattern": "^[a-f0-9]{16}$"
+      "description": "文档唯一标识，按形态分成几类（**不要按「恒为 16 位十六进制」解析**）：\r\n - **普通文档**：16 位小写十六进制，如 `\"ae038fff0b42ee51\"`\r\n - **常量文档**：直接用类型名，如 `FONT` / `CONFIG` / `BLOB`\r\n - **宿主内嵌文档**：`<宿主 uuid>_<宿主内壳 id>`，真机如 `\"52caa9452ee66dee_ie6750\"`\r\n - **实例文档**：含 `_$` 与 `~` 两级分隔符，真机如\r\n   `\"3c810a1544706db5_$30968987fbc1647d~ie0_$bbbca101b360e299\"`\r\n - **分组数据**：`<instancePath>@<groupUuid>`\r\n\r\n ⚠️ 以上只是**形态模板**，不是字段白名单——见到 `_` / `~` / `@` 或非 hex 字符都属正常。",
+      "type": "string"
     },
     "client": {
       "description": "客户端标识，16 位小写十六进制",
@@ -61,15 +60,15 @@
       "pattern": "^[a-f0-9]{16}$"
     },
     "updateTime": {
-      "description": "",
+      "description": "文档最后更新时间：保存时写入的时间戳（毫秒）\r\n\r\n同时充作文档版本的取值来源——写盘时若未显式传 version，则用本字段的字符串形式填充。",
       "type": "number"
     },
     "version": {
-      "description": "",
+      "description": "文档版本字符串：写盘时若未显式传入，则回落为 updateTime 的字符串形式，\r\n 因此通常与 updateTime 一致；显式传入时可用于表示该文档来源于哪个版本",
       "type": "string"
     },
     "user": {
-      "description": "用户信息",
+      "description": "文档归属用户信息",
       "type": "object",
       "properties": {
         "uuid": {
@@ -96,11 +95,11 @@
       ]
     },
     "ticket": {
-      "description": "",
+      "description": "该文档头对应的逻辑时钟：与文档头所在行的外层 ticket 同源，用于最终一致性框架排序",
       "type": "number"
     },
     "editVersion": {
-      "description": "",
+      "description": "写入该文档时的编辑器版本号（如 `4.1.54.b0965573`），保存时自动注入",
       "type": "string"
     },
     "firstTicket": {
@@ -113,5 +112,5 @@
     "uuid",
     "client"
   ],
-  "description": "文档头 类型"
+  "description": "文档头 类型\r\n\r\n⚠️ 它是**每个文档的第一行**：外壳形如 `{\"type\":\"DOCHEAD\"}||{...}` 或\r\n`{\"type\":\"DOCHEAD\",\"ticket\":N}||{...}`——**没有 `id`**，`ticket` 由写入方决定，\r\n保存路径**会写**（`ProConsistencyManager` 里的\r\n`JSON.stringify({ type: EHeaderType.DOCHEAD, ticket })`），解析侧也会读。"
 }

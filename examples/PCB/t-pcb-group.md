@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"GROUP","ticket":7,"id":"group1"}||{"groupName":"Group1"}
+{"type":"GROUP","ticket":7,"id":"b7dbceb203009482"}||{"groupName":"Group1"}
 ```
 
 ## 返回文档

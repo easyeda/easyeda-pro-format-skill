@@ -3,19 +3,19 @@
   "type": "object",
   "properties": {
     "originX": {
-      "description": "画布原点 X",
+      "description": "画布原点 X：与图元坐标同一口径，单位 **0.01 inch**。\r\n 注：本类型**不继承 `TPanelBase`**，故其上那个通用约定块不覆盖本类型；\r\n 本类型的尺寸字段（width/height/thickness 等）另行以**带单位字符串**表达。",
       "type": "number"
     },
     "originY": {
-      "description": "画布原点 Y",
+      "description": "画布原点 Y：单位同 originX（**0.01 inch**）",
       "type": "number"
     },
     "width": {
-      "description": "宽",
+      "description": "画布宽度：**带单位的字符串**（如 `\"393mm\"`），不是纯数值",
       "type": "string"
     },
     "height": {
-      "description": "高",
+      "description": "画布高度：**带单位的字符串**（如 `\"579mm\"`），不是纯数值",
       "type": "string"
     },
     "material": {
@@ -23,7 +23,7 @@
       "type": "string"
     },
     "thickness": {
-      "description": "厚度",
+      "description": "板材厚度：**带单位的字符串**（如 `\"0.8mm\"`），不是纯数值",
       "type": "string"
     },
     "print": {
@@ -39,7 +39,7 @@
       "type": "string"
     },
     "coverColor": {
-      "description": "遮盖颜色",
+      "description": "遮盖颜色：缺省是**字符串色名 `\"white\"`**（见本类型开头的缺省表），不是颜色码",
       "type": "string",
       "pattern": "^(#[0-9A-Fa-f]{6})|(rgb\\(\\d{1,3},\\d{1,3},\\d{1,3}\\))|(cmyk\\(\\d{1,3},\\d{1,3},\\d{1,3},\\d{1,3}\\))|$"
     },
@@ -49,11 +49,11 @@
       "pattern": "^(#[0-9A-Fa-f]{6})|(rgb\\(\\d{1,3},\\d{1,3},\\d{1,3}\\))|(cmyk\\(\\d{1,3},\\d{1,3},\\d{1,3},\\d{1,3}\\))|$"
     },
     "orderWidth": {
-      "description": "下单板框最大宽度",
+      "description": "下单板框最大宽度：**带单位的字符串**（如 `\"393mm\"`），由板框层与画布求交后的包围盒换算得到",
       "type": "string"
     },
     "orderHeight": {
-      "description": "下单板框最大高度",
+      "description": "下单板框最大高度：**带单位的字符串**（如 `\"579mm\"`）",
       "type": "string"
     }
   },
@@ -72,5 +72,5 @@
     "orderWidth",
     "orderHeight"
   ],
-  "description": "编辑器附加信息"
+  "description": "编辑器附加信息\r\n\r\n【常见取值与缺省来源】编辑器在文档里**没有** CANVAS 记录时按一张缺省表补全\r\n（`pro-panel` 的 `DefaultHead`）：\r\n`material:'acrylic'`、`thickness:'0.8mm'`、`print:'Bottom Side'`、`craft:'Transparent'`、\r\n`coverColor:'white'`、`width:'393mm'`、`height:'579mm'`、`desc:''`。\r\n⚠️ 注意 `coverColor` 缺省是**字符串色名 `\"white\"`**，不是颜色码——读取端不要假设本类型的\r\n字段必为颜色码或纯数值。"
 }

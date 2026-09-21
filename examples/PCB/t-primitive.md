@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"PRIMITIVE","ticket":6,"id":"PRIMITIVE"}||{"display":true,"pick":true,"transparency":0.5,"color":"#FF0000","layerId":1,"viewMode":"NORMAL"}
+{"type":"PRIMITIVE","ticket":6,"id":"[\"PRIMITIVE\",\"ALL\"]"}||{"display":true,"pick":true,"transparency":0.5,"color":"#FF0000","layerId":1,"viewMode":"NORMAL"}
 ```
 
 ## 返回文档

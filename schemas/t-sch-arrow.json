@@ -1,0 +1,149 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "partId": {
+      "description": "所属部件编号（**可选**，真机存在整键缺失的 COMPONENT）：\r\n **符号页**上表示自身归属于哪个部件，**图页**的元件则指向它**关联的符号文档**里的部件。\r\n 取值即目标 `PART` 行的 `id`（`PART` 行只存在于 SYMBOL 文档，见 `TPart`）。",
+      "type": "string"
+    },
+    "groupId": {
+      "description": "分组编号；**两种「未成组」形态都表示未成组**：\r\n - **3.0 写盘时该键根本不存在**：写入端取 `model.combination?.id`，未成组即 `undefined`，\r\n   经 `JSON.stringify` 后整键被丢弃，消费方须**按可选键处理**；\r\n - **`\"\"` 只出现在 2.0 迁移数据里**（2.0 → 3.0 转换腿原样带着它）。",
+      "type": "string"
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    },
+    "zIndex": {
+      "description": "同层内的叠放次序：渲染排序键，数值越小越靠下（格式里没有高度语义）",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "yAxisDirection": {
+      "description": "Y 轴方向标记：**仅 eprj3 本地文件格式会带**，读盘时被剥离。\r\n\r\n 取值：`up` **已按 Y 轴向上写出**（本地文件固定用它）、`down` Y 轴向下\r\n （**字段缺失等价于它**，两者是同一件事）。完整语义见 `TYAxisDirection`。\r\n\r\n ⚠️ 本基类被多个图元继承，**各自被翻转的字段不同**——完整对照表见 `TYAxisDirection`。\r\n 本基类直接覆盖的：`ATTR`/`TEXT`/`PIN`/`COMPONENT` 翻 `y`；`OBJ`/`TABLE` 翻 `startY`；\r\n `ARC` 翻 `startY`/`referY`/`endY`；`CIRCLE`/`ELLIPSE` 翻 `centerY` + 内嵌 `text.y`；\r\n `RECT` 翻 `dotY1`/`dotY2` + `text.y`；`MASK_REGION` 翻 `dotY1`/`dotY2`；`POLY` 翻\r\n `points` 各项的 `y`；`BEZIER` 翻 `controls` 的奇数下标。\r\n `rotation` / `isMirror` / `zIndex` 与所有幅值字段**不翻**。",
+      "type": "string",
+      "enum": [
+        "up",
+        "down"
+      ]
+    },
+    "points": {
+      "description": "点集坐标",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "description": "坐标x轴数值",
+            "type": "number"
+          },
+          "y": {
+            "description": "坐标y轴数值",
+            "type": "number"
+          }
+        },
+        "required": [
+          "x",
+          "y"
+        ],
+        "description": "坐标点"
+      }
+    },
+    "width": {
+      "description": "箭头宽度",
+      "type": "number"
+    },
+    "type": {
+      "description": "箭头类型",
+      "type": "string"
+    },
+    "strokeColor": {
+      "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n 注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n 可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "strokeStyle": {
+      "description": "样式, null 为默认\r\n\r\n 取值：`SOLID` 实线、`SHORT_DASH` 短划线、`DOT` 点线、`DOT_DASH` 点划线。",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "SOLID",
+        "SHORT_DASH",
+        "DOT",
+        "DOT_DASH",
+        null
+      ],
+      "enumDescriptions": {
+        "SOLID": "实线",
+        "SHORT_DASH": "短划线",
+        "DOT": "点线",
+        "DOT_DASH": "点划线"
+      },
+      "default": null
+    },
+    "fillColor": {
+      "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\n null 表示采用主题默认",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "strokeWidth": {
+      "description": "宽度：null 表示采用主题默认线宽",
+      "type": [
+        "number",
+        "null"
+      ],
+      "default": null
+    },
+    "fillStyle": {
+      "description": "填充样式, null 为默认\r\n\r\n 取值：\r\n - `NONE` 无填充\r\n - `SOLID` 实心填充\r\n - `GRID` 网格\r\n - `HORIZONTAL_LINE` 横线\r\n - `VERTICAL_LINE` 竖线\r\n - `RHOMBIC` 菱形网格\r\n - `LEFT_SLASH_LINE` 左斜线\r\n - `RIGHT_SLASH_LINE` 右斜线",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "NONE",
+        "SOLID",
+        "GRID",
+        "HORIZONTAL_LINE",
+        "VERTICAL_LINE",
+        "RHOMBIC",
+        "LEFT_SLASH_LINE",
+        "RIGHT_SLASH_LINE",
+        null
+      ],
+      "enumDescriptions": {
+        "NONE": "无填充",
+        "SOLID": "实心填充",
+        "GRID": "网格",
+        "HORIZONTAL_LINE": "横线",
+        "VERTICAL_LINE": "竖线",
+        "RHOMBIC": "菱形网格",
+        "LEFT_SLASH_LINE": "左斜线",
+        "RIGHT_SLASH_LINE": "右斜线"
+      },
+      "default": null
+    }
+  },
+  "required": [
+    "groupId",
+    "locked",
+    "zIndex",
+    "points",
+    "width",
+    "type",
+    "strokeColor",
+    "strokeStyle",
+    "fillColor",
+    "strokeWidth",
+    "fillStyle"
+  ],
+  "description": "箭头"
+}

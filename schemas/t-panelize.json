@@ -51,8 +51,11 @@
           "type": "number"
         },
         "center_percent": {
-          "description": "邮票孔组位置与板子左侧的距离（百分比）",
-          "type": "array"
+          "description": "邮票孔组位置与板子左侧的距离——**比例值（0~1 的小数，不是百分数）**，\r\n 实际坐标 = 板框左边界 + 比例 × 板框宽度；数组元素对应各组。\r\n 例：`[0.3333, 0.6667]` 表示两组分别位于板宽 1/3、2/3 处。\r\n 不填时按组序均分：第 i 组取 `(i+1)/(组数+1)`。",
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
         }
       },
       "required": [
@@ -88,8 +91,11 @@
           "type": "number"
         },
         "center_percent": {
-          "description": "邮票孔组位置与板子左侧的距离（百分比）",
-          "type": "array"
+          "description": "邮票孔组位置与板子左侧的距离——**比例值（0~1 的小数，不是百分数）**，\r\n 实际坐标 = 板框左边界 + 比例 × 板框宽度；数组元素对应各组。\r\n 例：`[0.3333, 0.6667]` 表示两组分别位于板宽 1/3、2/3 处。\r\n 不填时按组序均分：第 i 组取 `(i+1)/(组数+1)`。",
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
         }
       },
       "required": [
@@ -101,7 +107,7 @@
       ]
     },
     "horizontalSize": {
-      "description": "工艺边参数 - 水平",
+      "description": "工艺边参数 - 水平（方向由本字段位置表达；解码端会注入 `direction: 0`，\r\n 但**真实样本里没有该键**、读盘别依赖它——详见 TPanelizeSide 的说明）",
       "type": "object",
       "properties": {
         "on": {
@@ -139,7 +145,7 @@
       ]
     },
     "verticalSize": {
-      "description": "工艺边参数 - 垂直",
+      "description": "工艺边参数 - 垂直（方向由本字段位置表达；解码端会注入 `direction: 1`，\r\n 但**真实样本里没有该键**、读盘别依赖它——详见 TPanelizeSide 的说明）",
       "type": "object",
       "properties": {
         "on": {
@@ -205,15 +211,21 @@
       "type": "number"
     },
     "markPosition": {
-      "description": "mark点位置 [左上，右上，左下，右下]四个mark点中心与最外侧bbox上右下左的距离",
-      "type": "array"
+      "description": "mark 点位置：**最多 4 个**（按 左上、右上、左下、右下 的顺序存放）。\r\n\r\n 每个元素是 **4 个数**，依次表示该 mark 点中心到最外侧 bbox 的\r\n **`[到上边, 到右边, 到下边, 到左边]`** 四个距离。",
+      "type": "array",
+      "items": {
+        "type": "array"
+      }
     },
     "positionHolePosition": {
-      "description": "定位点位置  [左上，右上，左下，右下]四个mark点中心与最外侧bbox上右下左的距离",
-      "type": "array"
+      "description": "定位孔位置：结构同 `markPosition`（最多 4 个，每个 4 个数 =\r\n `[到上边, 到右边, 到下边, 到左边]` 四个距离），只是承载的是定位孔而非 mark 点。",
+      "type": "array",
+      "items": {
+        "type": "array"
+      }
     },
     "panelizeVersion": {
-      "description": "拼板版本，默认字段 EPanelizeVersion.pro （新产生的都是最新版本）; 主要作用是要区分不同时期的拼板交互效果和输出的gerber差异",
+      "description": "拼板版本，默认字段 EPanelizeVersion.pro （新产生的都是最新版本）; 主要作用是要区分不同时期的拼板交互效果和输出的gerber差异。\r\n\r\n 取值：`1.0` 拼板版本 1.0（成员 `pro1`）、`1.1` 拼板版本 1.1（成员 `pro2`）、\r\n `1.1` 拼板版本 1.1（成员 `pro`，当前默认值，与 `pro2` 同值，两个成员是有意保留的别名）。",
       "type": "string",
       "enum": [
         "1.0",
@@ -221,7 +233,7 @@
       ],
       "enumDescriptions": {
         "1.0": "拼板版本 1.0",
-        "1.1": "拼板版本 1.1"
+        "1.1": "拼板版本 1.1；拼板版本 1.1（当前默认值，与 pro2 同值，两个成员是有意保留的别名）"
       }
     }
   },

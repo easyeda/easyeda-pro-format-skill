@@ -7,16 +7,22 @@
       "type": "string"
     },
     "source": {
-      "description": "来源的 uuid(工程库独有)",
+      "description": "来源：`<来源条目 uuid>|<来源工程 uuid>` 两段式（工程库独有）\r\n\r\n 第 1 段是该条目在来源工程里的 uuid，第 2 段是**来源工程的 uuid**\r\n （真机形如 `\"2eb7b89d891135ec|bac6e37798284239bedae653a8874016\"`）。\r\n **工程内自建条目为空串**。",
       "type": "string"
     },
     "tags": {
       "description": "自定义分类",
-      "type": "array"
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     },
     "images": {
       "description": "图片链接",
-      "type": "array"
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     },
     "attributes": {
       "description": "属性",

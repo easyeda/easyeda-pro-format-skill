@@ -15,7 +15,7 @@
 | stampHoleDiameter | `number` | ✓ | - | 邮票孔直径 |
 | stampHoleQuantityPerGroup | `number` | ✓ | - | 邮票孔每组数量 |
 | stampHoleSpacing | `number` | ✓ | - | 邮票孔间距 |
-| center_percent | `number[]` |  | - | 邮票孔组位置与板子左侧的距离（百分比） |
+| center_percent | `number[]` |  | - | 邮票孔组位置与板子左侧的距离——**比例值（0~1 的小数，不是百分数）**， 实际坐标 = 板框左边界 + 比例 × 板框宽度；数组元素对应各组。 例：`[0.3333, 0.6667]` 表示两组分别位于板宽 1/3、2/3 处。 不填时按组序均分：第 i 组取 `(i+1)/(组数+1)`。 |
 
 ## JSON Schema
 

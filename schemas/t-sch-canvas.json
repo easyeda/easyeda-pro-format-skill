@@ -11,7 +11,7 @@
       "type": "number"
     },
     "yAxisDirection": {
-      "description": "Y 轴方向标记：仅 eprj3 本地文件格式会带，读盘时被剥离；语义见 TYAxisDirection",
+      "description": "Y 轴方向标记：**仅 eprj3 本地文件格式会带**，读盘时被剥离。\r\n\r\n 取值：`up` **已按 Y 轴向上写出**（本地文件固定用它）、`down` Y 轴向下\r\n （**字段缺失等价于它**，两者是同一件事）。完整语义见 `TYAxisDirection`。\r\n\r\n 本类型（`CANVAS`）翻转的字段是 **`originY`**（`originX` 不动）。",
       "type": "string",
       "enum": [
         "up",

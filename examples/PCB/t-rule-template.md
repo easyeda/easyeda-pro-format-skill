@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"RULE_TEMPLATE","ticket":1,"id":"0000000000000000"}||{"name":"JLCPCB Capability(High Frequency Board)"}
+{"type":"RULE_TEMPLATE","ticket":1,"id":"RULE_TEMPLATE"}||{"name":"JLCPCB Capability(High Frequency Board)"}
 ```
 
 ## 返回文档

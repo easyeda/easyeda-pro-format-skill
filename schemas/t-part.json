@@ -16,11 +16,14 @@
     },
     "Footprints": {
       "description": "备选封装，v4 新增",
-      "type": "array"
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
     }
   },
   "required": [
     "title"
   ],
-  "description": "部件"
+  "description": "部件\r\n\r\n**本行的外壳 id 就是 `partId`**：`TMSchComponent.partId` 必须指向它，\r\n用于从多部件（多 PART）的符号里选出具体部件。\r\n\r\n⚠️ **PART 行只存在于 SYMBOL 文档**——真机 SCH 文档里**一个 PART 行都没有**\r\n（只有 symbol-consistency-manager 实现了 `onPart`）。所以表页 COMPONENT 的 `partId`\r\n指向的是「它 `key:\"Symbol\"` 属性值所标识的那个**符号文档**」里的 PART 行\r\n（样本里 `\"Symbol\"` → `412ca47752bc0af4`，正是那个含 `{\"type\":\"PART\",…,\"id\":\"-1\"}`\r\n的 SYMBOL 文档的文档头 uuid），**不要去图页文档里找**。\r\n\r\n⚠️ 真机载荷里会多出一个**类型定义之外**的 `BBOX` 字段（透传字段），**不要当坏数据**。"
 }

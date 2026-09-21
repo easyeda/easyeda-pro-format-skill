@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"LAYER_FILL","ticket":18,"id":"LAYER_FILL"}||{"fill":[{"id":"fill1","strokeWidth":0,"fill":true,"path":[[100,100,"L",200,100,200,200,100,200,100,100]]}]}
+{"type":"LAYER_FILL","ticket":18,"id":"[\"LAYER_FILL\",1]"}||{"fill":[{"partitionId":"","groupId":"0","netName":"GND","width":0.2,"path":[["R",100,100,200,100,0,0]],"locked":false,"zIndex":1,"refs":[],"specialColor":""}]}
 ```
 
 ## 返回文档

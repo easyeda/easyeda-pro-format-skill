@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"META","ticket":33,"id":"META"}||{"title":"Default Panel","description":"Default panel library","tags":["default"],"source":"project-uuid"}
+{"type":"META","ticket":33,"id":"META"}||{"title":"Default Panel","description":"Default panel library","tags":["default"]}
 ```
 
 ## 返回文档

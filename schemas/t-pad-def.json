@@ -7,7 +7,7 @@
       "type": "object",
       "properties": {
         "padType": {
-          "description": "长圆焊盘",
+          "description": "圆焊盘（椭圆形状，width/height 相等即为正圆）",
           "type": "string",
           "enum": [
             "ELLIPSE"
@@ -30,13 +30,13 @@
         "width",
         "height"
       ],
-      "description": "长圆焊盘"
+      "description": "圆焊盘（椭圆形状，width/height 相等即为正圆）"
     },
     {
       "type": "object",
       "properties": {
         "padType": {
-          "description": "矩形焊盘",
+          "description": "矩形焊盘（radius 为圆角半径，0 表示直角）",
           "type": "string",
           "enum": [
             "RECT"
@@ -64,13 +64,13 @@
         "height",
         "radius"
       ],
-      "description": "矩形焊盘"
+      "description": "矩形焊盘（radius 为圆角半径，0 表示直角）"
     },
     {
       "type": "object",
       "properties": {
         "padType": {
-          "description": "正多边形焊盘",
+          "description": "长圆焊盘（胶囊形：两端半圆、中间矩形）",
           "type": "string",
           "enum": [
             "OVAL"
@@ -93,7 +93,7 @@
         "width",
         "height"
       ],
-      "description": "正多边形焊盘"
+      "description": "长圆焊盘（胶囊形：两端半圆、中间矩形）"
     },
     {
       "type": "object",
@@ -109,8 +109,9 @@
           }
         },
         "path": {
-          "description": "参考单多边形",
-          "type": "array"
+          "description": "焊盘外形：**本身就是一个单多边形**（首尾自动闭合的一条不间断线），不是多边形的数组。\r\n\r\n 【单多边形结构】扁平数组：前两个数字是起点坐标，其后是\r\n 「指令名 + 该指令参数」的重复序列——\r\n - `L` 直线：`x y L x y x y ...`，各点依次直线相连\r\n - `ARC` 圆弧：`startX startY ARC angle endX endY`（angle 逆时针为正、顺时针为负）\r\n - `CARC` 中心圆弧：`startX startY CARC angle endX endY`\r\n - `C` 三阶贝塞尔：`x1 y1 C x2 y2 x3 y3 x4 y4 ...`，四个一组为一条曲线\r\n\r\n 焊盘外形**不支持** `[\"R\", ...]` 矩形形态，仅支持 `[\"CIRCLE\", cx, cy, r]` 整圆\r\n 与上述指令序列。",
+          "type": "array",
+          "items": {}
         }
       },
       "required": [

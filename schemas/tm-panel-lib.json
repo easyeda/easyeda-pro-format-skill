@@ -12,7 +12,10 @@
     },
     "tags": {
       "description": "自定义分类",
-      "type": "array"
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     }
   },
   "required": [

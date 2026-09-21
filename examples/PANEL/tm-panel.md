@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"META","ticket":38,"id":"META"}||{"title":"Front Panel","zIndex":0}
+{"type":"META","ticket":38,"id":"META"}||{"title":"Front Panel","zIndex":null}
 ```
 
 ## 返回文档

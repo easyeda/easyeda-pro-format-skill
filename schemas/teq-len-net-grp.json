@@ -3,12 +3,15 @@
   "type": "object",
   "properties": {
     "name": {
-      "description": "名称",
+      "description": "名称：**写盘端编码进外壳 `id`、不写进载荷**（id 形如 `[\"EQL_NET_GRP\",\"AASD\"]`）；\r\n 解析端从 id 还原后运行时对象才有它。",
       "type": "string"
     },
     "nets": {
-      "description": "网络组",
-      "type": "array"
+      "description": "网络组：网络名称数组（值为网络名，不是图元 id）",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     }
   },
   "required": [

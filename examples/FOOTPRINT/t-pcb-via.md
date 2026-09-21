@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"VIA","ticket":134,"id":"c34473f1ef63f532"}||{"partitionId":"","groupId":"1","netName":"123","ruleName":"","centerX":450,"centerY":855,"holeDiameter":12.0078,"viaDiameter":24.0158,"viaType":"NORMAL","topSolderExpansion":null,"bottomSolderExpansion":null,"locked":false,"zIndex":134,"unusedInnerLayers":[],"propagationDelay":0}
+{"type":"VIA","ticket":134,"id":"c34473f1ef63f532"}||{"partitionId":"","groupId":"1","netName":"123","ruleName":"","centerX":450,"centerY":855,"holeDiameter":12.0078,"viaDiameter":24.0158,"viaType":"NORMAL","topSolderExpansion":null,"bottomSolderExpansion":null,"zIndex":-1,"locked":false,"unusedInnerLayers":[],"propagationDelay":0}
 ```
 
 ## 返回文档

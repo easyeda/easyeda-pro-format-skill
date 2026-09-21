@@ -3,19 +3,19 @@
   "type": "object",
   "properties": {
     "sourceName": {
-      "description": "",
+      "description": "扫描源名称：被扫描的独立源在网表中的名字",
       "type": "string"
     },
     "startValue": {
-      "description": "",
+      "description": "扫描起始值：带单位的数值，如 `0`、`1m`",
       "type": "string"
     },
     "stopValue": {
-      "description": "",
+      "description": "扫描终止值：带单位的数值",
       "type": "string"
     },
     "increment": {
-      "description": "",
+      "description": "迭代步长：带单位的数值",
       "type": "string"
     }
   },
@@ -25,5 +25,5 @@
     "stopValue",
     "increment"
   ],
-  "description": "仿真图页 - 仿真设置源数据"
+  "description": "仿真图页 - 仿真设置源数据\r\n\r\n注意：这是**内嵌结构**，不是数据流里的独立图元（随 `NG_SETTING` 的\r\n`dcSetting.dcSourceData1/2` 字段一起写盘），因此这里不声明 primitiveType 标签。"
 }

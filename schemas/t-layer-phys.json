@@ -7,7 +7,7 @@
       "type": "string"
     },
     "thickness": {
-      "description": "厚度",
+      "description": "芯板/介质层厚度：**盘值 = 内部厚度（mm）× 10，即盘上以 0.1 mm 为单位**\r\n （编码端 `toFix(thickness * 10, 3)`、解码端 `thickness / 10`）。\r\n\r\n 例：`1.4` = 0.14 mm（铜箔）、`12.6` = 1.26 mm（FR-4 芯板）。\r\n\r\n ⚠️ 注意与文件其余长度字段的区别——那些是 mil，本字段是 mm 系。",
       "type": "number"
     },
     "permittivity": {

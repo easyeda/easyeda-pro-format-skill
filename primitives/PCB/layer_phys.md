@@ -11,7 +11,7 @@
 | 字段 | 类型 | 必需 | 约束 | 说明 |
 |------|------|------|------|------|
 | material | `string` | ✓ | - | 层材质 |
-| thickness | `number` | ✓ | - | 厚度 |
+| thickness | `number` | ✓ | - | 芯板/介质层厚度：**盘值 = 内部厚度（mm）× 10，即盘上以 0.1 mm 为单位** （编码端 `toFix(thickness * 10, 3)`、解码端 `thickness / 10`）。 例：`1.4` = 0.14 mm（铜箔）、`12.6` = 1.26 mm（FR-4 芯板）。 ⚠️ 注意与文件其余长度字段的区别——那些是 mil，本字段是 mm 系。 |
 | permittivity | `number` | ✓ | - | 介电常数 |
 | lossTangent | `number` | ✓ | - | 损耗切线 |
 | isKeepIsland | `boolean` | ✓ | - | 内电层是否保留孤岛 |

@@ -27,7 +27,7 @@
       "type": "boolean"
     },
     "relevanceDisplayRow": {
-      "description": "原理图 - 显示方式",
+      "description": "原理图 - 显示方式\r\n\r\n取值（`ERelevanceDisplayRowType`）：\r\n- `SINGLE` 单行显示\r\n- `MULTIPLE` 多行显示",
       "type": "string",
       "enum": [
         "SINGLE",
@@ -39,7 +39,7 @@
       }
     },
     "relevanceBelongSchPage": {
-      "description": "原理图 - 所在图页",
+      "description": "原理图 - 所在图页\r\n\r\n取值（`ERelevanceBelongSchPage`）：\r\n- `NONE` 不显示\r\n- `NAME` 名称\r\n- `NUMBER` 序号",
       "type": "string",
       "enum": [
         "NONE",
@@ -53,7 +53,7 @@
       }
     },
     "relevanceLocation": {
-      "description": "原理图 - 所在位置",
+      "description": "原理图 - 所在位置\r\n\r\n取值（`ERelevanceLocation`）：\r\n- `NONE` 不显示\r\n- `ZONE` 区域",
       "type": "string",
       "enum": [
         "NONE",

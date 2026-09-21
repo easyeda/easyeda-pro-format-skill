@@ -3,26 +3,24 @@
   "type": "object",
   "properties": {
     "groupId": {
-      "description": "分组编号, 没有则为空（预留）：\"0\" 不分组，非 0 为组标志，相同组标志的为一组",
-      "type": "string",
-      "pattern": "^0$|^[1-9][0-9]*$"
+      "description": "分组编号：**无组合时写 `\"0\"`**（仅 2.0 转 3.0 转换腿产生的数据可能是**空串**）。\r\n\r\n3.0 格式下是所属组合的 id，无组合时恒为 `\"0\"`；\r\n2.0 位置化格式下是数字序号（非 0 为组标志，相同组标志的为一组），\r\n由此转换而来的数据是 `e<数字序号>` 形式。",
+      "type": "string"
     },
     "layer": {
-      "description": "层",
+      "description": "层\r\n\r\n取值（面板层枚举）：\r\n- `1` 打印层（PRINT_LAYER）\r\n- `2` 透明控制层（OPACITY_LAYER）\r\n- `3` 板框层（BOARD_LAYER）\r\n- `4` 板框挖空/挖孔层（BOARD_HOLE）\r\n- `5` 背胶挖空层（GLUE_HOLE）\r\n- `6` 灯光层（LIGHT_LAYER）\r\n- `7` 鼓包层（BUN）\r\n- `8` 辅助绘制层（ASSIST，辅助线恒落此层）\r\n- `99` 适应所有（APPLY_ALL，虚构层，属于此层的一律导出）\r\n\r\n枚举中另有 `-1` 图页-边界层（BOUNDARY_LAYER）。",
       "type": "number",
-      "minimum": 0
+      "minimum": -1
     },
     "locked": {
       "description": "是否锁定",
       "type": "boolean"
     },
     "zIndex": {
-      "description": "Z 轴高度, null 为默认",
+      "description": "叠放次序：越大越靠上。检测到重复值时会按图元顺序整体重编号（index+1），\r\n 无重复时原样保留。\r\n\r\n **缺省表示是 `null`**（不写 0），读取端把 `null` 当 0 处理。\r\n ⚠️ `null` 与「下限 0」互斥，故本字段**不设下限**，只保留缺省标签。",
       "type": [
         "number",
         "null"
       ],
-      "minimum": 0,
       "default": null
     },
     "valid": {
@@ -34,7 +32,7 @@
       "type": "boolean"
     },
     "cover": {
-      "description": "遮盖透明度",
+      "description": "是否加盖遮盖层：0/1 的布尔开关（属性面板的 Cover），与透明度无关。\r\n 透明度见 transScope/transPrint/transWhite，遮盖颜色见 TPanelCanvas.coverColor",
       "type": [
         "number",
         "null"
@@ -64,7 +62,7 @@
       "minimum": 0
     },
     "fontWeight": {
-      "description": "字体粗细",
+      "description": "字体粗细：以数字表达的布尔值（0 常规 / 1 加粗），解析时按真假处理",
       "type": "number"
     },
     "italic": {
@@ -76,11 +74,11 @@
       "type": "boolean"
     },
     "strikeout": {
-      "description": "是否删除线",
+      "description": "是否删除线\r\n\r\n 注：当前未启用——3.0 编辑器写盘恒为 false，解析端虽然会取到该值但不并入文本数据",
       "type": "boolean"
     },
     "align": {
-      "description": "对齐模式",
+      "description": "对齐模式\r\n\r\n 取值：\r\n - `LEFT_BOTTOM` 左底\r\n - `CENTER_BOTTOM` 中底\r\n - `RIGHT_BOTTOM` 右底\r\n - `LEFT_MIDDLE` 左中\r\n - `CENTER_MIDDLE` 中中\r\n - `RIGHT_MIDDLE` 右中\r\n - `LEFT_TOP` 左顶\r\n - `CENTER_TOP` 中顶\r\n - `RIGHT_TOP` 右顶",
       "type": "string",
       "enum": [
         "LEFT_BOTTOM",
@@ -117,22 +115,28 @@
       "maximum": 1
     },
     "matrix": {
-      "description": "变换矩阵",
+      "description": "变换矩阵：口径同 `TPanelPoly.matrix`\r\n\r\n ⚠️ **STRING 同样没有 `x` / `y`，图元位置只在本矩阵的平移分量（第 5 / 6 元）里**——\r\n 写纯平移用 `[1, 0, x, 0, 1, y]`（会经 Y 镜像共轭）；旋转 / 缩放也在矩阵中。",
       "type": [
         "array",
         "null"
-      ]
+      ],
+      "items": {
+        "type": "number"
+      }
     },
     "strokes": {
       "description": "是否变换描边",
       "type": "boolean"
     },
     "path": {
-      "description": "路径，复杂多边形",
-      "type": "array"
+      "description": "字形轮廓缓存：把文字的字形轮廓预先展开成路径，使解析端无需加载字体即可渲染。\r\n\r\n 注意这是**字体轮廓的缓存**，不是用户绘制的图形。\r\n\r\n 【结构】外层数组的每个元素是一条轮廓子路径，每条子路径是**扁平 SVG 指令\r\n token 数组，且起始的 \"M\" 已被省略**——前两个数字即起点坐标，其后是\r\n 「指令名 + 该指令参数」的重复序列，参数个数由指令决定。\r\n 例：`[237.402, 1864.961, \"A\", 227.46, 227.46, 0, 1, 1, 529.921, 1527.953]`\r\n 等价于 `M 237.402 1864.961 A 227.46 227.46 0 1 1 529.921 1527.953`。\r\n\r\n 指令为绝对坐标指令（M / L / A / C / Q / Z），不使用相对坐标指令。",
+      "type": "array",
+      "items": {
+        "type": "array"
+      }
     },
     "transScope": {
-      "description": "透明度控制范围（取值与含义见 EPanelTransScope）",
+      "description": "透明度控制范围\r\n\r\n 取值：`PRINT` 打印、`COVER` 遮盖、`PRINT&COVER` 打印 + 遮盖。",
       "type": "string",
       "enum": [
         "PRINT",

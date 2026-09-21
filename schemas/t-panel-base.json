@@ -3,26 +3,24 @@
   "type": "object",
   "properties": {
     "groupId": {
-      "description": "分组编号, 没有则为空（预留）：\"0\" 不分组，非 0 为组标志，相同组标志的为一组",
-      "type": "string",
-      "pattern": "^0$|^[1-9][0-9]*$"
+      "description": "分组编号：**无组合时写 `\"0\"`**（仅 2.0 转 3.0 转换腿产生的数据可能是**空串**）。\r\n\r\n3.0 格式下是所属组合的 id，无组合时恒为 `\"0\"`；\r\n2.0 位置化格式下是数字序号（非 0 为组标志，相同组标志的为一组），\r\n由此转换而来的数据是 `e<数字序号>` 形式。",
+      "type": "string"
     },
     "layer": {
-      "description": "层",
+      "description": "层\r\n\r\n取值（面板层枚举）：\r\n- `1` 打印层（PRINT_LAYER）\r\n- `2` 透明控制层（OPACITY_LAYER）\r\n- `3` 板框层（BOARD_LAYER）\r\n- `4` 板框挖空/挖孔层（BOARD_HOLE）\r\n- `5` 背胶挖空层（GLUE_HOLE）\r\n- `6` 灯光层（LIGHT_LAYER）\r\n- `7` 鼓包层（BUN）\r\n- `8` 辅助绘制层（ASSIST，辅助线恒落此层）\r\n- `99` 适应所有（APPLY_ALL，虚构层，属于此层的一律导出）\r\n\r\n枚举中另有 `-1` 图页-边界层（BOUNDARY_LAYER）。",
       "type": "number",
-      "minimum": 0
+      "minimum": -1
     },
     "locked": {
       "description": "是否锁定",
       "type": "boolean"
     },
     "zIndex": {
-      "description": "Z 轴高度, null 为默认",
+      "description": "叠放次序：越大越靠上。检测到重复值时会按图元顺序整体重编号（index+1），\r\n 无重复时原样保留。\r\n\r\n **缺省表示是 `null`**（不写 0），读取端把 `null` 当 0 处理。\r\n ⚠️ `null` 与「下限 0」互斥，故本字段**不设下限**，只保留缺省标签。",
       "type": [
         "number",
         "null"
       ],
-      "minimum": 0,
       "default": null
     },
     "valid": {
@@ -34,7 +32,7 @@
       "type": "boolean"
     },
     "cover": {
-      "description": "遮盖透明度",
+      "description": "是否加盖遮盖层：0/1 的布尔开关（属性面板的 Cover），与透明度无关。\r\n 透明度见 transScope/transPrint/transWhite，遮盖颜色见 TPanelCanvas.coverColor",
       "type": [
         "number",
         "null"
@@ -55,5 +53,5 @@
     "cover",
     "name"
   ],
-  "description": "基础字段"
+  "description": "基础字段（面板系列所有图元的公共前缀）\r\n\r\n【通用约定】下列约定适用于本文件（PANEL / PANEL_LIB）**全部**以本类型为基础的图元：\r\n- **坐标与长度的单位是 0.01 inch**（1 个单位 = 10 mil = 0.254 mm）。\r\n  面板内部用的就是「像素」（固定 100DPI 下的 1px），写盘时**原样搬运、不做换算**，\r\n  故格式值 = 内部值 = `1 pixel`。原理图同此口径。\r\n  ⚠️ **PCB/FOOTPRINT 不同**：那边的格式值单位是 **1 mil**（内部值 ×10），不要混用。\r\n- **旋转角单位是度**。\r\n- **旋转角的写盘符号有两套**：`POLY` / `STRING`（以及 `ARC` / `RECT`）写盘时**对内部值取负**，\r\n  而 `AUXLINE` / `DIMENSION` 的 `rotation` **原样写**（与内部同向）。\r\n  ⚠️ 这里只陈述「写盘 = 内部取反」这一可核实的事实，**本文件不对「Y 轴向上还是向下」下结论**。\r\n- **写盘会对 Y 取负的字段**：`TAuxLine.y`、`TPanelDimension.controlDot` 里每个点的 Y，\r\n  以及 `TPanelPoly` / `TPanelString` 的 `matrix`（按 Y 镜像做共轭）。\r\n- **图元 id 的构造**：**编辑器写盘恒为 `'e'` + 16 位小写十六进制、共 17 字符**，例 `e79b342e010515f9e`；\r\n  ⚠️ **2.0→3.0 转换腿产出的元素 id 是短 id**——它保留 2.0 原有的 `e<数字序号>` 形式\r\n  （如 `e666` / `e1979`，只有 4~5 字符），**不是 16 位十六进制**，读取端不得按「17 字符」假设。\r\n  **`e` 前缀不是可选的**——编辑器按 id 查找元素，**以数字开头的 id 会查找不到元素**，故一律加 `e` 前缀。\r\n  组合（GROUP）id 同构；组内成员通过各自的 `groupId` 指向所属组合的 id。\r\n  ⚠️ 生成器的全局文案「普通图元是 16 位十六进制随机串」**不适用于面板**，面板必须带 `e` 前缀。\r\n- 每条数据是一行，形如 `{\"type\":..., \"id\":..., \"ticket\":...}||{...}`：前半段是通用外壳\r\n  （`type` 取 `EPanelDataType` 的值，`ticket` 是逻辑时钟），后半段才是各类型描述的内容。\r\n  外壳还可能带 `client` / `firstTicket` / `pend` / `num` 等可选键（真机数据里就有带 `client` 的行），\r\n  读取端**透传即可**、不要依赖其存在。\r\n- **行终止符是 `|` 加换行（LF，不是 CRLF）**：`||` 是外壳/载荷分界，行尾的 `|`+换行才是记录结束。"
 }

@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"RULE","id":"UUID","ticket":1}||{"ruleType":"SAFE","ruleName":"通用","ruleState":"NORMAL","ruleContext":{}}
+{"type":"RULE","id":"[\"RULE\",\"SAFE\",\"通用\"]","ticket":1}||{"ruleState":"NORMAL","ruleContext":{"unit":"mil","isForAll":"ALL","safeSpacing":[]}}
 ```
 
 ## 返回文档

@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"SHELL_ENTITY","ticket":134,"id":"307b9ad6b32b684e"}||{"partitionId":"","groupId":"0","layerId":53,"depth":590.55,"strokeWidth":0.2,"path":[["R",-9780,-3260,1825,2500,0,0]],"locked":false,"type":"SLOT","entityBelong":"AUTO","slotOptions":[],"refs":["7950955c69851729"],"zIndex":null}
+{"type":"SHELL_ENTITY","ticket":134,"id":"307b9ad6b32b684e"}||{"partitionId":"","groupId":"0","layerId":53,"depth":590.55,"strokeWidth":0.2,"path":[["R",-9780,-3260,1825,2500,0,0]],"locked":false,"type":"SLOT","slotOptions":[],"refs":["7950955c69851729"],"zIndex":null}
 ```
 
 ## 返回文档

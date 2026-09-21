@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"SILK_OPTS","ticket":8,"id":"SILK_OPTS"}||{"defaultColor":"#FFFFFF","baseColor":"#000000"}
+{"type":"SILK_OPTS","ticket":8,"id":"[\"SILK_OPTS\",1]"}||{"defaultColor":"#FFFFFF","baseColor":"#000000"}
 ```
 
 ## 返回文档

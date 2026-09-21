@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "enum": [
+    "AC",
+    "DC",
+    "TR",
+    "MONTE CARLO",
+    "WORST CASE"
+  ],
+  "description": "当前分析类型"
+}

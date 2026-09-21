@@ -6,7 +6,7 @@
   ],
   "properties": {
     "holeType": {
-      "description": "孔类型（ROUND 长圆孔、RECT 方孔）",
+      "description": "孔类型。\r\n\r\n 取值：`ROUND` 圆形孔、`RECT` 方孔、`SLOT` 挖槽、`ROUND_RECT` 圆角矩形。",
       "type": "string",
       "enum": [
         "ROUND",
@@ -15,22 +15,22 @@
         "ROUND_RECT"
       ],
       "enumDescriptions": {
-        "ROUND": "长圆孔",
+        "ROUND": "圆形孔",
         "RECT": "方孔",
         "SLOT": "挖槽",
         "ROUND_RECT": "圆角矩形"
       }
     },
     "width": {
-      "description": "宽",
+      "description": "宽：**单位 mil**，编码为 `pad.holeLength × 10`。\r\n\r\n ⚠️ **不要把它与 `height` 当成同一个矩形的宽高**，两者不是同一维度：\r\n - `SLOT`（挖槽）：本字段是**槽长**，`height` 是孔径（槽长 ≥ 孔径）；\r\n - `ROUND`（圆孔）：**本字段与 `height` 相等、都是孔直径**——圆孔的 `holeLength`\r\n   中途会被强制成直径（`holeShape == CIRCLE` 时 `holeLength = diameter`），真实数据里\r\n   圆孔只有 `33.4646/33.4646` 这种「宽高相等」与 `0/0` 两种形态，**不存在**\r\n   「宽 0 而高为孔径」的组合；\r\n - **`width` 与 `height` 同为 0** 表示该焊盘没有孔。",
       "type": "number"
     },
     "height": {
-      "description": "高",
+      "description": "高：**单位 mil**，编码为 `pad.holeRadius × 20`（即半径 ×2 ×10），也就是**孔直径",
       "type": "number"
     },
     "cornerRadius": {
-      "description": "圆角矩形 - 圆角",
+      "description": "圆角矩形（`ROUND_RECT`）- 圆角，**单位 mil**（编码为 `holeCornerRadius × 10`）",
       "type": "number"
     }
   },

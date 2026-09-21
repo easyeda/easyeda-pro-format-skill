@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"META","ticket":35,"id":"META"}||{"docType":0,"simSchematic":"simulation-sch-uuid","title":"Transient Analysis","source":"project-uuid","zIndex":0}
+{"type":"META","ticket":35,"id":"META"}||{"docType":8,"simSchematic":"c81d54ea0f7b2963","title":"Transient Analysis","source":"2eb7b89d891135ec|bac6e37798284239bedae653a8874016","zIndex":null}
 ```
 
 ## 返回文档

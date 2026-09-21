@@ -51,7 +51,7 @@
 | TPadNet | PAD_NET | [详细](../primitives/FOOTPRINT/pad_net.md) |
 | TPcbAttr | ATTR | [详细](../primitives/FOOTPRINT/attr.md) |
 | TPcbXNets | X_NET | [详细](../primitives/FOOTPRINT/x_net.md) |
-| TBaseXNetsGroup | X_NET_GROUP | [详细](../primitives/FOOTPRINT/x_net_group.md) |
+| TPcbXNetsGroup | X_NET_GROUP | [详细](../primitives/FOOTPRINT/x_net_group.md) |
 | TD3Attribute | D3_ATTRIBUTE | [详细](../primitives/FOOTPRINT/d3_attribute.md) |
 | EPcbDataType |  | [详细](../primitives/FOOTPRINT/e-pcb-data-type.md) |
 

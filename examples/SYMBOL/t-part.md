@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"PART","id":"partId","ticket":1}||{"title":"part.1"}
+{"type":"PART","ticket":1,"id":"3c49ff30e395435d"}||{"title":"part.1"}
 ```
 
 ## 返回文档

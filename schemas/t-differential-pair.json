@@ -3,19 +3,19 @@
   "type": "object",
   "properties": {
     "name": {
-      "description": "名称",
+      "description": "名称：**写盘端编码进外壳 `id`、不写进载荷**（id 形如 `[\"DIFFERENTIAL_PAIR\",\"DP1\"]`）；\r\n 解析端从 id 还原后运行时对象才有它。",
       "type": "string"
     },
     "negativeNet": {
-      "description": "负级网络",
+      "description": "负级网络：网络名称（不是图元 id）。**「差分对组」记录里为空串",
       "type": "string"
     },
     "positiveNet": {
-      "description": "正级网络",
+      "description": "正级网络：网络名称（不是图元 id）。**「差分对组」记录里为空串",
       "type": "string"
     },
     "parentName": {
-      "description": "父级名称",
+      "description": "父级名称：**编码进外壳 `id` 的第 3 个元素**（`[\"DIFFERENTIAL_PAIR\", <名称>, <父级名称>]`），\r\n 指向同域内「差分对组」记录的 `name`；**无父级时 id 只有 2 个元素**，本字段不出现在载荷中。\r\n 「差分对组」记录自身该项为空串。",
       "type": "string"
     }
   },
@@ -24,5 +24,5 @@
     "negativeNet",
     "positiveNet"
   ],
-  "description": "差分对"
+  "description": "差分对\r\n\r\n注：「差分对组」复用本类型，**盘上载荷只含 `positiveNet` / `negativeNet`**\r\n（差分对组记录这两个字段皆为空串）。\r\n\r\n两个层次分清楚，不要混为一谈：\r\n- **盘上 id** = `[\"DIFFERENTIAL_PAIR\", <名称>]`；有父级（属于某个差分对组）时\r\n  id 的第 3 元为**组名**：`[\"DIFFERENTIAL_PAIR\", <名称>, <组名>]`。\r\n- **盘上载荷** = `{ positiveNet, negativeNet }`，**写盘端不含 `name`，也不含 `parentName`**\r\n  （`parentName` 同样只进 id）。"
 }

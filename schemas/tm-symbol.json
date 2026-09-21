@@ -12,14 +12,17 @@
     },
     "tags": {
       "description": "自定义分类",
-      "type": "array"
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     },
     "source": {
-      "description": "来源的 uuid(工程库独有)",
+      "description": "来源：`<来源条目 uuid>|<来源工程 uuid>` 两段式（工程库独有）\r\n\r\n 第 2 段是**来源工程的 uuid**（不是库内路径），**工程内自建条目为空串**。",
       "type": "string"
     },
     "docType": {
-      "description": "库类型",
+      "description": "库类型（取值来自 `lc-editor-common` 的 `DOCTYPE`）\r\n\r\n 符号可用子集：\r\n - `2` PART 元件\r\n - `17` BLOCK_SYMBOL 复用模块（块符号）\r\n - `18` NETFLAG 网络标识\r\n - `19` NETPORT 网络端口\r\n - `20` SHEET_SYMBOL 图纸符号\r\n - `21` NONEELEC_SYMBOL 无电气符号\r\n - `22` SHORT_SYMBOL 短接符\r\n\r\n ⚠️ 符号与仿真页（`TMSimulation.docType`）**各自可用的子集不同**，不要互相套用。",
       "type": "number"
     }
   },

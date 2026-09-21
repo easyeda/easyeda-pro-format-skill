@@ -13,6 +13,7 @@
 | `DIFFERENTIAL_PAIR` | string | 差分对 |
 | `NET_CLASS` | string | 网络类 |
 | `EQL_NET_GRP` | string | 等长网络组 |
+| `CUSTOM_GLOBAL_NET` | string | 自定义全局网络 |
 
 ## JSON Schema
 

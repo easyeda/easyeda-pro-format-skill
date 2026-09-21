@@ -6,6 +6,9 @@
 
 设计规则模板
 
+**id 为固定单例名 `RULE_TEMPLATE`**（与 `RULE` / `RULE_SELECTOR` 的数组 id 不同）；
+模板名在载荷里（`name`）。
+
 ## 字段
 
 | 字段 | 类型 | 必需 | 约束 | 说明 |

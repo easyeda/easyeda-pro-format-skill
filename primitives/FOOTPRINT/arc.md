@@ -11,19 +11,19 @@
 | 字段 | 类型 | 必需 | 约束 | 说明 |
 |------|------|------|------|------|
 | partitionId | `string \| null` |  | - | 所属分区编号，为null表示无分区 |
-| groupId | `string` | ✓ | - | 分组编号, 没有则为 0 不分组，非 0 为组标志，相同组标志的为一组 |
+| groupId | `string` | ✓ | - | 分组编号：相同值的图元属于同一组；**未分组时的取值见下**。 ⚠️ **未分组写的是数字 `0`**（不是字符串 `"0"`）——真实数据里 `"groupId":0` 出现 5 千余次，而 `"groupId":"0"` **一次都没有**；FOOTPRINT 文档下该字段**恒为 0**。 成组时才是字符串（组合 id）；未分组的判定是「`groupId` 为空或 FOOTPRINT 文档」，此时写**数字 0**。 ⚠️ 上方的类型 `string` 比实际形态窄（装不下数字 0）——**放宽类型会波及 pro-* 仓的 消费方，需跨仓协调后再改**，故此处暂以说明为准。本文件各 `@example` 里的 `"groupId":"0"` 也是同一问题，同理按“说明为准”处理。 |
 | layerId | `number` | ✓ | - | 层编号 |
 | locked | `boolean` | ✓ | - | 是否锁定 |
-| zIndex | `number \| null` | ✓ | default: null | Z 轴高度, null 为默认 |
+| zIndex | `number \| null` | ✓ | default: -1 | 同层内的叠放次序（渲染排序键，格式里没有高度语义）。 **它是独立字段，不由 id 推导**：3.0 里未设置时写盘为 **-1**（内部实现即 `_zIndex \|\| -1`；真实数据 `"zIndex":-1` 出现 4 千余次）。**例外**：`ATTR` / `META` 的默认体直接写 `null`。 「由 id 尾部数字推导」是 **2.0 的语义**（2.0 的 `getZIndex` + `idReg`；那个正则也 匹配不了 3.0 的随机 16 位十六进制 id）。**不要照它推导 3.0 的值。** ⚠️ **VIA 是个特例：3.0 写盘不会产出该键**——写盘端的 switch 里**没有** zIndex 分支 （虽然槽位表里有该槽位），取值为 `undefined` 时会被 JSON 序列化整个丢弃。 但**真机存量里仍能遇到 2.0 遗留的带 `zIndex` 的 VIA 行**（样本 15455 条 VIA 中 10404 条载荷含该键，其值恰好等于 id 尾部的数字——正是上面说的「2.0 语义」）。 **读盘时不要假设它不存在。** |
 | netName | `string` | ✓ | - | NET，网络名称 |
 | startX | `number` | ✓ | - | 开始 X |
-| startY | `number` | ✓ | - | 开始 X |
+| startY | `number` | ✓ | - | 开始 Y |
 | endX | `number` | ✓ | - | 结束 X |
 | endY | `number` | ✓ | - | 结束 Y |
-| angle | `number` | ✓ | - | 圆弧角，逆时针正，顺时针负 |
+| angle | `number` | ✓ | - | 圆弧角，逆时针正，顺时针负。 ⚠️ 不要写 `0` 或 `±360`：解码的 `arcCheck()` 会据此整条拒收该 ARC （`angle` 为空、`\|角度\|` 为 360、或为 0 时校验不通过）。 |
 | width | `number` | ✓ | - | 线宽 |
 | arcType | `EArcType` | ✓ | - | 取值范围：DOT（两点圆弧）、CENT（中心圆弧） |
-| specialColor | `string` |  | pattern: ^$\|^#[0-9A-Fa-f]{6}$ | 特殊颜色 |
+| specialColor | `string` |  | pattern: ^$\|^#[0-9A-Fa-f]{6}$ | 特殊颜色。 ⚠️ **当前格式里它只是个空壳**：编码 / 解码两侧**都没有它**（属未实现 / 2.0 遗留）， 写盘不会产出该键、读盘也不会消费。 字段保留仅为兼容历史数据。**不要据此推断同族字段**—— `TPcbImage` / `TPcbString` / `TPcbDimension` 的 `specialColor` 是**真的会写会读**的。 |
 
 ## JSON Schema
 

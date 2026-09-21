@@ -81,7 +81,7 @@
     "FPC_FILL": "柔性工艺补强板",
     "SHELL": "外壳",
     "CREASE": "侧面基准线（折痕）",
-    "SHELLCUT": "外壳挖槽区域",
+    "SHELLCUT": "外壳挖槽区域（**已废弃**：当前版本写盘已停用，被 SHELL_ENTITY 取代，仅保留解析兼容）",
     "SHELL_ENTITY": "外壳实体区域",
     "BOSS": "螺丝柱",
     "STRING": "文字",
@@ -97,7 +97,7 @@
     "BOARD": "板子，一个 PCB 只有一个该类型图元\r\n#39359 【layout】支持板框内外不同颜色",
     "X_NET_GROUP": "xNet 组\r\n#135141 【拓斯达】【致远电子】支持信号逻辑等长xSignals（已更名为 xNet）",
     "X_NET": "X_NET\r\n#135141 【拓斯达】【致远电子】支持信号逻辑等长xSignals（已更名为 xNet）",
-    "ELE_PLACEHOLDER": "占位符"
+    "ELE_PLACEHOLDER": "占位符：**3.0 侧没有正式写入点、也没有读取语义**，纯粹占位——\r\n它只在 **2.0 → 3.0 转换**时被写出来凑数（转换腿写 `{ dataType, max }`，id 形如\r\n`placeholder1`），读取端一律**显式跳过**（对应分支是空的 `break;`）。\r\n格式文档生成器也会跳过它。"
   },
   "description": "PCB 数据类型枚举"
 }

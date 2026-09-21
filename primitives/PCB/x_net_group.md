@@ -1,10 +1,16 @@
-# TBaseXNetsGroup
+# TPcbXNetsGroup
 
 > 返回 [PCB 图元索引](../../documents/PCB.md)
 
 ## 定义
 
 xNet 组
+
+【联动增删·必须成组操作】X_NET_GROUP 与其组内的 X_NET 是**同一生命周期**：
+**新增组时必须一并写出组内的 X_NET；删除 X_NET_GROUP 时必须把组内所有 X_NET 一并删除**
+（组内 xNet 清空后才能删组），否则留下悬空的 X_NET。
+
+> `@docType` / `@primitiveType` 写在非导出类型 `TBaseXNetsGroup` 上，对外暴露的内存类型是 `TPcbXNetsGroup`。本页的字段与 JSON Schema 描述的是**线格式**（以标签所在类型 `TBaseXNetsGroup` 为准）。
 
 ## 字段
 
@@ -32,5 +38,5 @@ _无关联图元_
 
 ## 示例
 
-→ [查看示例](../../examples/PCB/t-base-x-nets-group.md)
+→ [查看示例](../../examples/PCB/t-pcb-x-nets-group.md)
 

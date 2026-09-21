@@ -11,7 +11,7 @@
 |------|------|------|
 | TMSymbol | META | [详细](../primitives/SYMBOL/meta.md) |
 | TSchLine | LINE | [详细](../primitives/SYMBOL/line.md) |
-| TSchBusEntry | BUSENTRY | [详细](../primitives/SYMBOL/busentry.md) |
+| TSchBusEntry |  | [详细](../primitives/SYMBOL/t-sch-bus-entry.md) |
 | TWire | WIRE | [详细](../primitives/SYMBOL/wire.md) |
 | TBus | BUS | [详细](../primitives/SYMBOL/bus.md) |
 | TSchGroup | GROUP | [详细](../primitives/SYMBOL/group.md) |
@@ -31,6 +31,7 @@
 | TPart | PART | [详细](../primitives/SYMBOL/part.md) |
 | TSchCanvas | CANVAS | [详细](../primitives/SYMBOL/canvas.md) |
 | TSchMaskRegion | MASK_REGION | [详细](../primitives/SYMBOL/mask_region.md) |
+| TDCSourceData |  | [详细](../primitives/SYMBOL/tdc-source-data.md) |
 | TNGSetting | NG_SETTING | [详细](../primitives/SYMBOL/ng_setting.md) |
 
 ## Related Resources

@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"PAD_NET","ticket":22,"id":"pnet1"}||{"partitionId":"","componentId":"U1","padNum":"1","padNet":"VCC","padId":"pad1","padLen":0,"propagationDelay":0}
+{"type":"PAD_NET","ticket":22,"id":"442efcfe9db7a8e0"}||{"partitionId":"","componentId":"U1","padNum":"1","padNet":"VCC","padId":"pad1","padLen":0,"propagationDelay":0}
 ```
 
 ## 返回文档

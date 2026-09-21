@@ -5,7 +5,7 @@
 ### 示例 1
 
 ```
-{"type":"NET","ticket":5,"id":"GND"}||{"netType":null,"specialColor":null,"retLine":true,"differentialName":null,"isPositiveNet":false,"equalLengthGroupName":null,"componentId":"","primitiveId":"","net":""}
+{"type":"NET","ticket":5,"id":"[\"NET\",\"GND\"]"}||{"netType":null,"specialColor":null,"retLine":true,"differentialName":null,"isPositiveNet":false,"equalLengthGroupName":null,"componentId":"","primitiveId":"","net":""}
 ```
 
 ## 返回文档
