@@ -3,15 +3,15 @@
   "type": "object",
   "properties": {
     "originX": {
-      "description": "画布原点 X",
+      "description": "画布原点 X：**绝对坐标里的一个基准锚点**——**网格与标尺的相位基准**，\r\n也是**属性面板显示坐标的零点**（显示值 = 图元坐标 − 原点）。\r\n\r\n单位 **0.01 inch**（与图元坐标同口径，读写都**不 ×10**）。\r\n\r\n⚠️ **它不是「图元坐标的平移量」**：图元存的是**绝对坐标**，\r\n改原点**不会**搬动图元。**读盘时不要拿它去平移图元。**\r\n\r\n真机样本里恒为 `0`。",
       "type": "number"
     },
     "originY": {
-      "description": "画布原点 Y",
+      "description": "画布原点 Y：含义、单位与 `originX` 相同。\r\n⚠️ **本域内部 Y 轴向下，所以 originY 增大 = 向下**；\r\n又因为原理图族参与 eprj3 本地格式的 Y 翻转，**写本地文件时 `originY` 会被取反\r\n并带上 `yAxisDirection:\"up\"`**（`originX` 不动），读盘时已剥离还原。\r\n真机样本里恒为 `0`。",
       "type": "number"
     },
     "yAxisDirection": {
-      "description": "Y 轴方向标记：**仅 eprj3 本地文件格式会带**，读盘时被剥离。\r\n\r\n 取值：`up` **已按 Y 轴向上写出**（本地文件固定用它）、`down` Y 轴向下\r\n （**字段缺失等价于它**，两者是同一件事）。完整语义见 `TYAxisDirection`。\r\n\r\n 本类型（`CANVAS`）翻转的字段是 **`originY`**（`originX` 不动）。",
+      "description": "Y 轴方向标记：**仅 eprj3 本地文件格式会带**，读盘时被剥离。\r\n\r\n取值：`up` = **笛卡尔坐标系（Y 向上）**，本行坐标已按它写出（本地文件固定用它），`down` = **屏幕坐标系（Y 向下）**（编辑器内部与云端的常态）\r\n——**字段缺失等价于它**，两者是同一件事；两套坐标系下同一个形状的 y **互为相反数**。完整语义见 `TYAxisDirection`。\r\n\r\n本类型（`CANVAS`）翻转的字段是 **`originY`**（`originX` 不动）。",
       "type": "string",
       "enum": [
         "up",
@@ -23,5 +23,5 @@
     "originX",
     "originY"
   ],
-  "description": "画布配置信息"
+  "description": "画布配置信息\r\n\r\n**画布配置**，一个文档只有一行（`type:\"CANVAS\"`）：目前只记录**画布原点** `originX` / `originY`。\r\n\r\n原点是**网格与标尺的相位基准**，也是**属性面板显示坐标的零点**（显示值 = 图元坐标 − 原点）。\r\n⚠️ **它不是「图元坐标的平移量」**：图元存的是**绝对坐标**，改原点**不会**搬动图元，\r\n读盘时也不要拿它去平移图元。真机样本里两个字段恒为 `0`。\r\n\r\n外壳的 `id` **固定为类型名 `CANVAS`**（同 NG_SETTING），**不是**随机 16 位十六进制——\r\n这类固定单例 id 的形态与判别见 `TSingletonElementId`。"
 }

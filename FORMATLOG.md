@@ -12,13 +12,13 @@
 
 ### 1. 总体架构：基本不变 / Overall Architecture: mostly unchanged
 
-- **中文**：两者同构——工程数据以日志式增量存储；每行为 `{ "type": "...", "id": "...", "ticket": N }||{ 内层 key-value }|`，`||` 分隔外层（最终一致性框架）与内层（图元原子数据），行尾带 `|`；键名驼峰；同 `type`+`id` 时 ticket 大者保留。V3 规范明确平票时按 DOCHEAD 的 `client` 字符串**小者保留**；V4 文档未重述平票规则（仅说明 ticket 递增）。
-- **English**: Both generations share the same architecture — log-based incremental project storage; each line is `{ "type": "...", "id": "...", "ticket": N }||{ inner key-value data }|` where `||` splits the outer eventual-consistency frame from the inner primitive atom, lines end with `|`; keys are camelCase; for duplicate `type`+`id` the larger `ticket` wins. V3 explicitly states that ties are broken by the **smaller** DOCHEAD `client` string; V4 docs do not restate the tie-break rule (they only describe the increasing ticket).
+- **中文**：两者同构——工程数据以日志式增量存储；每行为 `{ "type": "...", "id": "...", "ticket": N }||{ 内层 key-value }|`，`||` 分隔外层（最终一致性框架）与内层（图元原子数据），行尾带 `|`；键名驼峰。平票规则：V3 规范写的是 DOCHEAD 的 `client` **小者保留**；V4 文档已明确判优细节并**修正了方向**——判优键是「文档 + 归一化 id」（`type` 不参与比较），ticket 大者胜，平票时 `client` **字典序大者胜**，并指出老 2.0 文档「小者保留」的写法与实现相反，不可照抄。
+- **English**: Both generations share the same architecture — log-based incremental project storage; each line is `{ "type": "...", "id": "...", "ticket": N }||{ inner key-value data }|` where `||` splits the outer eventual-consistency frame from the inner primitive atom, lines end with `|`; keys are camelCase. Tie-break: the V3 spec says the **smaller** DOCHEAD `client` wins; V4 documents the full resolution and **corrects the direction** — the key is "document + normalized id" (`type` excluded), larger `ticket` wins, and on a tie the **lexicographically larger** `client` wins; the old 2.0 spec's "smaller wins" is the opposite of the implementation and must not be copied.
 
 ### 2. 文档头 DOCHEAD 与编辑头 / Document Head and Edit Head
 
-- **中文**：V3 的 DOCHEAD 只有 `docType` / `uuid` / `client` 四字段；V4 增加 `updateTime`（毫秒时间戳）与 `version`（通常与 updateTime 相同）。V4 新增 **EDIT_HEAD** 编辑头（`uuid` / `username` / `nickname` / `updateTime`），记录文档最后编辑者信息，V3 无对应结构。
-- **English**: In V3 the DOCHEAD carries only `docType` / `uuid` / `client`; V4 adds `updateTime` (millisecond timestamp) and `version` (usually equal to updateTime). V4 introduces a new **EDIT_HEAD** block (`uuid` / `username` / `nickname` / `updateTime`) recording the last editor of a document — no counterpart exists in V3.
+- **中文**：V3 的 DOCHEAD 只有 `docType` / `uuid` / `client` 四字段；V4 增加 `updateTime`（毫秒时间戳）与 `version`（通常与 updateTime 相同）。外层方面：V3 示例的 DOCHEAD 行仅 `{ "type": "DOCHEAD" }`（连 ticket 也不带），V4 为 `{ "type":"DOCHEAD","ticket":1 }`（无 id，ticket 由写入方决定）；V4 还限定 `client` / `uuid` 均为 **16 位小写十六进制**。V4 新增 **EDIT_HEAD** 编辑头（`uuid` / `username` / `nickname` / `updateTime`），记录文档最后编辑者信息，V3 无对应结构。
+- **English**: In V3 the DOCHEAD carries only `docType` / `uuid` / `client`; V4 adds `updateTime` (millisecond timestamp) and `version` (usually equal to updateTime). On the outer frame: V3's example DOCHEAD line is just `{ "type": "DOCHEAD" }` (no ticket at all), while V4 writes `{ "type":"DOCHEAD","ticket":1 }` (no id; the ticket is chosen by the writer); V4 also constrains `client` / `uuid` to **16 lowercase hex characters**. V4 introduces a new **EDIT_HEAD** block (`uuid` / `username` / `nickname` / `updateTime`) recording the last editor of a document — no counterpart exists in V3.
 
 ### 3. 文档类型 docType 扩充 / Document Types Expanded
 
@@ -42,8 +42,8 @@
 
 ### 7. 原子类型与删除机制 / Atom Types and Deletion
 
-- **中文**：删除机制一致——原子删除将内层置为空串 `||""`，文档删除追加 `DELETE_DOC` 标记行（`{ "isDelete": true }`），日志保留记录、克隆工程可清除。V4 将 `DELETE_DOC` 及更多控制行纳入 **`e-atom-type` 枚举体系**：在 V3 已有的 `META` / `META_CREATE` / `META_MODIFY` / `INSTANCE_ATTR` 之外，新增 `META_SORT`、`META_Z_INDEX`、`VARIANT_GROUPED`、`GROUP_INDEX`、`GROUP_DATA`、`ELE_PLACEHOLDER`、`META_PLACEHOLDER` 等，元数据控制面明显扩展。
-- **English**: Deletion works the same way — an atom is deleted by setting its inner data to the empty string `||""`, and a document is deleted by appending a `DELETE_DOC` marker row (`{ "isDelete": true }`); records stay in the log and can be purged by cloning the project. V4 folds `DELETE_DOC` and more control rows into the **`e-atom-type` enum**: beyond V3's `META` / `META_CREATE` / `META_MODIFY` / `INSTANCE_ATTR`, it adds `META_SORT`, `META_Z_INDEX`, `VARIANT_GROUPED`, `GROUP_INDEX`, `GROUP_DATA`, `ELE_PLACEHOLDER`, `META_PLACEHOLDER`, etc., notably expanding the metadata control surface.
+- **中文**：删除机制一致——原子删除将内层置为空串 `||""`，文档删除追加 `DELETE_DOC` 标记行（`{ "isDelete": true }`），日志保留记录、克隆工程可清除。V4 进一步明确了易错点：`META` **绝不能**用空串删除（消费方直接取 `dataObj.title`，空串解析为 null 会抛异常并中止整批重放，删 META 走 `DELETE_DOC`）；`INSTANCE_ATTR` 的空串即「删除该属性」的正确载荷；`DELETE_DOC` 的载荷必须是 `isDelete` 对象（发空串会被判成未删除而"复活"文档）。V4 还将 `DELETE_DOC` 及更多控制行纳入 **`e-atom-type` 枚举体系**：在 V3 已有的 `META` / `META_CREATE` / `META_MODIFY` / `INSTANCE_ATTR` 之外，新增 `META_SORT`、`META_Z_INDEX`、`VARIANT_GROUPED`、`GROUP_INDEX`、`GROUP_DATA`、`ELE_PLACEHOLDER`、`META_PLACEHOLDER` 等，元数据控制面明显扩展。
+- **English**: Deletion works the same way — an atom is deleted by setting its inner data to the empty string `||""`, and a document is deleted by appending a `DELETE_DOC` marker row (`{ "isDelete": true }`); records stay in the log and can be purged by cloning the project. V4 additionally spells out the pitfalls: `META` must **never** be deleted with an empty string (consumers read `dataObj.title` directly; a null from an empty string throws and aborts the whole replay — use `DELETE_DOC` for META); an empty string **is** the correct payload for `INSTANCE_ATTR` (meaning "remove this attribute"); and the `DELETE_DOC` payload must be an `isDelete` object (an empty string is judged "not deleted" and would resurrect the document). V4 also folds `DELETE_DOC` and more control rows into the **`e-atom-type` enum**: beyond V3's `META` / `META_CREATE` / `META_MODIFY` / `INSTANCE_ATTR`, it adds `META_SORT`, `META_Z_INDEX`, `VARIANT_GROUPED`, `GROUP_INDEX`, `GROUP_DATA`, `ELE_PLACEHOLDER`, `META_PLACEHOLDER`, etc., notably expanding the metadata control surface.
 
 ### 8. 图元类型差异 / Primitive Type Differences
 
@@ -67,3 +67,4 @@
 | 日期 / Date | 条目 / Entry | 说明 / Note |
 |---|---|---|
 | 2026-09-22 | V3 → V4 | 初版：基于 V3（2025.10.21）规范与本仓库 V4 格式资料对比总结 / Initial entry: comparison of the V3 (2025.10.21) spec against the V4 format in this repository |
+| 2026-09-22 | V3 → V4（修订） | 依据刷新后的 SKILL.md：修正平票判优方向（client 大者胜）、补充 DOCHEAD 外层 ticket 与 16 位十六进制约束、细化删除语义易错点 / Revision per the refreshed SKILL.md: tie-break direction corrected (larger client wins), DOCHEAD outer ticket and 16-hex constraints added, deletion pitfalls refined |

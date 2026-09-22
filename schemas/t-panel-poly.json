@@ -7,16 +7,16 @@
       "type": "string"
     },
     "layer": {
-      "description": "层\r\n\r\n取值（面板层枚举）：\r\n- `1` 打印层（PRINT_LAYER）\r\n- `2` 透明控制层（OPACITY_LAYER）\r\n- `3` 板框层（BOARD_LAYER）\r\n- `4` 板框挖空/挖孔层（BOARD_HOLE）\r\n- `5` 背胶挖空层（GLUE_HOLE）\r\n- `6` 灯光层（LIGHT_LAYER）\r\n- `7` 鼓包层（BUN）\r\n- `8` 辅助绘制层（ASSIST，辅助线恒落此层）\r\n- `99` 适应所有（APPLY_ALL，虚构层，属于此层的一律导出）\r\n\r\n枚举中另有 `-1` 图页-边界层（BOUNDARY_LAYER）。",
+      "description": "层：**第几号是哪一层见 `EPanelLayer`**（`1` 打印层、`3` 板框层、`99` 适应所有 …）。\r\n辅助线恒落「辅助绘制层」；`99` 是**虚构层**，属于它的一律导出。",
       "type": "number",
       "minimum": -1
     },
     "locked": {
-      "description": "是否锁定",
+      "description": "是否锁定：锁定后**不能拖拽、不能删除、不能用鼠标键盘调整大小、不能调整形状**，\r\n命中即弹锁告警。⚠️ **已知例外**：`Ctrl` + 拖拽锚点改形那条路径没有锁检查\r\n（需先勾选「锁定图元也可选」的过滤项才能触发）。",
       "type": "boolean"
     },
     "zIndex": {
-      "description": "叠放次序：越大越靠上。检测到重复值时会按图元顺序整体重编号（index+1），\r\n 无重复时原样保留。\r\n\r\n **缺省表示是 `null`**（不写 0），读取端把 `null` 当 0 处理。\r\n ⚠️ `null` 与「下限 0」互斥，故本字段**不设下限**，只保留缺省标签。",
+      "description": "叠放次序：越大越靠上。检测到重复值时会按图元顺序整体重编号（index+1），\r\n无重复时原样保留。\r\n\r\n**缺省表示是 `null`**（不写 0），读取端把 `null` 当 0 处理。\r\n⚠️ `null` 与「下限 0」互斥，故本字段**不设下限**，只保留缺省标签。",
       "type": [
         "number",
         "null"
@@ -32,7 +32,7 @@
       "type": "boolean"
     },
     "cover": {
-      "description": "是否加盖遮盖层：0/1 的布尔开关（属性面板的 Cover），与透明度无关。\r\n 透明度见 transScope/transPrint/transWhite，遮盖颜色见 TPanelCanvas.coverColor",
+      "description": "是否加盖遮盖层：0/1 的布尔开关（属性面板的 Cover），与透明度无关。\r\n透明度见 transScope/transPrint/transWhite，遮盖颜色见 `TPanelCanvas` 的 `coverColor`",
       "type": [
         "number",
         "null"
@@ -43,18 +43,18 @@
       "type": "string"
     },
     "rotation": {
-      "description": "控制点旋转角度（角度制）",
+      "description": "控制点旋转角度（角度制，**逆时针为正**）",
       "type": "number",
       "minimum": 0,
       "maximum": 360
     },
     "strokeWidth": {
-      "description": "线宽",
+      "description": "线宽\r\n单位：**0.01 inch**",
       "type": "number",
       "minimum": 0
     },
     "strokeStyle": {
-      "description": "线型：null 为默认\r\n\r\n 取值：`SOLID` 实线、`SHORT_DASH` 短划线、`DOT` 点线、`DOT_DASH` 点划线。",
+      "description": "线型：null 为默认",
       "type": [
         "string",
         "null"
@@ -95,14 +95,11 @@
       "type": "boolean"
     },
     "ploys": {
-      "description": "复杂多边形路径：外层数组的每个元素是一条子路径（首环为外轮廓，后续为内洞）。\r\n\r\n **首元素是形态标记**，决定这一条怎么解释；解析端也只在外层长度为 1 时按首元素分派：\r\n - `'R'` —— 矩形：`[\"R\", 0, 0, 1, 1, rx, ry, 0, 0]`\r\n - `'ELLIPSE'` —— 椭圆：`[\"ELLIPSE\", 0, 0, 1, 1, 0, 0]`\r\n - `'M'` —— 圆弧：`[\"M\", x1, -y1, \"A\"|\"CA\", rx, ry, angle, large, sweep, x2, -y2]`，\r\n   第 4 个 token 为 `'A'` 表示两点弧、`'CA'` 表示中心弧\r\n - **既非 `'R'` 也非 `'ELLIPSE'`/`'M'`** —— 复杂多边形：此时首元素才是坐标，\r\n   即**起始的 \"M\" 已被省略**，前两个数字为起点坐标，其后是\r\n   「指令名 + 该指令参数」的重复序列。例：\r\n   `[237.402, 1864.961, \"A\", 227.46, 227.46, 0, 1, 1, 529.921, 1527.953]`\r\n   等价于 `M 237.402 1864.961 A 227.46 227.46 0 1 1 529.921 1527.953`。\r\n\r\n 指令为绝对坐标指令（M / L / A / C / Q / Z），不使用相对坐标指令。",
-      "type": "array",
-      "items": {
-        "type": "array"
-      }
+      "description": "复杂多边形路径：外层数组的每个元素是一条子路径（单条即 `TPanelSinglePolygon`，\r\n整份即 `TPanelComplexPolygon`），**首环为外轮廓、后续各环为内洞**。",
+      "type": "array"
     },
     "displayFill": {
-      "description": "是否显示填充：**必填**，写盘恒写出（写入的是**图元自己的值**，用户可在属性面板切换，\r\n 并非写盘端取常量赋值）",
+      "description": "是否显示填充：**必填**，写盘恒写出（写入的是**图元自己的值**，用户可在属性面板切换，\r\n并非写盘端取常量赋值）",
       "type": "boolean"
     },
     "displayStroke": {
@@ -110,7 +107,7 @@
       "type": "boolean"
     },
     "matrix": {
-      "description": "变换矩阵：6 元仿射 `[a, b, c, d, e, f]`，**Y 轴镜像空间**下的矩阵\r\n （写盘时按 Y 镜像做共轭：`MIRROR_Y · matrix · MIRROR_Y`）；\r\n `[1, 0, 0, 0, 1, 0]` 为单位阵。\r\n\r\n ⚠️ **POLY 没有 `x` / `y` 字段，图元位置只能由本矩阵承载**：位置即矩阵的\r\n **平移分量（第 5 / 6 元）**；写纯平移用 `[1, 0, x, 0, 1, y]`（注意写出后会经上述 Y 镜像共轭）。\r\n 旋转 / 缩放同样都在矩阵里；`rotation` 是**控制点角度**，不是图元位置。",
+      "description": "变换矩阵：6 元仿射 `[a, b, c, d, e, f]`，**Y 轴镜像空间**下的矩阵\r\n（写盘时按 Y 镜像做共轭：`MIRROR_Y · matrix · MIRROR_Y`）；\r\n`[1, 0, 0, 0, 1, 0]` 为单位阵。\r\n\r\n⚠️ **POLY 没有 `x` / `y` 字段，图元位置只能由本矩阵承载**：位置即矩阵的\r\n**平移分量（第 5 / 6 元）**；写纯平移用 `[1, 0, x, 0, 1, y]`（注意写出后会经上述 Y 镜像共轭）。\r\n旋转 / 缩放同样都在矩阵里；`rotation` 是**控制点角度**，不是图元位置。",
       "type": [
         "array",
         "null"
@@ -120,7 +117,7 @@
       }
     },
     "transScope": {
-      "description": "透明度控制范围\r\n\r\n 取值：`PRINT` 打印、`COVER` 遮盖、`PRINT&COVER` 打印 + 遮盖。",
+      "description": "透明度控制范围",
       "type": "string",
       "enum": [
         "PRINT",
@@ -169,5 +166,5 @@
     "displayStroke",
     "matrix"
   ],
-  "description": "面板多边形"
+  "description": "面板多边形\r\n\r\n面板族（PANEL / PANEL_LIB）里的**面状图形**，一行一条（`type:\"POLY\"`）。\r\n面板上按层铺开的图形（板框、挖孔 / 挖空、灯光、鼓包等）都由它表达，\r\n归属哪一层由 `layer` 决定（层的取值见 `TPanelBase`）。\r\n\r\n外形是**复杂多边形** `ploys`：**首环为外轮廓、后续各环为内洞**，故一个图元就能画出带孔的形状；\r\n描边与填充可分别用 `displayStroke` / `displayFill` 开关，填充除纯色外还支持**图片内嵌**与**外部引用**。\r\n\r\n⚠️ 本类型**没有 `x` / `y`**，位置、旋转、缩放全在 `matrix` 里；`rotation` 只是控制点角度。\r\n\r\n行外壳的 `id` 是 `TElementId` 的**面板形态**：`e` 前缀 + 16 位小写十六进制、共 17 字符。"
 }

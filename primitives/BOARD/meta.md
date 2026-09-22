@@ -6,6 +6,11 @@
 
 板子 META 类型
 
+板子文档（`BOARD`）的 META 行，一行一条（`type:"META"`）：只承载**板子名称**与**排序层级**。
+板子是工程里把原理图与 PCB 归到一起的单位，它本身不挂父级、也没有来源字段。
+
+板子文档的 META 行 id 是**固定单例名** `META`（属**固定单例 id**，见 [TSingletonElementId](../REFERENCE/t-singleton-element-id.md)）。
+
 ## 字段
 
 | 字段 | 类型 | 必需 | 约束 | 说明 |

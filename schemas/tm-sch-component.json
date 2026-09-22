@@ -3,11 +3,11 @@
   "type": "object",
   "properties": {
     "groupId": {
-      "description": "分组编号；**两种「未成组」形态都表示未成组**：\r\n - **3.0 写盘时该键根本不存在**：写入端取 `model.combination?.id`，未成组即 `undefined`，\r\n   经 `JSON.stringify` 后整键被丢弃，消费方须**按可选键处理**；\r\n - **`\"\"` 只出现在 2.0 迁移数据里**（2.0 → 3.0 转换腿原样带着它）。",
+      "description": "分组编号；**两种「未成组」形态都表示未成组**：\r\n- **3.0 写盘时该键根本不存在**：写入端取 `model.combination?.id`，未成组即 `undefined`，\r\n  经 `JSON.stringify` 后整键被丢弃，消费方须**按可选键处理**；\r\n- **`\"\"` 只出现在 2.0 迁移数据里**（2.0 → 3.0 转换腿原样带着它）。",
       "type": "string"
     },
     "locked": {
-      "description": "是否锁定",
+      "description": "是否锁定。\r\n\r\n⚠️ **原理图侧目前只是数据字段**：pro-sch 里没有任何按它拦截拖拽 / 删除 / 改大小 /\r\n改形状的实现（连「锁定 / 解锁」命令本身都是空实现，只 publish 属性面板刷新）。\r\n那四条行为特征只在 **PCB / 面板**侧落实。生成数据时照常写入本字段，\r\n但**不要指望原理图端会因为它而禁止操作**。",
       "type": "boolean"
     },
     "zIndex": {
@@ -18,7 +18,7 @@
       ]
     },
     "yAxisDirection": {
-      "description": "Y 轴方向标记：**仅 eprj3 本地文件格式会带**，读盘时被剥离。\r\n\r\n 取值：`up` **已按 Y 轴向上写出**（本地文件固定用它）、`down` Y 轴向下\r\n （**字段缺失等价于它**，两者是同一件事）。完整语义见 `TYAxisDirection`。\r\n\r\n ⚠️ 本基类被多个图元继承，**各自被翻转的字段不同**——完整对照表见 `TYAxisDirection`。\r\n 本基类直接覆盖的：`ATTR`/`TEXT`/`PIN`/`COMPONENT` 翻 `y`；`OBJ`/`TABLE` 翻 `startY`；\r\n `ARC` 翻 `startY`/`referY`/`endY`；`CIRCLE`/`ELLIPSE` 翻 `centerY` + 内嵌 `text.y`；\r\n `RECT` 翻 `dotY1`/`dotY2` + `text.y`；`MASK_REGION` 翻 `dotY1`/`dotY2`；`POLY` 翻\r\n `points` 各项的 `y`；`BEZIER` 翻 `controls` 的奇数下标。\r\n `rotation` / `isMirror` / `zIndex` 与所有幅值字段**不翻**。",
+      "description": "Y 轴方向标记：**仅 eprj3 本地文件格式会带**，读盘时被剥离。\r\n\r\n取值：`up` = **笛卡尔坐标系（Y 向上）**，本行坐标已按它写出（本地文件固定用它），`down` = **屏幕坐标系（Y 向下）**（编辑器内部与云端的常态）\r\n——**字段缺失等价于它**，两者是同一件事；两套坐标系下同一个形状的 y **互为相反数**。完整语义见 `TYAxisDirection`。\r\n\r\n⚠️ 本基类被多个图元继承，**各自被翻转的字段不同**——完整对照表见 `TYAxisDirection`。\r\n本基类直接覆盖的：`ATTR`/`TEXT`/`PIN`/`COMPONENT` 翻 `y`；`OBJ`/`TABLE` 翻 `startY`；\r\n`ARC` 翻 `startY`/`referY`/`endY`；`CIRCLE`/`ELLIPSE` 翻 `centerY` + 内嵌 `text.y`；\r\n`RECT` 翻 `dotY1`/`dotY2` + `text.y`；`MASK_REGION` 翻 `dotY1`/`dotY2`；`POLY` 翻\r\n`points` 各项的 `y`；`BEZIER` 翻 `controls` 的奇数下标。\r\n`rotation` / `isMirror` / `zIndex` 与所有幅值字段**不翻**。",
       "type": "string",
       "enum": [
         "up",
@@ -26,19 +26,19 @@
       ]
     },
     "partId": {
-      "description": "所属部件编号：指向**关联符号文档**里的 `PART` 行 id（`PART` 行只存在于 SYMBOL 文档，\r\n 见 `TPart` 的说明）——取值就是那个符号文档里 `key:\"Symbol\"` 属性值所标识文档中的 PART 行。\r\n\r\n ⚠️ 旧注释说「符号页专属 / 默认 `\"\"`」不准确：**图页元件也用本字段**（真机 SCH 文档的\r\n COMPONENT 带 `partId:\"-1\"`）。协议类型上它是必填，但**真机存在整键缺失的 COMPONENT**，\r\n 读取时按可空处理。",
+      "description": "所属部件编号：指向**关联符号文档**里的 `PART` 行 id（`PART` 行只存在于 SYMBOL 文档，\r\n见 `TPart` 的说明）——取值就是那个符号文档里 `key:\"Symbol\"` 属性值所标识文档中的 PART 行。\r\n\r\n⚠️ 旧注释说「符号页专属 / 默认 `\"\"`」不准确：**图页元件也用本字段**（真机 SCH 文档的\r\nCOMPONENT 带 `partId:\"-1\"`）。协议类型上它是必填，但**真机存在整键缺失的 COMPONENT**，\r\n读取时按可空处理。\r\n\r\n取值是**图元 id**（`PART` 行的 `id`），真机如 `-1`、`TPS16417DRCR.1`——这种指向 `PART`\r\n行的 id 的形态与判别见 `TPartId`。",
       "type": "string"
     },
     "x": {
-      "description": "位置 X",
+      "description": "位置 X（0.01 inch）",
       "type": "number"
     },
     "y": {
-      "description": "位置 Y",
+      "description": "位置 Y（0.01 inch）",
       "type": "number"
     },
     "rotation": {
-      "description": "旋转角度（角度制）：绕 位置 旋转",
+      "description": "旋转角度（角度制，**逆时针为正**）：绕 位置 旋转",
       "type": "number",
       "minimum": 0,
       "maximum": 360

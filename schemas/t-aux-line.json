@@ -7,16 +7,16 @@
       "type": "string"
     },
     "layer": {
-      "description": "层\r\n\r\n取值（面板层枚举）：\r\n- `1` 打印层（PRINT_LAYER）\r\n- `2` 透明控制层（OPACITY_LAYER）\r\n- `3` 板框层（BOARD_LAYER）\r\n- `4` 板框挖空/挖孔层（BOARD_HOLE）\r\n- `5` 背胶挖空层（GLUE_HOLE）\r\n- `6` 灯光层（LIGHT_LAYER）\r\n- `7` 鼓包层（BUN）\r\n- `8` 辅助绘制层（ASSIST，辅助线恒落此层）\r\n- `99` 适应所有（APPLY_ALL，虚构层，属于此层的一律导出）\r\n\r\n枚举中另有 `-1` 图页-边界层（BOUNDARY_LAYER）。",
+      "description": "层：**第几号是哪一层见 `EPanelLayer`**（`1` 打印层、`3` 板框层、`99` 适应所有 …）。\r\n辅助线恒落「辅助绘制层」；`99` 是**虚构层**，属于它的一律导出。",
       "type": "number",
       "minimum": -1
     },
     "locked": {
-      "description": "是否锁定",
+      "description": "是否锁定：锁定后**不能拖拽、不能删除、不能用鼠标键盘调整大小、不能调整形状**，\r\n命中即弹锁告警。⚠️ **已知例外**：`Ctrl` + 拖拽锚点改形那条路径没有锁检查\r\n（需先勾选「锁定图元也可选」的过滤项才能触发）。",
       "type": "boolean"
     },
     "zIndex": {
-      "description": "叠放次序：越大越靠上。检测到重复值时会按图元顺序整体重编号（index+1），\r\n 无重复时原样保留。\r\n\r\n **缺省表示是 `null`**（不写 0），读取端把 `null` 当 0 处理。\r\n ⚠️ `null` 与「下限 0」互斥，故本字段**不设下限**，只保留缺省标签。",
+      "description": "叠放次序：越大越靠上。检测到重复值时会按图元顺序整体重编号（index+1），\r\n无重复时原样保留。\r\n\r\n**缺省表示是 `null`**（不写 0），读取端把 `null` 当 0 处理。\r\n⚠️ `null` 与「下限 0」互斥，故本字段**不设下限**，只保留缺省标签。",
       "type": [
         "number",
         "null"
@@ -28,7 +28,7 @@
       "type": "boolean"
     },
     "cover": {
-      "description": "是否加盖遮盖层：0/1 的布尔开关（属性面板的 Cover），与透明度无关。\r\n 透明度见 transScope/transPrint/transWhite，遮盖颜色见 TPanelCanvas.coverColor",
+      "description": "是否加盖遮盖层：0/1 的布尔开关（属性面板的 Cover），与透明度无关。\r\n透明度见 transScope/transPrint/transWhite，遮盖颜色见 `TPanelCanvas` 的 `coverColor`",
       "type": [
         "number",
         "null"
@@ -39,26 +39,26 @@
       "type": "string"
     },
     "x": {
-      "description": "X",
+      "description": "X（0.01 inch）",
       "type": "number"
     },
     "y": {
-      "description": "Y",
+      "description": "Y（0.01 inch）",
       "type": "number"
     },
     "rotation": {
-      "description": "旋转角度（角度制）",
+      "description": "旋转角度（角度制，⚠️ **顺时针为正**）\r\n\r\n⚠️ 面板里**两套方向相反**：本字段与 `TPanelDimension.rotation` 是**顺时针**，\r\n而 `POLY` / `STRING` 的 `rotation` 是**逆时针**。不要按同一口径读。\r\n\r\n另外本字段**兼作类型判别值**：`0` / `180` / `360` = 水平，`90` / `270` = 垂直。",
       "type": "number",
       "minimum": 0,
       "maximum": 360
     },
     "strokeWidth": {
-      "description": "线宽（预留，非画布尺寸)",
+      "description": "线宽（预留，非画布尺寸)\r\n单位：**0.01 inch**",
       "type": "number",
       "minimum": 0
     },
     "strokeStyle": {
-      "description": "线型：null 为默认\r\n\r\n 取值：`SOLID` 实线、`SHORT_DASH` 短划线、`DOT` 点线、`DOT_DASH` 点划线。",
+      "description": "线型：null 为默认",
       "type": [
         "string",
         "null"
@@ -105,5 +105,5 @@
     "color",
     "length"
   ],
-  "description": "辅助线\r\n\r\n原子类型取数据流里的实际取值（EPanelDataType.AUX_LINE 的值是 \"AUXLINE\"，\r\n枚举成员名里的下划线不进数据流）。\r\n\r\n⚠️ 本类型继承自 `TPanelBase` 的 `layer` 字段**解析端不读取**：写盘侧虽然照写，\r\n但辅助线恒落在辅助层（**ASSIST = 8**），解码后不会被还原成载荷里写的值。"
+  "description": "辅助线\r\n\r\n原子类型取数据流里的实际取值（EPanelDataType.AUX_LINE 的值是 \"AUXLINE\"，\r\n枚举成员名里的下划线不进数据流）。\r\n\r\n⚠️ 本类型继承自 `TPanelBase` 的 `layer` 字段**解析端不读取**：写盘侧虽然照写，\r\n但辅助线恒落在辅助层（**ASSIST = 8**），解码后不会被还原成载荷里写的值。\r\n\r\n行外壳的 `id` 是 `TElementId` 的面板形态（`e` + 16 位小写十六进制、共 17 字符）。"
 }

@@ -10,7 +10,7 @@
           "description": "单位：仅作显示与精度参考，见 TRuleContext 的【长度单位】说明"
         },
         "isForAll": {
-          "description": "安全间距表的显示状态\r\n\r\n取值（`EShowStatus`）：\r\n- `ALL` 全部\r\n- `LAYERED` 分层\r\n\r\n注：2.0 旧数据里该字段是数字（0 全部、1 分层），解析时会被转换。"
+          "description": "安全间距表的显示状态\r\n注：2.0 旧数据里该字段是数字（0 全部、1 分层），解析时会被转换。"
         },
         "safeSpacing": {
           "description": "安全间距",
@@ -191,7 +191,7 @@
                     "description": "层编号"
                   },
                   "connType": {
-                    "description": "连接方式\r\n\r\n取值（`EPadConnect`）：\r\n- `DIVERGENCE` 热焊（发散）\r\n- `DIRECT` 直连\r\n- `NON_CONNECT` 无连接"
+                    "description": "连接方式"
                   },
                   "spoSpac": {
                     "description": "发散间距"
@@ -268,10 +268,10 @@
           "description": "焊盘 - 底层扩展"
         },
         "testPointTopExpan": {
-          "description": "测试点 - 顶层扩展\r\n\r\n 注意：允许**负值**，负数哨兵表示「无扩展」（旧数组格式缺省 -1000、\r\n 新对象格式缺省 -100），因此不能用 `>= 0` 校验。"
+          "description": "测试点 - 顶层扩展\r\n\r\n注意：允许**负值**，负数哨兵表示「无扩展」（旧数组格式缺省 -1000、\r\n新对象格式缺省 -100），因此不能用 `>= 0` 校验。"
         },
         "testPointBotExpan": {
-          "description": "测试点 - 底层扩展\r\n\r\n 注意：允许**负值**，负数哨兵表示「无扩展」（同 testPointTopExpan）。"
+          "description": "测试点 - 底层扩展\r\n\r\n注意：允许**负值**，负数哨兵表示「无扩展」（同 testPointTopExpan）。"
         }
       }
     },
@@ -289,10 +289,10 @@
           "description": "焊盘 - 底层扩展"
         },
         "viaTopExpan": {
-          "description": "过孔 - 顶层扩展\r\n\r\n 注意：允许**负值**，负数表示「负扩展（内缩）」，默认即为负值\r\n （内部 -100、写盘 -1000），不能用 `>= 0` 校验。"
+          "description": "过孔 - 顶层扩展\r\n\r\n注意：允许**负值**，负数表示「负扩展（内缩）」，默认即为负值\r\n（内部 -100、写盘 -1000），不能用 `>= 0` 校验。"
         },
         "viaBotExpan": {
-          "description": "过孔 - 底层扩展\r\n\r\n 注意：允许**负值**，负数表示「负扩展（内缩）」（同 viaTopExpan）。"
+          "description": "过孔 - 底层扩展\r\n\r\n注意：允许**负值**，负数表示「负扩展（内缩）」（同 viaTopExpan）。"
         },
         "testPointTopExpan": {
           "description": "测试点 - 顶层扩展"
@@ -337,7 +337,7 @@
           "description": "差分对长度误差"
         },
         "toleranceUnit": {
-          "description": "差分对长度公差单位（**可缺省**）：通常为长度单位，也可取值时间单位（如 `'ps'`），\r\n 此时公差数值的量纲随之改变。\r\n\r\n ⚠️ 本仓转换腿显式写 `undefined`（经 `JSON.stringify` 被丢弃），真实数据里也没有该字段，\r\n 因此**缺省时量纲随 `unit`**，读取端不得假设该键一定存在。"
+          "description": "差分对长度公差单位（**可缺省**）：通常为长度单位，也可取值时间单位（如 `'ps'`），\r\n此时公差数值的量纲随之改变。\r\n\r\n⚠️ 本仓转换腿显式写 `undefined`（经 `JSON.stringify` 被丢弃），真实数据里也没有该字段，\r\n因此**缺省时量纲随 `unit`**，读取端不得假设该键一定存在。"
         }
       }
     },
@@ -361,16 +361,16 @@
       "type": "object",
       "properties": {
         "routingCorner": {
-          "description": "布线角度\r\n\r\n取值（`EAutoRoutingCorner`）：\r\n- `L45` 45度\r\n- `L90` 90度拐角\r\n- `A90` 90度圆弧拐角"
+          "description": "布线角度"
         },
         "isKeep": {
-          "description": "是否保留已有布线数据：本仓写盘为 0/1 数字，外部转换器写 true/false，\r\n 两种形态并存，读取时按真假处理"
+          "description": "是否保留已有布线数据：本仓写盘为 0/1 数字，外部转换器写 true/false，\r\n两种形态并存，读取时按真假处理"
         },
         "viaQuantity": {
-          "description": "过孔数量：自动布线允许使用的过孔数量档位\r\n\r\n 取值（`EAutoRoutingViaQuantity`）：\r\n - `LESS` 较少\r\n - `MID` 中等\r\n - `MORE` 较多\r\n\r\n 注：该字段目前只做读写透传，未找到实际消费方"
+          "description": "过孔数量：自动布线允许使用的过孔数量档位\r\n注：该字段目前只做读写透传，未找到实际消费方"
         },
         "routingEffectPriority": {
-          "description": "效果优先级：自动布线的效果优先档位\r\n\r\n 取值（`EAutoRoutingPriority`）：\r\n - `SPEED_FIRST` 速度优先\r\n - `COMPLETION_FIRST` 完成度优先"
+          "description": "效果优先级：自动布线的效果优先档位"
         },
         "layers": {
           "description": "布线层"
@@ -409,7 +409,7 @@
       "type": "object",
       "properties": {
         "minAngle": {
-          "description": "最小角度\r\n 单位为**度**（编辑器内部按弧度使用，读取时需换算）"
+          "description": "最小角度\r\n单位为**度**（编辑器内部按弧度使用，读取时需换算）"
         }
       }
     },
@@ -587,5 +587,5 @@
     "DFM_SILKSCREEN_2_PAD",
     "DFM_SILKSCREEN_LINE_WIDTH"
   ],
-  "description": "设计规则内容\r\n\r\n【结构】这是一个**扁平对象**：键直接是各规则的字段名（`unit`、`isForAll`、`safeSpacing`…），\r\n而不是按规则类型再分一层的嵌套结构。\r\n\r\n【长度单位】除下述例外，本类型内所有长度类数值一律以 **mil** 为口径，与 `unit` 字段的取值无关。\r\n`unit` 只作显示与精度（小数位）参考，不参与数值换算；解析端如需 mm 请自行换算\r\n（1 mil = 0.0254 mm）。\r\n\r\n【例外】可携带**时间量纲**的只有这三处：\r\n- `NET_LENGTH` / `NET_LENGTH_TOLERANCE`：由自身的 `unit` 承载，当 `unit` 是时间单位\r\n  （如 `'ps'`）时，数值表示的是**传输延迟**而非几何长度；\r\n- `DIFFER_ENTAIL`：由独立的 `toleranceUnit` 承载（**该字段可缺省**，缺省时量纲随 `unit`），\r\n  `unit` 仍表示长度单位。"
+  "description": "设计规则内容\r\n\r\n【结构】这是一个**扁平对象**：键直接是各规则的字段名（`unit`、`isForAll`、`safeSpacing`…），\r\n而不是按规则类型再分一层的嵌套结构。\r\n\r\n【长度单位】⚠️ **本类型里的长度类数值是「内部单位」，不是 mil**——\r\n**1 单位 = 10 mil = 0.01 inch = 0.254 mm**。依据：写盘腿对它们**不做 ×10**\r\n（同目录其它坐标类字段一律 `toFix(num * 10, 4)` 换算成 mil，这里没有），\r\n消费端展示时才 `* 10` 当 mil 用。**别按本文件其它字段的 mil 口径读它们。**\r\n\r\n`unit` 字段与这些数值的**单位无关**：它只决定**显示与精度**（小数位），\r\n不参与任何换算；要让用户看到 mm，由消费端把上面的内部单位自己换过去。\r\n\r\n【例外】可携带**时间量纲**的只有这三处：\r\n- `NET_LENGTH` / `NET_LENGTH_TOLERANCE`：由自身的 `unit` 承载，当 `unit` 是时间单位\r\n  （如 `'ps'`）时，数值表示的是**传输延迟**而非几何长度；\r\n- `DIFFER_ENTAIL`：由独立的 `toleranceUnit` 承载（**该字段可缺省**，缺省时量纲随 `unit`），\r\n  `unit` 仍表示长度单位。"
 }

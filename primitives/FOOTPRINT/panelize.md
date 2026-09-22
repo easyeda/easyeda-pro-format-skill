@@ -6,6 +6,19 @@
 
 拼板
 
+一份文档里**只有一条**（`type:"PANELIZE"`），描述这块板怎么**拼**：把单板按
+`row` × `column` 阵列复制成一整块可生产的大板，并给出行列间距、是否只拼边框，
+以及小板之间的连接方式。
+
+连接与边框参数拆在几个子结构里：邮票孔见 [TPanelizeStamp](./panelize_stamp.md)（水平 / 垂直各一份），
+四周的工艺边见 [TPanelizeSide](./panelize_side.md)（水平 / 垂直各一份）；此外还记了阴阳板、
+偶行 / 偶列翻面与旋转角、mark 点与定位孔相对板边的距离等。
+
+⚠️ **没启用拼板时这条记录照样会落盘**（`on` 为 false 也带一份完整载荷）——
+它是一份**设置快照**，不是「有没有拼板」的开关；判断是否启用请看 `on`。
+
+id 是**固定单例名** `"PANELIZE"`（这类**固定单例 id** 见 [TSingletonElementId](../REFERENCE/t-singleton-element-id.md)）。
+
 ## 字段
 
 | 字段 | 类型 | 必需 | 约束 | 说明 |
@@ -13,23 +26,23 @@
 | on | `boolean` | ✓ | - | 是否启用 |
 | row | `number` | ✓ | - | 行数 |
 | column | `number` | ✓ | - | 列数 |
-| rowSpacing | `number` | ✓ | - | 行距 |
-| columnSpacing | `number` | ✓ | - | 列距 |
+| rowSpacing | `number` | ✓ | - | 行距（mil） |
+| columnSpacing | `number` | ✓ | - | 列距（mil） |
 | onlyOutline | `boolean` | ✓ | - | 是否只拼边框 |
-| horizontalStamp | `TPanelizeStamp` | ✓ | - | 邮票孔参数 - 水平 |
-| verticalStamp | `TPanelizeStamp` | ✓ | - | 邮票孔参数 - 垂直 |
-| horizontalSize | `TPanelizeSide` | ✓ | - | 工艺边参数 - 水平（方向由本字段位置表达；解码端会注入 `direction: 0`， 但**真实样本里没有该键**、读盘别依赖它——详见 TPanelizeSide 的说明） |
-| verticalSize | `TPanelizeSide` | ✓ | - | 工艺边参数 - 垂直（方向由本字段位置表达；解码端会注入 `direction: 1`， 但**真实样本里没有该键**、读盘别依赖它——详见 TPanelizeSide 的说明） |
+| horizontalStamp | [TPanelizeStamp](./panelize_stamp.md) | ✓ | - | 邮票孔参数 - 水平 |
+| verticalStamp | [TPanelizeStamp](./panelize_stamp.md) | ✓ | - | 邮票孔参数 - 垂直 |
+| horizontalSize | [TPanelizeSide](./panelize_side.md) | ✓ | - | 工艺边参数 - 水平（本字段类型即 [TPanelizeSide](./panelize_side.md)；方向由本字段位置表达—— 解码端会注入 `direction: 0`，但**真实样本里没有该键**、读盘别依赖它） |
+| verticalSize | [TPanelizeSide](./panelize_side.md) | ✓ | - | 工艺边参数 - 垂直（本字段类型即 [TPanelizeSide](./panelize_side.md)；方向由本字段位置表达—— 解码端会注入 `direction: 1`，但**真实样本里没有该键**、读盘别依赖它） |
 | mirrorBoard | `boolean \| undefined` | ✓ | - | 阴阳板 |
 | mirrorEvenRow | `boolean \| undefined` | ✓ | - | 偶数行翻面 |
 | mirrorEvenCol | `boolean \| undefined` | ✓ | - | 偶数列翻面 |
-| evenRowRotation | `number \| undefined` | ✓ | - | 偶数行角度 |
-| evenColRotation | `number \| undefined` | ✓ | - | 偶数列角度 |
+| evenRowRotation | `number \| undefined` | ✓ | - | 偶数行的旋转角（角度制，**逆时针为正**） |
+| evenColRotation | `number \| undefined` | ✓ | - | 偶数列的旋转角（角度制，**逆时针为正**） |
 | showVCutIndicator | `boolean \| undefined` | ✓ | - | v割标识 |
 | vCutLayer | `number \| undefined` | ✓ | - | 层 |
 | markPosition | `Array<Array<number>>` |  | - | mark 点位置：**最多 4 个**（按 左上、右上、左下、右下 的顺序存放）。 每个元素是 **4 个数**，依次表示该 mark 点中心到最外侧 bbox 的 **`[到上边, 到右边, 到下边, 到左边]`** 四个距离。 |
 | positionHolePosition | `Array<Array<number>>` |  | - | 定位孔位置：结构同 `markPosition`（最多 4 个，每个 4 个数 = `[到上边, 到右边, 到下边, 到左边]` 四个距离），只是承载的是定位孔而非 mark 点。 |
-| panelizeVersion | `EPanelizeVersion` | ✓ | - | 取值范围：1.0（拼板版本 1.0）、1.1（拼板版本 1.1；拼板版本 1.1（当前默认值，与 pro2 同值，两个成员是有意保留的别名）） |
+| panelizeVersion | [EPanelizeVersion](../REFERENCE/e-panelize-version.md) | ✓ | - | 取值范围：1.0（拼板版本 1.0）、1.1（拼板版本 1.1；拼板版本 1.1（当前默认值，与 pro2 同值，两个成员是有意保留的别名）） |
 
 ## JSON Schema
 

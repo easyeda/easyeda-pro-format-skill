@@ -11,16 +11,19 @@
 解码端会自己往里注入一个 `direction` 字段（水平注入 `0`、垂直注入 `1`），
 所以**读盘时不要依赖这个键**。
 
+在 PCB / 封装文档里，它是 [TPanelize](./panelize.md) 的 `horizontalSize` / `verticalSize` 两个字段的载体；
+其 `id`（如单独出现在盘上）形态见 [TElementId](../REFERENCE/t-element-id.md)（普通形态为随机 16 位十六进制）。
+
 ## 字段
 
 | 字段 | 类型 | 必需 | 约束 | 说明 |
 |------|------|------|------|------|
 | on | `boolean` | ✓ | - | 是否启用（不启用则不使用工艺边） |
-| sideHeight | `number` | ✓ | - | 工艺边高度 |
-| positionHoleDiameter | `number` | ✓ | - | 定位孔直径（0 表示无定位孔） |
-| markDiameter | `number` | ✓ | - | Mark 点直径（0 表示不启用 Mark 点） |
+| sideHeight | `number` | ✓ | - | 工艺边高度（mil） |
+| positionHoleDiameter | `number` | ✓ | - | 定位孔直径（0 表示无定位孔）（mil） |
+| markDiameter | `number` | ✓ | - | Mark 点直径（0 表示不启用 Mark 点）（mil） |
 | markExpansion | `number` | ✓ | - | Mark 点阻焊扩展 |
-| borderRadius | `number \| undefined` | ✓ | - | 工艺边圆角半径 |
+| borderRadius | `number \| undefined` | ✓ | - | 工艺边圆角半径（mil） |
 
 ## JSON Schema
 

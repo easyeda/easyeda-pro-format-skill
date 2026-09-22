@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "ruleOrder": {
+      "description": "优先级：数值越小，优先级越高\r\n\r\n注：该字段同时被当作「规则选择器类型」使用（外部转换器按它取最小值选规则），\r\n两种语义并存，消费时需留意。",
+      "type": "number",
+      "minimum": 0
+    },
+    "ruleKeyValue": {
+      "description": "规则选择表：Key 为规则类（ERuleType 的取值），Value 为所选规则名。\r\n\r\n每个规则类下通常只能选择一个规则，因此 Value 多为字符串；\r\n但**网络长度公差**是特例——它用数组额外携带目标网络，即\r\n`[规则名, 目标网络]`，读取时取数组首元素作为规则名。\r\n⚠️ 该数组的**第 2 项（目标网络）可以为 `null`**（配对编码器会写 `null`），\r\n故元素类型放宽为 `string | null`。",
+      "type": "object"
+    },
+    "copperValue": {
+      "description": "铺铜规则(选择值)",
+      "type": "object"
+    },
+    "innerPlaneValue": {
+      "description": "内电层规则(选择值)",
+      "type": "object"
+    },
+    "parent": {
+      "description": "父选择器：**只在 PCB 侧写出**，写法为——普通选择器写 `null`（不是 `undefined`），\r\n`DIFF_PAIR` 选择器则写**所属组名**（字符串）。\r\nSCH 侧为手写对象、**不写该字段**。\r\n\r\n⚠️ 「PCB 一定带它」**不成立**：历史数据里 535 条 PCB `RULE_SELECTOR` **全部没有**该键，\r\n读取端必须容忍整体缺省。\r\n⚠️ 声明类型是数组成员，`DIFF_PAIR` 写组名字符串的情形与之不符，读取端请按实际数据放宽。",
+      "type": "array",
+      "items": {
+        "type": [
+          "string",
+          "number",
+          "object",
+          "array"
+        ]
+      }
+    }
+  },
+  "required": [
+    "ruleOrder",
+    "ruleKeyValue",
+    "copperValue",
+    "innerPlaneValue"
+  ],
+  "description": "规则选择器\r\n\r\n【外层数据id构造】id 是**键式 id** —— 盘上是数组串 `[\"RULE_SELECTOR\", 选择器标识]`，\r\n两段各有含义（见 `TKeyedElementId`）：**第 1 段** `\"RULE_SELECTOR\"` 是固定前缀；\r\n**第 2 段**标出这条选择器**选的是哪一类对象**，由本类型的字段 `ruleSelect` 提供\r\n（示例：`[\"NET\",\"GND\"]`）—— 它是一串标识，**不是任何行的 id**。\r\n⚠️ 与 `TRuleWire`（`RULE`）同理：**写盘时 `ruleSelect` 会从载荷里删掉**（只存在于 id），读盘时再由 id 还原。\r\n\r\n本类型与 `TRuleWire` 配套：`ruleSelect` 说明规则作用在哪些对象上，\r\n`ruleKeyValue` 按规则类型指向 `TRuleWire` 的 `ruleName`。"
+}

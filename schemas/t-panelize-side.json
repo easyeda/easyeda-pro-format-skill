@@ -7,15 +7,15 @@
       "type": "boolean"
     },
     "sideHeight": {
-      "description": "工艺边高度",
+      "description": "工艺边高度（mil）",
       "type": "number"
     },
     "positionHoleDiameter": {
-      "description": "定位孔直径（0 表示无定位孔）",
+      "description": "定位孔直径（0 表示无定位孔）（mil）",
       "type": "number"
     },
     "markDiameter": {
-      "description": "Mark 点直径（0 表示不启用 Mark 点）",
+      "description": "Mark 点直径（0 表示不启用 Mark 点）（mil）",
       "type": "number"
     },
     "markExpansion": {
@@ -23,7 +23,7 @@
       "type": "number"
     },
     "borderRadius": {
-      "description": "工艺边圆角半径",
+      "description": "工艺边圆角半径（mil）",
       "type": "number"
     }
   },
@@ -35,5 +35,5 @@
     "markExpansion",
     "borderRadius"
   ],
-  "description": "工艺边参数\r\n\r\n⚠️ **不要往示例里补 `direction`**：真实样本的 `horizontalSize` / `verticalSize` 里都没有该键，\r\n区分水平/垂直靠的是它在 PANELIZE 里的**位置**（`horizontalSize` 还是 `verticalSize`）。\r\n解码端会自己往里注入一个 `direction` 字段（水平注入 `0`、垂直注入 `1`），\r\n所以**读盘时不要依赖这个键**。"
+  "description": "工艺边参数\r\n\r\n⚠️ **不要往示例里补 `direction`**：真实样本的 `horizontalSize` / `verticalSize` 里都没有该键，\r\n区分水平/垂直靠的是它在 PANELIZE 里的**位置**（`horizontalSize` 还是 `verticalSize`）。\r\n解码端会自己往里注入一个 `direction` 字段（水平注入 `0`、垂直注入 `1`），\r\n所以**读盘时不要依赖这个键**。\r\n\r\n在 PCB / 封装文档里，它是 `TPanelize` 的 `horizontalSize` / `verticalSize` 两个字段的载体；\r\n其 `id`（如单独出现在盘上）形态见 `TElementId`（普通形态为随机 16 位十六进制）。"
 }

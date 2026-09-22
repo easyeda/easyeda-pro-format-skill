@@ -10,16 +10,13 @@
           "description": "扫描类型：DEC 十倍频程 / OCT 倍频程 / LIN 线性"
         },
         "freMult": {
-          "description": "每档采样点数（**无量纲**，直接作为 `.ac` 的第 2 个参数），如 `10`\r\n ——配合 DEC 即每十倍频程 10 点"
+          "description": "每档采样点数（**无量纲**，直接作为 `.ac` 的第 2 个参数），如 `10`\r\n——配合 DEC 即每十倍频程 10 点"
         },
         "startFrequency": {
           "description": "起始频率：带单位的数值，如 `500`、`1k`"
         },
         "stopFrequency": {
           "description": "终止频率：带单位的数值，如 `5G`"
-        },
-        "compatMode": {
-          "description": "兼容模式"
         }
       }
     },
@@ -34,10 +31,7 @@
           "description": "第二个扫描源：只在 `sourceStatus` 为 `false`（双源嵌套）时参与扫描"
         },
         "sourceStatus": {
-          "description": "⚠️ **极性容易记反**：`true` ⇒ **只扫 `dcSourceData1`**（命令里只出现\r\n `d1.sourceName` / `startValue` / `stopValue` / `increment`）；`false` ⇒ **两源做嵌套扫描**\r\n （命令含 8 个参数，`dcSourceData1` 与 `dcSourceData2` 拼接）。\r\n 依据：仿真网表生成时 `DC` 分支的行为。"
-        },
-        "compatMode": {
-          "description": "兼容模式"
+          "description": "⚠️ **极性容易记反**：`true` ⇒ **只扫 `dcSourceData1`**（命令里只出现\r\n`d1.sourceName` / `startValue` / `stopValue` / `increment`）；`false` ⇒ **两源做嵌套扫描**\r\n（命令含 8 个参数，`dcSourceData1` 与 `dcSourceData2` 拼接）。\r\n依据：仿真网表生成时 `DC` 分支的行为。"
         }
       }
     },
@@ -56,394 +50,16 @@
         },
         "maxTimeStep": {
           "description": "最大步长：带单位的数值；为空表示不限制"
-        },
-        "calcDcBiasPoint": {
-          "description": ""
-        },
-        "compatMode": {
-          "description": "兼容模式"
         }
       }
     },
-    "mcSetting": {
-      "description": "蒙特卡洛分析设置",
-      "type": "object",
-      "properties": {
-        "toleranceList": {
-          "description": "容差列表",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "行唯一 id",
-                "type": "string"
-              },
-              "parameterType": {
-                "description": "参数类型：器件参数|模型参数",
-                "type": "string",
-                "enum": [
-                  "device",
-                  "model"
-                ]
-              },
-              "targetId": {
-                "description": "器件实例 id",
-                "type": "string"
-              },
-              "designator": {
-                "description": "位号",
-                "type": "string"
-              },
-              "deviceKind": {
-                "description": "器件/模型类型副标题",
-                "type": "string"
-              },
-              "parameter": {
-                "description": "参数名",
-                "type": "string"
-              },
-              "field": {
-                "description": "spice 侧字段标识，模型参数行=参数键",
-                "type": "string"
-              },
-              "currentValue": {
-                "description": "当前值",
-                "type": "string"
-              },
-              "unit": {
-                "description": "单位",
-                "type": "string"
-              },
-              "toleranceType": {
-                "description": "容差类别",
-                "type": "string",
-                "enum": [
-                  "percent",
-                  "absolute"
-                ]
-              },
-              "toleranceValue": {
-                "description": "容差值",
-                "type": "string"
-              },
-              "distribution": {
-                "description": "分布，仅蒙特卡洛",
-                "type": "string",
-                "enum": [
-                  "gaussian",
-                  "uniform"
-                ]
-              },
-              "description": {
-                "description": "参数描述",
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "parameterType",
-              "targetId",
-              "designator",
-              "deviceKind",
-              "parameter",
-              "currentValue",
-              "toleranceType",
-              "toleranceValue"
-            ],
-            "description": "容差列表条目（MC/WC 共用结构）"
-          }
-        },
-        "baseAnalysis": {
-          "description": "基础分析",
-          "type": "object",
-          "properties": {
-            "type": {
-              "description": "基础分析类型",
-              "type": "string",
-              "enum": [
-                "transient",
-                "ac",
-                "dc"
-              ]
-            },
-            "transient": {
-              "description": "",
-              "type": "object"
-            },
-            "ac": {
-              "description": "",
-              "type": "object"
-            },
-            "dc": {
-              "description": "",
-              "type": "object"
-            },
-            "compatMode": {
-              "description": "兼容模式",
-              "type": "string",
-              "enum": [
-                "hsa",
-                "lta",
-                "psa",
-                "ltpsa"
-              ]
-            }
-          },
-          "required": [
-            "type"
-          ]
-        },
-        "runCount": {
-          "description": "运行次数",
-          "type": "number"
-        },
-        "seed": {
-          "description": "随机种子（固定 1）",
-          "type": "number"
-        },
-        "outputVariable": {
-          "description": "输出变量（探针位号，PRV 或 PRI 前缀）",
-          "type": "string"
-        },
-        "measurementTime": {
-          "description": "瞬态·测量时间",
-          "type": "string"
-        },
-        "measurementFrequency": {
-          "description": "交流·测量频率",
-          "type": "string"
-        },
-        "measurementVoltage": {
-          "description": "直流·测量电压",
-          "type": "string"
-        },
-        "expected": {
-          "description": "预期范围（电压/电流/增益）",
-          "type": "object",
-          "properties": {
-            "min": {
-              "description": "",
-              "type": "string"
-            },
-            "max": {
-              "description": "",
-              "type": "string"
-            }
-          }
-        },
-        "expectedPhase": {
-          "description": "交流分析的预期相位范围",
-          "type": "object",
-          "properties": {
-            "min": {
-              "description": "",
-              "type": "string"
-            },
-            "max": {
-              "description": "",
-              "type": "string"
-            }
-          }
-        }
-      },
-      "required": [
-        "toleranceList",
-        "baseAnalysis",
-        "runCount",
-        "seed",
-        "outputVariable"
-      ]
-    },
-    "wcSetting": {
-      "description": "最坏情况分析设置",
-      "type": "object",
-      "properties": {
-        "toleranceList": {
-          "description": "容差列表",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "行唯一 id",
-                "type": "string"
-              },
-              "parameterType": {
-                "description": "参数类型：器件参数|模型参数",
-                "type": "string",
-                "enum": [
-                  "device",
-                  "model"
-                ]
-              },
-              "targetId": {
-                "description": "器件实例 id",
-                "type": "string"
-              },
-              "designator": {
-                "description": "位号",
-                "type": "string"
-              },
-              "deviceKind": {
-                "description": "器件/模型类型副标题",
-                "type": "string"
-              },
-              "parameter": {
-                "description": "参数名",
-                "type": "string"
-              },
-              "field": {
-                "description": "spice 侧字段标识，模型参数行=参数键",
-                "type": "string"
-              },
-              "currentValue": {
-                "description": "当前值",
-                "type": "string"
-              },
-              "unit": {
-                "description": "单位",
-                "type": "string"
-              },
-              "toleranceType": {
-                "description": "容差类别",
-                "type": "string",
-                "enum": [
-                  "percent",
-                  "absolute"
-                ]
-              },
-              "toleranceValue": {
-                "description": "容差值",
-                "type": "string"
-              },
-              "distribution": {
-                "description": "分布，仅蒙特卡洛",
-                "type": "string",
-                "enum": [
-                  "gaussian",
-                  "uniform"
-                ]
-              },
-              "description": {
-                "description": "参数描述",
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "parameterType",
-              "targetId",
-              "designator",
-              "deviceKind",
-              "parameter",
-              "currentValue",
-              "toleranceType",
-              "toleranceValue"
-            ],
-            "description": "容差列表条目（MC/WC 共用结构）"
-          }
-        },
-        "baseAnalysis": {
-          "description": "基础分析",
-          "type": "object",
-          "properties": {
-            "type": {
-              "description": "基础分析类型",
-              "type": "string",
-              "enum": [
-                "transient",
-                "ac",
-                "dc"
-              ]
-            },
-            "transient": {
-              "description": "",
-              "type": "object"
-            },
-            "ac": {
-              "description": "",
-              "type": "object"
-            },
-            "dc": {
-              "description": "",
-              "type": "object"
-            },
-            "compatMode": {
-              "description": "兼容模式",
-              "type": "string",
-              "enum": [
-                "hsa",
-                "lta",
-                "psa",
-                "ltpsa"
-              ]
-            }
-          },
-          "required": [
-            "type"
-          ]
-        },
-        "outputVariable": {
-          "description": "输出变量（探针位号）",
-          "type": "string"
-        },
-        "measurementTime": {
-          "description": "瞬态·测量时间",
-          "type": "string"
-        },
-        "measurementFrequency": {
-          "description": "交流·测量频率",
-          "type": "string"
-        },
-        "measurementVoltage": {
-          "description": "直流·测量电压（留空用扫描最后点）",
-          "type": "string"
-        },
-        "expected": {
-          "description": "预期范围",
-          "type": "object",
-          "properties": {
-            "min": {
-              "description": "",
-              "type": "string"
-            },
-            "max": {
-              "description": "",
-              "type": "string"
-            }
-          }
-        },
-        "expectedPhase": {
-          "description": "交流分析的预期相位范围",
-          "type": "object",
-          "properties": {
-            "min": {
-              "description": "",
-              "type": "string"
-            },
-            "max": {
-              "description": "",
-              "type": "string"
-            }
-          }
-        }
-      },
-      "required": [
-        "toleranceList",
-        "baseAnalysis",
-        "outputVariable"
-      ]
-    },
     "currentSetting": {
-      "description": "当前选中的仿真类型（取值见 TCurrentSetting：AC / DC / TR / MONTE CARLO / WORST CASE）",
+      "description": "当前选中的仿真类型，同上三个分组一一对应",
       "type": "string",
       "enum": [
         "AC",
         "DC",
-        "TR",
-        "MONTE CARLO",
-        "WORST CASE"
+        "TR"
       ]
     },
     "startDisable": {
@@ -455,10 +71,8 @@
     "acSetting",
     "dcSetting",
     "trSetting",
-    "mcSetting",
-    "wcSetting",
     "currentSetting",
     "startDisable"
   ],
-  "description": "仿真图页 - 仿真设置\r\n\r\n载荷含 5 个字段：`acSetting` / `dcSetting` / `trSetting` / `currentSetting` / `startDisable`。\r\n外壳的 `id` **固定为类型名 `NG_SETTING`**（同 CANVAS），不是随机 16 位十六进制。"
+  "description": "仿真图页 - 仿真设置\r\n\r\n**仿真图页专有的仿真设置**，一个仿真页只有一行（`type:\"NG_SETTING\"`）：把 AC / DC / TR 三类分析的\r\n参数、当前选中的分析类型（`currentSetting`）以及各分析启动按钮的禁用状态收在一处。\r\n\r\n载荷含 5 个字段：`acSetting` / `dcSetting` / `trSetting` / `currentSetting` / `startDisable`。\r\n⚠️ 参数取值是**带单位的字符串**（如 `500`、`5G`、`25m`）而不是数字；`dcSetting.sourceStatus`\r\n的极性也容易记反（见字段说明）。\r\n外壳的 `id` **固定为类型名 `NG_SETTING`**（同 CANVAS），不是随机 16 位十六进制；\r\n这类固定单例 id 的形态与判别见 `TSingletonElementId`。"
 }

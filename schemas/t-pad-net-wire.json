@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "partitionId": {
+      "description": "所属分区编号，为null表示无分区：**值是 `PARTITION` 行的外壳 `id`**（图元 id，不是 uuid）",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "padNet": {
+      "description": "网络名",
+      "type": "string"
+    },
+    "padLen": {
+      "description": "引脚长度（mil）",
+      "type": "number"
+    },
+    "propagationDelay": {
+      "description": "传播延迟，3.3+ 新增：**单位 ps（皮秒）**。\r\n\r\n表示该焊盘（网络节点）对所属网络总延迟的贡献，与 `padLen` 一起参与等长/时序分析。\r\n默认 0 表示不额外贡献延迟。",
+      "type": "number"
+    },
+    "attrsMap": {
+      "description": "自定义属性",
+      "type": "object"
+    }
+  },
+  "required": [
+    "padNet",
+    "padLen",
+    "propagationDelay"
+  ],
+  "description": "焊盘实例网络映射\r\n\r\n**不是画布上的图元**，而是一张「**器件实例的焊盘 ↔ 网络**」的映射表，一行一条\r\n（`type:\"PAD_NET\"`）：用 `componentId`（元件行 id）+ `padNum`（焊盘编号）+\r\n`padId`（焊盘在封装内的局部 id）定位到具体焊盘，再给出它属于哪个网络（`padNet`）。\r\n\r\n引脚长度 `padLen` 与传播延迟 `propagationDelay` 也记在这里，供等长 / 时序分析用。\r\n\r\n【联动增删·必须成组操作】它与 `COMPONENT`、`ATTR` 同属一个生命周期：\r\n**新增 COMPONENT 时要一并写出它的 PAD_NET，删除 COMPONENT 时要一并删除**\r\n（详见 `TMPcbComponent` 的说明）。\r\n\r\n【外层数据id构造】id 是**键式 id** —— 盘上是数组串\r\n`[\"PAD_NET\", 元件 id, 焊盘编号, 封装内局部 id]`，四段各有含义（见 `TKeyedElementId`）：\r\n**第 1 段** `\"PAD_NET\"` 是固定前缀；**第 2~4 段**分别是 `componentId` / `padNum` / `padId`\r\n（`padId` 可为空串）。\r\n⚠️ **这三段只存在于 id 里，载荷里不会再写一遍** —— 写盘时先把它们编进 id、再从载荷里删掉，\r\n读盘时由解码端从 id 回填。**别按「16 位 hex」去认它的 id，它是个 JSON 数组串**。"
+}

@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "layerId": {
+      "description": "层号。\r\n\r\n与外壳 id `[\"LAYER\", 层号]` 里的层号同值（**冗余**），但写盘体里确实会带该键。\r\n**第几号是哪一层见 `ELayerCode`** —— 那是层编号的枚举（`1` = 顶层、`47` = 孔层 …）。\r\n\r\n⚠️ 标为**可选**是为了不破坏既有构造点：本包的 `2.0To3.0/PcbTransform` 与\r\n`FootprintTransform` 走的是 `encodeLayer(layerId, {…})`——层号走**独立形参**、\r\n不在载荷对象里；解码端也靠交叉类型 `{ layerId: number } & TLayer` 补它。\r\n标成必填会让这些点全部编译不过。",
+      "type": "number"
+    },
+    "layerType": {
+      "description": "层类型, 是固定枚举值。\r\n\r\n**PCB 与封装文档共用同一套取值**（见类型说明里的「封装的层」一节）。\r\n**取值表见 `ELayerType`** —— 那里把每一层的**字符串名与中文含义**列全了（该枚举不在本仓\r\n定义，来自 pro-pcb）。字段类型写成 **`string | ELayerType`** 而不是单用枚举：实际数据里\r\n它就是普通字符串，收紧成枚举会让消费方的构造点编译不过。同一层的**数字编号**见 `ELayerCode`。\r\n\r\n⚠️ 几条最容易看错的：\r\n- **底层信号层是 `BOTTOM`**（**不带前缀**）；而底层丝印 / 阻焊 / 助焊 / 装配是 **`BOT_` 前缀**：\r\n  `BOT_SILK` / `BOT_SOLDER_MASK` / `BOT_PASTE_MASK` / `BOT_ASSEMBLY`；\r\n- **没有 `DRILL`** —— 钻孔相关的是 `DRILL_DRAWING`（钻孔图层）与 `HOLE`（孔层）；\r\n- 3D 外壳相关的三个取值**以数字开头**（`3D_SHELL_OUTLINE` / `3D_SHELL_TOP` / `3D_SHELL_BOTTOM`）。\r\n\r\n⚠️ 旧版本注释里列的 `GROUND` / `POWER` / `MIXED` / `JUMPER` / `DRC` /\r\n`BOARD_OUTLINE` / `MULTI_LAYER` **都不是合法取值**，已删除——它们是把别处的\r\n同名概念误抄进来的。",
+      "type": "string"
+    },
+    "layerName": {
+      "description": "层别名，需要唯一",
+      "type": "string"
+    },
+    "use": {
+      "description": "是否使用",
+      "type": "boolean"
+    },
+    "show": {
+      "description": "是否显示",
+      "type": "boolean"
+    },
+    "locked": {
+      "description": "是否锁定",
+      "type": "boolean"
+    },
+    "activeColor": {
+      "description": "激活颜色",
+      "type": "string",
+      "pattern": "^$|^#[0-9A-Fa-f]{6}$"
+    },
+    "activateTransparency": {
+      "description": "激活透明度",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "inactiveColor": {
+      "description": "非激活颜色",
+      "type": "string",
+      "pattern": "^$|^#[0-9A-Fa-f]{6}$"
+    },
+    "inactiveTransparency": {
+      "description": "非激活透明度",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    }
+  },
+  "required": [
+    "layerType",
+    "layerName",
+    "use",
+    "show",
+    "locked",
+    "activeColor",
+    "activateTransparency",
+    "inactiveColor",
+    "inactiveTransparency"
+  ],
+  "description": "层配置\r\n\r\n⚠️ **不要从层号、也不要从 `LAYER` 行的先后顺序推断层在物理上的堆叠位置**：\r\n3.0 把物理堆叠拆到了 **`LAYER_PHYS`** 里单独表达（其 `zIndex` 才是堆叠顺序），\r\n本类型只描述每一层自身的类型 / 别名 / 颜色等属性。\r\n（2.0 的位置化格式里确实是「`SIGNAL` / `PLANE` / `SUBSTRATE` 的出现顺序隐含物理堆叠顺序」，\r\n那条口径在 3.0 已不适用，**别照它解析**。）\r\n层的数量不受限制。\r\n\r\n## 封装（FOOTPRINT）的层\r\n\r\n封装文档与 PCB **共用同一套层机制**，只是常用的层不同；`layerType` 的取值集合是同一套\r\n（见下方 `layerType` 字段）。除此之外封装还有 **5 个专用层**——\r\n这 5 个层在 **PCB 文档里同样存在**，那边的含义是「封装内部的层」，用于**覆盖封装内图元**：\r\n\r\n| 层号 | `layerType` | 含义 |\r\n| ---- | ----------- | ---- |\r\n| 48 | `COMPONENT_SHAPE` | 元件轮廓（元件外形显示） |\r\n| 49 | `COMPONENT_MARKING` | 元件标记（元件标识信息） |\r\n| 50 | `PIN_SOLDERING` | 引脚焊接层 |\r\n| 51 | `PIN_FLOATING` | 浮动引脚层 |\r\n| 52 | `COMPONENT_MODEL` | 元件模型层 |\r\n\r\n⚠️ 实现把 **48 / 49 / 50 / 51** 这四个层归为「**只能有 `REGION` / `LINE`**」的层\r\n（属性面板据此过滤可选层）——往这几层放别的图元，在编辑器里选不中。\r\n\r\n旧 2.0 文档另有一条口径可参考：封装「能采用的图元有限」，且**绝不应出现\r\n`DEVICE` / `FOOTPRINT` / `COMPONENT` 图元**（封装不得再调用封装、以免递归定义）。\r\n\r\n【外层数据id构造】id 是**数组串** `[\"LAYER\", 层号]` —— 层号就是本类型的字段 `layerId`\r\n（两边各有一份，**冗余**）。⚠️ 3D 层的 id 前缀是 `LAYER_3D` 而非 `LAYER`\r\n—— 3D 与否**不在载荷里**，解码后由 `TLayerWire` 的 `is3D` 字段体现。\r\n这种**数组串**是**键式 id**（见 `TKeyedElementId`）；\r\n同族的数组串 id 还有 `TLayerPhys` 的 `[\"LAYER_PHYS\", 层号]`、`TLayerFill` 的\r\n`[\"LAYER_FILL\", 层号]`、`TSilkOpts` 的 `[\"SILK_OPTS\", 层号]`。"
+}

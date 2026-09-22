@@ -15,11 +15,11 @@
       "type": "number"
     },
     "rowSpacing": {
-      "description": "行距",
+      "description": "行距（mil）",
       "type": "number"
     },
     "columnSpacing": {
-      "description": "列距",
+      "description": "列距（mil）",
       "type": "number"
     },
     "onlyOutline": {
@@ -39,7 +39,7 @@
           "type": "number"
         },
         "stampHoleDiameter": {
-          "description": "邮票孔直径",
+          "description": "邮票孔直径（mil）",
           "type": "number"
         },
         "stampHoleQuantityPerGroup": {
@@ -47,11 +47,11 @@
           "type": "number"
         },
         "stampHoleSpacing": {
-          "description": "邮票孔间距",
+          "description": "邮票孔间距（mil）",
           "type": "number"
         },
         "center_percent": {
-          "description": "邮票孔组位置与板子左侧的距离——**比例值（0~1 的小数，不是百分数）**，\r\n 实际坐标 = 板框左边界 + 比例 × 板框宽度；数组元素对应各组。\r\n 例：`[0.3333, 0.6667]` 表示两组分别位于板宽 1/3、2/3 处。\r\n 不填时按组序均分：第 i 组取 `(i+1)/(组数+1)`。",
+          "description": "邮票孔组位置与板子左侧的距离——**比例值（0~1 的小数，不是百分数）**，\r\n实际坐标 = 板框左边界 + 比例 × 板框宽度；数组元素对应各组。\r\n例：`[0.3333, 0.6667]` 表示两组分别位于板宽 1/3、2/3 处。\r\n不填时按组序均分：第 i 组取 `(i+1)/(组数+1)`。",
           "type": "array",
           "items": {
             "type": "number"
@@ -79,7 +79,7 @@
           "type": "number"
         },
         "stampHoleDiameter": {
-          "description": "邮票孔直径",
+          "description": "邮票孔直径（mil）",
           "type": "number"
         },
         "stampHoleQuantityPerGroup": {
@@ -87,11 +87,11 @@
           "type": "number"
         },
         "stampHoleSpacing": {
-          "description": "邮票孔间距",
+          "description": "邮票孔间距（mil）",
           "type": "number"
         },
         "center_percent": {
-          "description": "邮票孔组位置与板子左侧的距离——**比例值（0~1 的小数，不是百分数）**，\r\n 实际坐标 = 板框左边界 + 比例 × 板框宽度；数组元素对应各组。\r\n 例：`[0.3333, 0.6667]` 表示两组分别位于板宽 1/3、2/3 处。\r\n 不填时按组序均分：第 i 组取 `(i+1)/(组数+1)`。",
+          "description": "邮票孔组位置与板子左侧的距离——**比例值（0~1 的小数，不是百分数）**，\r\n实际坐标 = 板框左边界 + 比例 × 板框宽度；数组元素对应各组。\r\n例：`[0.3333, 0.6667]` 表示两组分别位于板宽 1/3、2/3 处。\r\n不填时按组序均分：第 i 组取 `(i+1)/(组数+1)`。",
           "type": "array",
           "items": {
             "type": "number"
@@ -107,7 +107,7 @@
       ]
     },
     "horizontalSize": {
-      "description": "工艺边参数 - 水平（方向由本字段位置表达；解码端会注入 `direction: 0`，\r\n 但**真实样本里没有该键**、读盘别依赖它——详见 TPanelizeSide 的说明）",
+      "description": "工艺边参数 - 水平（本字段类型即 `TPanelizeSide`；方向由本字段位置表达——\r\n解码端会注入 `direction: 0`，但**真实样本里没有该键**、读盘别依赖它）",
       "type": "object",
       "properties": {
         "on": {
@@ -115,15 +115,15 @@
           "type": "boolean"
         },
         "sideHeight": {
-          "description": "工艺边高度",
+          "description": "工艺边高度（mil）",
           "type": "number"
         },
         "positionHoleDiameter": {
-          "description": "定位孔直径（0 表示无定位孔）",
+          "description": "定位孔直径（0 表示无定位孔）（mil）",
           "type": "number"
         },
         "markDiameter": {
-          "description": "Mark 点直径（0 表示不启用 Mark 点）",
+          "description": "Mark 点直径（0 表示不启用 Mark 点）（mil）",
           "type": "number"
         },
         "markExpansion": {
@@ -131,7 +131,7 @@
           "type": "number"
         },
         "borderRadius": {
-          "description": "工艺边圆角半径",
+          "description": "工艺边圆角半径（mil）",
           "type": "number"
         }
       },
@@ -145,7 +145,7 @@
       ]
     },
     "verticalSize": {
-      "description": "工艺边参数 - 垂直（方向由本字段位置表达；解码端会注入 `direction: 1`，\r\n 但**真实样本里没有该键**、读盘别依赖它——详见 TPanelizeSide 的说明）",
+      "description": "工艺边参数 - 垂直（本字段类型即 `TPanelizeSide`；方向由本字段位置表达——\r\n解码端会注入 `direction: 1`，但**真实样本里没有该键**、读盘别依赖它）",
       "type": "object",
       "properties": {
         "on": {
@@ -153,15 +153,15 @@
           "type": "boolean"
         },
         "sideHeight": {
-          "description": "工艺边高度",
+          "description": "工艺边高度（mil）",
           "type": "number"
         },
         "positionHoleDiameter": {
-          "description": "定位孔直径（0 表示无定位孔）",
+          "description": "定位孔直径（0 表示无定位孔）（mil）",
           "type": "number"
         },
         "markDiameter": {
-          "description": "Mark 点直径（0 表示不启用 Mark 点）",
+          "description": "Mark 点直径（0 表示不启用 Mark 点）（mil）",
           "type": "number"
         },
         "markExpansion": {
@@ -169,7 +169,7 @@
           "type": "number"
         },
         "borderRadius": {
-          "description": "工艺边圆角半径",
+          "description": "工艺边圆角半径（mil）",
           "type": "number"
         }
       },
@@ -195,11 +195,11 @@
       "type": "boolean"
     },
     "evenRowRotation": {
-      "description": "偶数行角度",
+      "description": "偶数行的旋转角（角度制，**逆时针为正**）",
       "type": "number"
     },
     "evenColRotation": {
-      "description": "偶数列角度",
+      "description": "偶数列的旋转角（角度制，**逆时针为正**）",
       "type": "number"
     },
     "showVCutIndicator": {
@@ -211,21 +211,21 @@
       "type": "number"
     },
     "markPosition": {
-      "description": "mark 点位置：**最多 4 个**（按 左上、右上、左下、右下 的顺序存放）。\r\n\r\n 每个元素是 **4 个数**，依次表示该 mark 点中心到最外侧 bbox 的\r\n **`[到上边, 到右边, 到下边, 到左边]`** 四个距离。",
+      "description": "mark 点位置：**最多 4 个**（按 左上、右上、左下、右下 的顺序存放）。\r\n\r\n每个元素是 **4 个数**，依次表示该 mark 点中心到最外侧 bbox 的\r\n**`[到上边, 到右边, 到下边, 到左边]`** 四个距离。",
       "type": "array",
       "items": {
         "type": "array"
       }
     },
     "positionHolePosition": {
-      "description": "定位孔位置：结构同 `markPosition`（最多 4 个，每个 4 个数 =\r\n `[到上边, 到右边, 到下边, 到左边]` 四个距离），只是承载的是定位孔而非 mark 点。",
+      "description": "定位孔位置：结构同 `markPosition`（最多 4 个，每个 4 个数 =\r\n`[到上边, 到右边, 到下边, 到左边]` 四个距离），只是承载的是定位孔而非 mark 点。",
       "type": "array",
       "items": {
         "type": "array"
       }
     },
     "panelizeVersion": {
-      "description": "拼板版本，默认字段 EPanelizeVersion.pro （新产生的都是最新版本）; 主要作用是要区分不同时期的拼板交互效果和输出的gerber差异。\r\n\r\n 取值：`1.0` 拼板版本 1.0（成员 `pro1`）、`1.1` 拼板版本 1.1（成员 `pro2`）、\r\n `1.1` 拼板版本 1.1（成员 `pro`，当前默认值，与 `pro2` 同值，两个成员是有意保留的别名）。",
+      "description": "拼板版本，默认字段 EPanelizeVersion.pro （新产生的都是最新版本）; 主要作用是要区分不同时期的拼板交互效果和输出的gerber差异。\r\n`1.1` 拼板版本 1.1（成员 `pro`，当前默认值，与 `pro2` 同值，两个成员是有意保留的别名）。",
       "type": "string",
       "enum": [
         "1.0",
@@ -257,5 +257,5 @@
     "vCutLayer",
     "panelizeVersion"
   ],
-  "description": "拼板"
+  "description": "拼板\r\n\r\n一份文档里**只有一条**（`type:\"PANELIZE\"`），描述这块板怎么**拼**：把单板按\r\n`row` × `column` 阵列复制成一整块可生产的大板，并给出行列间距、是否只拼边框，\r\n以及小板之间的连接方式。\r\n\r\n连接与边框参数拆在几个子结构里：邮票孔见 `TPanelizeStamp`（水平 / 垂直各一份），\r\n四周的工艺边见 `TPanelizeSide`（水平 / 垂直各一份）；此外还记了阴阳板、\r\n偶行 / 偶列翻面与旋转角、mark 点与定位孔相对板边的距离等。\r\n\r\n⚠️ **没启用拼板时这条记录照样会落盘**（`on` 为 false 也带一份完整载荷）——\r\n它是一份**设置快照**，不是「有没有拼板」的开关；判断是否启用请看 `on`。\r\n\r\nid 是**固定单例名** `\"PANELIZE\"`（这类**固定单例 id** 见 `TSingletonElementId`）。"
 }

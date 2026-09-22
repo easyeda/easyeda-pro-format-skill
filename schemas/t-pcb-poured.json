@@ -13,7 +13,7 @@
             "type": "string"
           },
           "strokeWidth": {
-            "description": "描边线宽：0 为不描边",
+            "description": "描边线宽：0 为不描边（mil）",
             "type": "number"
           },
           "fill": {
@@ -21,11 +21,8 @@
             "type": "boolean"
           },
           "path": {
-            "description": "填充结果轮廓：数组的每个元素是**一条独立的单多边形**，各元素并列存在、\r\n **不是**「外轮廓 + 内洞」的嵌套结构（此处数组只有一层）。\r\n\r\n 【单多边形结构】每个元素是扁平数组：前两个数字是起点坐标，其后是\r\n 「指令名 + 该指令参数」的重复序列——\r\n - `L` 直线：`x y L x y x y ...`，各点依次直线相连\r\n - `ARC` 圆弧：`startX startY ARC angle endX endY`（angle 逆时针为正、顺时针为负）\r\n - `CARC` 中心圆弧：`startX startY CARC angle endX endY`\r\n - `C` 三阶贝塞尔：`x1 y1 C x2 y2 x3 y3 x4 y4 ...`，四个一组为一条曲线\r\n\r\n 另有一种与上述模式互斥的独立形态：\r\n - `[\"CIRCLE\", cx, cy, r]` 整圆\r\n\r\n ⚠️ **此处不会出现 `[\"R\", …]` 矩形形态**（与 `TPcbPour.path` 等不同）。\r\n 本字段由 `getPolygonsPath` 产出，该函数只产 `CIRCLE` 或指令序列；\r\n 多边形解析只产出 `['CIRCLE', …]`，全文无任何 `'R'` 产出点。**不要照 `TPcbPour`\r\n 的文档给这里写 R 形态。**",
-            "type": "array",
-            "items": {
-              "type": "array"
-            }
+            "description": "填充结果轮廓：数组的每个元素是**一条独立的单多边形**（`TPcbSinglePolygon`），各元素并列存在、\r\n**不是**「外轮廓 + 内洞」的嵌套结构（此处数组只有一层）。\r\n\r\n⚠️ **此处不会出现 `[\"R\", …]` 矩形形态**（与 `TPcbPour.path` 等不同）。\r\n本字段由 `getPolygonsPath` 产出，该函数只产 `CIRCLE` 或指令序列；\r\n多边形解析只产出 `['CIRCLE', …]`，全文无任何 `'R'` 产出点。**不要照 `TPcbPour`\r\n的文档给这里写 R 形态。**",
+            "type": "array"
           }
         },
         "required": [
@@ -41,5 +38,5 @@
   "required": [
     "pourFill"
   ],
-  "description": "覆铜结果\r\n\r\n【联动增删·必须成组操作】POURED 是 POUR 的**计算结果**，靠 id 挂在其父 POUR 下\r\n（id 形如 `[\"POURED\", <POUR 的 id>]`）：\r\n- **有 POUR 才写 POURED**；**删除 POUR 时必须一并删除它的 POURED**，否则残留悬空记录。"
+  "description": "覆铜结果\r\n\r\n**为什么要把覆铜结果单独落盘**：对一块较大的 PCB，每次打开都重算覆铜是不现实的，\r\n所以把计算结果缓存成独立文档。\r\n\r\n结果里每一段路径分**填充**与**描边**两类用途：\r\n- **填充**：一般对应实心填充的填充部分；\r\n- **描边**：一般对应热焊盘、网格覆铜，以及实心填充「制造优化」模式下的描边等。\r\n\r\n【外层数据id构造】id 是**键式 id** —— 盘上是数组串 `[\"POURED\", 覆铜边框 id]`，\r\n两段各有含义（见 `TKeyedElementId`）：\r\n**第 1 段** `\"POURED\"` 是固定前缀；**第 2 段**是**它所属那条覆铜边框（`POUR` 行）的图元 id**\r\n（`TPcbPour` 的外壳 `id`，普通形态的随机 hex）。所以每条覆铜结果都**挂在它的父 POUR 名下**。\r\n\r\n【联动增删·必须成组操作】POURED 是 POUR（`TPcbPour`）的**计算结果**，靠上面那个 id 挂在其父 POUR 下：\r\n- **有 POUR 才写 POURED**；**删除 POUR 时必须一并删除它的 POURED**，否则残留悬空记录。"
 }

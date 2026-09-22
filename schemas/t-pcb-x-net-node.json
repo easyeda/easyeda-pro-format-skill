@@ -15,11 +15,11 @@
       "type": "string"
     },
     "globalIndex": {
-      "description": "节点全局索引：**两类节点都会填**，填的是「该节点所属图元」的全局 id——\r\n **焊盘节点填其所属器件**（ComponentModel）的 globalIndex，**过孔节点填过孔自身**的 globalIndex。",
+      "description": "节点全局索引：**两类节点都会填**，填的是「该节点所属图元」的全局 id——\r\n**焊盘节点填其所属器件**（ComponentModel）的 globalIndex，**过孔节点填过孔自身**的 globalIndex。",
       "type": "string"
     },
     "padId": {
-      "description": "焊盘 id：填的是**焊盘自身的完整 id**（不是「封装内焊盘 id」）；\r\n **过孔节点这里恒为 `null`**（过孔把自己的 id 填在 `globalIndex` 上）。",
+      "description": "焊盘 id：填的是**焊盘自身的完整 id**（不是「封装内焊盘 id」）；\r\n**过孔节点这里恒为 `null`**（过孔把自己的 id 填在 `globalIndex` 上）。",
       "type": "string"
     }
   },

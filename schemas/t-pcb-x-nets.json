@@ -3,7 +3,7 @@
   "type": "object",
   "properties": {
     "xNetsGroup": {
-      "description": "所属 xNet 组的组名：必须指向一个已存在的 X_NET_GROUP\r\n\r\n 【联动增删·必须成组操作】X_NET 不能脱离组存在——\r\n **新增 X_NET 时必须确保其所属的 X_NET_GROUP 已写出；\r\n 删除 X_NET_GROUP 时必须把组内所有 X_NET 一并删除**（见 X_NET_GROUP 的说明）。",
+      "description": "所属 xNet 组的组名：必须指向一个已存在的 X_NET_GROUP\r\n\r\n【联动增删·必须成组操作】X_NET 不能脱离组存在——\r\n**新增 X_NET 时必须确保其所属的 X_NET_GROUP 已写出；\r\n删除 X_NET_GROUP 时必须把组内所有 X_NET 一并删除**（见 X_NET_GROUP 的说明）。",
       "type": "string"
     },
     "name": {
@@ -23,7 +23,7 @@
       "type": "string"
     },
     "length": {
-      "description": "xNet 路径长度",
+      "description": "xNet 路径长度。\r\n\r\n⚠️ **口径与同文件其它长度字段不同**：写读两腿都**原样搬运、不做 ×10 / ÷10**，\r\n所以盘上这个值是**内部单位**（1 单位 = 10 mil = 0.01 inch = 0.254 mm），\r\n消费端展示时才 `* 10` 当 mil 用 —— **别按本文件默认的 mil 口径读它**。\r\n例：盘上 `1000` = 10000 mil = 10 inch。",
       "type": "number"
     },
     "xNet": {
@@ -51,5 +51,5 @@
     "length",
     "xNet"
   ],
-  "description": "组内的 xNet"
+  "description": "组内的 xNet\r\n\r\nxNet（旧名 xSignals）是为**逻辑等长**服务的概念：把被串接元件（电阻 / 电容等）\r\n分割开的若干段网络当成**一条逻辑通路**来看待，从而能对它整体做长度约束。\r\n\r\n本类型描述**一条** xNet，一行一条（`type:\"X_NET\"`）：它的连通路径（`xNet`，\r\n含起点、终点与途经的全部节点）、长度规则 `netLengthPhysic` /\r\n公差规则 `netLengthTolerancePhysics`，以及目标网络 `targetNet`。\r\n\r\n⚠️ 它**不能脱离组存在**：`xNetsGroup` 必须指向一个已存在的 xNet 组\r\n（见 `TPcbXNetsGroup`），增删要成组操作。\r\n\r\nid 由编辑器生成（随机 16 位十六进制），形态见 `TElementId`；\r\n本类型的 `xNetsGroup` 所引用的 `X_NET_GROUP` 则是**键式 id**\r\n（盘上是数组串 `[\"X_NET_GROUP\", 组名]`，见 `TKeyedElementId`）。"
 }

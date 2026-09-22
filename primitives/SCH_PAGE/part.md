@@ -17,14 +17,57 @@
 
 ⚠️ 真机载荷里会多出一个**类型定义之外**的 `BBOX` 字段（透传字段），**不要当坏数据**。
 
+本行的外壳 `id` **就是 `partId`**（元件靠它选中具体部件）。
+现行写盘端新建 PART 行时生成的是**随机 uuid**（16 位十六进制）；
+`-1`、`TPS16417DRCR.1` 这类**短串**见诸 **2.0 迁移数据**，不是现行写侧的产物
+—— 所以**别按「16 位 hex」硬校验**。图元 id 的几类形态与判别见 [TElementId](../REFERENCE/t-element-id.md)。
+
 ## 字段
 
 | 字段 | 类型 | 必需 | 约束 | 说明 |
 |------|------|------|------|------|
 | title | `string` | ✓ | - | 名称 |
-| DeviceName | `{ uuid: string; name: string; source: string }` |  | - | 当前绑定的器件(目前为空用不上)，v4 新增 |
-| FootprintName | `{ uuid: string; name: string; source: string }` |  | - | 当前绑定文本封装（uuid 可空），v4 新增 |
-| Footprints | `{ uuid: string; name: string; source: string }[]` |  | - | 备选封装，v4 新增 |
+| DeviceName | `{ uuid: string; name: string; source: string }` |  | - | 当前绑定的器件(目前为空用不上)，v4 新增。 三元组的口径与 `TNameSourceUuid`（`type/public.ts`）一致 —— 那个类型收不进来（它在 format 目录之外，而 format 目录不能反向 import 它、会成环）， 故此处就地展开同一份说明。 |
+| FootprintName | `{ uuid: string; name: string; source: string }` |  | - | 当前绑定文本封装（uuid 可空），v4 新增。三元组口径同上 |
+| Footprints | `{ uuid: string; name: string; source: string }[]` |  | - | 备选封装，v4 新增。三元组口径同上 |
+
+## 对象字段成员
+
+以下字段的类型是内联对象，成员定义如下：
+
+### `DeviceName`
+
+当前绑定的器件(目前为空用不上)，v4 新增。
+
+三元组的口径与 `TNameSourceUuid`（`type/public.ts`）一致 ——
+那个类型收不进来（它在 format 目录之外，而 format 目录不能反向 import 它、会成环），
+故此处就地展开同一份说明。
+
+| 成员 | 类型 | 必需 | 说明 |
+|------|------|------|------|
+| uuid | `string` | ✓ | 绑定的 uuid（可空） |
+| name | `string` | ✓ | 名称 |
+| source | `string` | ✓ | 来源：`<来源条目 uuid>\|<来源工程 uuid>`，或空串（工程内自建条目）。 ⚠️ 第 2 段是**来源工程的 uuid**（32 位十六进制），**不是路径**。 |
+
+### `FootprintName`
+
+当前绑定文本封装（uuid 可空），v4 新增。三元组口径同上
+
+| 成员 | 类型 | 必需 | 说明 |
+|------|------|------|------|
+| uuid | `string` | ✓ | 绑定的 uuid（可空） |
+| name | `string` | ✓ | 名称 |
+| source | `string` | ✓ | 来源：`<来源条目 uuid>\|<来源工程 uuid>`，或空串（工程内自建条目）。 ⚠️ 第 2 段是**来源工程的 uuid**（32 位十六进制），**不是路径**。 |
+
+### `Footprints`
+
+备选封装，v4 新增。三元组口径同上
+
+| 成员 | 类型 | 必需 | 说明 |
+|------|------|------|------|
+| uuid | `string` | ✓ | 绑定的 uuid（可空） |
+| name | `string` | ✓ | 名称 |
+| source | `string` | ✓ | 来源：`<来源条目 uuid>\|<来源工程 uuid>`，或空串（工程内自建条目）。 ⚠️ 第 2 段是**来源工程的 uuid**（32 位十六进制），**不是路径**。 |
 
 ## JSON Schema
 

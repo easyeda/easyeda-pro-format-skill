@@ -27,7 +27,7 @@
       "type": "boolean"
     },
     "relevanceDisplayRow": {
-      "description": "原理图 - 显示方式\r\n\r\n取值（`ERelevanceDisplayRowType`）：\r\n- `SINGLE` 单行显示\r\n- `MULTIPLE` 多行显示",
+      "description": "原理图 - 显示方式",
       "type": "string",
       "enum": [
         "SINGLE",
@@ -39,7 +39,7 @@
       }
     },
     "relevanceBelongSchPage": {
-      "description": "原理图 - 所在图页\r\n\r\n取值（`ERelevanceBelongSchPage`）：\r\n- `NONE` 不显示\r\n- `NAME` 名称\r\n- `NUMBER` 序号",
+      "description": "原理图 - 所在图页",
       "type": "string",
       "enum": [
         "NONE",
@@ -53,7 +53,7 @@
       }
     },
     "relevanceLocation": {
-      "description": "原理图 - 所在位置\r\n\r\n取值（`ERelevanceLocation`）：\r\n- `NONE` 不显示\r\n- `ZONE` 区域",
+      "description": "原理图 - 所在位置",
       "type": "string",
       "enum": [
         "NONE",
@@ -89,5 +89,5 @@
     "relevanceLocation",
     "multipartCrossLayer"
   ],
-  "description": "通用设置"
+  "description": "通用设置\r\n\r\n工程设置文档（CONFIG）里的**通用设置行**，一行一条（`type:\"UNIVERSAL\"`）：工程内的全局开关集合——\r\n工程库命名、原理图侧的网络名 / 导线多网络 / 网络标识跨层连接 / 跨页连接 / 总线生成网络类，\r\n以及「关联信息」的三个显示口径（`relevanceDisplayRow` / `relevanceBelongSchPage` / `relevanceLocation`）。\r\n\r\n工程内只有一条通用设置行，其 id 是**固定单例名** `UNIVERSAL`（属**固定单例 id**，见 `TSingletonElementId`）。\r\n\r\n末尾两个无电气标识相关的开关（`nonElectronicAddIntoBom` / `nonElectronicUpdatePcb`）是**可选**字段，\r\n盘上可能整键缺失，读取端不要按必填处理。"
 }

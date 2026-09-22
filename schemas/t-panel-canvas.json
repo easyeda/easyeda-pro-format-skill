@@ -3,11 +3,11 @@
   "type": "object",
   "properties": {
     "originX": {
-      "description": "画布原点 X：与图元坐标同一口径，单位 **0.01 inch**。\r\n 注：本类型**不继承 `TPanelBase`**，故其上那个通用约定块不覆盖本类型；\r\n 本类型的尺寸字段（width/height/thickness 等）另行以**带单位字符串**表达。",
+      "description": "画布原点 X：**绝对坐标里的一个基准锚点**——**网格与标尺的相位基准**、\r\n**打开面板时视图居中的点**，也是**属性面板显示坐标的零点**。\r\n\r\n与图元坐标同一口径，单位 **0.01 inch**（100DPI 下的 1px）。本域内部是\r\n**SVG 坐标系（Y 向下）**，默认原点落在**材料框左下角**。\r\n\r\n⚠️ **它不是「图元坐标的平移量」**：图元坐标是**绝对坐标**，改原点不搬图元。\r\n\r\n注：本类型**不继承 `TPanelBase`**，故其上那个通用约定块不覆盖本类型；\r\n本类型的尺寸字段（width/height/thickness 等）另行以**带单位字符串**表达。",
       "type": "number"
     },
     "originY": {
-      "description": "画布原点 Y：单位同 originX（**0.01 inch**）",
+      "description": "画布原点 Y：含义与单位同 `originX`（**0.01 inch**；内部 Y 向下，增大 = 向下）。\r\n\r\n⚠️ **同一个面板文档有两条序列化路径，`originY` 的符号相反**：\r\n3.0 的 CANVAS 原子是**原样**；而**面板 2.0 压缩串**（PANEL_LIB 落盘 / 导入走这条）\r\n写读两端都会**取负**。对比或换算前先分清拿到的是哪一种。\r\n\r\n另外**新建面板时这两个键可能根本不存在**（写盘时 `undefined` 被整键丢弃），\r\n读取端按 `0` 兜底。",
       "type": "number"
     },
     "width": {
@@ -72,5 +72,5 @@
     "orderWidth",
     "orderHeight"
   ],
-  "description": "编辑器附加信息\r\n\r\n【常见取值与缺省来源】编辑器在文档里**没有** CANVAS 记录时按一张缺省表补全\r\n（`pro-panel` 的 `DefaultHead`）：\r\n`material:'acrylic'`、`thickness:'0.8mm'`、`print:'Bottom Side'`、`craft:'Transparent'`、\r\n`coverColor:'white'`、`width:'393mm'`、`height:'579mm'`、`desc:''`。\r\n⚠️ 注意 `coverColor` 缺省是**字符串色名 `\"white\"`**，不是颜色码——读取端不要假设本类型的\r\n字段必为颜色码或纯数值。"
+  "description": "编辑器附加信息\r\n\r\n【常见取值与缺省来源】编辑器在文档里**没有** CANVAS 记录时按一张缺省表补全\r\n（`pro-panel` 的 `DefaultHead`）：\r\n`material:'acrylic'`、`thickness:'0.8mm'`、`print:'Bottom Side'`、`craft:'Transparent'`、\r\n`coverColor:'white'`、`width:'393mm'`、`height:'579mm'`、`desc:''`。\r\n⚠️ 注意 `coverColor` 缺省是**字符串色名 `\"white\"`**，不是颜色码——读取端不要假设本类型的\r\n字段必为颜色码或纯数值。\r\n\r\n本类型是**单例记录**（行外壳 `id` 恒为 `\"CANVAS\"`），属**固定单例 id**，见 `TSingletonElementId`。"
 }

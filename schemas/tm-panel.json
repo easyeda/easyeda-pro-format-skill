@@ -7,7 +7,7 @@
       "type": "string"
     },
     "zIndex": {
-      "description": "排序大小：**可以是 `null`**\r\n\r\n ⚠️ 本类型**不继承 `TMDocument`**，故在此单独说明写侧规则：面板写盘时对 0 或缺省\r\n **一律写 `null`**（`zIndex: data.zIndex || null`），读取端须容忍 `null`；\r\n 正因为 `null` 是缺省表示，本字段**不设下限**。",
+      "description": "排序大小：**可以是 `null`**\r\n\r\n⚠️ 本类型**不继承 `TMDocument`**，故在此单独说明写侧规则：面板写盘时对 0 或缺省\r\n**一律写 `null`**（`zIndex: data.zIndex || null`），读取端须容忍 `null`；\r\n正因为 `null` 是缺省表示，本字段**不设下限**。",
       "type": [
         "number",
         "null"
@@ -18,5 +18,5 @@
     "title",
     "zIndex"
   ],
-  "description": "面板 META 类型"
+  "description": "面板 META 类型\r\n\r\n面板文档（`PANEL`）的 META 行，一行一条（`type:\"META\"`）：只有文档名与排序。\r\n面板是独立文档，既不挂板子、也不记来源（故本类型不继承 `TMDocument`）。\r\n\r\n面板文档的 META 行 id 是**固定单例名** `META`（属**固定单例 id**，见 `TSingletonElementId`）。"
 }

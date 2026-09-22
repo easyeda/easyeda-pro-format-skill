@@ -20,11 +20,11 @@
       "pattern": "^$|^#[0-9A-Fa-f]{6}$"
     },
     "layerId": {
-      "description": "层 id。\r\n\r\n ⚠️ **它在盘上以两种形态出现**——PCB 侧写盘时会把它**推进外壳 id**\r\n （id 变成 `[\"PRIMITIVE\", 图元名, 层号]`）并从载荷里 `delete`（编码端\r\n `encodePrimitive`：层号非空时推进 id 并删除载荷键）；FOOTPRINT 侧则**留在载荷里**。\r\n 所以 PCB 数据里载荷不出现该键、层号要去 id 的第三段读。",
+      "description": "层 id。\r\n\r\n⚠️ **它在盘上以两种形态出现**——PCB 侧写盘时会把它**推进外壳 id**\r\n（id 变成 `[\"PRIMITIVE\", 图元名, 层号]`）并从载荷里 `delete`（编码端\r\n`encodePrimitive`：层号非空时推进 id 并删除载荷键）；FOOTPRINT 侧则**留在载荷里**。\r\n所以 PCB 数据里载荷不出现该键、层号要去 id 的第三段读。\r\n\r\n**第几号是哪一层见 `ELayerCode`**（`1` = 顶层、`47` = 孔层 …）。",
       "type": "number"
     },
     "viewMode": {
-      "description": "视图模式。\r\n\r\n 取值：`NORMAL` 正常视图、`OUTLINE` 轮廓视图。",
+      "description": "视图模式。",
       "type": "string",
       "enum": [
         "NORMAL",
@@ -39,5 +39,5 @@
   "required": [
     "display"
   ],
-  "description": "图元配置"
+  "description": "图元配置\r\n\r\n【外层数据id构造】id 是**数组串** `[\"PRIMITIVE\", 名称]`，**层号是可选的第三段**：\r\n只有带层号时才追加（变成 `[\"PRIMITIVE\", 名称, 层号]`），\r\n所以**盘上两种长度都存在**，解析时不能假定固定 2 段。\r\n- **第 1 段** `\"PRIMITIVE\"` —— 固定前缀；\r\n- **第 2 段「名称」** —— **图元的配置名**（如 `\"ALL\"`，表示这条配置适用于所有图元），\r\n  是一串标识文本，**不是任何行的 id**；\r\n- **可选的第 3 段** —— 层号，与 `TLayerWire` 的 `layerId` 是同一套层编号。\r\n（数组串是**键式 id**，见 `TKeyedElementId`。）"
 }

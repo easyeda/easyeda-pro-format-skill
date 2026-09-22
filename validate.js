@@ -104,9 +104,23 @@ const TYPE_TO_SCHEMA = {
   "e-primitive-view-mode": require("./schemas/e-primitive-view-mode.json"),
   "e-panelize-version": require("./schemas/e-panelize-version.json"),
   "e-header-type": require("./schemas/e-header-type.json"),
+  "e-layer-code": require("./schemas/e-layer-code.json"),
+  "e-layer-type": require("./schemas/e-layer-type.json"),
+  "e-panel-layer": require("./schemas/e-panel-layer.json"),
   "t-user": require("./schemas/t-user.json"),
   "t-doc-head": require("./schemas/t-doc-head.json"),
   "t-edit-head": require("./schemas/t-edit-head.json"),
+  "t-doc-uuid": require("./schemas/t-doc-uuid.json"),
+  "t-constant-doc-uuid": require("./schemas/t-constant-doc-uuid.json"),
+  "t-embedded-doc-uuid": require("./schemas/t-embedded-doc-uuid.json"),
+  "t-instance-doc-uuid": require("./schemas/t-instance-doc-uuid.json"),
+  "t-group-data-doc-uuid": require("./schemas/t-group-data-doc-uuid.json"),
+  "t-element-id": require("./schemas/t-element-id.json"),
+  "t-singleton-element-id": require("./schemas/t-singleton-element-id.json"),
+  "t-keyed-element-id": require("./schemas/t-keyed-element-id.json"),
+  "t-composite-element-id": require("./schemas/t-composite-element-id.json"),
+  "t-local-element-id": require("./schemas/t-local-element-id.json"),
+  "t-part-id": require("./schemas/t-part-id.json"),
   "tm-font": require("./schemas/tm-font.json"),
   "tm-blob": require("./schemas/tm-blob.json"),
   "tm-board": require("./schemas/tm-board.json"),
@@ -135,7 +149,7 @@ const TYPE_TO_SCHEMA = {
   "t-pcb-base": require("./schemas/t-pcb-base.json"),
   "t-canvas": require("./schemas/t-canvas.json"),
   "t-pcb-board": require("./schemas/t-pcb-board.json"),
-  "t-layer": require("./schemas/t-layer.json"),
+  "t-layer-wire": require("./schemas/t-layer-wire.json"),
   "t-layer-phys": require("./schemas/t-layer-phys.json"),
   "t-active-layer": require("./schemas/t-active-layer.json"),
   "t-partition": require("./schemas/t-partition.json"),
@@ -174,8 +188,8 @@ const TYPE_TO_SCHEMA = {
   "t-panelize-side": require("./schemas/t-panelize-side.json"),
   "t-panelize": require("./schemas/t-panelize.json"),
   "tm-pcb-component": require("./schemas/tm-pcb-component.json"),
-  "t-footprint-net": require("./schemas/t-footprint-net.json"),
-  "t-pad-net": require("./schemas/t-pad-net.json"),
+  "t-footprint-net-wire": require("./schemas/t-footprint-net-wire.json"),
+  "t-pad-net-wire": require("./schemas/t-pad-net-wire.json"),
   "t-pcb-attr": require("./schemas/t-pcb-attr.json"),
   "t-pcb-x-net-node": require("./schemas/t-pcb-x-net-node.json"),
   "t-pcb-x-nets": require("./schemas/t-pcb-x-nets.json"),
@@ -183,6 +197,10 @@ const TYPE_TO_SCHEMA = {
   "t-pcb-x-nets-group": require("./schemas/t-pcb-x-nets-group.json"),
   "td3attribute": require("./schemas/td3attribute.json"),
   "e-pcb-data-type": require("./schemas/e-pcb-data-type.json"),
+  "t-pcb-single-polygon": require("./schemas/t-pcb-single-polygon.json"),
+  "t-pcb-complex-polygon": require("./schemas/t-pcb-complex-polygon.json"),
+  "t-panel-single-polygon": require("./schemas/t-panel-single-polygon.json"),
+  "t-panel-complex-polygon": require("./schemas/t-panel-complex-polygon.json"),
   "t-universal": require("./schemas/t-universal.json"),
   "e-setting-type": require("./schemas/e-setting-type.json"),
   "e-relevance-display-row-type": require("./schemas/e-relevance-display-row-type.json"),
@@ -190,14 +208,8 @@ const TYPE_TO_SCHEMA = {
   "e-relevance-location": require("./schemas/e-relevance-location.json"),
   "t-rule-context": require("./schemas/t-rule-context.json"),
   "t-rule-template": require("./schemas/t-rule-template.json"),
-  "t-rule": require("./schemas/t-rule.json"),
-  "t-rule-selector": require("./schemas/t-rule-selector.json"),
-  "t-tolerance-item": require("./schemas/t-tolerance-item.json"),
-  "t-statistical-base-analysis": require("./schemas/t-statistical-base-analysis.json"),
-  "t-expected-range": require("./schemas/t-expected-range.json"),
-  "t-expected-phase": require("./schemas/t-expected-phase.json"),
-  "tmc-setting": require("./schemas/tmc-setting.json"),
-  "twc-setting": require("./schemas/twc-setting.json"),
+  "t-rule-wire": require("./schemas/t-rule-wire.json"),
+  "t-rule-selector-wire": require("./schemas/t-rule-selector-wire.json"),
   "t-dot": require("./schemas/t-dot.json"),
   "ty-axis-direction": require("./schemas/ty-axis-direction.json"),
   "font-style-base": require("./schemas/font-style-base.json"),
@@ -227,23 +239,11 @@ const TYPE_TO_SCHEMA = {
   "t-sch-canvas": require("./schemas/t-sch-canvas.json"),
   "t-sch-mask-region": require("./schemas/t-sch-mask-region.json"),
   "tdc-source-data": require("./schemas/tdc-source-data.json"),
-  "t-current-setting": require("./schemas/t-current-setting.json"),
-  "t-ac-analysis-type": require("./schemas/t-ac-analysis-type.json"),
-  "t-compat-mode": require("./schemas/t-compat-mode.json"),
-  "t-tolerance-type": require("./schemas/t-tolerance-type.json"),
-  "t-tolerance-distribution": require("./schemas/t-tolerance-distribution.json"),
   "tng-setting": require("./schemas/tng-setting.json"),
-  "t-harness-connector": require("./schemas/t-harness-connector.json"),
-  "t-harness-entry": require("./schemas/t-harness-entry.json"),
-  "t-signal-harness": require("./schemas/t-signal-harness.json"),
-  "t-signal-harness-line": require("./schemas/t-signal-harness-line.json"),
-  "t-sch-bracket": require("./schemas/t-sch-bracket.json"),
-  "t-sch-arrow": require("./schemas/t-sch-arrow.json"),
   "e-sch-data-type": require("./schemas/e-sch-data-type.json"),
-  "t-differential-pair": require("./schemas/t-differential-pair.json"),
-  "t-net-class": require("./schemas/t-net-class.json"),
-  "teq-len-net-grp": require("./schemas/teq-len-net-grp.json"),
-  "t-custom-global-net": require("./schemas/t-custom-global-net.json"),
+  "t-differential-pair-wire": require("./schemas/t-differential-pair-wire.json"),
+  "t-net-class-wire": require("./schemas/t-net-class-wire.json"),
+  "teq-len-net-grp-wire": require("./schemas/teq-len-net-grp-wire.json"),
   "e-schematic-type": require("./schemas/e-schematic-type.json"),
 };
 
@@ -258,6 +258,7 @@ const DOC_TYPES = {
   "PANEL": true,
   "PANEL_LIB": true,
   "PCB": true,
+  "REFERENCE": true,
   "SCH": true,
   "SCH_PAGE": true,
   "SIMULATION": true,
@@ -267,6 +268,66 @@ const DOC_TYPES = {
 
 // --doc 路径专用：<文档类型>_<图元名> → schema（键统一小写，查表时已 toLowerCase）
 const DOC_TYPE_MAP = {
+  "reference_e-stroke-style": "e-stroke-style",  // EStrokeStyle
+  "reference_e-panel-trans-scope": "e-panel-trans-scope",  // EPanelTransScope
+  "reference_eh-align": "eh-align",  // EHAlign
+  "reference_ev-align": "ev-align",  // EVAlign
+  "reference_e-align": "e-align",  // EAlign
+  "reference_e-sch-fill-style": "e-sch-fill-style",  // ESchFillStyle
+  "reference_e-pin-shape": "e-pin-shape",  // EPinShape
+  "reference_e-grid-type": "e-grid-type",  // EGridType
+  "reference_e-routing-mode": "e-routing-mode",  // ERoutingMode
+  "reference_e-pad-shape-type": "e-pad-shape-type",  // EPadShapeType
+  "reference_et-hole-type": "et-hole-type",  // ETHoleType
+  "reference_t-pour-type": "t-pour-type",  // TPourType
+  "reference_e-unused-pad-range": "e-unused-pad-range",  // EUnusedPadRange
+  "reference_e-path-optimization": "e-path-optimization",  // EPathOptimization
+  "reference_e-push-via-optimization": "e-push-via-optimization",  // EPushViaOptimization
+  "reference_e-current-path-optimization": "e-current-path-optimization",  // ECurrentPathOptimization
+  "reference_e-routing-conner": "e-routing-conner",  // ERoutingConner
+  "reference_e-via-type": "e-via-type",  // EViaType
+  "reference_e-pad-func-type": "e-pad-func-type",  // EPadFuncType
+  "reference_e-pad-connect": "e-pad-connect",  // EPadConnect
+  "reference_e-arc-type": "e-arc-type",  // EArcType
+  "reference_e-poly-type": "e-poly-type",  // EPolyType
+  "reference_e-pcb-fill-style": "e-pcb-fill-style",  // EPcbFillStyle
+  "reference_e-region-type": "e-region-type",  // ERegionType
+  "reference_e-prohibit-type": "e-prohibit-type",  // EProhibitType
+  "reference_e-fpc-material": "e-fpc-material",  // EFpcMaterial
+  "reference_e3d-shell-outline-type": "e3d-shell-outline-type",  // E3DShellOutlineType
+  "reference_e3d-shell-push-cover-dir": "e3d-shell-push-cover-dir",  // E3DShellPushCoverDir
+  "reference_e-entity-type": "e-entity-type",  // EEntityType
+  "reference_e-entity-belong": "e-entity-belong",  // EEntityBelong
+  "reference_e-slot-option": "e-slot-option",  // ESlotOption
+  "reference_e-specification": "e-specification",  // ESpecification
+  "reference_e-dimension-type": "e-dimension-type",  // EDimensionType
+  "reference_e-unit-name": "e-unit-name",  // EUnitName
+  "reference_e-rule-type": "e-rule-type",  // ERuleType
+  "reference_e-rule-status": "e-rule-status",  // ERuleStatus
+  "reference_e-show-status": "e-show-status",  // EShowStatus
+  "reference_e-track-connect": "e-track-connect",  // ETrackConnect
+  "reference_e-auto-routing-corner": "e-auto-routing-corner",  // EAutoRoutingCorner
+  "reference_e-auto-routing-via-quantity": "e-auto-routing-via-quantity",  // EAutoRoutingViaQuantity
+  "reference_e-auto-routing-priority": "e-auto-routing-priority",  // EAutoRoutingPriority
+  "reference_e-both-end-shape": "e-both-end-shape",  // EBothEndShape
+  "reference_e-layer-brightness": "e-layer-brightness",  // ELayerBrightness
+  "reference_e-primitive-view-mode": "e-primitive-view-mode",  // EPrimitiveViewMode
+  "reference_e-panelize-version": "e-panelize-version",  // EPanelizeVersion
+  "reference_e-header-type": "e-header-type",  // EHeaderType
+  "reference_e-layer-code": "e-layer-code",  // ELayerCode
+  "reference_e-layer-type": "e-layer-type",  // ELayerType
+  "reference_e-panel-layer": "e-panel-layer",  // EPanelLayer
+  "reference_t-doc-uuid": "t-doc-uuid",  // TDocUuid
+  "reference_t-constant-doc-uuid": "t-constant-doc-uuid",  // TConstantDocUuid
+  "reference_t-embedded-doc-uuid": "t-embedded-doc-uuid",  // TEmbeddedDocUuid
+  "reference_t-instance-doc-uuid": "t-instance-doc-uuid",  // TInstanceDocUuid
+  "reference_t-group-data-doc-uuid": "t-group-data-doc-uuid",  // TGroupDataDocUuid
+  "reference_t-element-id": "t-element-id",  // TElementId
+  "reference_t-singleton-element-id": "t-singleton-element-id",  // TSingletonElementId
+  "reference_t-keyed-element-id": "t-keyed-element-id",  // TKeyedElementId
+  "reference_t-composite-element-id": "t-composite-element-id",  // TCompositeElementId
+  "reference_t-local-element-id": "t-local-element-id",  // TLocalElementId
+  "reference_t-part-id": "t-part-id",  // TPartId
   "font_font": "tm-font",  // TMFont
   "blob_blob": "tm-blob",  // TMBlob
   "board_meta": "tm-board",  // TMBoard
@@ -293,14 +354,13 @@ const DOC_TYPE_MAP = {
   "panel_lib_group": "t-panel-group",  // TPanelGroup
   "panel_canvas": "t-panel-canvas",  // TPanelCanvas
   "panel_lib_canvas": "t-panel-canvas",  // TPanelCanvas
-  "panel_e-panel-data-type": "e-panel-data-type",  // EPanelDataType
-  "panel_lib_e-panel-data-type": "e-panel-data-type",  // EPanelDataType
+  "reference_e-panel-data-type": "e-panel-data-type",  // EPanelDataType
   "pcb_canvas": "t-canvas",  // TCanvas
   "footprint_canvas": "t-canvas",  // TCanvas
   "pcb_board": "t-pcb-board",  // TPcbBoard
   "footprint_board": "t-pcb-board",  // TPcbBoard
-  "pcb_layer": "t-layer",  // TLayer
-  "footprint_layer": "t-layer",  // TLayer
+  "pcb_layer": "t-layer-wire",  // TLayerWire
+  "footprint_layer": "t-layer-wire",  // TLayerWire
   "pcb_layer_phys": "t-layer-phys",  // TLayerPhys
   "footprint_layer_phys": "t-layer-phys",  // TLayerPhys
   "pcb_active_layer": "t-active-layer",  // TActiveLayer
@@ -369,10 +429,10 @@ const DOC_TYPE_MAP = {
   "footprint_panelize": "t-panelize",  // TPanelize
   "pcb_component": "tm-pcb-component",  // TMPcbComponent
   "footprint_component": "tm-pcb-component",  // TMPcbComponent
-  "pcb_footprint_net": "t-footprint-net",  // TFootprintNet
-  "footprint_footprint_net": "t-footprint-net",  // TFootprintNet
-  "pcb_pad_net": "t-pad-net",  // TPadNet
-  "footprint_pad_net": "t-pad-net",  // TPadNet
+  "pcb_footprint_net": "t-footprint-net-wire",  // TFootprintNetWire
+  "footprint_footprint_net": "t-footprint-net-wire",  // TFootprintNetWire
+  "pcb_pad_net": "t-pad-net-wire",  // TPadNetWire
+  "footprint_pad_net": "t-pad-net-wire",  // TPadNetWire
   "pcb_attr": "t-pcb-attr",  // TPcbAttr
   "footprint_attr": "t-pcb-attr",  // TPcbAttr
   "pcb_x_net": "t-pcb-x-nets",  // TPcbXNets
@@ -381,22 +441,27 @@ const DOC_TYPE_MAP = {
   "footprint_x_net_group": "t-base-x-nets-group",  // TPcbXNetsGroup
   "pcb_d3_attribute": "td3attribute",  // TD3Attribute
   "footprint_d3_attribute": "td3attribute",  // TD3Attribute
-  "pcb_e-pcb-data-type": "e-pcb-data-type",  // EPcbDataType
-  "footprint_e-pcb-data-type": "e-pcb-data-type",  // EPcbDataType
+  "reference_e-pcb-data-type": "e-pcb-data-type",  // EPcbDataType
+  "reference_t-pcb-single-polygon": "t-pcb-single-polygon",  // TPcbSinglePolygon
+  "reference_t-pcb-complex-polygon": "t-pcb-complex-polygon",  // TPcbComplexPolygon
+  "reference_t-panel-single-polygon": "t-panel-single-polygon",  // TPanelSinglePolygon
+  "reference_t-panel-complex-polygon": "t-panel-complex-polygon",  // TPanelComplexPolygon
   "config_universal": "t-universal",  // TUniversal
-  "config_e-setting-type": "e-setting-type",  // ESettingType
+  "reference_e-setting-type": "e-setting-type",  // ESettingType
+  "reference_e-relevance-display-row-type": "e-relevance-display-row-type",  // ERelevanceDisplayRowType
+  "reference_e-relevance-belong-sch-page": "e-relevance-belong-sch-page",  // ERelevanceBelongSchPage
+  "reference_e-relevance-location": "e-relevance-location",  // ERelevanceLocation
   "pcb_rule_template": "t-rule-template",  // TRuleTemplate
   "sch_rule_template": "t-rule-template",  // TRuleTemplate
-  "pcb_rule": "t-rule",  // TRule
-  "sch_rule": "t-rule",  // TRule
-  "pcb_rule_selector": "t-rule-selector",  // TRuleSelector
-  "sch_rule_selector": "t-rule-selector",  // TRuleSelector
+  "pcb_rule": "t-rule-wire",  // TRuleWire
+  "sch_rule": "t-rule-wire",  // TRuleWire
+  "pcb_rule_selector": "t-rule-selector-wire",  // TRuleSelectorWire
+  "sch_rule_selector": "t-rule-selector-wire",  // TRuleSelectorWire
+  "reference_ty-axis-direction": "ty-axis-direction",  // TYAxisDirection
   "sch_page_line": "t-sch-line",  // TSchLine
   "symbol_line": "t-sch-line",  // TSchLine
   "simulation_line": "t-sch-line",  // TSchLine
-  "sch_page_t-sch-bus-entry": "t-sch-bus-entry",  // TSchBusEntry
-  "symbol_t-sch-bus-entry": "t-sch-bus-entry",  // TSchBusEntry
-  "simulation_t-sch-bus-entry": "t-sch-bus-entry",  // TSchBusEntry
+  "reference_t-sch-bus-entry": "t-sch-bus-entry",  // TSchBusEntry
   "sch_page_wire": "t-wire",  // TWire
   "symbol_wire": "t-wire",  // TWire
   "simulation_wire": "t-wire",  // TWire
@@ -436,9 +501,7 @@ const DOC_TYPE_MAP = {
   "sch_page_ellipse": "t-sch-ellipse",  // TSchEllipse
   "symbol_ellipse": "t-sch-ellipse",  // TSchEllipse
   "simulation_ellipse": "t-sch-ellipse",  // TSchEllipse
-  "sch_page_t-table-cell": "t-table-cell",  // TTableCell
-  "symbol_t-table-cell": "t-table-cell",  // TTableCell
-  "simulation_t-table-cell": "t-table-cell",  // TTableCell
+  "reference_t-table-cell": "t-table-cell",  // TTableCell
   "sch_page_table": "t-sch-table",  // TSchTable
   "symbol_table": "t-sch-table",  // TSchTable
   "simulation_table": "t-sch-table",  // TSchTable
@@ -454,24 +517,18 @@ const DOC_TYPE_MAP = {
   "sch_page_mask_region": "t-sch-mask-region",  // TSchMaskRegion
   "symbol_mask_region": "t-sch-mask-region",  // TSchMaskRegion
   "simulation_mask_region": "t-sch-mask-region",  // TSchMaskRegion
-  "sch_page_tdc-source-data": "tdc-source-data",  // TDCSourceData
-  "symbol_tdc-source-data": "tdc-source-data",  // TDCSourceData
-  "simulation_tdc-source-data": "tdc-source-data",  // TDCSourceData
+  "reference_tdc-source-data": "tdc-source-data",  // TDCSourceData
   "sch_page_ng_setting": "tng-setting",  // TNGSetting
   "symbol_ng_setting": "tng-setting",  // TNGSetting
   "simulation_ng_setting": "tng-setting",  // TNGSetting
-  "sch_page_harness_connector": "t-harness-connector",  // THarnessConnector
-  "sch_page_harness_entry": "t-harness-entry",  // THarnessEntry
-  "sch_page_signal_harness": "t-signal-harness",  // TSignalHarness
-  "sch_page_signal_harness_line": "t-signal-harness-line",  // TSignalHarnessLine
-  "sch_page_bracket": "t-sch-bracket",  // TSchBracket
-  "sch_page_arrow": "t-sch-arrow",  // TSchArrow
-  "sch_differential_pair": "t-differential-pair",  // TDifferentialPair
-  "simulation_sch_differential_pair": "t-differential-pair",  // TDifferentialPair
-  "sch_net_class": "t-net-class",  // TNetClass
-  "sch_eql_net_grp": "teq-len-net-grp",  // TEQLenNetGrp
-  "sch_custom_global_net": "t-custom-global-net",  // TCustomGlobalNet
-  "sch_e-schematic-type": "e-schematic-type",  // ESchematicType
+  "reference_e-sch-data-type": "e-sch-data-type",  // ESchDataType
+  "sch_differential_pair": "t-differential-pair-wire",  // TDifferentialPairWire
+  "simulation_sch_differential_pair": "t-differential-pair-wire",  // TDifferentialPairWire
+  "sch_net_class": "t-net-class-wire",  // TNetClassWire
+  "simulation_sch_net_class": "t-net-class-wire",  // TNetClassWire
+  "sch_eql_net_grp": "teq-len-net-grp-wire",  // TEQLenNetGrpWire
+  "simulation_sch_eql_net_grp": "teq-len-net-grp-wire",  // TEQLenNetGrpWire
+  "reference_e-schematic-type": "e-schematic-type",  // ESchematicType
 };
 
 const TYPE_MAP = {
@@ -479,8 +536,6 @@ const TYPE_MAP = {
   "active_layer": "t-active-layer",  // TActiveLayer
   "ARC": "t-sch-arc",  // TSchArc
   "arc": "t-sch-arc",  // TSchArc
-  "ARROW": "t-sch-arrow",  // TSchArrow
-  "arrow": "t-sch-arrow",  // TSchArrow
   "ATTR": "t-sch-attr",  // TSchAttr
   "attr": "t-sch-attr",  // TSchAttr
   "AUXLINE": "t-aux-line",  // TAuxLine
@@ -493,8 +548,6 @@ const TYPE_MAP = {
   "board": "t-pcb-board",  // TPcbBoard
   "BOSS": "t-pcb-boss",  // TPcbBoss
   "boss": "t-pcb-boss",  // TPcbBoss
-  "BRACKET": "t-sch-bracket",  // TSchBracket
-  "bracket": "t-sch-bracket",  // TSchBracket
   "BUS": "t-bus",  // TBus
   "bus": "t-bus",  // TBus
   "CANVAS": "t-sch-canvas",  // TSchCanvas
@@ -505,38 +558,32 @@ const TYPE_MAP = {
   "component": "tm-sch-component",  // TMSchComponent
   "CREASE": "t-pcb-crease",  // TPcbCrease
   "crease": "t-pcb-crease",  // TPcbCrease
-  "CUSTOM_GLOBAL_NET": "t-custom-global-net",  // TCustomGlobalNet
-  "custom_global_net": "t-custom-global-net",  // TCustomGlobalNet
   "D3_ATTRIBUTE": "td3attribute",  // TD3Attribute
   "d3_attribute": "td3attribute",  // TD3Attribute
-  "DIFFERENTIAL_PAIR": "t-differential-pair",  // TDifferentialPair
-  "differential_pair": "t-differential-pair",  // TDifferentialPair
+  "DIFFERENTIAL_PAIR": "t-differential-pair-wire",  // TDifferentialPairWire
+  "differential_pair": "t-differential-pair-wire",  // TDifferentialPairWire
   "DIMENSION": "t-pcb-dimension",  // TPcbDimension
   "dimension": "t-pcb-dimension",  // TPcbDimension
   "ELLIPSE": "t-sch-ellipse",  // TSchEllipse
   "ellipse": "t-sch-ellipse",  // TSchEllipse
-  "EQL_NET_GRP": "teq-len-net-grp",  // TEQLenNetGrp
-  "eql_net_grp": "teq-len-net-grp",  // TEQLenNetGrp
+  "EQL_NET_GRP": "teq-len-net-grp-wire",  // TEQLenNetGrpWire
+  "eql_net_grp": "teq-len-net-grp-wire",  // TEQLenNetGrpWire
   "EQLEN_GRP": "teq-len-grp",  // TEQLenGrp
   "eqlen_grp": "teq-len-grp",  // TEQLenGrp
   "FILL": "t-pcb-fill",  // TPcbFill
   "fill": "t-pcb-fill",  // TPcbFill
   "FONT": "tm-font",  // TMFont
   "font": "tm-font",  // TMFont
-  "FOOTPRINT_NET": "t-footprint-net",  // TFootprintNet
-  "footprint_net": "t-footprint-net",  // TFootprintNet
+  "FOOTPRINT_NET": "t-footprint-net-wire",  // TFootprintNetWire
+  "footprint_net": "t-footprint-net-wire",  // TFootprintNetWire
   "FPC_FILL": "t-pcb-fpc-fill",  // TPcbFpcFill
   "fpc_fill": "t-pcb-fpc-fill",  // TPcbFpcFill
   "GROUP": "t-sch-group",  // TSchGroup
   "group": "t-sch-group",  // TSchGroup
-  "HARNESS_CONNECTOR": "t-harness-connector",  // THarnessConnector
-  "harness_connector": "t-harness-connector",  // THarnessConnector
-  "HARNESS_ENTRY": "t-harness-entry",  // THarnessEntry
-  "harness_entry": "t-harness-entry",  // THarnessEntry
   "IMAGE": "t-pcb-image",  // TPcbImage
   "image": "t-pcb-image",  // TPcbImage
-  "LAYER": "t-layer",  // TLayer
-  "layer": "t-layer",  // TLayer
+  "LAYER": "t-layer-wire",  // TLayerWire
+  "layer": "t-layer-wire",  // TLayerWire
   "LAYER_FILL": "t-layer-fill",  // TLayerFill
   "layer_fill": "t-layer-fill",  // TLayerFill
   "LAYER_PHYS": "t-layer-phys",  // TLayerPhys
@@ -549,16 +596,16 @@ const TYPE_MAP = {
   "meta": "tm-sheet",  // TMSheet
   "NET": "t-net",  // TNet
   "net": "t-net",  // TNet
-  "NET_CLASS": "t-net-class",  // TNetClass
-  "net_class": "t-net-class",  // TNetClass
+  "NET_CLASS": "t-net-class-wire",  // TNetClassWire
+  "net_class": "t-net-class-wire",  // TNetClassWire
   "NG_SETTING": "tng-setting",  // TNGSetting
   "ng_setting": "tng-setting",  // TNGSetting
   "OBJ": "t-sch-obj",  // TSchObj
   "obj": "t-sch-obj",  // TSchObj
   "PAD": "t-pcb-pad",  // TPcbPad
   "pad": "t-pcb-pad",  // TPcbPad
-  "PAD_NET": "t-pad-net",  // TPadNet
-  "pad_net": "t-pad-net",  // TPadNet
+  "PAD_NET": "t-pad-net-wire",  // TPadNetWire
+  "pad_net": "t-pad-net-wire",  // TPadNetWire
   "PANELIZE": "t-panelize",  // TPanelize
   "panelize": "t-panelize",  // TPanelize
   "PANELIZE_SIDE": "t-panelize-side",  // TPanelizeSide
@@ -585,10 +632,10 @@ const TYPE_MAP = {
   "rect": "t-sch-rect",  // TSchRect
   "REGION": "t-pcb-region",  // TPcbRegion
   "region": "t-pcb-region",  // TPcbRegion
-  "RULE": "t-rule",  // TRule
-  "rule": "t-rule",  // TRule
-  "RULE_SELECTOR": "t-rule-selector",  // TRuleSelector
-  "rule_selector": "t-rule-selector",  // TRuleSelector
+  "RULE": "t-rule-wire",  // TRuleWire
+  "rule": "t-rule-wire",  // TRuleWire
+  "RULE_SELECTOR": "t-rule-selector-wire",  // TRuleSelectorWire
+  "rule_selector": "t-rule-selector-wire",  // TRuleSelectorWire
   "RULE_TEMPLATE": "t-rule-template",  // TRuleTemplate
   "rule_template": "t-rule-template",  // TRuleTemplate
   "SHELL": "t-pcb-shell",  // TPcbShell
@@ -597,10 +644,6 @@ const TYPE_MAP = {
   "shell_entity": "t-pcb-shell-entity",  // TPcbShellEntity
   "SHELLCUT": "t-pcb-shell-cut",  // TPcbShellCut
   "shellcut": "t-pcb-shell-cut",  // TPcbShellCut
-  "SIGNAL_HARNESS": "t-signal-harness",  // TSignalHarness
-  "signal_harness": "t-signal-harness",  // TSignalHarness
-  "SIGNAL_HARNESS_LINE": "t-signal-harness-line",  // TSignalHarnessLine
-  "signal_harness_line": "t-signal-harness-line",  // TSignalHarnessLine
   "SILK_OPTS": "t-silk-opts",  // TSilkOpts
   "silk_opts": "t-silk-opts",  // TSilkOpts
   "STRING": "t-pcb-string",  // TPcbString
@@ -625,8 +668,6 @@ const TYPE_MAP = {
   "blob_blob": "tm-blob",  // TMBlob
   "BOARD_META": "tm-board",  // TMBoard
   "board_meta": "tm-board",  // TMBoard
-  "CONFIG_E-SETTING-TYPE": "e-setting-type",  // ESettingType
-  "config_e-setting-type": "e-setting-type",  // ESettingType
   "CONFIG_META": "tm-config",  // TMConfig
   "config_meta": "tm-config",  // TMConfig
   "CONFIG_UNIVERSAL": "t-universal",  // TUniversal
@@ -655,22 +696,20 @@ const TYPE_MAP = {
   "footprint_d3_attribute": "td3attribute",  // TD3Attribute
   "FOOTPRINT_DIMENSION": "t-pcb-dimension",  // TPcbDimension
   "footprint_dimension": "t-pcb-dimension",  // TPcbDimension
-  "FOOTPRINT_E-PCB-DATA-TYPE": "e-pcb-data-type",  // EPcbDataType
-  "footprint_e-pcb-data-type": "e-pcb-data-type",  // EPcbDataType
   "FOOTPRINT_EQLEN_GRP": "teq-len-grp",  // TEQLenGrp
   "footprint_eqlen_grp": "teq-len-grp",  // TEQLenGrp
   "FOOTPRINT_FILL": "t-pcb-fill",  // TPcbFill
   "footprint_fill": "t-pcb-fill",  // TPcbFill
-  "FOOTPRINT_FOOTPRINT_NET": "t-footprint-net",  // TFootprintNet
-  "footprint_footprint_net": "t-footprint-net",  // TFootprintNet
+  "FOOTPRINT_FOOTPRINT_NET": "t-footprint-net-wire",  // TFootprintNetWire
+  "footprint_footprint_net": "t-footprint-net-wire",  // TFootprintNetWire
   "FOOTPRINT_FPC_FILL": "t-pcb-fpc-fill",  // TPcbFpcFill
   "footprint_fpc_fill": "t-pcb-fpc-fill",  // TPcbFpcFill
   "FOOTPRINT_GROUP": "t-pcb-group",  // TPcbGroup
   "footprint_group": "t-pcb-group",  // TPcbGroup
   "FOOTPRINT_IMAGE": "t-pcb-image",  // TPcbImage
   "footprint_image": "t-pcb-image",  // TPcbImage
-  "FOOTPRINT_LAYER": "t-layer",  // TLayer
-  "footprint_layer": "t-layer",  // TLayer
+  "FOOTPRINT_LAYER": "t-layer-wire",  // TLayerWire
+  "footprint_layer": "t-layer-wire",  // TLayerWire
   "FOOTPRINT_LAYER_FILL": "t-layer-fill",  // TLayerFill
   "footprint_layer_fill": "t-layer-fill",  // TLayerFill
   "FOOTPRINT_LAYER_PHYS": "t-layer-phys",  // TLayerPhys
@@ -683,8 +722,8 @@ const TYPE_MAP = {
   "footprint_obj": "t-pcb-obj",  // TPcbObj
   "FOOTPRINT_PAD": "t-pcb-pad",  // TPcbPad
   "footprint_pad": "t-pcb-pad",  // TPcbPad
-  "FOOTPRINT_PAD_NET": "t-pad-net",  // TPadNet
-  "footprint_pad_net": "t-pad-net",  // TPadNet
+  "FOOTPRINT_PAD_NET": "t-pad-net-wire",  // TPadNetWire
+  "footprint_pad_net": "t-pad-net-wire",  // TPadNetWire
   "FOOTPRINT_PANELIZE": "t-panelize",  // TPanelize
   "footprint_panelize": "t-panelize",  // TPanelize
   "FOOTPRINT_PANELIZE_SIDE": "t-panelize-side",  // TPanelizeSide
@@ -729,8 +768,6 @@ const TYPE_MAP = {
   "panel_canvas": "t-panel-canvas",  // TPanelCanvas
   "PANEL_DIMENSION": "t-panel-dimension",  // TPanelDimension
   "panel_dimension": "t-panel-dimension",  // TPanelDimension
-  "PANEL_E-PANEL-DATA-TYPE": "e-panel-data-type",  // EPanelDataType
-  "panel_e-panel-data-type": "e-panel-data-type",  // EPanelDataType
   "PANEL_GROUP": "t-panel-group",  // TPanelGroup
   "panel_group": "t-panel-group",  // TPanelGroup
   "PANEL_LIB_AUXLINE": "t-aux-line",  // TAuxLine
@@ -739,8 +776,6 @@ const TYPE_MAP = {
   "panel_lib_canvas": "t-panel-canvas",  // TPanelCanvas
   "PANEL_LIB_DIMENSION": "t-panel-dimension",  // TPanelDimension
   "panel_lib_dimension": "t-panel-dimension",  // TPanelDimension
-  "PANEL_LIB_E-PANEL-DATA-TYPE": "e-panel-data-type",  // EPanelDataType
-  "panel_lib_e-panel-data-type": "e-panel-data-type",  // EPanelDataType
   "PANEL_LIB_GROUP": "t-panel-group",  // TPanelGroup
   "panel_lib_group": "t-panel-group",  // TPanelGroup
   "PANEL_LIB_META": "tm-panel-lib",  // TMPanelLib
@@ -775,22 +810,20 @@ const TYPE_MAP = {
   "pcb_d3_attribute": "td3attribute",  // TD3Attribute
   "PCB_DIMENSION": "t-pcb-dimension",  // TPcbDimension
   "pcb_dimension": "t-pcb-dimension",  // TPcbDimension
-  "PCB_E-PCB-DATA-TYPE": "e-pcb-data-type",  // EPcbDataType
-  "pcb_e-pcb-data-type": "e-pcb-data-type",  // EPcbDataType
   "PCB_EQLEN_GRP": "teq-len-grp",  // TEQLenGrp
   "pcb_eqlen_grp": "teq-len-grp",  // TEQLenGrp
   "PCB_FILL": "t-pcb-fill",  // TPcbFill
   "pcb_fill": "t-pcb-fill",  // TPcbFill
-  "PCB_FOOTPRINT_NET": "t-footprint-net",  // TFootprintNet
-  "pcb_footprint_net": "t-footprint-net",  // TFootprintNet
+  "PCB_FOOTPRINT_NET": "t-footprint-net-wire",  // TFootprintNetWire
+  "pcb_footprint_net": "t-footprint-net-wire",  // TFootprintNetWire
   "PCB_FPC_FILL": "t-pcb-fpc-fill",  // TPcbFpcFill
   "pcb_fpc_fill": "t-pcb-fpc-fill",  // TPcbFpcFill
   "PCB_GROUP": "t-pcb-group",  // TPcbGroup
   "pcb_group": "t-pcb-group",  // TPcbGroup
   "PCB_IMAGE": "t-pcb-image",  // TPcbImage
   "pcb_image": "t-pcb-image",  // TPcbImage
-  "PCB_LAYER": "t-layer",  // TLayer
-  "pcb_layer": "t-layer",  // TLayer
+  "PCB_LAYER": "t-layer-wire",  // TLayerWire
+  "pcb_layer": "t-layer-wire",  // TLayerWire
   "PCB_LAYER_FILL": "t-layer-fill",  // TLayerFill
   "pcb_layer_fill": "t-layer-fill",  // TLayerFill
   "PCB_LAYER_PHYS": "t-layer-phys",  // TLayerPhys
@@ -805,8 +838,8 @@ const TYPE_MAP = {
   "pcb_obj": "t-pcb-obj",  // TPcbObj
   "PCB_PAD": "t-pcb-pad",  // TPcbPad
   "pcb_pad": "t-pcb-pad",  // TPcbPad
-  "PCB_PAD_NET": "t-pad-net",  // TPadNet
-  "pcb_pad_net": "t-pad-net",  // TPadNet
+  "PCB_PAD_NET": "t-pad-net-wire",  // TPadNetWire
+  "pcb_pad_net": "t-pad-net-wire",  // TPadNetWire
   "PCB_PANELIZE": "t-panelize",  // TPanelize
   "pcb_panelize": "t-panelize",  // TPanelize
   "PCB_PANELIZE_SIDE": "t-panelize-side",  // TPanelizeSide
@@ -827,10 +860,10 @@ const TYPE_MAP = {
   "pcb_primitive": "t-primitive",  // TPrimitive
   "PCB_REGION": "t-pcb-region",  // TPcbRegion
   "pcb_region": "t-pcb-region",  // TPcbRegion
-  "PCB_RULE": "t-rule",  // TRule
-  "pcb_rule": "t-rule",  // TRule
-  "PCB_RULE_SELECTOR": "t-rule-selector",  // TRuleSelector
-  "pcb_rule_selector": "t-rule-selector",  // TRuleSelector
+  "PCB_RULE": "t-rule-wire",  // TRuleWire
+  "pcb_rule": "t-rule-wire",  // TRuleWire
+  "PCB_RULE_SELECTOR": "t-rule-selector-wire",  // TRuleSelectorWire
+  "pcb_rule_selector": "t-rule-selector-wire",  // TRuleSelectorWire
   "PCB_RULE_TEMPLATE": "t-rule-template",  // TRuleTemplate
   "pcb_rule_template": "t-rule-template",  // TRuleTemplate
   "PCB_SHELL": "t-pcb-shell",  // TPcbShell
@@ -851,28 +884,172 @@ const TYPE_MAP = {
   "pcb_x_net": "t-pcb-x-nets",  // TPcbXNets
   "PCB_X_NET_GROUP": "t-base-x-nets-group",  // TPcbXNetsGroup
   "pcb_x_net_group": "t-base-x-nets-group",  // TPcbXNetsGroup
-  "SCH_CUSTOM_GLOBAL_NET": "t-custom-global-net",  // TCustomGlobalNet
-  "sch_custom_global_net": "t-custom-global-net",  // TCustomGlobalNet
-  "SCH_DIFFERENTIAL_PAIR": "t-differential-pair",  // TDifferentialPair
-  "sch_differential_pair": "t-differential-pair",  // TDifferentialPair
-  "SCH_E-SCHEMATIC-TYPE": "e-schematic-type",  // ESchematicType
-  "sch_e-schematic-type": "e-schematic-type",  // ESchematicType
-  "SCH_EQL_NET_GRP": "teq-len-net-grp",  // TEQLenNetGrp
-  "sch_eql_net_grp": "teq-len-net-grp",  // TEQLenNetGrp
+  "REFERENCE_E-ALIGN": "e-align",  // EAlign
+  "reference_e-align": "e-align",  // EAlign
+  "REFERENCE_E-ARC-TYPE": "e-arc-type",  // EArcType
+  "reference_e-arc-type": "e-arc-type",  // EArcType
+  "REFERENCE_E-AUTO-ROUTING-CORNER": "e-auto-routing-corner",  // EAutoRoutingCorner
+  "reference_e-auto-routing-corner": "e-auto-routing-corner",  // EAutoRoutingCorner
+  "REFERENCE_E-AUTO-ROUTING-PRIORITY": "e-auto-routing-priority",  // EAutoRoutingPriority
+  "reference_e-auto-routing-priority": "e-auto-routing-priority",  // EAutoRoutingPriority
+  "REFERENCE_E-AUTO-ROUTING-VIA-QUANTITY": "e-auto-routing-via-quantity",  // EAutoRoutingViaQuantity
+  "reference_e-auto-routing-via-quantity": "e-auto-routing-via-quantity",  // EAutoRoutingViaQuantity
+  "REFERENCE_E-BOTH-END-SHAPE": "e-both-end-shape",  // EBothEndShape
+  "reference_e-both-end-shape": "e-both-end-shape",  // EBothEndShape
+  "REFERENCE_E-CURRENT-PATH-OPTIMIZATION": "e-current-path-optimization",  // ECurrentPathOptimization
+  "reference_e-current-path-optimization": "e-current-path-optimization",  // ECurrentPathOptimization
+  "REFERENCE_E-DIMENSION-TYPE": "e-dimension-type",  // EDimensionType
+  "reference_e-dimension-type": "e-dimension-type",  // EDimensionType
+  "REFERENCE_E-ENTITY-BELONG": "e-entity-belong",  // EEntityBelong
+  "reference_e-entity-belong": "e-entity-belong",  // EEntityBelong
+  "REFERENCE_E-ENTITY-TYPE": "e-entity-type",  // EEntityType
+  "reference_e-entity-type": "e-entity-type",  // EEntityType
+  "REFERENCE_E-FPC-MATERIAL": "e-fpc-material",  // EFpcMaterial
+  "reference_e-fpc-material": "e-fpc-material",  // EFpcMaterial
+  "REFERENCE_E-GRID-TYPE": "e-grid-type",  // EGridType
+  "reference_e-grid-type": "e-grid-type",  // EGridType
+  "REFERENCE_E-HEADER-TYPE": "e-header-type",  // EHeaderType
+  "reference_e-header-type": "e-header-type",  // EHeaderType
+  "REFERENCE_E-LAYER-BRIGHTNESS": "e-layer-brightness",  // ELayerBrightness
+  "reference_e-layer-brightness": "e-layer-brightness",  // ELayerBrightness
+  "REFERENCE_E-LAYER-CODE": "e-layer-code",  // ELayerCode
+  "reference_e-layer-code": "e-layer-code",  // ELayerCode
+  "REFERENCE_E-LAYER-TYPE": "e-layer-type",  // ELayerType
+  "reference_e-layer-type": "e-layer-type",  // ELayerType
+  "REFERENCE_E-PAD-CONNECT": "e-pad-connect",  // EPadConnect
+  "reference_e-pad-connect": "e-pad-connect",  // EPadConnect
+  "REFERENCE_E-PAD-FUNC-TYPE": "e-pad-func-type",  // EPadFuncType
+  "reference_e-pad-func-type": "e-pad-func-type",  // EPadFuncType
+  "REFERENCE_E-PAD-SHAPE-TYPE": "e-pad-shape-type",  // EPadShapeType
+  "reference_e-pad-shape-type": "e-pad-shape-type",  // EPadShapeType
+  "REFERENCE_E-PANEL-DATA-TYPE": "e-panel-data-type",  // EPanelDataType
+  "reference_e-panel-data-type": "e-panel-data-type",  // EPanelDataType
+  "REFERENCE_E-PANEL-LAYER": "e-panel-layer",  // EPanelLayer
+  "reference_e-panel-layer": "e-panel-layer",  // EPanelLayer
+  "REFERENCE_E-PANEL-TRANS-SCOPE": "e-panel-trans-scope",  // EPanelTransScope
+  "reference_e-panel-trans-scope": "e-panel-trans-scope",  // EPanelTransScope
+  "REFERENCE_E-PANELIZE-VERSION": "e-panelize-version",  // EPanelizeVersion
+  "reference_e-panelize-version": "e-panelize-version",  // EPanelizeVersion
+  "REFERENCE_E-PATH-OPTIMIZATION": "e-path-optimization",  // EPathOptimization
+  "reference_e-path-optimization": "e-path-optimization",  // EPathOptimization
+  "REFERENCE_E-PCB-DATA-TYPE": "e-pcb-data-type",  // EPcbDataType
+  "reference_e-pcb-data-type": "e-pcb-data-type",  // EPcbDataType
+  "REFERENCE_E-PCB-FILL-STYLE": "e-pcb-fill-style",  // EPcbFillStyle
+  "reference_e-pcb-fill-style": "e-pcb-fill-style",  // EPcbFillStyle
+  "REFERENCE_E-PIN-SHAPE": "e-pin-shape",  // EPinShape
+  "reference_e-pin-shape": "e-pin-shape",  // EPinShape
+  "REFERENCE_E-POLY-TYPE": "e-poly-type",  // EPolyType
+  "reference_e-poly-type": "e-poly-type",  // EPolyType
+  "REFERENCE_E-PRIMITIVE-VIEW-MODE": "e-primitive-view-mode",  // EPrimitiveViewMode
+  "reference_e-primitive-view-mode": "e-primitive-view-mode",  // EPrimitiveViewMode
+  "REFERENCE_E-PROHIBIT-TYPE": "e-prohibit-type",  // EProhibitType
+  "reference_e-prohibit-type": "e-prohibit-type",  // EProhibitType
+  "REFERENCE_E-PUSH-VIA-OPTIMIZATION": "e-push-via-optimization",  // EPushViaOptimization
+  "reference_e-push-via-optimization": "e-push-via-optimization",  // EPushViaOptimization
+  "REFERENCE_E-REGION-TYPE": "e-region-type",  // ERegionType
+  "reference_e-region-type": "e-region-type",  // ERegionType
+  "REFERENCE_E-RELEVANCE-BELONG-SCH-PAGE": "e-relevance-belong-sch-page",  // ERelevanceBelongSchPage
+  "reference_e-relevance-belong-sch-page": "e-relevance-belong-sch-page",  // ERelevanceBelongSchPage
+  "REFERENCE_E-RELEVANCE-DISPLAY-ROW-TYPE": "e-relevance-display-row-type",  // ERelevanceDisplayRowType
+  "reference_e-relevance-display-row-type": "e-relevance-display-row-type",  // ERelevanceDisplayRowType
+  "REFERENCE_E-RELEVANCE-LOCATION": "e-relevance-location",  // ERelevanceLocation
+  "reference_e-relevance-location": "e-relevance-location",  // ERelevanceLocation
+  "REFERENCE_E-ROUTING-CONNER": "e-routing-conner",  // ERoutingConner
+  "reference_e-routing-conner": "e-routing-conner",  // ERoutingConner
+  "REFERENCE_E-ROUTING-MODE": "e-routing-mode",  // ERoutingMode
+  "reference_e-routing-mode": "e-routing-mode",  // ERoutingMode
+  "REFERENCE_E-RULE-STATUS": "e-rule-status",  // ERuleStatus
+  "reference_e-rule-status": "e-rule-status",  // ERuleStatus
+  "REFERENCE_E-RULE-TYPE": "e-rule-type",  // ERuleType
+  "reference_e-rule-type": "e-rule-type",  // ERuleType
+  "REFERENCE_E-SCH-DATA-TYPE": "e-sch-data-type",  // ESchDataType
+  "reference_e-sch-data-type": "e-sch-data-type",  // ESchDataType
+  "REFERENCE_E-SCH-FILL-STYLE": "e-sch-fill-style",  // ESchFillStyle
+  "reference_e-sch-fill-style": "e-sch-fill-style",  // ESchFillStyle
+  "REFERENCE_E-SCHEMATIC-TYPE": "e-schematic-type",  // ESchematicType
+  "reference_e-schematic-type": "e-schematic-type",  // ESchematicType
+  "REFERENCE_E-SETTING-TYPE": "e-setting-type",  // ESettingType
+  "reference_e-setting-type": "e-setting-type",  // ESettingType
+  "REFERENCE_E-SHOW-STATUS": "e-show-status",  // EShowStatus
+  "reference_e-show-status": "e-show-status",  // EShowStatus
+  "REFERENCE_E-SLOT-OPTION": "e-slot-option",  // ESlotOption
+  "reference_e-slot-option": "e-slot-option",  // ESlotOption
+  "REFERENCE_E-SPECIFICATION": "e-specification",  // ESpecification
+  "reference_e-specification": "e-specification",  // ESpecification
+  "REFERENCE_E-STROKE-STYLE": "e-stroke-style",  // EStrokeStyle
+  "reference_e-stroke-style": "e-stroke-style",  // EStrokeStyle
+  "REFERENCE_E-TRACK-CONNECT": "e-track-connect",  // ETrackConnect
+  "reference_e-track-connect": "e-track-connect",  // ETrackConnect
+  "REFERENCE_E-UNIT-NAME": "e-unit-name",  // EUnitName
+  "reference_e-unit-name": "e-unit-name",  // EUnitName
+  "REFERENCE_E-UNUSED-PAD-RANGE": "e-unused-pad-range",  // EUnusedPadRange
+  "reference_e-unused-pad-range": "e-unused-pad-range",  // EUnusedPadRange
+  "REFERENCE_E-VIA-TYPE": "e-via-type",  // EViaType
+  "reference_e-via-type": "e-via-type",  // EViaType
+  "REFERENCE_E3D-SHELL-OUTLINE-TYPE": "e3d-shell-outline-type",  // E3DShellOutlineType
+  "reference_e3d-shell-outline-type": "e3d-shell-outline-type",  // E3DShellOutlineType
+  "REFERENCE_E3D-SHELL-PUSH-COVER-DIR": "e3d-shell-push-cover-dir",  // E3DShellPushCoverDir
+  "reference_e3d-shell-push-cover-dir": "e3d-shell-push-cover-dir",  // E3DShellPushCoverDir
+  "REFERENCE_EH-ALIGN": "eh-align",  // EHAlign
+  "reference_eh-align": "eh-align",  // EHAlign
+  "REFERENCE_ET-HOLE-TYPE": "et-hole-type",  // ETHoleType
+  "reference_et-hole-type": "et-hole-type",  // ETHoleType
+  "REFERENCE_EV-ALIGN": "ev-align",  // EVAlign
+  "reference_ev-align": "ev-align",  // EVAlign
+  "REFERENCE_T-COMPOSITE-ELEMENT-ID": "t-composite-element-id",  // TCompositeElementId
+  "reference_t-composite-element-id": "t-composite-element-id",  // TCompositeElementId
+  "REFERENCE_T-CONSTANT-DOC-UUID": "t-constant-doc-uuid",  // TConstantDocUuid
+  "reference_t-constant-doc-uuid": "t-constant-doc-uuid",  // TConstantDocUuid
+  "REFERENCE_T-DOC-UUID": "t-doc-uuid",  // TDocUuid
+  "reference_t-doc-uuid": "t-doc-uuid",  // TDocUuid
+  "REFERENCE_T-ELEMENT-ID": "t-element-id",  // TElementId
+  "reference_t-element-id": "t-element-id",  // TElementId
+  "REFERENCE_T-EMBEDDED-DOC-UUID": "t-embedded-doc-uuid",  // TEmbeddedDocUuid
+  "reference_t-embedded-doc-uuid": "t-embedded-doc-uuid",  // TEmbeddedDocUuid
+  "REFERENCE_T-GROUP-DATA-DOC-UUID": "t-group-data-doc-uuid",  // TGroupDataDocUuid
+  "reference_t-group-data-doc-uuid": "t-group-data-doc-uuid",  // TGroupDataDocUuid
+  "REFERENCE_T-INSTANCE-DOC-UUID": "t-instance-doc-uuid",  // TInstanceDocUuid
+  "reference_t-instance-doc-uuid": "t-instance-doc-uuid",  // TInstanceDocUuid
+  "REFERENCE_T-KEYED-ELEMENT-ID": "t-keyed-element-id",  // TKeyedElementId
+  "reference_t-keyed-element-id": "t-keyed-element-id",  // TKeyedElementId
+  "REFERENCE_T-LOCAL-ELEMENT-ID": "t-local-element-id",  // TLocalElementId
+  "reference_t-local-element-id": "t-local-element-id",  // TLocalElementId
+  "REFERENCE_T-PANEL-COMPLEX-POLYGON": "t-panel-complex-polygon",  // TPanelComplexPolygon
+  "reference_t-panel-complex-polygon": "t-panel-complex-polygon",  // TPanelComplexPolygon
+  "REFERENCE_T-PANEL-SINGLE-POLYGON": "t-panel-single-polygon",  // TPanelSinglePolygon
+  "reference_t-panel-single-polygon": "t-panel-single-polygon",  // TPanelSinglePolygon
+  "REFERENCE_T-PART-ID": "t-part-id",  // TPartId
+  "reference_t-part-id": "t-part-id",  // TPartId
+  "REFERENCE_T-PCB-COMPLEX-POLYGON": "t-pcb-complex-polygon",  // TPcbComplexPolygon
+  "reference_t-pcb-complex-polygon": "t-pcb-complex-polygon",  // TPcbComplexPolygon
+  "REFERENCE_T-PCB-SINGLE-POLYGON": "t-pcb-single-polygon",  // TPcbSinglePolygon
+  "reference_t-pcb-single-polygon": "t-pcb-single-polygon",  // TPcbSinglePolygon
+  "REFERENCE_T-POUR-TYPE": "t-pour-type",  // TPourType
+  "reference_t-pour-type": "t-pour-type",  // TPourType
+  "REFERENCE_T-SCH-BUS-ENTRY": "t-sch-bus-entry",  // TSchBusEntry
+  "reference_t-sch-bus-entry": "t-sch-bus-entry",  // TSchBusEntry
+  "REFERENCE_T-SINGLETON-ELEMENT-ID": "t-singleton-element-id",  // TSingletonElementId
+  "reference_t-singleton-element-id": "t-singleton-element-id",  // TSingletonElementId
+  "REFERENCE_T-TABLE-CELL": "t-table-cell",  // TTableCell
+  "reference_t-table-cell": "t-table-cell",  // TTableCell
+  "REFERENCE_TDC-SOURCE-DATA": "tdc-source-data",  // TDCSourceData
+  "reference_tdc-source-data": "tdc-source-data",  // TDCSourceData
+  "REFERENCE_TY-AXIS-DIRECTION": "ty-axis-direction",  // TYAxisDirection
+  "reference_ty-axis-direction": "ty-axis-direction",  // TYAxisDirection
+  "SCH_DIFFERENTIAL_PAIR": "t-differential-pair-wire",  // TDifferentialPairWire
+  "sch_differential_pair": "t-differential-pair-wire",  // TDifferentialPairWire
+  "SCH_EQL_NET_GRP": "teq-len-net-grp-wire",  // TEQLenNetGrpWire
+  "sch_eql_net_grp": "teq-len-net-grp-wire",  // TEQLenNetGrpWire
   "SCH_META": "tm-schematic",  // TMSchematic
   "sch_meta": "tm-schematic",  // TMSchematic
-  "SCH_NET_CLASS": "t-net-class",  // TNetClass
-  "sch_net_class": "t-net-class",  // TNetClass
+  "SCH_NET_CLASS": "t-net-class-wire",  // TNetClassWire
+  "sch_net_class": "t-net-class-wire",  // TNetClassWire
   "SCH_PAGE_ARC": "t-sch-arc",  // TSchArc
   "sch_page_arc": "t-sch-arc",  // TSchArc
-  "SCH_PAGE_ARROW": "t-sch-arrow",  // TSchArrow
-  "sch_page_arrow": "t-sch-arrow",  // TSchArrow
   "SCH_PAGE_ATTR": "t-sch-attr",  // TSchAttr
   "sch_page_attr": "t-sch-attr",  // TSchAttr
   "SCH_PAGE_BEZIER": "t-sch-bezier",  // TSchBezier
   "sch_page_bezier": "t-sch-bezier",  // TSchBezier
-  "SCH_PAGE_BRACKET": "t-sch-bracket",  // TSchBracket
-  "sch_page_bracket": "t-sch-bracket",  // TSchBracket
   "SCH_PAGE_BUS": "t-bus",  // TBus
   "sch_page_bus": "t-bus",  // TBus
   "SCH_PAGE_CANVAS": "t-sch-canvas",  // TSchCanvas
@@ -885,10 +1062,6 @@ const TYPE_MAP = {
   "sch_page_ellipse": "t-sch-ellipse",  // TSchEllipse
   "SCH_PAGE_GROUP": "t-sch-group",  // TSchGroup
   "sch_page_group": "t-sch-group",  // TSchGroup
-  "SCH_PAGE_HARNESS_CONNECTOR": "t-harness-connector",  // THarnessConnector
-  "sch_page_harness_connector": "t-harness-connector",  // THarnessConnector
-  "SCH_PAGE_HARNESS_ENTRY": "t-harness-entry",  // THarnessEntry
-  "sch_page_harness_entry": "t-harness-entry",  // THarnessEntry
   "SCH_PAGE_LINE": "t-sch-line",  // TSchLine
   "sch_page_line": "t-sch-line",  // TSchLine
   "SCH_PAGE_MASK_REGION": "t-sch-mask-region",  // TSchMaskRegion
@@ -907,26 +1080,16 @@ const TYPE_MAP = {
   "sch_page_poly": "t-sch-poly",  // TSchPoly
   "SCH_PAGE_RECT": "t-sch-rect",  // TSchRect
   "sch_page_rect": "t-sch-rect",  // TSchRect
-  "SCH_PAGE_SIGNAL_HARNESS": "t-signal-harness",  // TSignalHarness
-  "sch_page_signal_harness": "t-signal-harness",  // TSignalHarness
-  "SCH_PAGE_SIGNAL_HARNESS_LINE": "t-signal-harness-line",  // TSignalHarnessLine
-  "sch_page_signal_harness_line": "t-signal-harness-line",  // TSignalHarnessLine
-  "SCH_PAGE_T-SCH-BUS-ENTRY": "t-sch-bus-entry",  // TSchBusEntry
-  "sch_page_t-sch-bus-entry": "t-sch-bus-entry",  // TSchBusEntry
-  "SCH_PAGE_T-TABLE-CELL": "t-table-cell",  // TTableCell
-  "sch_page_t-table-cell": "t-table-cell",  // TTableCell
   "SCH_PAGE_TABLE": "t-sch-table",  // TSchTable
   "sch_page_table": "t-sch-table",  // TSchTable
-  "SCH_PAGE_TDC-SOURCE-DATA": "tdc-source-data",  // TDCSourceData
-  "sch_page_tdc-source-data": "tdc-source-data",  // TDCSourceData
   "SCH_PAGE_TEXT": "t-sch-text",  // TSchText
   "sch_page_text": "t-sch-text",  // TSchText
   "SCH_PAGE_WIRE": "t-wire",  // TWire
   "sch_page_wire": "t-wire",  // TWire
-  "SCH_RULE": "t-rule",  // TRule
-  "sch_rule": "t-rule",  // TRule
-  "SCH_RULE_SELECTOR": "t-rule-selector",  // TRuleSelector
-  "sch_rule_selector": "t-rule-selector",  // TRuleSelector
+  "SCH_RULE": "t-rule-wire",  // TRuleWire
+  "sch_rule": "t-rule-wire",  // TRuleWire
+  "SCH_RULE_SELECTOR": "t-rule-selector-wire",  // TRuleSelectorWire
+  "sch_rule_selector": "t-rule-selector-wire",  // TRuleSelectorWire
   "SCH_RULE_TEMPLATE": "t-rule-template",  // TRuleTemplate
   "sch_rule_template": "t-rule-template",  // TRuleTemplate
   "SIMULATION_ARC": "t-sch-arc",  // TSchArc
@@ -965,18 +1128,16 @@ const TYPE_MAP = {
   "simulation_poly": "t-sch-poly",  // TSchPoly
   "SIMULATION_RECT": "t-sch-rect",  // TSchRect
   "simulation_rect": "t-sch-rect",  // TSchRect
-  "SIMULATION_SCH_DIFFERENTIAL_PAIR": "t-differential-pair",  // TDifferentialPair
-  "simulation_sch_differential_pair": "t-differential-pair",  // TDifferentialPair
+  "SIMULATION_SCH_DIFFERENTIAL_PAIR": "t-differential-pair-wire",  // TDifferentialPairWire
+  "simulation_sch_differential_pair": "t-differential-pair-wire",  // TDifferentialPairWire
+  "SIMULATION_SCH_EQL_NET_GRP": "teq-len-net-grp-wire",  // TEQLenNetGrpWire
+  "simulation_sch_eql_net_grp": "teq-len-net-grp-wire",  // TEQLenNetGrpWire
   "SIMULATION_SCH_META": "tm-sim-schematic",  // TMSimSchematic
   "simulation_sch_meta": "tm-sim-schematic",  // TMSimSchematic
-  "SIMULATION_T-SCH-BUS-ENTRY": "t-sch-bus-entry",  // TSchBusEntry
-  "simulation_t-sch-bus-entry": "t-sch-bus-entry",  // TSchBusEntry
-  "SIMULATION_T-TABLE-CELL": "t-table-cell",  // TTableCell
-  "simulation_t-table-cell": "t-table-cell",  // TTableCell
+  "SIMULATION_SCH_NET_CLASS": "t-net-class-wire",  // TNetClassWire
+  "simulation_sch_net_class": "t-net-class-wire",  // TNetClassWire
   "SIMULATION_TABLE": "t-sch-table",  // TSchTable
   "simulation_table": "t-sch-table",  // TSchTable
-  "SIMULATION_TDC-SOURCE-DATA": "tdc-source-data",  // TDCSourceData
-  "simulation_tdc-source-data": "tdc-source-data",  // TDCSourceData
   "SIMULATION_TEXT": "t-sch-text",  // TSchText
   "simulation_text": "t-sch-text",  // TSchText
   "SIMULATION_WIRE": "t-wire",  // TWire
@@ -1017,14 +1178,8 @@ const TYPE_MAP = {
   "symbol_poly": "t-sch-poly",  // TSchPoly
   "SYMBOL_RECT": "t-sch-rect",  // TSchRect
   "symbol_rect": "t-sch-rect",  // TSchRect
-  "SYMBOL_T-SCH-BUS-ENTRY": "t-sch-bus-entry",  // TSchBusEntry
-  "symbol_t-sch-bus-entry": "t-sch-bus-entry",  // TSchBusEntry
-  "SYMBOL_T-TABLE-CELL": "t-table-cell",  // TTableCell
-  "symbol_t-table-cell": "t-table-cell",  // TTableCell
   "SYMBOL_TABLE": "t-sch-table",  // TSchTable
   "symbol_table": "t-sch-table",  // TSchTable
-  "SYMBOL_TDC-SOURCE-DATA": "tdc-source-data",  // TDCSourceData
-  "symbol_tdc-source-data": "tdc-source-data",  // TDCSourceData
   "SYMBOL_TEXT": "t-sch-text",  // TSchText
   "symbol_text": "t-sch-text",  // TSchText
   "SYMBOL_WIRE": "t-wire",  // TWire

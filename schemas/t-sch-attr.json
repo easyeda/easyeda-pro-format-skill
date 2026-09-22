@@ -3,15 +3,15 @@
   "type": "object",
   "properties": {
     "partId": {
-      "description": "所属部件编号（**可选**，真机存在整键缺失的 COMPONENT）：\r\n **符号页**上表示自身归属于哪个部件，**图页**的元件则指向它**关联的符号文档**里的部件。\r\n 取值即目标 `PART` 行的 `id`（`PART` 行只存在于 SYMBOL 文档，见 `TPart`）。",
+      "description": "所属部件编号（**可选**，真机存在整键缺失的 COMPONENT）：\r\n**符号页**上表示自身归属于哪个部件，**图页**的元件则指向它**关联的符号文档**里的部件。\r\n取值即目标 `PART` 行的 `id`（`PART` 行只存在于 SYMBOL 文档，见 `TPart`）。",
       "type": "string"
     },
     "groupId": {
-      "description": "分组编号；**两种「未成组」形态都表示未成组**：\r\n - **3.0 写盘时该键根本不存在**：写入端取 `model.combination?.id`，未成组即 `undefined`，\r\n   经 `JSON.stringify` 后整键被丢弃，消费方须**按可选键处理**；\r\n - **`\"\"` 只出现在 2.0 迁移数据里**（2.0 → 3.0 转换腿原样带着它）。",
+      "description": "分组编号；**两种「未成组」形态都表示未成组**：\r\n- **3.0 写盘时该键根本不存在**：写入端取 `model.combination?.id`，未成组即 `undefined`，\r\n  经 `JSON.stringify` 后整键被丢弃，消费方须**按可选键处理**；\r\n- **`\"\"` 只出现在 2.0 迁移数据里**（2.0 → 3.0 转换腿原样带着它）。",
       "type": "string"
     },
     "locked": {
-      "description": "是否锁定",
+      "description": "是否锁定。\r\n\r\n⚠️ **原理图侧目前只是数据字段**：pro-sch 里没有任何按它拦截拖拽 / 删除 / 改大小 /\r\n改形状的实现（连「锁定 / 解锁」命令本身都是空实现，只 publish 属性面板刷新）。\r\n那四条行为特征只在 **PCB / 面板**侧落实。生成数据时照常写入本字段，\r\n但**不要指望原理图端会因为它而禁止操作**。",
       "type": "boolean"
     },
     "zIndex": {
@@ -22,7 +22,7 @@
       ]
     },
     "yAxisDirection": {
-      "description": "Y 轴方向标记：**仅 eprj3 本地文件格式会带**，读盘时被剥离。\r\n\r\n 取值：`up` **已按 Y 轴向上写出**（本地文件固定用它）、`down` Y 轴向下\r\n （**字段缺失等价于它**，两者是同一件事）。完整语义见 `TYAxisDirection`。\r\n\r\n ⚠️ 本基类被多个图元继承，**各自被翻转的字段不同**——完整对照表见 `TYAxisDirection`。\r\n 本基类直接覆盖的：`ATTR`/`TEXT`/`PIN`/`COMPONENT` 翻 `y`；`OBJ`/`TABLE` 翻 `startY`；\r\n `ARC` 翻 `startY`/`referY`/`endY`；`CIRCLE`/`ELLIPSE` 翻 `centerY` + 内嵌 `text.y`；\r\n `RECT` 翻 `dotY1`/`dotY2` + `text.y`；`MASK_REGION` 翻 `dotY1`/`dotY2`；`POLY` 翻\r\n `points` 各项的 `y`；`BEZIER` 翻 `controls` 的奇数下标。\r\n `rotation` / `isMirror` / `zIndex` 与所有幅值字段**不翻**。",
+      "description": "Y 轴方向标记：**仅 eprj3 本地文件格式会带**，读盘时被剥离。\r\n\r\n取值：`up` = **笛卡尔坐标系（Y 向上）**，本行坐标已按它写出（本地文件固定用它），`down` = **屏幕坐标系（Y 向下）**（编辑器内部与云端的常态）\r\n——**字段缺失等价于它**，两者是同一件事；两套坐标系下同一个形状的 y **互为相反数**。完整语义见 `TYAxisDirection`。\r\n\r\n⚠️ 本基类被多个图元继承，**各自被翻转的字段不同**——完整对照表见 `TYAxisDirection`。\r\n本基类直接覆盖的：`ATTR`/`TEXT`/`PIN`/`COMPONENT` 翻 `y`；`OBJ`/`TABLE` 翻 `startY`；\r\n`ARC` 翻 `startY`/`referY`/`endY`；`CIRCLE`/`ELLIPSE` 翻 `centerY` + 内嵌 `text.y`；\r\n`RECT` 翻 `dotY1`/`dotY2` + `text.y`；`MASK_REGION` 翻 `dotY1`/`dotY2`；`POLY` 翻\r\n`points` 各项的 `y`；`BEZIER` 翻 `controls` 的奇数下标。\r\n`rotation` / `isMirror` / `zIndex` 与所有幅值字段**不翻**。",
       "type": "string",
       "enum": [
         "up",
@@ -30,11 +30,11 @@
       ]
     },
     "parentId": {
-      "description": "宿主图元的**标识**：**这条属性挂在哪一个图元上**。\r\n\r\n ## 怎么用它\r\n 本字段的值永远是「**某个图元的 id**」，拿它去找 `id` 相等的那条记录即可。\r\n 但**具体是哪种图元、去找哪一行，取决于这条属性所在的位置**（与 PCB 侧只有一种情况不同）：\r\n\r\n | 本条属性挂在… | 本字段的值是 | 去哪儿找 |\r\n | --- | --- | --- |\r\n | **图页**上的元件（最常见） | 该元件的行 `id` | `type:\"COMPONENT\"` 里 `id` 相等的那条 |\r\n | **符号页**、且宿主是符号本体 | 宿主的 **`partId`**（**不是**它的行 `id`） | 该**符号文档**里 `type:\"PART\"` 且 `id` 相等的那条（**PART 行的 `id` 就是 `partId`**；PART 行只存在于 SYMBOL 文档） |\r\n | **符号页**的引脚（`Pin Name` / `Pin Number` / `Pin Type` / `NO_CONNECT`） | 该 `PIN` 行的 `id` | `type:\"PIN\"` 里 `id` 相等的那条——**引脚在符号页就是独立一行**，这几个属性正是写在这种行上的（真机上 `{\"type\":\"ATTR\",…,\"parentId\":\"ie1\",\"key\":\"Pin Name\",…}` 与 `{\"type\":\"PIN\",\"ticket\":7,\"id\":\"ie1\"}` **成对出现**） |\r\n | **图页**上元件的引脚 | 运行时**派生**的引脚 id（形如 `ie90-7fd7c300f6d8ee1b`） | **盘上没有对应行**——该 id 由模板按 `${符号id}${item.id}` 拼出，别去盘上找 |\r\n | **导线 / 总线组**（`NET` / `Relevance`） | 该组的行 `id` | `type:\"WIRE\"` / `type:\"BUS\"` |\r\n | **矩形 / 圆 / 椭圆**（`Relevance`） | 该图元的行 `id` | 对应图元类型 |\r\n | **图纸 / 标题栏设置**（`Title Block` / `Border` / `SheetNumber` / `Revision` / `CompanyName`…） | 该**图框元件**的行 `id` | `type:\"COMPONENT\"` 里 `id` 相等的那条——真机上这些属性**全挂在同一个图框元件**上（`{\"type\":\"ATTR\",…,\"parentId\":\"ie11\",\"key\":\"Title Block\",…}` 对 `{\"type\":\"COMPONENT\",\"ticket\":104273,\"id\":\"ie11\",\"firstTicket\":13}`），**不是文件级** |\r\n | **文件级**（悬浮网络标签等） | 空串 `\"\"` **或** 根 id `\"$$root\"` | 不指向任何具体图元 |\r\n\r\n ⚠️ **符号页那一行是最大的坑**：同样一套 `Device` / `Symbol` 属性，在图页里本字段指向\r\n `COMPONENT` 的行 id，在符号页里却指向 `PART`（走的是宿主的 `partId` 字段）。\r\n 依据：解码时按宿主是否为符号本体分派。\r\n\r\n ## ⚠️ 不是什么\r\n - **不是位号**（那是 `key:\"Designator\"` 那条的 `value`）\r\n - **不是器件 / 符号 uuid**（那是 `key:\"Device\"` / `key:\"Symbol\"` 那条的 `value`）\r\n\r\n ## 边界\r\n **文件级属性用空串或 `$$root`，两种都会出现** —— 旧注释说的「`\"\"` 表示属于当前块」\r\n 只说对了一半：编码端直接写宿主的 id，而根模型的 id 是字面量 `$$root`，\r\n 解码端两者都接受。",
+      "description": "宿主图元的**标识**：**这条属性挂在哪一个图元上**。\r\n\r\n## 怎么用它\r\n本字段的值永远是「**某个图元的 id**」，拿它去找 `id` 相等的那条记录即可。\r\n但**具体是哪种图元、去找哪一行，取决于这条属性所在的位置**（与 PCB 侧只有一种情况不同）：\r\n\r\n| 本条属性挂在… | 本字段的值是 | 去哪儿找 |\r\n| --- | --- | --- |\r\n| **图页**上的元件（最常见） | 该元件的行 `id` | `type:\"COMPONENT\"` 里 `id` 相等的那条 |\r\n| **符号页**、且宿主是符号本体 | 宿主的 **`partId`**（**不是**它的行 `id`） | 该**符号文档**里 `type:\"PART\"` 且 `id` 相等的那条（**PART 行的 `id` 就是 `partId`**；PART 行只存在于 SYMBOL 文档） |\r\n| **符号页**的引脚（`Pin Name` / `Pin Number` / `Pin Type` / `NO_CONNECT`） | 该 `PIN` 行的 `id` | `type:\"PIN\"` 里 `id` 相等的那条——**引脚在符号页就是独立一行**，这几个属性正是写在这种行上的（真机上 `{\"type\":\"ATTR\",…,\"parentId\":\"ie1\",\"key\":\"Pin Name\",…}` 与 `{\"type\":\"PIN\",\"ticket\":7,\"id\":\"ie1\"}` **成对出现**） |\r\n| **图页**上元件的引脚 | 运行时**派生**的引脚 id（形如 `ie90-7fd7c300f6d8ee1b`） | **盘上没有对应行**——该 id 由模板按 `${符号id}${item.id}` 拼出，别去盘上找 |\r\n| **导线 / 总线组**（`NET` / `Relevance`） | 该组的行 `id` | `type:\"WIRE\"` / `type:\"BUS\"` |\r\n| **矩形 / 圆 / 椭圆**（`Relevance`） | 该图元的行 `id` | 对应图元类型 |\r\n| **图纸 / 标题栏设置**（`Title Block` / `Border` / `SheetNumber` / `Revision` / `CompanyName`…） | 该**图框元件**的行 `id` | `type:\"COMPONENT\"` 里 `id` 相等的那条——真机上这些属性**全挂在同一个图框元件**上（`{\"type\":\"ATTR\",…,\"parentId\":\"ie11\",\"key\":\"Title Block\",…}` 对 `{\"type\":\"COMPONENT\",\"ticket\":104273,\"id\":\"ie11\",\"firstTicket\":13}`），**不是文件级** |\r\n| **文件级**（悬浮网络标签等） | 空串 `\"\"` **或** 根 id `\"$$root\"` | 不指向任何具体图元 |\r\n\r\n⚠️ **符号页那一行是最大的坑**：同样一套 `Device` / `Symbol` 属性，在图页里本字段指向\r\n`COMPONENT` 的行 id，在符号页里却指向 `PART`（走的是宿主的 `partId` 字段）。\r\n依据：解码时按宿主是否为符号本体分派。\r\n\r\n## ⚠️ 不是什么\r\n- **不是位号**（那是 `key:\"Designator\"` 那条的 `value`）\r\n- **不是器件 / 符号 uuid**（那是 `key:\"Device\"` / `key:\"Symbol\"` 那条的 `value`）\r\n\r\n## 边界\r\n**文件级属性用空串或 `$$root`，两种都会出现** —— 旧注释说的「`\"\"` 表示属于当前块」\r\n只说对了一半：编码端直接写宿主的 id，而根模型的 id 是字面量 `$$root`，\r\n解码端两者都接受。",
       "type": "string"
     },
     "key": {
-      "description": "属性键（与 `value` 一起构成键值对）。\r\n\r\n ## 与 PCB 侧的两点关键差异\r\n - **空串在这里会被拒收**：原理图的一致性校验明确要求 `key` 非空\r\n   （`Attr` 分支 `if (!data.key) return false;`）。PCB 侧没有这条检查。\r\n - 取值集合以原理图语义为主，与 PCB 侧只有**部分重叠**。\r\n\r\n ## 这是一个**开放集合**\r\n 写入端不设白名单，自定义 key 合法。下面列的是**会用的值**，不是**允许的值**。\r\n\r\n ## 常用（括号内为实测出现量级）\r\n - `NET` —— 网络名（最多）\r\n - `Device` / `Name` / `Symbol` / `Designator` / `Unique ID` —— 器件 / 名称 / 符号 / 位号 / 唯一 ID\r\n - `Value` / `Footprint` / `Description` / `Manufacturer Part` / `Supplier Part` —— 值 / 封装 / 描述 / 制造商编号 / 供应商编号\r\n - `Global Net Name` —— 全局网络名\r\n - `_NETLABEL_` —— 悬浮网络标签\r\n - `NO_CONNECT` —— 非连接标识\r\n - `Relevance` —— 关联元素（导线 / 图形 / 网络标识）\r\n - `Pin Name` / `Pin Number` / `Pin Type` —— 引脚名 / 号 / 类型（宿主为引脚）\r\n - `Origin Footprint` —— 源封装名\r\n - `Reuse Block` / `Group ID` / `Channel ID` / `Multi-Part Group` —— 复用块 / 分组 / 通道 / 多部件分组\r\n - `Add into BOM` / `Convert to PCB` —— 加入 BOM / 转 PCB\r\n - `3D Model` / `3D Model Title` / `3D Model Transform` —— 3D 模型相关\r\n\r\n ## 仅原理图侧出现的成套键\r\n - **图框/标题栏**：`Title Block`、`Border`、`Title Block Position`、`Width`、`Height`、\r\n   `Region Start`、`X Region Count`、`Y Region Count`、`Blade Width`、`Color`\r\n - **图纸变量**（`@` 前缀）：`@Create Date`、`@Project Name`、`@Page No`、\r\n   `@Schematic Name`、`@Board Name` 等\r\n - **标题栏文本**：`CompanyName`、`DrawnBy`、`CheckedBy`、`ApprovedBy`、`Address1`…`Address4`、\r\n   `SheetNumber`、`SheetTotal`、`DocumentNumber`、`Revision` 等\r\n - **器件模板属性**：`Manufacturer`、`Datasheet`、`Tolerance`、`Temperature Coefficient`、\r\n   `Voltage Rated`、`LCSC Part Name` 等（由器件库带出）",
+      "description": "属性键（与 `value` 一起构成键值对）。\r\n\r\n## 与 PCB 侧的两点关键差异\r\n- **空串在这里会被拒收**：原理图的一致性校验明确要求 `key` 非空\r\n  （`Attr` 分支 `if (!data.key) return false;`）。PCB 侧没有这条检查。\r\n- 取值集合以原理图语义为主，与 PCB 侧只有**部分重叠**。\r\n\r\n## 这是一个**开放集合**\r\n写入端不设白名单，自定义 key 合法。下面列的是**会用的值**，不是**允许的值**。\r\n\r\n## 常用（括号内为实测出现量级）\r\n- `NET` —— 网络名（最多）\r\n- `Device` / `Name` / `Symbol` / `Designator` / `Unique ID` —— 器件 / 名称 / 符号 / 位号 / 唯一 ID\r\n- `Value` / `Footprint` / `Description` / `Manufacturer Part` / `Supplier Part` —— 值 / 封装 / 描述 / 制造商编号 / 供应商编号\r\n\r\n⚠️ **`Device` / `Symbol` / `Footprint` 这三条属性名的含义与取值规则在全部文档域\r\n完全一致**：`value` **一律是「对应文档的文档头 uuid」**（器件文档 / 符号文档 / 封装文档），\r\n没有例外、也没有任何派生或编码规则 —— 拿到值直接用它去工程库里取那份文档即可。\r\n（同名的 `DeviceName` / `SymbolName` / `FootprintName` 则是 `{uuid,name,source}` 的 JSON 串，\r\n见 `TMSchComponent`，别与这三条混淆。）\r\n- `Global Net Name` —— 全局网络名\r\n- `_NETLABEL_` —— 悬浮网络标签\r\n- `NO_CONNECT` —— 非连接标识\r\n- `Relevance` —— 关联元素（导线 / 图形 / 网络标识）\r\n- `Pin Name` / `Pin Number` / `Pin Type` —— 引脚名 / 号 / 类型（宿主为引脚）\r\n- `Origin Footprint` —— 源封装名\r\n- `Reuse Block` / `Group ID` / `Channel ID` / `Multi-Part Group` —— 复用块 / 分组 / 通道 / 多部件分组\r\n- `Add into BOM` / `Convert to PCB` —— 加入 BOM / 转 PCB\r\n- `3D Model` / `3D Model Title` / `3D Model Transform` —— 3D 模型相关\r\n\r\n## 仅原理图侧出现的成套键\r\n- **图框/标题栏**：`Title Block`、`Border`、`Title Block Position`、`Width`、`Height`、\r\n  `Region Start`、`X Region Count`、`Y Region Count`、`Blade Width`、`Color`\r\n- **图纸变量**（`@` 前缀）：`@Create Date`、`@Project Name`、`@Page No`、\r\n  `@Schematic Name`、`@Board Name` 等\r\n- **标题栏文本**：`CompanyName`、`DrawnBy`、`CheckedBy`、`ApprovedBy`、`Address1`…`Address4`、\r\n  `SheetNumber`、`SheetTotal`、`DocumentNumber`、`Revision` 等\r\n- **器件模板属性**：`Manufacturer`、`Datasheet`、`Tolerance`、`Temperature Coefficient`、\r\n  `Voltage Rated`、`LCSC Part Name` 等（由器件库带出）\r\n\r\n`Device` / `Symbol` / `Footprint` 这三条的值是**对应文档的 uuid**，即 `TDocUuid`：\r\n16 位小写十六进制，标识「哪一份文档」而不是「文档里的哪一行」。",
       "type": "string"
     },
     "value": {
@@ -50,21 +50,21 @@
       "type": "boolean"
     },
     "x": {
-      "description": "位置 X：未显示过的属性位置固定为 null",
+      "description": "位置 X：未显示过的属性位置固定为 null（0.01 inch）",
       "type": [
         "number",
         "null"
       ]
     },
     "y": {
-      "description": "位置 Y：未显示过的属性位置固定为 null",
+      "description": "位置 Y：未显示过的属性位置固定为 null（0.01 inch）",
       "type": [
         "number",
         "null"
       ]
     },
     "rotation": {
-      "description": "旋转角度（角度制），绕 位置 旋转",
+      "description": "旋转角度（角度制，**逆时针为正**），绕 位置 旋转",
       "type": "number",
       "minimum": 0,
       "maximum": 360
@@ -84,7 +84,7 @@
       ]
     },
     "fillColor": {
-      "description": "字体背景色：`\"#RRGGBB\"` 十六进制色值；null 表示无背景 / 采用主题默认\r\n\r\n ⚠️ **语义随宿主而变**：只有 **TABLE 单元格**上的它才是真正的背景色；\r\n 在 TEXT / ATTR 上它与 `color` 同源（同一个颜色字段），且**解码端根本不读它**\r\n （只读 `color`），不要把它当独立字段依赖。",
+      "description": "字体背景色：`\"#RRGGBB\"` 十六进制色值；null 表示无背景 / 采用主题默认\r\n\r\n⚠️ **语义随宿主而变**：只有 **TABLE 单元格**上的它才是真正的背景色；\r\n在 TEXT / ATTR 上它与 `color` 同源（同一个颜色字段），且**解码端根本不读它**\r\n（只读 `color`），不要把它当独立字段依赖。",
       "type": [
         "string",
         "null"
@@ -133,7 +133,7 @@
       ]
     },
     "align": {
-      "description": "对齐模式\r\n\r\n 取值：\r\n - `LEFT_BOTTOM` 左底\r\n - `CENTER_BOTTOM` 中底\r\n - `RIGHT_BOTTOM` 右底\r\n - `LEFT_MIDDLE` 左中\r\n - `CENTER_MIDDLE` 中中\r\n - `RIGHT_MIDDLE` 右中\r\n - `LEFT_TOP` 左顶\r\n - `CENTER_TOP` 中顶\r\n - `RIGHT_TOP` 右顶",
+      "description": "对齐模式",
       "type": "string",
       "enum": [
         "LEFT_BOTTOM",
@@ -181,5 +181,5 @@
     "fontWeight",
     "align"
   ],
-  "description": "原理图属性"
+  "description": "原理图属性\r\n\r\n**一行「键—值」形式的属性**，一行一条（`type:\"ATTR\"`）：网络名、位号、器件 / 符号 uuid、\r\n引脚名号……原理图上的附加信息几乎都落在它身上。它自己只有 `key` / `value` 和一套显示样式\r\n（字体、是否显示 key / value、位置、旋转）。\r\n\r\n⚠️ **挂在哪由 `parentId` 决定，而它的指向随宿主而变**：图页元件指向该元件的行 `id`，\r\n符号页的符号本体指向宿主的 `partId`，引脚则指向 `PIN` 行的 `id`……逐项对照表见 `parentId`\r\n字段本身的说明——**别一律去找 `type:\"COMPONENT\"`**。\r\n\r\n【联动增删】属性与宿主**同生命周期**：新增元件 / 导线 / 总线时要一并写出它的 ATTR，删除时一并删除。\r\n\r\n本行的 `id` 由编辑器生成（随机 16 位小写十六进制），图元 id 的几类形态与判别见 `TElementId`。"
 }

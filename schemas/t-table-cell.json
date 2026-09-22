@@ -36,14 +36,14 @@
       "type": "object",
       "properties": {
         "strokeColor": {
-          "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n 注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n 可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
+          "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
           "type": [
             "string",
             "null"
           ]
         },
         "strokeStyle": {
-          "description": "样式, null 为默认\r\n\r\n 取值：`SOLID` 实线、`SHORT_DASH` 短划线、`DOT` 点线、`DOT_DASH` 点划线。",
+          "description": "样式, null 为默认",
           "type": [
             "string",
             "null"
@@ -64,14 +64,14 @@
           "default": null
         },
         "fillColor": {
-          "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\n null 表示采用主题默认",
+          "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\nnull 表示采用主题默认",
           "type": [
             "string",
             "null"
           ]
         },
         "strokeWidth": {
-          "description": "宽度：null 表示采用主题默认线宽",
+          "description": "宽度：null 表示采用主题默认线宽\r\n单位：**0.01 inch**",
           "type": [
             "number",
             "null"
@@ -79,7 +79,7 @@
           "default": null
         },
         "fillStyle": {
-          "description": "填充样式, null 为默认\r\n\r\n 取值：\r\n - `NONE` 无填充\r\n - `SOLID` 实心填充\r\n - `GRID` 网格\r\n - `HORIZONTAL_LINE` 横线\r\n - `VERTICAL_LINE` 竖线\r\n - `RHOMBIC` 菱形网格\r\n - `LEFT_SLASH_LINE` 左斜线\r\n - `RIGHT_SLASH_LINE` 右斜线",
+          "description": "填充样式, null 为默认",
           "type": [
             "string",
             "null"
@@ -121,14 +121,14 @@
       "type": "object",
       "properties": {
         "strokeColor": {
-          "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n 注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n 可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
+          "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
           "type": [
             "string",
             "null"
           ]
         },
         "strokeStyle": {
-          "description": "样式, null 为默认\r\n\r\n 取值：`SOLID` 实线、`SHORT_DASH` 短划线、`DOT` 点线、`DOT_DASH` 点划线。",
+          "description": "样式, null 为默认",
           "type": [
             "string",
             "null"
@@ -149,14 +149,14 @@
           "default": null
         },
         "fillColor": {
-          "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\n null 表示采用主题默认",
+          "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\nnull 表示采用主题默认",
           "type": [
             "string",
             "null"
           ]
         },
         "strokeWidth": {
-          "description": "宽度：null 表示采用主题默认线宽",
+          "description": "宽度：null 表示采用主题默认线宽\r\n单位：**0.01 inch**",
           "type": [
             "number",
             "null"
@@ -164,7 +164,7 @@
           "default": null
         },
         "fillStyle": {
-          "description": "填充样式, null 为默认\r\n\r\n 取值：\r\n - `NONE` 无填充\r\n - `SOLID` 实心填充\r\n - `GRID` 网格\r\n - `HORIZONTAL_LINE` 横线\r\n - `VERTICAL_LINE` 竖线\r\n - `RHOMBIC` 菱形网格\r\n - `LEFT_SLASH_LINE` 左斜线\r\n - `RIGHT_SLASH_LINE` 右斜线",
+          "description": "填充样式, null 为默认",
           "type": [
             "string",
             "null"
@@ -206,14 +206,14 @@
       "type": "object",
       "properties": {
         "strokeColor": {
-          "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n 注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n 可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
+          "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
           "type": [
             "string",
             "null"
           ]
         },
         "strokeStyle": {
-          "description": "样式, null 为默认\r\n\r\n 取值：`SOLID` 实线、`SHORT_DASH` 短划线、`DOT` 点线、`DOT_DASH` 点划线。",
+          "description": "样式, null 为默认",
           "type": [
             "string",
             "null"
@@ -234,14 +234,14 @@
           "default": null
         },
         "fillColor": {
-          "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\n null 表示采用主题默认",
+          "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\nnull 表示采用主题默认",
           "type": [
             "string",
             "null"
           ]
         },
         "strokeWidth": {
-          "description": "宽度：null 表示采用主题默认线宽",
+          "description": "宽度：null 表示采用主题默认线宽\r\n单位：**0.01 inch**",
           "type": [
             "number",
             "null"
@@ -249,7 +249,7 @@
           "default": null
         },
         "fillStyle": {
-          "description": "填充样式, null 为默认\r\n\r\n 取值：\r\n - `NONE` 无填充\r\n - `SOLID` 实心填充\r\n - `GRID` 网格\r\n - `HORIZONTAL_LINE` 横线\r\n - `VERTICAL_LINE` 竖线\r\n - `RHOMBIC` 菱形网格\r\n - `LEFT_SLASH_LINE` 左斜线\r\n - `RIGHT_SLASH_LINE` 右斜线",
+          "description": "填充样式, null 为默认",
           "type": [
             "string",
             "null"
@@ -291,14 +291,14 @@
       "type": "object",
       "properties": {
         "strokeColor": {
-          "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n 注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n 可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
+          "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
           "type": [
             "string",
             "null"
           ]
         },
         "strokeStyle": {
-          "description": "样式, null 为默认\r\n\r\n 取值：`SOLID` 实线、`SHORT_DASH` 短划线、`DOT` 点线、`DOT_DASH` 点划线。",
+          "description": "样式, null 为默认",
           "type": [
             "string",
             "null"
@@ -319,14 +319,14 @@
           "default": null
         },
         "fillColor": {
-          "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\n null 表示采用主题默认",
+          "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\nnull 表示采用主题默认",
           "type": [
             "string",
             "null"
           ]
         },
         "strokeWidth": {
-          "description": "宽度：null 表示采用主题默认线宽",
+          "description": "宽度：null 表示采用主题默认线宽\r\n单位：**0.01 inch**",
           "type": [
             "number",
             "null"
@@ -334,7 +334,7 @@
           "default": null
         },
         "fillStyle": {
-          "description": "填充样式, null 为默认\r\n\r\n 取值：\r\n - `NONE` 无填充\r\n - `SOLID` 实心填充\r\n - `GRID` 网格\r\n - `HORIZONTAL_LINE` 横线\r\n - `VERTICAL_LINE` 竖线\r\n - `RHOMBIC` 菱形网格\r\n - `LEFT_SLASH_LINE` 左斜线\r\n - `RIGHT_SLASH_LINE` 右斜线",
+          "description": "填充样式, null 为默认",
           "type": [
             "string",
             "null"
@@ -383,7 +383,7 @@
           ]
         },
         "fillColor": {
-          "description": "字体背景色：`\"#RRGGBB\"` 十六进制色值；null 表示无背景 / 采用主题默认\r\n\r\n ⚠️ **语义随宿主而变**：只有 **TABLE 单元格**上的它才是真正的背景色；\r\n 在 TEXT / ATTR 上它与 `color` 同源（同一个颜色字段），且**解码端根本不读它**\r\n （只读 `color`），不要把它当独立字段依赖。",
+          "description": "字体背景色：`\"#RRGGBB\"` 十六进制色值；null 表示无背景 / 采用主题默认\r\n\r\n⚠️ **语义随宿主而变**：只有 **TABLE 单元格**上的它才是真正的背景色；\r\n在 TEXT / ATTR 上它与 `color` 同源（同一个颜色字段），且**解码端根本不读它**\r\n（只读 `color`），不要把它当独立字段依赖。",
           "type": [
             "string",
             "null"
@@ -432,7 +432,7 @@
           ]
         },
         "hAlign": {
-          "description": "水平对齐；**可为 `null`**：写入端在取值缺失时直接落 `null`，表示未设置（取默认对齐）\r\n\r\n 取值：`LEFT` 左、`CENTER` 中、`RIGHT` 右。",
+          "description": "水平对齐；**可为 `null`**：写入端在取值缺失时直接落 `null`，表示未设置（取默认对齐）",
           "type": [
             "string",
             "null"
@@ -450,7 +450,7 @@
           }
         },
         "vAlign": {
-          "description": "垂直对齐；**可为 `null`**：写入端在取值缺失时直接落 `null`，表示未设置（取默认对齐）\r\n\r\n 取值：`TOP` 上、`MIDDLE` 中、`BOTTOM` 下。",
+          "description": "垂直对齐；**可为 `null`**：写入端在取值缺失时直接落 `null`，表示未设置（取默认对齐）",
           "type": [
             "string",
             "null"
@@ -482,7 +482,7 @@
       ]
     },
     "lineHeight": {
-      "description": "行高倍数：相对字号的倍数（默认 1.2），实际行高 = lineHeight × fontSize；null 表示用主题默认\r\n （**写入端未设置时即产出 `null`**，判空一律用 `== null`）",
+      "description": "行高倍数：相对字号的倍数（默认 1.2），实际行高 = lineHeight × fontSize；null 表示用主题默认\r\n（**写入端未设置时即产出 `null`**，判空一律用 `== null`）\r\n⚠️ **它不是长度、没有单位**——别拿「0.01 inch」之类的口径去乘它。",
       "type": [
         "number",
         "null"
@@ -512,5 +512,5 @@
     "lineHeight",
     "zIndex"
   ],
-  "description": "表格单元格\r\n\r\n注意：这是**内嵌结构**，不是数据流里的独立图元（表格的原子类型 TABLE 见 TSchTable），\r\n因此这里不声明 primitiveType 标签。"
+  "description": "表格单元格\r\n\r\n注意：这是**内嵌结构**，不是数据流里的独立图元（表格的原子类型 TABLE 由 `TSchTable` 描述），\r\n因此这里不声明 primitiveType 标签。"
 }

@@ -3,15 +3,15 @@
   "type": "object",
   "properties": {
     "groupId": {
-      "description": "分组编号：相同值的图元属于同一组；**未分组时的取值见下**。\r\n\r\n ⚠️ **未分组写的是数字 `0`**（不是字符串 `\"0\"`）——真实数据里 `\"groupId\":0` 出现\r\n 5 千余次，而 `\"groupId\":\"0\"` **一次都没有**；FOOTPRINT 文档下该字段**恒为 0**。\r\n 成组时才是字符串（组合 id）；未分组的判定是「`groupId` 为空或 FOOTPRINT 文档」，此时写**数字 0**。\r\n\r\n ⚠️ 上方的类型 `string` 比实际形态窄（装不下数字 0）——**放宽类型会波及 pro-* 仓的\r\n 消费方，需跨仓协调后再改**，故此处暂以说明为准。本文件各 `@example` 里的\r\n `\"groupId\":\"0\"` 也是同一问题，同理按“说明为准”处理。",
+      "description": "分组编号：相同值的图元属于同一组；**未分组时的取值见下**。\r\n\r\n⚠️ **未分组写的是数字 `0`**（不是字符串 `\"0\"`）——真实数据里 `\"groupId\":0` 出现\r\n5 千余次，而 `\"groupId\":\"0\"` **一次都没有**；FOOTPRINT 文档下该字段**恒为 0**。\r\n成组时才是字符串（组合 id）；未分组的判定是「`groupId` 为空或 FOOTPRINT 文档」，此时写**数字 0**。\r\n\r\n⚠️ 上方的类型 `string` 比实际形态窄（装不下数字 0）——**放宽类型会波及 pro-* 仓的\r\n消费方，需跨仓协调后再改**，故此处暂以说明为准。本文件各 `@example` 里的\r\n`\"groupId\":\"0\"` 也是同一问题，同理按“说明为准”处理。",
       "type": "string"
     },
     "locked": {
-      "description": "是否锁定",
+      "description": "是否锁定：锁定后**不能拖拽、不能删除、不能用鼠标键盘调整大小、不能调整形状**。\r\n实际是以**锁弹窗**（`ActionForLockedObjectsDialog`）拦截，用户可在弹窗里选\r\n「解锁并继续」，所以不是硬禁止。",
       "type": "boolean"
     },
     "zIndex": {
-      "description": "同层内的叠放次序（渲染排序键，格式里没有高度语义）。\r\n\r\n **它是独立字段，不由 id 推导**：3.0 里未设置时写盘为 **-1**（内部实现即\r\n `_zIndex || -1`；真实数据 `\"zIndex\":-1` 出现 4 千余次）。**例外**：`ATTR` / `META`\r\n 的默认体直接写 `null`。\r\n\r\n 「由 id 尾部数字推导」是 **2.0 的语义**（2.0 的 `getZIndex` + `idReg`；那个正则也\r\n 匹配不了 3.0 的随机 16 位十六进制 id）。**不要照它推导 3.0 的值。**\r\n\r\n ⚠️ **VIA 是个特例：3.0 写盘不会产出该键**——写盘端的 switch 里**没有** zIndex 分支\r\n （虽然槽位表里有该槽位），取值为 `undefined` 时会被 JSON 序列化整个丢弃。\r\n 但**真机存量里仍能遇到 2.0 遗留的带 `zIndex` 的 VIA 行**（样本 15455 条 VIA 中\r\n 10404 条载荷含该键，其值恰好等于 id 尾部的数字——正是上面说的「2.0 语义」）。\r\n **读盘时不要假设它不存在。**",
+      "description": "同层内的叠放次序（渲染排序键，格式里没有高度语义）。\r\n\r\n**它是独立字段，不由 id 推导**：3.0 里未设置时写盘为 **-1**（内部实现即\r\n`_zIndex || -1`；真实数据 `\"zIndex\":-1` 出现 4 千余次）。**例外**：`ATTR` / `META`\r\n的默认体直接写 `null`。\r\n\r\n「由 id 尾部数字推导」是 **2.0 的语义**（2.0 的 `getZIndex` + `idReg`；那个正则也\r\n匹配不了 3.0 的随机 16 位十六进制 id）。**不要照它推导 3.0 的值。**\r\n\r\n⚠️ **VIA 是个特例：3.0 写盘不会产出该键**——写盘端的 switch 里**没有** zIndex 分支\r\n（虽然槽位表里有该槽位），取值为 `undefined` 时会被 JSON 序列化整个丢弃。\r\n但**真机存量里仍能遇到 2.0 遗留的带 `zIndex` 的 VIA 行**（样本 15455 条 VIA 中\r\n10404 条载荷含该键，其值恰好等于 id 尾部的数字——正是上面说的「2.0 语义」）。\r\n**读盘时不要假设它不存在。**",
       "type": [
         "number",
         "null"
@@ -19,7 +19,7 @@
       "default": -1
     },
     "partitionId": {
-      "description": "所属分区编号，为null表示无分区",
+      "description": "所属分区编号，为null表示无分区：**值是 `PARTITION` 行的外壳 `id`**（图元 id，不是 uuid）",
       "type": [
         "string",
         "null"
@@ -34,23 +34,23 @@
       "type": "string"
     },
     "centerX": {
-      "description": "坐标 X",
+      "description": "坐标 X（mil）",
       "type": "number"
     },
     "centerY": {
-      "description": "坐标 Y",
+      "description": "坐标 Y（mil）",
       "type": "number"
     },
     "holeDiameter": {
-      "description": "孔直径",
+      "description": "孔直径（mil）",
       "type": "number"
     },
     "viaDiameter": {
-      "description": "焊盘直径",
+      "description": "焊盘直径（mil）",
       "type": "number"
     },
     "viaType": {
-      "description": "过孔类型。\r\n\r\n 取值：`NORMAL` 通孔(普通过孔)、`BLIND` 盲埋孔、`SUTURE` 缝合孔。",
+      "description": "过孔类型。",
       "type": "string",
       "enum": [
         "NORMAL",
@@ -85,7 +85,7 @@
       }
     },
     "propagationDelay": {
-      "description": "传播延迟，3.3+ 新增：**单位 ps（皮秒）**。\r\n\r\n 表示信号经过本过孔所引入的延迟，参与网络总延迟/等长分析（与走线的传播延迟相加）。\r\n 默认 0 表示不额外贡献延迟。",
+      "description": "传播延迟，3.3+ 新增：**单位 ps（皮秒）**。\r\n\r\n表示信号经过本过孔所引入的延迟，参与网络总延迟/等长分析（与走线的传播延迟相加）。\r\n默认 0 表示不额外贡献延迟。",
       "type": "number"
     }
   },
@@ -105,5 +105,5 @@
     "unusedInnerLayers",
     "propagationDelay"
   ],
-  "description": "过孔"
+  "description": "过孔\r\n\r\nPCB / 封装域里的**过孔**，一行一条（`type:\"VIA\"`）：打通层与层，把不同层的铜连起来。\r\n\r\n同为过孔，按**起止层**分为**通孔 / 盲孔 / 埋孔**三类（起止层由 `ruleName`\r\n指向的设计规则决定）；另有一类用于加固的**缝合孔**。\r\n\r\n⚠️ 它**不属于任何单一层**，所以本类型特意去掉了 `layerId` —— 它的「层」\r\n是上面那条规则里的起始层与结束层。\r\n\r\nid 由编辑器生成（随机 16 位十六进制），形态见 `TElementId`。"
 }

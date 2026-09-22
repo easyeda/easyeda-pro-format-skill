@@ -6,6 +6,11 @@
 
 面板 META 类型
 
+面板文档（`PANEL`）的 META 行，一行一条（`type:"META"`）：只有文档名与排序。
+面板是独立文档，既不挂板子、也不记来源（故本类型不继承 `TMDocument`）。
+
+面板文档的 META 行 id 是**固定单例名** `META`（属**固定单例 id**，见 [TSingletonElementId](../REFERENCE/t-singleton-element-id.md)）。
+
 ## 字段
 
 | 字段 | 类型 | 必需 | 约束 | 说明 |

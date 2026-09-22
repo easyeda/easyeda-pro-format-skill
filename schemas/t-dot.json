@@ -3,11 +3,11 @@
   "type": "object",
   "properties": {
     "x": {
-      "description": "坐标x轴数值",
+      "description": "坐标x轴数值（0.01 inch）",
       "type": "number"
     },
     "y": {
-      "description": "坐标y轴数值",
+      "description": "坐标y轴数值（0.01 inch）",
       "type": "number"
     }
   },

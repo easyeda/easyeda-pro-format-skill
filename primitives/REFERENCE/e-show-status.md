@@ -1,0 +1,27 @@
+# EShowStatus
+
+> 返回 [REFERENCE 类型索引](../../documents/REFERENCE.md)
+
+## 定义
+
+安全间距 - 显示状态
+
+## 取值
+
+| 取值 | 类型 | 说明 |
+|------|------|------|
+| `ALL` | string | 全部 |
+| `LAYERED` | string | 分层 |
+
+## JSON Schema
+
+→ [查看 JSON Schema](../../schemas/e-show-status.json)
+
+## 关联图元
+
+_无关联图元_
+
+## 示例
+
+→ [查看示例](../../examples/REFERENCE/e-show-status.md)
+

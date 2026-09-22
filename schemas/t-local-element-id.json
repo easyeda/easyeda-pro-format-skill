@@ -1,0 +1,5 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "description": "局部图元 id —— **复合 id 去掉父前缀后的那一段**\r\n\r\n⚠️ **本类型不是格式图元**（本目录都是这类 id 说明），它**不占任何一行数据**。\r\n\r\n封装内的子图元（焊盘、封装图元）在盘上被拆成两段写：\r\n**父元件 id + 子图元局部 id** —— 外壳 `id` 属 `TCompositeElementId`，\r\n本类型只是它的后半段。存局部 id 的字段**不能单独用来定位**，\r\n必须先和它同一条记录里的父元件 id **拼回去**才是完整 id。\r\n\r\n例：`PAD_NET.padId` / `FOOTPRINT_NET.primitiveId` 存的是局部段，\r\n完整 id = 同记录里的 `componentId` + 本段——写盘端就是这么从子图元自身的 id\r\n里把父前缀剥掉得到的。"
+}

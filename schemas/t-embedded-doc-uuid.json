@@ -1,0 +1,5 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "description": "文档 uuid —— **宿主内嵌文档**\r\n\r\n⚠️ **本类型不是格式图元**（本目录都是这类 id 说明），它**不占任何一行数据**，也**没有字段用它当类型**。\r\n\r\n形如 `<宿主 uuid>_<宿主内壳 id>`（宿主 uuid 即一个 `TDocUuid`；**单个下划线**，不会出现 `_$`）。\r\n它是为宿主文档里的**某个图元**就地派生出来的文档 ——\r\n例如 PCB 里把某个元件克隆成「自定义封装」时，就用「当前 PCB 的 uuid + 该元件的内壳 id」\r\n当新文档的 uuid。好处是光看 uuid 就知道它挂在谁身上。"
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "ruleState": {
+      "description": "规则状态",
+      "type": "string",
+      "enum": [
+        "NORMAL",
+        "DEFAULT"
+      ],
+      "enumDescriptions": {
+        "NORMAL": "普通规则",
+        "DEFAULT": "默认规则"
+      }
+    },
+    "ruleContext": {
+      "description": "规则内容：EDA 自己决定",
+      "type": "object"
+    }
+  },
+  "required": [
+    "ruleState",
+    "ruleContext"
+  ],
+  "description": "设计规则\r\n\r\n【外层数据id构造】id 是**键式 id** —— 盘上是数组串 `[\"RULE\", 规则类型, 规则名]`\r\n（见 `TKeyedElementId`），由本类型的\r\n`ruleType` 与 `ruleName` **两个字段**按这个顺序拼成。\r\n⚠️ **写盘时这两个字段会从载荷里删掉**（只存在于 id），读盘时再从 id 还原回来——\r\n所以**载荷里看不到它们，不要以为是漏写**。\r\n\r\n本类型与 `TRuleSelectorWire` 配套：规则内容在本类型的 `ruleContext`，而该规则作用在哪些对象上\r\n由 `TRuleSelectorWire` 的 `ruleSelect` 决定，`TRuleSelector.ruleKeyValue` 再按规则类型指向本类型的 `ruleName`。"
+}

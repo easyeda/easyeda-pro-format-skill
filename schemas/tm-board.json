@@ -7,7 +7,7 @@
       "type": "string"
     },
     "zIndex": {
-      "description": "表示排序层级\r\n\r\n 板子建议**写负数压底**（真机数据里出现过 `-1`），故本字段**不设下限**；\r\n 读取端须容忍 `-1`。",
+      "description": "表示排序层级\r\n\r\n板子建议**写负数压底**（真机数据里出现过 `-1`），故本字段**不设下限**；\r\n读取端须容忍 `-1`。",
       "type": "number"
     }
   },
@@ -15,5 +15,5 @@
     "title",
     "zIndex"
   ],
-  "description": "板子 META 类型"
+  "description": "板子 META 类型\r\n\r\n板子文档（`BOARD`）的 META 行，一行一条（`type:\"META\"`）：只承载**板子名称**与**排序层级**。\r\n板子是工程里把原理图与 PCB 归到一起的单位，它本身不挂父级、也没有来源字段。\r\n\r\n板子文档的 META 行 id 是**固定单例名** `META`（属**固定单例 id**，见 `TSingletonElementId`）。"
 }

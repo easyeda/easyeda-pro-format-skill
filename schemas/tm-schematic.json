@@ -11,11 +11,11 @@
       "type": "string"
     },
     "source": {
-      "description": "来源：`<来源条目 uuid>|<来源工程 uuid>` 两段式（工程库独有）\r\n\r\n 第 2 段是**来源工程的 uuid**（不是库内路径），**工程内自建条目为空串**。",
+      "description": "来源：`<来源条目 uuid>|<来源工程 uuid>` 两段式（工程库独有）\r\n\r\n第 2 段是**来源工程的 uuid**（不是库内路径），**工程内自建条目为空串**。\r\n\r\n读取端拿它去哪查：按 `|` 切开成 `[条目 uuid, 库标识]`，再用第 2 段当 **`path`（库标识）**\r\n去那个库里按第 1 段取条目。",
       "type": "string"
     },
     "zIndex": {
-      "description": "排序大小：**可以是 `null`**（`null` 表示「未设置」，是正常取值而非缺字段）\r\n\r\n ⚠️ **写侧差异**：原理图 / 仿真原理图 / PCB / 面板写盘时对 0 或缺省一律写 `null`\r\n （`zIndex: data.zIndex || null`）；只有原理图页与仿真页是原样透传。",
+      "description": "排序大小：**可以是 `null`**（`null` 表示「未设置」，是正常取值而非缺字段）\r\n\r\n⚠️ **写侧差异**：原理图 / 仿真原理图 / PCB / 面板写盘时对 0 或缺省一律写 `null`\r\n（`zIndex: data.zIndex || null`）；只有原理图页与仿真页是原样透传。",
       "type": [
         "number",
         "null"
@@ -28,5 +28,5 @@
     "source",
     "zIndex"
   ],
-  "description": "原理图 META 类型"
+  "description": "原理图 META 类型\r\n\r\n原理图文档（`SCH`）的 META 行，一行一条（`type:\"META\"`）：文档名、来源、排序，\r\n外加 `board`——它**挂在哪块板子**下。原理图是层次图的容器，其下再挂一张或多张原理图页。\r\n\r\n原理图文档的 META 行 id 是**固定单例名** `META`（属**固定单例 id**，见 `TSingletonElementId`）。"
 }

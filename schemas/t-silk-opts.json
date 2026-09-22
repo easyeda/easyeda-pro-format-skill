@@ -17,5 +17,5 @@
     "defaultColor",
     "baseColor"
   ],
-  "description": "丝印配置"
+  "description": "丝印配置\r\n\r\n一行一条（`type:\"SILK_OPTS\"`），**按层**给出这层丝印的配色：`defaultColor` 丝印色与\r\n`baseColor` 底色。\r\n\r\n它的用途是**彩色丝印工艺** —— 底色与丝印色配合，决定该层丝印在成品上呈现的两色效果；\r\n单色丝印用不到它。\r\n\r\n【外层数据id构造】id 是**数组串** `[\"SILK_OPTS\", 层号]`，层号与 `TLayerWire` 的 `layerId` 是同一套层编号。\r\n（数组串是**键式 id**，见 `TKeyedElementId`。）"
 }

@@ -25,5 +25,5 @@
     "netLengthTolerancePhysics",
     "targetNet"
   ],
-  "description": "xNet 组"
+  "description": "xNet 组\r\n\r\n⚠️ **本页的字段与说明以 `TBaseXNetsGroup` 为准**：`@docType` / `@primitiveType` 写在那上面，\r\n生成器按它的**对外名**建的就是这一页。所以**要改说明请改那个类型**，改本别名不会进产物。"
 }

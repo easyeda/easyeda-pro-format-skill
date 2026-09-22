@@ -3,7 +3,7 @@
   "type": "object",
   "properties": {
     "groupId": {
-      "description": "分组编号；**两种「未成组」形态都表示未成组**：\r\n - **3.0 写盘时该键根本不存在**：写入端取 `model.combination?.id`，未成组即 `undefined`，\r\n   经 `JSON.stringify` 后整键被丢弃，消费方须**按可选键处理**；\r\n - **`\"\"` 只出现在 2.0 迁移数据里**（2.0 → 3.0 转换腿原样带着它）。",
+      "description": "分组编号；**两种「未成组」形态都表示未成组**：\r\n- **3.0 写盘时该键根本不存在**：写入端取 `model.combination?.id`，未成组即 `undefined`，\r\n  经 `JSON.stringify` 后整键被丢弃，消费方须**按可选键处理**；\r\n- **`\"\"` 只出现在 2.0 迁移数据里**（2.0 → 3.0 转换腿原样带着它）。",
       "type": "string"
     },
     "zIndex": {
@@ -14,11 +14,11 @@
       ]
     },
     "partId": {
-      "description": "所属部件编号（**可选**，真机存在整键缺失的 COMPONENT）：\r\n **符号页**上表示自身归属于哪个部件，**图页**的元件则指向它**关联的符号文档**里的部件。\r\n 取值即目标 `PART` 行的 `id`（`PART` 行只存在于 SYMBOL 文档，见 `TPart`）。",
+      "description": "所属部件编号（**可选**，真机存在整键缺失的 COMPONENT）：\r\n**符号页**上表示自身归属于哪个部件，**图页**的元件则指向它**关联的符号文档**里的部件。\r\n取值即目标 `PART` 行的 `id`（`PART` 行只存在于 SYMBOL 文档，见 `TPart`）。",
       "type": "string"
     },
     "yAxisDirection": {
-      "description": "Y 轴方向标记：**仅 eprj3 本地文件格式会带**，读盘时被剥离。\r\n\r\n 取值：`up` **已按 Y 轴向上写出**（本地文件固定用它）、`down` Y 轴向下\r\n （**字段缺失等价于它**，两者是同一件事）。完整语义见 `TYAxisDirection`。\r\n\r\n ⚠️ 本基类被多个图元继承，**各自被翻转的字段不同**——完整对照表见 `TYAxisDirection`。\r\n 本基类直接覆盖的：`ATTR`/`TEXT`/`PIN`/`COMPONENT` 翻 `y`；`OBJ`/`TABLE` 翻 `startY`；\r\n `ARC` 翻 `startY`/`referY`/`endY`；`CIRCLE`/`ELLIPSE` 翻 `centerY` + 内嵌 `text.y`；\r\n `RECT` 翻 `dotY1`/`dotY2` + `text.y`；`MASK_REGION` 翻 `dotY1`/`dotY2`；`POLY` 翻\r\n `points` 各项的 `y`；`BEZIER` 翻 `controls` 的奇数下标。\r\n `rotation` / `isMirror` / `zIndex` 与所有幅值字段**不翻**。",
+      "description": "Y 轴方向标记：**仅 eprj3 本地文件格式会带**，读盘时被剥离。\r\n\r\n取值：`up` = **笛卡尔坐标系（Y 向上）**，本行坐标已按它写出（本地文件固定用它），`down` = **屏幕坐标系（Y 向下）**（编辑器内部与云端的常态）\r\n——**字段缺失等价于它**，两者是同一件事；两套坐标系下同一个形状的 y **互为相反数**。完整语义见 `TYAxisDirection`。\r\n\r\n⚠️ 本基类被多个图元继承，**各自被翻转的字段不同**——完整对照表见 `TYAxisDirection`。\r\n本基类直接覆盖的：`ATTR`/`TEXT`/`PIN`/`COMPONENT` 翻 `y`；`OBJ`/`TABLE` 翻 `startY`；\r\n`ARC` 翻 `startY`/`referY`/`endY`；`CIRCLE`/`ELLIPSE` 翻 `centerY` + 内嵌 `text.y`；\r\n`RECT` 翻 `dotY1`/`dotY2` + `text.y`；`MASK_REGION` 翻 `dotY1`/`dotY2`；`POLY` 翻\r\n`points` 各项的 `y`；`BEZIER` 翻 `controls` 的奇数下标。\r\n`rotation` / `isMirror` / `zIndex` 与所有幅值字段**不翻**。",
       "type": "string",
       "enum": [
         "up",
@@ -26,11 +26,11 @@
       ]
     },
     "startX": {
-      "description": "左上角 X",
+      "description": "左上角 X（0.01 inch）",
       "type": "number"
     },
     "startY": {
-      "description": "左上角 Y",
+      "description": "左上角 Y（0.01 inch）",
       "type": "number"
     },
     "rowSizes": {
@@ -62,7 +62,7 @@
       }
     },
     "rotation": {
-      "description": "旋转角度（角度制）",
+      "description": "旋转角度（角度制，**逆时针为正**）",
       "type": "number",
       "minimum": 0,
       "maximum": 360
@@ -107,14 +107,14 @@
             "type": "object",
             "properties": {
               "strokeColor": {
-                "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n 注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n 可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
+                "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
                 "type": [
                   "string",
                   "null"
                 ]
               },
               "strokeStyle": {
-                "description": "样式, null 为默认\r\n\r\n 取值：`SOLID` 实线、`SHORT_DASH` 短划线、`DOT` 点线、`DOT_DASH` 点划线。",
+                "description": "样式, null 为默认",
                 "type": [
                   "string",
                   "null"
@@ -135,14 +135,14 @@
                 "default": null
               },
               "fillColor": {
-                "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\n null 表示采用主题默认",
+                "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\nnull 表示采用主题默认",
                 "type": [
                   "string",
                   "null"
                 ]
               },
               "strokeWidth": {
-                "description": "宽度：null 表示采用主题默认线宽",
+                "description": "宽度：null 表示采用主题默认线宽\r\n单位：**0.01 inch**",
                 "type": [
                   "number",
                   "null"
@@ -150,7 +150,7 @@
                 "default": null
               },
               "fillStyle": {
-                "description": "填充样式, null 为默认\r\n\r\n 取值：\r\n - `NONE` 无填充\r\n - `SOLID` 实心填充\r\n - `GRID` 网格\r\n - `HORIZONTAL_LINE` 横线\r\n - `VERTICAL_LINE` 竖线\r\n - `RHOMBIC` 菱形网格\r\n - `LEFT_SLASH_LINE` 左斜线\r\n - `RIGHT_SLASH_LINE` 右斜线",
+                "description": "填充样式, null 为默认",
                 "type": [
                   "string",
                   "null"
@@ -192,14 +192,14 @@
             "type": "object",
             "properties": {
               "strokeColor": {
-                "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n 注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n 可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
+                "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
                 "type": [
                   "string",
                   "null"
                 ]
               },
               "strokeStyle": {
-                "description": "样式, null 为默认\r\n\r\n 取值：`SOLID` 实线、`SHORT_DASH` 短划线、`DOT` 点线、`DOT_DASH` 点划线。",
+                "description": "样式, null 为默认",
                 "type": [
                   "string",
                   "null"
@@ -220,14 +220,14 @@
                 "default": null
               },
               "fillColor": {
-                "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\n null 表示采用主题默认",
+                "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\nnull 表示采用主题默认",
                 "type": [
                   "string",
                   "null"
                 ]
               },
               "strokeWidth": {
-                "description": "宽度：null 表示采用主题默认线宽",
+                "description": "宽度：null 表示采用主题默认线宽\r\n单位：**0.01 inch**",
                 "type": [
                   "number",
                   "null"
@@ -235,7 +235,7 @@
                 "default": null
               },
               "fillStyle": {
-                "description": "填充样式, null 为默认\r\n\r\n 取值：\r\n - `NONE` 无填充\r\n - `SOLID` 实心填充\r\n - `GRID` 网格\r\n - `HORIZONTAL_LINE` 横线\r\n - `VERTICAL_LINE` 竖线\r\n - `RHOMBIC` 菱形网格\r\n - `LEFT_SLASH_LINE` 左斜线\r\n - `RIGHT_SLASH_LINE` 右斜线",
+                "description": "填充样式, null 为默认",
                 "type": [
                   "string",
                   "null"
@@ -277,14 +277,14 @@
             "type": "object",
             "properties": {
               "strokeColor": {
-                "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n 注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n 可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
+                "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
                 "type": [
                   "string",
                   "null"
                 ]
               },
               "strokeStyle": {
-                "description": "样式, null 为默认\r\n\r\n 取值：`SOLID` 实线、`SHORT_DASH` 短划线、`DOT` 点线、`DOT_DASH` 点划线。",
+                "description": "样式, null 为默认",
                 "type": [
                   "string",
                   "null"
@@ -305,14 +305,14 @@
                 "default": null
               },
               "fillColor": {
-                "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\n null 表示采用主题默认",
+                "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\nnull 表示采用主题默认",
                 "type": [
                   "string",
                   "null"
                 ]
               },
               "strokeWidth": {
-                "description": "宽度：null 表示采用主题默认线宽",
+                "description": "宽度：null 表示采用主题默认线宽\r\n单位：**0.01 inch**",
                 "type": [
                   "number",
                   "null"
@@ -320,7 +320,7 @@
                 "default": null
               },
               "fillStyle": {
-                "description": "填充样式, null 为默认\r\n\r\n 取值：\r\n - `NONE` 无填充\r\n - `SOLID` 实心填充\r\n - `GRID` 网格\r\n - `HORIZONTAL_LINE` 横线\r\n - `VERTICAL_LINE` 竖线\r\n - `RHOMBIC` 菱形网格\r\n - `LEFT_SLASH_LINE` 左斜线\r\n - `RIGHT_SLASH_LINE` 右斜线",
+                "description": "填充样式, null 为默认",
                 "type": [
                   "string",
                   "null"
@@ -362,14 +362,14 @@
             "type": "object",
             "properties": {
               "strokeColor": {
-                "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n 注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n 可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
+                "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
                 "type": [
                   "string",
                   "null"
                 ]
               },
               "strokeStyle": {
-                "description": "样式, null 为默认\r\n\r\n 取值：`SOLID` 实线、`SHORT_DASH` 短划线、`DOT` 点线、`DOT_DASH` 点划线。",
+                "description": "样式, null 为默认",
                 "type": [
                   "string",
                   "null"
@@ -390,14 +390,14 @@
                 "default": null
               },
               "fillColor": {
-                "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\n null 表示采用主题默认",
+                "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\nnull 表示采用主题默认",
                 "type": [
                   "string",
                   "null"
                 ]
               },
               "strokeWidth": {
-                "description": "宽度：null 表示采用主题默认线宽",
+                "description": "宽度：null 表示采用主题默认线宽\r\n单位：**0.01 inch**",
                 "type": [
                   "number",
                   "null"
@@ -405,7 +405,7 @@
                 "default": null
               },
               "fillStyle": {
-                "description": "填充样式, null 为默认\r\n\r\n 取值：\r\n - `NONE` 无填充\r\n - `SOLID` 实心填充\r\n - `GRID` 网格\r\n - `HORIZONTAL_LINE` 横线\r\n - `VERTICAL_LINE` 竖线\r\n - `RHOMBIC` 菱形网格\r\n - `LEFT_SLASH_LINE` 左斜线\r\n - `RIGHT_SLASH_LINE` 右斜线",
+                "description": "填充样式, null 为默认",
                 "type": [
                   "string",
                   "null"
@@ -454,7 +454,7 @@
                 ]
               },
               "fillColor": {
-                "description": "字体背景色：`\"#RRGGBB\"` 十六进制色值；null 表示无背景 / 采用主题默认\r\n\r\n ⚠️ **语义随宿主而变**：只有 **TABLE 单元格**上的它才是真正的背景色；\r\n 在 TEXT / ATTR 上它与 `color` 同源（同一个颜色字段），且**解码端根本不读它**\r\n （只读 `color`），不要把它当独立字段依赖。",
+                "description": "字体背景色：`\"#RRGGBB\"` 十六进制色值；null 表示无背景 / 采用主题默认\r\n\r\n⚠️ **语义随宿主而变**：只有 **TABLE 单元格**上的它才是真正的背景色；\r\n在 TEXT / ATTR 上它与 `color` 同源（同一个颜色字段），且**解码端根本不读它**\r\n（只读 `color`），不要把它当独立字段依赖。",
                 "type": [
                   "string",
                   "null"
@@ -503,7 +503,7 @@
                 ]
               },
               "hAlign": {
-                "description": "水平对齐；**可为 `null`**：写入端在取值缺失时直接落 `null`，表示未设置（取默认对齐）\r\n\r\n 取值：`LEFT` 左、`CENTER` 中、`RIGHT` 右。",
+                "description": "水平对齐；**可为 `null`**：写入端在取值缺失时直接落 `null`，表示未设置（取默认对齐）",
                 "type": [
                   "string",
                   "null"
@@ -521,7 +521,7 @@
                 }
               },
               "vAlign": {
-                "description": "垂直对齐；**可为 `null`**：写入端在取值缺失时直接落 `null`，表示未设置（取默认对齐）\r\n\r\n 取值：`TOP` 上、`MIDDLE` 中、`BOTTOM` 下。",
+                "description": "垂直对齐；**可为 `null`**：写入端在取值缺失时直接落 `null`，表示未设置（取默认对齐）",
                 "type": [
                   "string",
                   "null"
@@ -553,7 +553,7 @@
             ]
           },
           "lineHeight": {
-            "description": "行高倍数：相对字号的倍数（默认 1.2），实际行高 = lineHeight × fontSize；null 表示用主题默认\r\n （**写入端未设置时即产出 `null`**，判空一律用 `== null`）",
+            "description": "行高倍数：相对字号的倍数（默认 1.2），实际行高 = lineHeight × fontSize；null 表示用主题默认\r\n（**写入端未设置时即产出 `null`**，判空一律用 `== null`）\r\n⚠️ **它不是长度、没有单位**——别拿「0.01 inch」之类的口径去乘它。",
             "type": [
               "number",
               "null"
@@ -583,7 +583,7 @@
           "lineHeight",
           "zIndex"
         ],
-        "description": "表格单元格\r\n\r\n注意：这是**内嵌结构**，不是数据流里的独立图元（表格的原子类型 TABLE 见 TSchTable），\r\n因此这里不声明 primitiveType 标签。"
+        "description": "表格单元格\r\n\r\n注意：这是**内嵌结构**，不是数据流里的独立图元（表格的原子类型 TABLE 由 `TSchTable` 描述），\r\n因此这里不声明 primitiveType 标签。"
       }
     }
   },
@@ -599,5 +599,5 @@
     "rotation",
     "tableCell"
   ],
-  "description": "表格"
+  "description": "表格\r\n\r\n**原理图族里的一张表格**，一行一条（`type:\"TABLE\"`）：由左上角、行高数组 `rowSizes` / 列宽数组\r\n`colSizes` 与旋转角定义，行 / 列可逐条锁定（`rowLocked` / `colLocked`）。\r\n\r\n表格的**内容不在这行**：每个单元格是一个内嵌结构 `TTableCell`，随本行的 `tableCell` 数组\r\n一起写盘（跨行 / 跨列、四边线型、字体样式都在单元格上），**不要为单元格单独生成一行**。\r\n\r\n⚠️ 本类型在 `TSchBase` 上**剔除了 `locked`**：表格没有整体的锁定字段，只有按行 / 列的那两个数组。\r\n\r\n本行的 `id` 由编辑器生成（随机 16 位小写十六进制），图元 id 的几类形态与判别见 `TElementId`。"
 }

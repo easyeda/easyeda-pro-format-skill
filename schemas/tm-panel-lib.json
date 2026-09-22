@@ -23,5 +23,5 @@
     "description",
     "tags"
   ],
-  "description": "面板库 META 类型"
+  "description": "面板库 META 类型\r\n\r\n面板库文档（`PANEL_LIB`）的 META 行，一行一条（`type:\"META\"`）：只承载库条目元数据\r\n（名称、库描述、分类标签），**没有 `source`**——面板库条目不记来源。\r\n\r\n面板库文档的 META 行 id 是**固定单例名** `META`（属**固定单例 id**，见 `TSingletonElementId`）。"
 }

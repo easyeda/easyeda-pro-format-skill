@@ -45,15 +45,15 @@
           }
         },
         "angle": {
-          "description": "旋转角度",
+          "description": "填充线的角度（**不是**可自由旋转的角度）：盘上只可能是 `0` 或 `45`\r\n（`45` = 45° 网格填充），写别的值会被判非法。",
           "type": "number"
         },
         "strokeWidth": {
-          "description": "线宽",
+          "description": "线宽（mil）",
           "type": "number"
         },
         "strokeSpacing": {
-          "description": "线距",
+          "description": "线距（mil）",
           "type": "number"
         }
       },

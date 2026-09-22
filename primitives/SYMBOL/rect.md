@@ -6,28 +6,38 @@
 
 矩形
 
+**原理图族里的一个矩形**，一行一条（`type:"RECT"`）：由**对角两点**（`dotX1` / `dotY1` 与
+`dotX2` / `dotY2`）定义，`radiusX` / `radiusY` 给圆角（0 即直角）；符号页上它归属于某个部件时带 `partId`。
+
+⚠️ **顶层 `rotation` 是遗留字段，写盘恒为 0**：真实旋转角写在**内嵌 `text.rotation`**，
+解析判据是 `Number.isFinite(+data.text.rotation)`；又因 `+null === 0` 也算有限值，
+内嵌 `text.rotation` **必须写数字**，写 `null` 会把旋转**静默置 0**。旋转**绕点 1** 进行。
+
+内嵌 `text` 是缩减形态（`align` 等恒为 `null`，另带 `lineHeight` 扩展字段），见 [TSchText](./text.md)。
+本行的 `id` 由编辑器生成（随机 16 位小写十六进制），图元 id 的几类形态与判别见 [TElementId](../REFERENCE/t-element-id.md)。
+
 ## 字段
 
 | 字段 | 类型 | 必需 | 约束 | 说明 |
 |------|------|------|------|------|
-| partId | `string` |  | - | 所属部件编号（**可选**，真机存在整键缺失的 COMPONENT）： **符号页**上表示自身归属于哪个部件，**图页**的元件则指向它**关联的符号文档**里的部件。 取值即目标 `PART` 行的 `id`（`PART` 行只存在于 SYMBOL 文档，见 `TPart`）。 |
-| groupId | `string` | ✓ | - | 分组编号；**两种「未成组」形态都表示未成组**： - **3.0 写盘时该键根本不存在**：写入端取 `model.combination?.id`，未成组即 `undefined`， 经 `JSON.stringify` 后整键被丢弃，消费方须**按可选键处理**； - **`""` 只出现在 2.0 迁移数据里**（2.0 → 3.0 转换腿原样带着它）。 |
-| locked | `boolean` | ✓ | - | 是否锁定 |
+| partId | [TPartId](../REFERENCE/t-part-id.md) |  | - | 所属部件编号（**可选**，真机存在整键缺失的 COMPONENT）： **符号页**上表示自身归属于哪个部件，**图页**的元件则指向它**关联的符号文档**里的部件。 取值即目标 `PART` 行的 `id`（`PART` 行只存在于 SYMBOL 文档，见 [TPart](./part.md)）。 |
+| groupId | [TElementId](../REFERENCE/t-element-id.md) | ✓ | - | 分组编号；**两种「未成组」形态都表示未成组**： - **3.0 写盘时该键根本不存在**：写入端取 `model.combination?.id`，未成组即 `undefined`， 经 `JSON.stringify` 后整键被丢弃，消费方须**按可选键处理**； - **`""` 只出现在 2.0 迁移数据里**（2.0 → 3.0 转换腿原样带着它）。 |
+| locked | `boolean` | ✓ | - | 是否锁定。 ⚠️ **原理图侧目前只是数据字段**：pro-sch 里没有任何按它拦截拖拽 / 删除 / 改大小 / 改形状的实现（连「锁定 / 解锁」命令本身都是空实现，只 publish 属性面板刷新）。 那四条行为特征只在 **PCB / 面板**侧落实。生成数据时照常写入本字段， 但**不要指望原理图端会因为它而禁止操作**。 |
 | zIndex | `number \| null` | ✓ | - | 同层内的叠放次序：渲染排序键，数值越小越靠下（格式里没有高度语义） |
-| yAxisDirection | `TYAxisDirection` |  | - | Y 轴方向标记：**仅 eprj3 本地文件格式会带**，读盘时被剥离。 取值：`up` **已按 Y 轴向上写出**（本地文件固定用它）、`down` Y 轴向下 （**字段缺失等价于它**，两者是同一件事）。完整语义见 `TYAxisDirection`。 ⚠️ 本基类被多个图元继承，**各自被翻转的字段不同**——完整对照表见 `TYAxisDirection`。 本基类直接覆盖的：`ATTR`/`TEXT`/`PIN`/`COMPONENT` 翻 `y`；`OBJ`/`TABLE` 翻 `startY`； `ARC` 翻 `startY`/`referY`/`endY`；`CIRCLE`/`ELLIPSE` 翻 `centerY` + 内嵌 `text.y`； `RECT` 翻 `dotY1`/`dotY2` + `text.y`；`MASK_REGION` 翻 `dotY1`/`dotY2`；`POLY` 翻 `points` 各项的 `y`；`BEZIER` 翻 `controls` 的奇数下标。 `rotation` / `isMirror` / `zIndex` 与所有幅值字段**不翻**。 |
+| yAxisDirection | [TYAxisDirection](../REFERENCE/ty-axis-direction.md) |  | - | Y 轴方向标记：**仅 eprj3 本地文件格式会带**，读盘时被剥离。 取值：`up` = **笛卡尔坐标系（Y 向上）**，本行坐标已按它写出（本地文件固定用它），`down` = **屏幕坐标系（Y 向下）**（编辑器内部与云端的常态） ——**字段缺失等价于它**，两者是同一件事；两套坐标系下同一个形状的 y **互为相反数**。完整语义见 [TYAxisDirection](../REFERENCE/ty-axis-direction.md)。 ⚠️ 本基类被多个图元继承，**各自被翻转的字段不同**——完整对照表见 [TYAxisDirection](../REFERENCE/ty-axis-direction.md)。 本基类直接覆盖的：`ATTR`/`TEXT`/`PIN`/`COMPONENT` 翻 `y`；`OBJ`/`TABLE` 翻 `startY`； `ARC` 翻 `startY`/`referY`/`endY`；`CIRCLE`/`ELLIPSE` 翻 `centerY` + 内嵌 `text.y`； `RECT` 翻 `dotY1`/`dotY2` + `text.y`；`MASK_REGION` 翻 `dotY1`/`dotY2`；`POLY` 翻 `points` 各项的 `y`；`BEZIER` 翻 `controls` 的奇数下标。 `rotation` / `isMirror` / `zIndex` 与所有幅值字段**不翻**。 |
 | dotX1 | `number` | ✓ | - | 点 1 X |
 | dotY1 | `number` | ✓ | - | 点 1 Y |
 | dotX2 | `number` | ✓ | - | 点 2 X |
 | dotY2 | `number` | ✓ | - | 点 2 Y |
-| radiusX | `number` | ✓ | min: 0 | 圆角半径 X：0 表示非圆角 ⚠️ **真机存在负值**（来自 2.0 迁移的样本）。解码端一律取绝对值，负号无意义； **生成时写正数即可**。 |
-| radiusY | `number` | ✓ | min: 0 | 圆角半径 Y：0 表示非圆角 ⚠️ **真机存在负值**（来自 2.0 迁移的样本）。解码端一律取绝对值，负号无意义； **生成时写正数即可**。 |
-| rotation | `number` | ✓ | min: 0, max: 360 | 旋转角度（角度制）, 绕点 1 旋转 |
-| text | `TSchText` |  | - | 3.3 添加文本字段。 注意：本图元的**旋转角写在 `text.rotation`**（顶层 rotation 已废弃或不存在）， 详见 TSchText.rotation 的说明 ⚠️ **这是写入端产出的「缩减文本」，不是完整的 `TSchText`**： - 实际只填 `value` / `color` / `fontSize` / `rotation` / `x` / `y` / `fontFamily` 等； - **`align` 与 `groupId` / `locked` / `zIndex` 恒为 `null`**（写入端就直接落 `null`）， 解码端**也不读 `align`**——不要照 `TSchText` 的必填口径去要求它们； - 另带一个 **`lineHeight`**（行高倍数，`null` = 主题默认）：它是**有意设计的扩展字段** （协议 `TSchText` 暂未收录，源码序列化时以扩展字段形式读写），解码端会读； - ⚠️ 内嵌 `text.rotation` **必须写数字，不能写 `null`**：解析判据是 `Number.isFinite(+data.text.rotation)`，而 `+null === 0` 也算有限值， 写 `null` 会把图形旋转**静默置 0**。 |
+| radiusX | `number` | ✓ | min: 0 | 圆角半径 X：0 表示非圆角 ⚠️ **真机存在负值**（来自 2.0 迁移的样本）。解码端一律取绝对值，负号无意义； **生成时写正数即可**。（0.01 inch） |
+| radiusY | `number` | ✓ | min: 0 | 圆角半径 Y：0 表示非圆角 ⚠️ **真机存在负值**（来自 2.0 迁移的样本）。解码端一律取绝对值，负号无意义； **生成时写正数即可**。（0.01 inch） |
+| rotation | `number` | ✓ | min: 0, max: 360 | 旋转角度（角度制，**逆时针为正**）, 绕点 1 旋转 |
+| text | [TSchText](./text.md) |  | - | 3.3 添加文本字段。 注意：本图元的**旋转角写在 `text.rotation`**（顶层 rotation 已废弃或不存在）， 详见 TSchText.rotation 的说明 ⚠️ **这是写入端产出的「缩减文本」，不是完整的 [TSchText](./text.md)**： - 实际只填 `value` / `color` / `fontSize` / `rotation` / `x` / `y` / `fontFamily` 等； - **`align` 与 `groupId` / `locked` / `zIndex` 恒为 `null`**（写入端就直接落 `null`）， 解码端**也不读 `align`**——不要照 [TSchText](./text.md) 的必填口径去要求它们； - 另带一个 **`lineHeight`**（行高倍数，`null` = 主题默认）：它是**有意设计的扩展字段** （协议 [TSchText](./text.md) 暂未收录，源码序列化时以扩展字段形式读写），解码端会读； - ⚠️ 内嵌 `text.rotation` **必须写数字，不能写 `null`**：解析判据是 `Number.isFinite(+data.text.rotation)`，而 `+null === 0` 也算有限值， 写 `null` 会把图形旋转**静默置 0**。 |
 | strokeColor | `string \| null` | ✓ | - | 描边颜色：`"#RRGGBB"` 十六进制色值；**null 表示采用主题默认色** 注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现； 可参照同文件 `TSchPin.color` 的 `@pattern ^$\|^#[0-9A-Fa-f]{6}$`。 |
-| strokeStyle | `EStrokeStyle \| null` | ✓ | default: null | 取值范围：SOLID（实线）、SHORT_DASH（短划线）、DOT（点线）、DOT_DASH（点划线） |
+| strokeStyle | [EStrokeStyle](../REFERENCE/e-stroke-style.md) \| null | ✓ | default: null | 取值范围：SOLID（实线）、SHORT_DASH（短划线）、DOT（点线）、DOT_DASH（点划线） |
 | fillColor | `string \| null` | ✓ | - | 填充颜色：`"#RRGGBB"` 十六进制色值；`""` 表示不填充（填充会自动闭合起始点与结束点）； null 表示采用主题默认 |
-| strokeWidth | `number \| null` | ✓ | default: null | 宽度：null 表示采用主题默认线宽 |
-| fillStyle | `ESchFillStyle \| null` | ✓ | default: null | 取值范围：NONE（无填充）、SOLID（实心填充）、GRID（网格）、HORIZONTAL_LINE（横线）、VERTICAL_LINE（竖线）、RHOMBIC（菱形网格）、LEFT_SLASH_LINE（左斜线）、RIGHT_SLASH_LINE（右斜线） |
+| strokeWidth | `number \| null` | ✓ | default: null | 宽度：null 表示采用主题默认线宽 单位：**0.01 inch** |
+| fillStyle | [ESchFillStyle](../REFERENCE/e-sch-fill-style.md) \| null | ✓ | default: null | 取值范围：NONE（无填充）、SOLID（实心填充）、GRID（网格）、HORIZONTAL_LINE（横线）、VERTICAL_LINE（竖线）、RHOMBIC（菱形网格）、LEFT_SLASH_LINE（左斜线）、RIGHT_SLASH_LINE（右斜线） |
 
 ## JSON Schema
 

@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "negativeNet": {
+      "description": "负级网络：网络名称（不是图元 id）。**「差分对组」记录里为空串**",
+      "type": "string"
+    },
+    "positiveNet": {
+      "description": "正级网络：网络名称（不是图元 id）。**「差分对组」记录里为空串**",
+      "type": "string"
+    }
+  },
+  "required": [
+    "negativeNet",
+    "positiveNet"
+  ],
+  "description": "差分对\r\n\r\n注：「差分对组」复用本类型，**盘上载荷只含 `positiveNet` / `negativeNet`**\r\n（差分对组记录这两个字段皆为空串）。\r\n\r\n两个层次分清楚，不要混为一谈：\r\n- **【外层数据id构造】盘上 id** = `[\"DIFFERENTIAL_PAIR\", 名称]`，两段各有含义：\r\n  **第 1 段** `\"DIFFERENTIAL_PAIR\"` 是固定前缀；**第 2 段**是**差分对的名字**，\r\n  即用户在工程里给这对网络起的名字（属性面板上显示、可以改的那个文本，**不是任何 id**）。\r\n  这是**键式 id**（盘上是数组串、靠键区分同一类型下的多条记录，见 `TKeyedElementId`）；\r\n  有父级（属于某个差分对组）时，id **再追加第 3 段 = 那个差分对组的名字**：\r\n  `[\"DIFFERENTIAL_PAIR\", 名称, 组名]`。\r\n- **盘上载荷** = `{ positiveNet, negativeNet }`，**写盘端不含 `name`，也不含 `parentName`**\r\n  （`parentName` 同样只进 id）。"
+}

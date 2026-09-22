@@ -7,10 +7,7 @@
     "TRACK",
     "FILL",
     "COPPER",
-    "PLANE",
-    "PAD",
-    "TEARDROP",
-    "SILKSCREEN"
+    "PLANE"
   ],
   "enumDescriptions": {
     "COMPONENT": "禁止元件",
@@ -18,10 +15,7 @@
     "TRACK": "禁止布线",
     "FILL": "禁止放置填充区域",
     "COPPER": "禁止覆铜",
-    "PLANE": "禁止内电层",
-    "PAD": "禁止焊盘",
-    "TEARDROP": "禁止泪滴",
-    "SILKSCREEN": "禁止丝印"
+    "PLANE": "禁止内电层"
   },
   "description": "区域禁止类型"
 }

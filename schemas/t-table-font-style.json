@@ -10,7 +10,7 @@
       ]
     },
     "fillColor": {
-      "description": "字体背景色：`\"#RRGGBB\"` 十六进制色值；null 表示无背景 / 采用主题默认\r\n\r\n ⚠️ **语义随宿主而变**：只有 **TABLE 单元格**上的它才是真正的背景色；\r\n 在 TEXT / ATTR 上它与 `color` 同源（同一个颜色字段），且**解码端根本不读它**\r\n （只读 `color`），不要把它当独立字段依赖。",
+      "description": "字体背景色：`\"#RRGGBB\"` 十六进制色值；null 表示无背景 / 采用主题默认\r\n\r\n⚠️ **语义随宿主而变**：只有 **TABLE 单元格**上的它才是真正的背景色；\r\n在 TEXT / ATTR 上它与 `color` 同源（同一个颜色字段），且**解码端根本不读它**\r\n（只读 `color`），不要把它当独立字段依赖。",
       "type": [
         "string",
         "null"
@@ -59,7 +59,7 @@
       ]
     },
     "hAlign": {
-      "description": "水平对齐；**可为 `null`**：写入端在取值缺失时直接落 `null`，表示未设置（取默认对齐）\r\n\r\n 取值：`LEFT` 左、`CENTER` 中、`RIGHT` 右。",
+      "description": "水平对齐；**可为 `null`**：写入端在取值缺失时直接落 `null`，表示未设置（取默认对齐）",
       "type": [
         "string",
         "null"
@@ -77,7 +77,7 @@
       }
     },
     "vAlign": {
-      "description": "垂直对齐；**可为 `null`**：写入端在取值缺失时直接落 `null`，表示未设置（取默认对齐）\r\n\r\n 取值：`TOP` 上、`MIDDLE` 中、`BOTTOM` 下。",
+      "description": "垂直对齐；**可为 `null`**：写入端在取值缺失时直接落 `null`，表示未设置（取默认对齐）",
       "type": [
         "string",
         "null"

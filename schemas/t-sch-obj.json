@@ -3,15 +3,15 @@
   "type": "object",
   "properties": {
     "partId": {
-      "description": "所属部件编号（**可选**，真机存在整键缺失的 COMPONENT）：\r\n **符号页**上表示自身归属于哪个部件，**图页**的元件则指向它**关联的符号文档**里的部件。\r\n 取值即目标 `PART` 行的 `id`（`PART` 行只存在于 SYMBOL 文档，见 `TPart`）。",
+      "description": "所属部件编号（**可选**，真机存在整键缺失的 COMPONENT）：\r\n**符号页**上表示自身归属于哪个部件，**图页**的元件则指向它**关联的符号文档**里的部件。\r\n取值即目标 `PART` 行的 `id`（`PART` 行只存在于 SYMBOL 文档，见 `TPart`）。",
       "type": "string"
     },
     "groupId": {
-      "description": "分组编号；**两种「未成组」形态都表示未成组**：\r\n - **3.0 写盘时该键根本不存在**：写入端取 `model.combination?.id`，未成组即 `undefined`，\r\n   经 `JSON.stringify` 后整键被丢弃，消费方须**按可选键处理**；\r\n - **`\"\"` 只出现在 2.0 迁移数据里**（2.0 → 3.0 转换腿原样带着它）。",
+      "description": "分组编号；**两种「未成组」形态都表示未成组**：\r\n- **3.0 写盘时该键根本不存在**：写入端取 `model.combination?.id`，未成组即 `undefined`，\r\n  经 `JSON.stringify` 后整键被丢弃，消费方须**按可选键处理**；\r\n- **`\"\"` 只出现在 2.0 迁移数据里**（2.0 → 3.0 转换腿原样带着它）。",
       "type": "string"
     },
     "locked": {
-      "description": "是否锁定",
+      "description": "是否锁定。\r\n\r\n⚠️ **原理图侧目前只是数据字段**：pro-sch 里没有任何按它拦截拖拽 / 删除 / 改大小 /\r\n改形状的实现（连「锁定 / 解锁」命令本身都是空实现，只 publish 属性面板刷新）。\r\n那四条行为特征只在 **PCB / 面板**侧落实。生成数据时照常写入本字段，\r\n但**不要指望原理图端会因为它而禁止操作**。",
       "type": "boolean"
     },
     "zIndex": {
@@ -22,7 +22,7 @@
       ]
     },
     "yAxisDirection": {
-      "description": "Y 轴方向标记：**仅 eprj3 本地文件格式会带**，读盘时被剥离。\r\n\r\n 取值：`up` **已按 Y 轴向上写出**（本地文件固定用它）、`down` Y 轴向下\r\n （**字段缺失等价于它**，两者是同一件事）。完整语义见 `TYAxisDirection`。\r\n\r\n ⚠️ 本基类被多个图元继承，**各自被翻转的字段不同**——完整对照表见 `TYAxisDirection`。\r\n 本基类直接覆盖的：`ATTR`/`TEXT`/`PIN`/`COMPONENT` 翻 `y`；`OBJ`/`TABLE` 翻 `startY`；\r\n `ARC` 翻 `startY`/`referY`/`endY`；`CIRCLE`/`ELLIPSE` 翻 `centerY` + 内嵌 `text.y`；\r\n `RECT` 翻 `dotY1`/`dotY2` + `text.y`；`MASK_REGION` 翻 `dotY1`/`dotY2`；`POLY` 翻\r\n `points` 各项的 `y`；`BEZIER` 翻 `controls` 的奇数下标。\r\n `rotation` / `isMirror` / `zIndex` 与所有幅值字段**不翻**。",
+      "description": "Y 轴方向标记：**仅 eprj3 本地文件格式会带**，读盘时被剥离。\r\n\r\n取值：`up` = **笛卡尔坐标系（Y 向上）**，本行坐标已按它写出（本地文件固定用它），`down` = **屏幕坐标系（Y 向下）**（编辑器内部与云端的常态）\r\n——**字段缺失等价于它**，两者是同一件事；两套坐标系下同一个形状的 y **互为相反数**。完整语义见 `TYAxisDirection`。\r\n\r\n⚠️ 本基类被多个图元继承，**各自被翻转的字段不同**——完整对照表见 `TYAxisDirection`。\r\n本基类直接覆盖的：`ATTR`/`TEXT`/`PIN`/`COMPONENT` 翻 `y`；`OBJ`/`TABLE` 翻 `startY`；\r\n`ARC` 翻 `startY`/`referY`/`endY`；`CIRCLE`/`ELLIPSE` 翻 `centerY` + 内嵌 `text.y`；\r\n`RECT` 翻 `dotY1`/`dotY2` + `text.y`；`MASK_REGION` 翻 `dotY1`/`dotY2`；`POLY` 翻\r\n`points` 各项的 `y`；`BEZIER` 翻 `controls` 的奇数下标。\r\n`rotation` / `isMirror` / `zIndex` 与所有幅值字段**不翻**。",
       "type": "string",
       "enum": [
         "up",
@@ -34,25 +34,25 @@
       "type": "string"
     },
     "startX": {
-      "description": "左上角 X",
+      "description": "左上角 X（0.01 inch）",
       "type": "number"
     },
     "startY": {
-      "description": "左上角 Y",
+      "description": "左上角 Y（0.01 inch）",
       "type": "number"
     },
     "width": {
-      "description": "宽",
+      "description": "宽\r\n单位：**0.01 inch**",
       "type": "number",
       "minimum": 0
     },
     "height": {
-      "description": "高",
+      "description": "高\r\n单位：**0.01 inch**",
       "type": "number",
       "minimum": 0
     },
     "rotation": {
-      "description": "旋转角度（角度制）：绕左上角旋转",
+      "description": "旋转角度（角度制，**逆时针为正**）：绕左上角旋转",
       "type": "number",
       "minimum": 0,
       "maximum": 360
@@ -80,5 +80,5 @@
     "isMirror",
     "content"
   ],
-  "description": "原理图二进制内嵌对象"
+  "description": "原理图二进制内嵌对象\r\n\r\n**内嵌在画布上的图片 / 附件**，一行一条（`type:\"OBJ\"`）：由 `fileName`、左上角 `startX` / `startY`、\r\n`width` / `height`、旋转与镜像定位，`content` 存二进制数据本体或指向它的引用。\r\n\r\n`content` 按前缀分两种口径：`data:<mediatype>;base64,...` 是**内联**（Data URL 形态）；\r\n`blob:<hash>` 是**引用**——二进制本体**不在这行里**，而在**全工程共用**的 BLOB 文档中，\r\n那份文档的 id 就是这个 hash。⚠️ 引用模式下少了 BLOB 文档，本行就只剩一个悬空引用。\r\n\r\n本行的 `id` 由编辑器生成（随机 16 位小写十六进制），图元 id 的几类形态与判别见 `TElementId`。"
 }

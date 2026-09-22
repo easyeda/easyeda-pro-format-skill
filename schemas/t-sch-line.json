@@ -8,23 +8,23 @@
       "pattern": "^[0-9a-f]{16}$"
     },
     "startX": {
-      "description": "起点坐标 X",
+      "description": "起点坐标 X（0.01 inch）",
       "type": "number"
     },
     "startY": {
-      "description": "起点坐标 Y",
+      "description": "起点坐标 Y（0.01 inch）",
       "type": "number"
     },
     "endX": {
-      "description": "结束坐标 X",
+      "description": "结束坐标 X（0.01 inch）",
       "type": "number"
     },
     "endY": {
-      "description": "结束坐标 Y",
+      "description": "结束坐标 Y（0.01 inch）",
       "type": "number"
     },
     "yAxisDirection": {
-      "description": "Y 轴方向标记：**仅 eprj3 本地文件格式会带**，读盘时被剥离。\r\n\r\n 取值：`up` **已按 Y 轴向上写出**（本地文件固定用它）、`down` Y 轴向下\r\n （**字段缺失等价于它**，两者是同一件事）。完整语义见 `TYAxisDirection`。\r\n\r\n 本类型（`LINE`）翻转的字段是 **`startY` 与 `endY`**（`startX`/`endX` 不动）。",
+      "description": "Y 轴方向标记：**仅 eprj3 本地文件格式会带**，读盘时被剥离。\r\n\r\n取值：`up` = **笛卡尔坐标系（Y 向上）**，本行坐标已按它写出（本地文件固定用它），`down` = **屏幕坐标系（Y 向下）**（编辑器内部与云端的常态）\r\n——**字段缺失等价于它**，两者是同一件事；两套坐标系下同一个形状的 y **互为相反数**。完整语义见 `TYAxisDirection`。\r\n\r\n本类型（`LINE`）翻转的字段是 **`startY` 与 `endY`**（`startX`/`endX` 不动）。",
       "type": "string",
       "enum": [
         "up",
@@ -32,14 +32,14 @@
       ]
     },
     "strokeColor": {
-      "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n 注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n 可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
+      "description": "描边颜色：`\"#RRGGBB\"` 十六进制色值；**null 表示采用主题默认色**\r\n\r\n注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现；\r\n可参照同文件 `TSchPin.color` 的 `@pattern ^$|^#[0-9A-Fa-f]{6}$`。",
       "type": [
         "string",
         "null"
       ]
     },
     "strokeStyle": {
-      "description": "样式, null 为默认\r\n\r\n 取值：`SOLID` 实线、`SHORT_DASH` 短划线、`DOT` 点线、`DOT_DASH` 点划线。",
+      "description": "样式, null 为默认",
       "type": [
         "string",
         "null"
@@ -60,14 +60,14 @@
       "default": null
     },
     "fillColor": {
-      "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\n null 表示采用主题默认",
+      "description": "填充颜色：`\"#RRGGBB\"` 十六进制色值；`\"\"` 表示不填充（填充会自动闭合起始点与结束点）；\r\nnull 表示采用主题默认",
       "type": [
         "string",
         "null"
       ]
     },
     "strokeWidth": {
-      "description": "宽度：null 表示采用主题默认线宽",
+      "description": "宽度：null 表示采用主题默认线宽\r\n单位：**0.01 inch**",
       "type": [
         "number",
         "null"
@@ -75,7 +75,7 @@
       "default": null
     },
     "fillStyle": {
-      "description": "填充样式, null 为默认\r\n\r\n 取值：\r\n - `NONE` 无填充\r\n - `SOLID` 实心填充\r\n - `GRID` 网格\r\n - `HORIZONTAL_LINE` 横线\r\n - `VERTICAL_LINE` 竖线\r\n - `RHOMBIC` 菱形网格\r\n - `LEFT_SLASH_LINE` 左斜线\r\n - `RIGHT_SLASH_LINE` 右斜线",
+      "description": "填充样式, null 为默认",
       "type": [
         "string",
         "null"
@@ -116,5 +116,5 @@
     "strokeWidth",
     "fillStyle"
   ],
-  "description": "单线段"
+  "description": "单线段\r\n\r\n**原理图族里的一根单线段**，一行一条（`type:\"LINE\"`）——⚠️ **它不是独立图元**：\r\n导线 / 总线都是「组 + 若干线段」的结构，线段靠 `lineGroup` 挂在某个 `TWire` / `TBus` 上，\r\n脱离组单独存在就是悬空引用。\r\n\r\n线段只有起止两点、不能拐弯：一条折线形的导线由多条 `LINE` 按同组顺序拼接而成，\r\n样式（描边 / 填充）来自 `TLineStyle`。\r\n\r\n【联动增删·必须成组操作】与所属组**同生命周期**：新增 WIRE / BUS 时要一并写出它的 LINE，\r\n删除时要一并删除；同组的 `TSchAttr`（承载 NET 名等）也属同一生命周期，要一起增删。\r\n\r\n本行的 `id` 由编辑器生成（随机 16 位小写十六进制，文档内唯一）；`lineGroup` 指向所属\r\nWIRE / BUS 的 `id`。图元 id 的几类形态与判别见 `TElementId`。"
 }

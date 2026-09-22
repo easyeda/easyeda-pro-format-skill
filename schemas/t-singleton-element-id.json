@@ -1,0 +1,5 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "string",
+  "description": "图元 id（**固定单例**）—— 只有一条记录的图元，id 写死成一个名字\r\n\r\n⚠️ **本类型不是格式图元**（本目录都是这类 id 说明），它**不占任何一行数据**，也**没有字段用它当类型** ——\r\n它描述的是那些图元**行外壳自己的 `id`**。\r\n\r\n## 怎么生成\r\n\r\n**不生成**：这类图元在一份文档里只有一条，不需要区分，于是 id 直接用\r\n**类型名本身、或类型名加后缀**，由写盘端**写死**。所以整份数据里它的值恒定。\r\n\r\n## 已知取值\r\n\r\n| id | 谁的行外壳用 | 说明 |\r\n| -- | ------------ | ---- |\r\n| `META` | 各文档的 `META` 行 | 原理图 / PCB / 面板 / 符号 / 封装 … 都是它 |\r\n| `CANVAS` | `CANVAS` 行 | PCB / 封装 / 图页 / 符号域的画布配置 |\r\n| `BOARD` | 板子行 | |\r\n| `ACTIVE_LAYER` | 当前激活层 | |\r\n| `PREFERENCE` | 偏好设置 | |\r\n| `PANELIZE` | 拼板设置 | |\r\n| `RULE_TEMPLATE` | 规则模板 | 与 `RULE` / `RULE_SELECTOR` 的键式 id 不同 |\r\n| `D3_ATTRIBUTE` | 3D 属性 | |\r\n| `UNIVERSAL` | 通用设置 | 工程内只有一条 |\r\n| `NG_SETTING` | 仿真设置 | |\r\n\r\n⚠️ 判别时**不能按字符集猜**：它既不是 hex、也不含 `[`，只能按**图元类型**认\r\n—— 随机 hex 的普通图元 id 与它是两回事，别混着校验。"
+}

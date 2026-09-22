@@ -7,23 +7,56 @@
       "type": "string"
     },
     "DeviceName": {
-      "description": "当前绑定的器件(目前为空用不上)，v4 新增",
-      "type": "object"
+      "description": "当前绑定的器件(目前为空用不上)，v4 新增。\r\n\r\n三元组的口径与 `TNameSourceUuid`（`type/public.ts`）一致 ——\r\n那个类型收不进来（它在 format 目录之外，而 format 目录不能反向 import 它、会成环），\r\n故此处就地展开同一份说明。",
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "description": "绑定的 uuid（可空）"
+        },
+        "name": {
+          "description": "名称"
+        },
+        "source": {
+          "description": "来源：`<来源条目 uuid>|<来源工程 uuid>`，或空串（工程内自建条目）。\r\n\r\n⚠️ 第 2 段是**来源工程的 uuid**（32 位十六进制），**不是路径**。"
+        }
+      }
     },
     "FootprintName": {
-      "description": "当前绑定文本封装（uuid 可空），v4 新增",
-      "type": "object"
+      "description": "当前绑定文本封装（uuid 可空），v4 新增。三元组口径同上",
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "description": "绑定的 uuid（可空）"
+        },
+        "name": {
+          "description": "名称"
+        },
+        "source": {
+          "description": "来源：`<来源条目 uuid>|<来源工程 uuid>`，或空串（工程内自建条目）。\r\n\r\n⚠️ 第 2 段是**来源工程的 uuid**（32 位十六进制），**不是路径**。"
+        }
+      }
     },
     "Footprints": {
-      "description": "备选封装，v4 新增",
+      "description": "备选封装，v4 新增。三元组口径同上",
       "type": "array",
       "items": {
-        "type": "object"
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "description": "绑定的 uuid（可空）"
+          },
+          "name": {
+            "description": "名称"
+          },
+          "source": {
+            "description": "来源：`<来源条目 uuid>|<来源工程 uuid>`，或空串（工程内自建条目）。\r\n\r\n⚠️ 第 2 段是**来源工程的 uuid**（32 位十六进制），**不是路径**。"
+          }
+        }
       }
     }
   },
   "required": [
     "title"
   ],
-  "description": "部件\r\n\r\n**本行的外壳 id 就是 `partId`**：`TMSchComponent.partId` 必须指向它，\r\n用于从多部件（多 PART）的符号里选出具体部件。\r\n\r\n⚠️ **PART 行只存在于 SYMBOL 文档**——真机 SCH 文档里**一个 PART 行都没有**\r\n（只有 symbol-consistency-manager 实现了 `onPart`）。所以表页 COMPONENT 的 `partId`\r\n指向的是「它 `key:\"Symbol\"` 属性值所标识的那个**符号文档**」里的 PART 行\r\n（样本里 `\"Symbol\"` → `412ca47752bc0af4`，正是那个含 `{\"type\":\"PART\",…,\"id\":\"-1\"}`\r\n的 SYMBOL 文档的文档头 uuid），**不要去图页文档里找**。\r\n\r\n⚠️ 真机载荷里会多出一个**类型定义之外**的 `BBOX` 字段（透传字段），**不要当坏数据**。"
+  "description": "部件\r\n\r\n**本行的外壳 id 就是 `partId`**：`TMSchComponent.partId` 必须指向它，\r\n用于从多部件（多 PART）的符号里选出具体部件。\r\n\r\n⚠️ **PART 行只存在于 SYMBOL 文档**——真机 SCH 文档里**一个 PART 行都没有**\r\n（只有 symbol-consistency-manager 实现了 `onPart`）。所以表页 COMPONENT 的 `partId`\r\n指向的是「它 `key:\"Symbol\"` 属性值所标识的那个**符号文档**」里的 PART 行\r\n（样本里 `\"Symbol\"` → `412ca47752bc0af4`，正是那个含 `{\"type\":\"PART\",…,\"id\":\"-1\"}`\r\n的 SYMBOL 文档的文档头 uuid），**不要去图页文档里找**。\r\n\r\n⚠️ 真机载荷里会多出一个**类型定义之外**的 `BBOX` 字段（透传字段），**不要当坏数据**。\r\n\r\n本行的外壳 `id` **就是 `partId`**（元件靠它选中具体部件）。\r\n现行写盘端新建 PART 行时生成的是**随机 uuid**（16 位十六进制）；\r\n`-1`、`TPS16417DRCR.1` 这类**短串**见诸 **2.0 迁移数据**，不是现行写侧的产物\r\n—— 所以**别按「16 位 hex」硬校验**。图元 id 的几类形态与判别见 `TElementId`。"
 }

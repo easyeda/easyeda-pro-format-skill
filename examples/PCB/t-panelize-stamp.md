@@ -1,4 +1,4 @@
-#TPanelizeStamp 案例
+# TPanelizeStamp 案例
 
 ## 使用示例
 

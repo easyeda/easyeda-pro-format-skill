@@ -3,16 +3,16 @@
   "type": "object",
   "properties": {
     "layer": {
-      "description": "层\r\n\r\n取值（面板层枚举）：\r\n- `1` 打印层（PRINT_LAYER）\r\n- `2` 透明控制层（OPACITY_LAYER）\r\n- `3` 板框层（BOARD_LAYER）\r\n- `4` 板框挖空/挖孔层（BOARD_HOLE）\r\n- `5` 背胶挖空层（GLUE_HOLE）\r\n- `6` 灯光层（LIGHT_LAYER）\r\n- `7` 鼓包层（BUN）\r\n- `8` 辅助绘制层（ASSIST，辅助线恒落此层）\r\n- `99` 适应所有（APPLY_ALL，虚构层，属于此层的一律导出）\r\n\r\n枚举中另有 `-1` 图页-边界层（BOUNDARY_LAYER）。",
+      "description": "层：**第几号是哪一层见 `EPanelLayer`**（`1` 打印层、`3` 板框层、`99` 适应所有 …）。\r\n辅助线恒落「辅助绘制层」；`99` 是**虚构层**，属于它的一律导出。",
       "type": "number",
       "minimum": -1
     },
     "locked": {
-      "description": "是否锁定",
+      "description": "是否锁定：锁定后**不能拖拽、不能删除、不能用鼠标键盘调整大小、不能调整形状**，\r\n命中即弹锁告警。⚠️ **已知例外**：`Ctrl` + 拖拽锚点改形那条路径没有锁检查\r\n（需先勾选「锁定图元也可选」的过滤项才能触发）。",
       "type": "boolean"
     },
     "zIndex": {
-      "description": "叠放次序：越大越靠上。检测到重复值时会按图元顺序整体重编号（index+1），\r\n 无重复时原样保留。\r\n\r\n **缺省表示是 `null`**（不写 0），读取端把 `null` 当 0 处理。\r\n ⚠️ `null` 与「下限 0」互斥，故本字段**不设下限**，只保留缺省标签。",
+      "description": "叠放次序：越大越靠上。检测到重复值时会按图元顺序整体重编号（index+1），\r\n无重复时原样保留。\r\n\r\n**缺省表示是 `null`**（不写 0），读取端把 `null` 当 0 处理。\r\n⚠️ `null` 与「下限 0」互斥，故本字段**不设下限**，只保留缺省标签。",
       "type": [
         "number",
         "null"
@@ -28,7 +28,7 @@
       "type": "boolean"
     },
     "cover": {
-      "description": "是否加盖遮盖层：0/1 的布尔开关（属性面板的 Cover），与透明度无关。\r\n 透明度见 transScope/transPrint/transWhite，遮盖颜色见 TPanelCanvas.coverColor",
+      "description": "是否加盖遮盖层：0/1 的布尔开关（属性面板的 Cover），与透明度无关。\r\n透明度见 transScope/transPrint/transWhite，遮盖颜色见 `TPanelCanvas` 的 `coverColor`",
       "type": [
         "number",
         "null"
@@ -52,11 +52,11 @@
       ]
     },
     "unit": {
-      "description": "单位（预留，当前未启用）：写盘恒为空串，解析时不读取。\r\n 画布显示单位是另一套配置，与本字段无关。",
+      "description": "单位（预留，当前未启用）：写盘恒为空串，解析时不读取。\r\n画布显示单位是另一套配置，与本字段无关。",
       "type": "string"
     },
     "strokeWidth": {
-      "description": "线宽（预留，当前未启用）：写盘恒为 0，解析时不读取",
+      "description": "线宽（预留，当前未启用）：写盘恒为 0，解析时不读取\r\n单位：**0.01 inch**",
       "type": "number",
       "minimum": 0
     },
@@ -65,21 +65,21 @@
       "type": "number"
     },
     "controlDot": {
-      "description": "控制点 X1 Y1 X2 Y2 X3 Y3 ... 扁平数组，点数随尺寸类型而异：\r\n LENGTH-CONSTRAINT / LENGTH-MEASUREMENT / ANGLE / LENGTH 各 4 个点，\r\n RADIUS-MEASUREMENT 为 3 个点",
+      "description": "控制点 X1 Y1 X2 Y2 X3 Y3 ... 扁平数组，点数随尺寸类型而异：\r\nLENGTH-CONSTRAINT / LENGTH-MEASUREMENT / ANGLE / LENGTH 各 4 个点，\r\nRADIUS-MEASUREMENT 为 3 个点",
       "type": "array",
       "items": {
         "type": "number"
       }
     },
     "relationIds": {
-      "description": "关联图元 id 列表，**基数随尺寸类型变化**：\r\n LENGTH-CONSTRAINT / LENGTH-MEASUREMENT 为 `[起点图元 id, 终点图元 id]`（2 个）；\r\n RADIUS-MEASUREMENT 为 `[椭圆 id]`（1 个）；\r\n ANGLE（游离角度）/ LENGTH（游离长度）为 `[]`。",
+      "description": "关联图元 id 列表，**基数随尺寸类型变化**：\r\nLENGTH-CONSTRAINT / LENGTH-MEASUREMENT 为 `[起点图元 id, 终点图元 id]`（2 个）；\r\nRADIUS-MEASUREMENT 为 `[椭圆 id]`（1 个）；\r\nANGLE（游离角度）/ LENGTH（游离长度）为 `[]`。",
       "type": "array",
       "items": {
         "type": "string"
       }
     },
     "rotation": {
-      "description": "旋转角度（角度制）",
+      "description": "旋转角度（角度制，⚠️ **顺时针为正**）\r\n\r\n⚠️ 面板里**两套方向相反**：本字段与 `TAuxLine.rotation` 是**顺时针**，\r\n而 `POLY` / `STRING` 的 `rotation` 是**逆时针**。不要按同一口径读。",
       "type": "number",
       "minimum": 0,
       "maximum": 360
@@ -101,5 +101,5 @@
     "relationIds",
     "rotation"
   ],
-  "description": "面板尺寸工具集"
+  "description": "面板尺寸工具集\r\n\r\n面板族（PANEL / PANEL_LIB）里的**尺寸标注 / 约束图元**，一行一条（`type:\"DIMENSION\"`）：\r\n把两点之间或两个图元之间的长度、角度、半径量出来显示在画布上。\r\n具体是哪一种由 `dimensionType` 决定；几何由扁平的控制点数组 `controlDot` 表达（点数随类型而异），\r\n被标注的对象记在 `relationIds` 里——约束类正是靠这份关联把两端的图元绑定在一起。\r\n\r\n⚠️ 本类型**没有分组字段**（`groupId` 已被省略），尺寸工具不参与组合。\r\n⚠️ 删掉被标注的图元时会被一并删除的只有 `LENGTH-CONSTRAINT` / `LENGTH-MEASUREMENT`；\r\n`RADIUS-MEASUREMENT` 不在级联扫描范围内，删掉椭圆会**留下悬空的半径标注**。\r\n\r\n行外壳的 `id` 是 `TElementId` 的面板形态（`e` + 16 位小写十六进制、共 17 字符）；\r\n`relationIds` 里存的关联标识同属这一族。"
 }

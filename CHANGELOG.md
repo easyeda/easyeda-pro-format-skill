@@ -4,6 +4,19 @@
 
 格式参考 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [语义化版本 2.0.0](https://semver.org/lang/zh-CN/)。
 
+## [1.3.0] - 2026-09-22
+
+### 新增
+
+- `validate.js` 支持 `--doc <docType>` 显式指定文档类型，支持整行格式（`{外层}||{内层}|`）直接校验；输出新增 `type` / `schema` 字段
+- `validate.js` 新增一批 Schema 映射：`t-doc-uuid` 家族、`t-element-id` 家族、`e-layer-code` / `e-layer-type` / `e-panel-layer`、`t-layer-wire` 等
+
+### 变更
+
+- SKILL.md 重写核心章节：行终止符（LF）规则；最终一致性判优（判优键为「文档 + 归一化 id」，`type` 不参与；平票时 `client` 字典序大者胜，修正老文档的相反描述）；删除语义细节（`META` 不可空串删除、`DELETE_DOC` 载荷不可互换）；新增类型名与文档类型前缀对照表（`PCB_LINE` 前缀 / `--doc` / 裸名优先级）
+- 修正 DOCHEAD 规则：外层仅 `type` + `ticket`（无 id），`client` / `uuid` 限定 16 位小写十六进制；CANVAS 仅存在于含画布的文档类型
+- 全量刷新资料层：documents（15）、primitives（186）、examples（186）、schemas（136）及 types-index.md
+
 ## [1.2.1] - 2026-09-22
 
 ### 新增

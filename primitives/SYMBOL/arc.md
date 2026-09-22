@@ -6,26 +6,48 @@
 
 圆弧
 
+**原理图族（图页 / 符号页 / 仿真页）里的一条圆弧**，一行一条（`type:"ARC"`）。
+
+## 几何怎么定 —— 用**三点**，与 PCB 的圆弧**不是同一套**
+
+- **起点** `startX` / `startY`、**终点** `endX` / `endY`；
+- **参考点** `referX` / `referY` —— 圆弧上的**一个中间点**（⚠️ **不是圆心**）。
+  它决定弧往哪边弯、弯多少；三点不得重合，重合会被判为非法数据。
+
+⚠️ PCB 域的圆弧（[TPcbArc](../PCB/arc.md)）用的是「起点 + 终点 + **圆弧角** `angle`」，**没有参考点**；
+两者字段不通用，别照另一套去写。本域也**没有** `angle` 这种字段。
+
+## 样式分两类
+
+- **描边**：`strokeColor` / `strokeStyle` / `strokeWidth`；
+- **填充**：`fillColor` / `fillStyle` —— ⚠️ `fillColor` 取空串 `""` 表示**不填充**
+  （一旦填充，软件会自动把起点与终点闭合起来围成区域）。
+
+两类里的 `null` 都表示**采用主题默认值**，不是「没有」。
+坐标与线宽的单位都是 **0.01 inch**（本域统一口径，见 `TSchBase`）。
+
+本行的 `id` 由编辑器生成（随机 16 位小写十六进制），图元 id 的几类形态与判别见 [TElementId](../REFERENCE/t-element-id.md)。
+
 ## 字段
 
 | 字段 | 类型 | 必需 | 约束 | 说明 |
 |------|------|------|------|------|
-| partId | `string` |  | - | 所属部件编号（**可选**，真机存在整键缺失的 COMPONENT）： **符号页**上表示自身归属于哪个部件，**图页**的元件则指向它**关联的符号文档**里的部件。 取值即目标 `PART` 行的 `id`（`PART` 行只存在于 SYMBOL 文档，见 `TPart`）。 |
-| groupId | `string` | ✓ | - | 分组编号；**两种「未成组」形态都表示未成组**： - **3.0 写盘时该键根本不存在**：写入端取 `model.combination?.id`，未成组即 `undefined`， 经 `JSON.stringify` 后整键被丢弃，消费方须**按可选键处理**； - **`""` 只出现在 2.0 迁移数据里**（2.0 → 3.0 转换腿原样带着它）。 |
-| locked | `boolean` | ✓ | - | 是否锁定 |
+| partId | [TPartId](../REFERENCE/t-part-id.md) |  | - | 所属部件编号（**可选**，真机存在整键缺失的 COMPONENT）： **符号页**上表示自身归属于哪个部件，**图页**的元件则指向它**关联的符号文档**里的部件。 取值即目标 `PART` 行的 `id`（`PART` 行只存在于 SYMBOL 文档，见 [TPart](./part.md)）。 |
+| groupId | [TElementId](../REFERENCE/t-element-id.md) | ✓ | - | 分组编号；**两种「未成组」形态都表示未成组**： - **3.0 写盘时该键根本不存在**：写入端取 `model.combination?.id`，未成组即 `undefined`， 经 `JSON.stringify` 后整键被丢弃，消费方须**按可选键处理**； - **`""` 只出现在 2.0 迁移数据里**（2.0 → 3.0 转换腿原样带着它）。 |
+| locked | `boolean` | ✓ | - | 是否锁定。 ⚠️ **原理图侧目前只是数据字段**：pro-sch 里没有任何按它拦截拖拽 / 删除 / 改大小 / 改形状的实现（连「锁定 / 解锁」命令本身都是空实现，只 publish 属性面板刷新）。 那四条行为特征只在 **PCB / 面板**侧落实。生成数据时照常写入本字段， 但**不要指望原理图端会因为它而禁止操作**。 |
 | zIndex | `number \| null` | ✓ | - | 同层内的叠放次序：渲染排序键，数值越小越靠下（格式里没有高度语义） |
-| yAxisDirection | `TYAxisDirection` |  | - | Y 轴方向标记：**仅 eprj3 本地文件格式会带**，读盘时被剥离。 取值：`up` **已按 Y 轴向上写出**（本地文件固定用它）、`down` Y 轴向下 （**字段缺失等价于它**，两者是同一件事）。完整语义见 `TYAxisDirection`。 ⚠️ 本基类被多个图元继承，**各自被翻转的字段不同**——完整对照表见 `TYAxisDirection`。 本基类直接覆盖的：`ATTR`/`TEXT`/`PIN`/`COMPONENT` 翻 `y`；`OBJ`/`TABLE` 翻 `startY`； `ARC` 翻 `startY`/`referY`/`endY`；`CIRCLE`/`ELLIPSE` 翻 `centerY` + 内嵌 `text.y`； `RECT` 翻 `dotY1`/`dotY2` + `text.y`；`MASK_REGION` 翻 `dotY1`/`dotY2`；`POLY` 翻 `points` 各项的 `y`；`BEZIER` 翻 `controls` 的奇数下标。 `rotation` / `isMirror` / `zIndex` 与所有幅值字段**不翻**。 |
-| startX | `number` | ✓ | - | 起始 X |
-| startY | `number` | ✓ | - | 起始 Y |
-| referX | `number` | ✓ | - | 参考点 X：圆弧上的一个中间点（**不是圆心**）。 配合起点与终点共三点定弧——参考点决定弧的弯曲方向与弧度； 三点不得重合（重合会被判为非法数据）。 |
-| referY | `number` | ✓ | - | 参考点 Y：圆弧上的一个中间点（不是圆心），与 referX 共同构成第三个定弧点 |
-| endX | `number` | ✓ | - | 结束 X |
-| endY | `number` | ✓ | - | 结束 Y |
+| yAxisDirection | [TYAxisDirection](../REFERENCE/ty-axis-direction.md) |  | - | Y 轴方向标记：**仅 eprj3 本地文件格式会带**，读盘时被剥离。 取值：`up` = **笛卡尔坐标系（Y 向上）**，本行坐标已按它写出（本地文件固定用它），`down` = **屏幕坐标系（Y 向下）**（编辑器内部与云端的常态） ——**字段缺失等价于它**，两者是同一件事；两套坐标系下同一个形状的 y **互为相反数**。完整语义见 [TYAxisDirection](../REFERENCE/ty-axis-direction.md)。 ⚠️ 本基类被多个图元继承，**各自被翻转的字段不同**——完整对照表见 [TYAxisDirection](../REFERENCE/ty-axis-direction.md)。 本基类直接覆盖的：`ATTR`/`TEXT`/`PIN`/`COMPONENT` 翻 `y`；`OBJ`/`TABLE` 翻 `startY`； `ARC` 翻 `startY`/`referY`/`endY`；`CIRCLE`/`ELLIPSE` 翻 `centerY` + 内嵌 `text.y`； `RECT` 翻 `dotY1`/`dotY2` + `text.y`；`MASK_REGION` 翻 `dotY1`/`dotY2`；`POLY` 翻 `points` 各项的 `y`；`BEZIER` 翻 `controls` 的奇数下标。 `rotation` / `isMirror` / `zIndex` 与所有幅值字段**不翻**。 |
+| startX | `number` | ✓ | - | 起始 X（0.01 inch） |
+| startY | `number` | ✓ | - | 起始 Y（0.01 inch） |
+| referX | `number` | ✓ | - | 参考点 X：圆弧上的一个中间点（**不是圆心**）。 配合起点与终点共三点定弧——参考点决定弧的弯曲方向与弧度； 三点不得重合（重合会被判为非法数据）。（0.01 inch） |
+| referY | `number` | ✓ | - | 参考点 Y：圆弧上的一个中间点（不是圆心），与 referX 共同构成第三个定弧点（0.01 inch） |
+| endX | `number` | ✓ | - | 结束 X（0.01 inch） |
+| endY | `number` | ✓ | - | 结束 Y（0.01 inch） |
 | strokeColor | `string \| null` | ✓ | - | 描边颜色：`"#RRGGBB"` 十六进制色值；**null 表示采用主题默认色** 注：本文件各示例中的该字段**一律为 null**，非空色的具体串格式未在示例中出现； 可参照同文件 `TSchPin.color` 的 `@pattern ^$\|^#[0-9A-Fa-f]{6}$`。 |
-| strokeStyle | `EStrokeStyle \| null` | ✓ | default: null | 取值范围：SOLID（实线）、SHORT_DASH（短划线）、DOT（点线）、DOT_DASH（点划线） |
+| strokeStyle | [EStrokeStyle](../REFERENCE/e-stroke-style.md) \| null | ✓ | default: null | 取值范围：SOLID（实线）、SHORT_DASH（短划线）、DOT（点线）、DOT_DASH（点划线） |
 | fillColor | `string \| null` | ✓ | - | 填充颜色：`"#RRGGBB"` 十六进制色值；`""` 表示不填充（填充会自动闭合起始点与结束点）； null 表示采用主题默认 |
-| strokeWidth | `number \| null` | ✓ | default: null | 宽度：null 表示采用主题默认线宽 |
-| fillStyle | `ESchFillStyle \| null` | ✓ | default: null | 取值范围：NONE（无填充）、SOLID（实心填充）、GRID（网格）、HORIZONTAL_LINE（横线）、VERTICAL_LINE（竖线）、RHOMBIC（菱形网格）、LEFT_SLASH_LINE（左斜线）、RIGHT_SLASH_LINE（右斜线） |
+| strokeWidth | `number \| null` | ✓ | default: null | 宽度：null 表示采用主题默认线宽 单位：**0.01 inch** |
+| fillStyle | [ESchFillStyle](../REFERENCE/e-sch-fill-style.md) \| null | ✓ | default: null | 取值范围：NONE（无填充）、SOLID（实心填充）、GRID（网格）、HORIZONTAL_LINE（横线）、VERTICAL_LINE（竖线）、RHOMBIC（菱形网格）、LEFT_SLASH_LINE（左斜线）、RIGHT_SLASH_LINE（右斜线） |
 
 ## JSON Schema
 

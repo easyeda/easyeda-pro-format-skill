@@ -4,14 +4,12 @@
   "enum": [
     "DIFFERENTIAL_PAIR",
     "NET_CLASS",
-    "EQL_NET_GRP",
-    "CUSTOM_GLOBAL_NET"
+    "EQL_NET_GRP"
   ],
   "enumDescriptions": {
     "DIFFERENTIAL_PAIR": "差分对",
     "NET_CLASS": "网络类",
-    "EQL_NET_GRP": "等长网络组",
-    "CUSTOM_GLOBAL_NET": "自定义全局网络"
+    "EQL_NET_GRP": "等长网络组"
   },
   "description": "原理图数据类型枚举"
 }

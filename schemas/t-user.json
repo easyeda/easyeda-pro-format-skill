@@ -3,7 +3,7 @@
   "type": "object",
   "properties": {
     "uuid": {
-      "description": "用户 uuid",
+      "description": "用户 uuid：**账号级标识**（同一用户跨工程、跨文档稳定），由服务端下发。\r\n文档头里以 `user.uuid` 出现；`EDIT_HEAD.uuid` 也是它（见 `TEditHead.uuid`）。",
       "type": "string"
     },
     "nickname": {

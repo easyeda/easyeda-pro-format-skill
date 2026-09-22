@@ -30,7 +30,7 @@
       "type": "number"
     },
     "substrateHeight": {
-      "description": "PCB 距外壳底面的高度：**单位为 mm**。\r\n\r\n ⚠️ 读写两端都**不做 ×10 / ÷10 换算**（编码 `D3AttributeEncode` 原样返回、\r\n 解码 `D3AttributeDecode` 直接取用），盘上的值就是 mm 值（例 `1.6` = 1.6 mm）。",
+      "description": "PCB 距外壳底面的高度：**单位为 mm**。\r\n\r\n⚠️ 读写两端都**不做 ×10 / ÷10 换算**（编码 `D3AttributeEncode` 原样返回、\r\n解码 `D3AttributeDecode` 直接取用），盘上的值就是 mm 值（例 `1.6` = 1.6 mm）。",
       "type": "number"
     }
   },
@@ -43,5 +43,5 @@
     "layerExpose",
     "substrateHeight"
   ],
-  "description": "3d 右侧面板属性"
+  "description": "3d 右侧面板属性\r\n\r\n一份文档里**只有一条**（`type:\"D3_ATTRIBUTE\"`），对应 **3D 视图右侧属性面板**上的那组\r\n外观设置：基板材质与丝印工艺，板子 / 焊盘喷镀 / 背景三种颜色，层发散，\r\n以及基板相对外壳底面的高度。\r\n\r\n⚠️ 它**不是图元**：没有层、没有坐标，也**不改变任何 2D 图元数据**，只影响 3D 侧的呈现。\r\n别与描述立体外壳几何的 `TPcbShell` 混为一谈 —— 一个是外观参数，一个是外壳轮廓。\r\n\r\nid 是**固定单例名** `\"D3_ATTRIBUTE\"`（这类**固定单例 id** 见 `TSingletonElementId`）。"
 }

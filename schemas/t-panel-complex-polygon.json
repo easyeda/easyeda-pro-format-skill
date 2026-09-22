@@ -1,0 +1,5 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "array",
+  "description": "面板复杂多边形\r\n\r\n⚠️ **本类型不是图元、不占任何一行数据**：它是 `TPanelPoly.ploys` 与\r\n`TPanelString.path` 这两个字段的类型，盘上不存在独立记录。\r\n\r\n**定义**：若干**单多边形**（`TPanelSinglePolygon`）组成的数组。\r\n配合填充规则把多个环组合成一个区域，用于表达 `与` / `非` 这类**布尔运算**，\r\n最常见的是**带洞的多边形**。\r\n\r\n## 填充规则\r\n格式里**没有这个字段**；pro-panel 全仓也没有任何 `fill-rule` 相关代码，\r\n即**走 SVG / Canvas 的默认值 `nonzero`**（其布尔运算模块另外显式传 `NONZERO`）。\r\n（⚠️ 2.0 文档把该规则拼成 `nonezero` 是笔误。）\r\n\r\n## 同一份结构，各图元读法不同\r\n- **`TPanelPoly.ploys`**：各环**一起按填充规则合成一个图形**——实现里\r\n  **没有「首环 = 外轮廓」的特判**，洞由**环绕方向**决定，与「第几个环」无关；\r\n- **`TPanelString.path`**：各元素是**字形轮廓的一条轮廓环**，一个带内洞的字符\r\n  本身就会占多个元素，**不按字切分**。\r\n\r\n各字段的注释里另标了该字段特有的语义，以字段自己的说明为准。"
+}

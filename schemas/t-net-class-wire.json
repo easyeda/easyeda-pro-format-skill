@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "nets": {
+      "description": "网络组：网络名称数组（值为网络名，不是图元 id）",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "nets"
+  ],
+  "description": "网络类（**线格式**）\r\n\r\n【外层数据id构造】id 是**数组串** `[\"NET_CLASS\", 名称]`，两段各有含义：\r\n\r\n- **第 1 段** `\"NET_CLASS\"` —— 固定前缀，标出这是哪一种记录；\r\n- **第 2 段** —— **网络类的名字**，即用户在工程里给这一组网络起的名字\r\n  （属性面板上显示、可以改的那个文本，**不是任何 id**）。\r\n  它**不在本类型里**：写盘时被编码进 id、读盘时再从 id 还原成解码后形态的 `name`\r\n  （见 `TNetClass`）。所以**载荷里看不到名字，不要以为是漏写**。\r\n\r\n⚠️ 它是**键式 id** —— 盘上是数组串（见 `TKeyedElementId`），\r\n不要按 16 位 hex 去校验。"
+}
