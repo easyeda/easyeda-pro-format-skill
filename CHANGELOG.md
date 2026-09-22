@@ -4,6 +4,12 @@
 
 格式参考 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [语义化版本 2.0.0](https://semver.org/lang/zh-CN/)。
 
+## [1.2.1] - 2026-09-22
+
+### 新增
+
+- 新增 `format-updatelog.md`：中英双语的格式更新日志，首条为嘉立创EDA Pro V3（2025.10.21 规范）与 V4 格式的对比总结（文档头、docType、坐标单位、布尔/颜色编码、图元类型等 10 个主题）；后续格式大变更将补充新条目
+
 ## [1.2.0] - 2026-09-21
 
 ### 变更
